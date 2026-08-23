@@ -1,0 +1,238 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* ============================================================
+   DESIGN-figma.md 기반 디자인 시스템
+   - 모노크롬 코어(흑백) + 파스텔 컬러 블록 섹션
+   - CTA는 항상 pill(알약) 형태
+   - 위계는 크기가 아니라 굵기(font-weight)로 표현
+   ============================================================ */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-sans);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+}
+
+/* ------------------------------------------------------------
+   1. Figma 컬러 토큰 ({colors.*} 매핑)
+   클래스 예시: bg-lime, text-ink, border-hairline, bg-navy ...
+------------------------------------------------------------ */
+@theme {
+  /* 모노크롬 코어 */
+  --color-ink: #000000;
+  --color-canvas: #ffffff;
+  --color-inverse-canvas: #000000;
+  --color-inverse-ink: #ffffff;
+  --color-surface-soft: #f7f7f5;
+  --color-hairline: #e6e6e6;
+  --color-hairline-soft: #f1f1f1;
+
+  /* 컬러 블록 팔레트 ({colors.block-*}) */
+  --color-lime: #dceeb1;
+  --color-lilac: #c5b0f4;
+  --color-cream: #f4ecd6;
+  --color-pink: #efd4d4;
+  --color-mint: #c8e6cd;
+  --color-coral: #f3c9b6;
+  --color-navy: #1f1d3d;
+
+  /* 단발성 액센트 */
+  --color-magenta: #ff3d8b;
+  --color-success: #1ea64a;
+}
+
+:root {
+  /* shadcn 토큰을 Figma 팔레트에 맞춤 */
+  --background: #ffffff;          /* canvas */
+  --foreground: #000000;          /* ink */
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #000000;             /* primary = 순흑 (CTA 전용) */
+  --primary-foreground: #ffffff;
+  --secondary: #f7f7f5;           /* surface-soft */
+  --secondary-foreground: #000000;
+  --muted: #f7f7f5;
+  /* 원칙: 본문 위계는 회색이 아니라 굵기로. 토큰은 잉크색 유지 */
+  --muted-foreground: #1a1a1a;
+  --accent: #f7f7f5;
+  --accent-foreground: #000000;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e6e6e6;              /* hairline */
+  --input: #e6e6e6;
+  --ring: #000000;
+  --radius: 0.625rem;
+}
+
+/* ------------------------------------------------------------
+   2. 타이포그래피 스케일 ({typography.*} 매핑)
+   Geist 가변 폰트의 세밀한 웨이트 축(320~700)을 사용한다.
+------------------------------------------------------------ */
+@layer components {
+  /* 히어로 대형 헤드라인: 86px/w340/lh1.00/-1.72px (모바일 48px까지 축소) */
+  .text-display-xl {
+    font-size: clamp(48px, 9vw, 86px);
+    font-weight: 340;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* 섹션 오프너: 64px/w340/lh1.10/-0.96px */
+  .text-display-lg {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 340;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+
+  /* 컬러 블록 안 스토리 제목: 26px/w540 */
+  .text-headline {
+    font-size: 26px;
+    font-weight: 540;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+
+  /* 헤드라인급 긴 호흡 문단: 26px/w340 */
+  .text-subhead {
+    font-size: 26px;
+    font-weight: 340;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+
+  /* 카드/프로젝트 제목: 24px/w700 */
+  .text-card-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  /* 히어로 리드 문단: 20px/w330 */
+  .text-body-lg {
+    font-size: 20px;
+    font-weight: 330;
+    line-height: 1.45;
+    letter-spacing: -0.007em;
+  }
+
+  /* 기본 본문: 18px/w320 */
+  .text-body {
+    font-size: 18px;
+    font-weight: 320;
+    line-height: 1.45;
+    letter-spacing: -0.007em;
+  }
+
+  /* 작은 본문: 16px/w330 */
+  .text-body-sm {
+    font-size: 16px;
+    font-weight: 330;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+  }
+
+  /* 링크/버튼 강조: 20px/w480 */
+  .text-link {
+    font-size: 20px;
+    font-weight: 480;
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+  }
+
+  /* 아이브로우(섹션 눈표): 모노스페이스 대문자 + 양의 자간 */
+  .text-eyebrow {
+    font-family: var(--font-mono), monospace;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  /* 캡션: 모노스페이스 12px */
+  .text-caption {
+    font-family: var(--font-mono), monospace;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+  /* 브랜드 디테일: 텍스트 선택 시 라임 블록 색 */
+  ::selection {
+    background-color: var(--color-lime);
+    color: var(--color-ink);
+  }
+}
+
+/* ------------------------------------------------------------
+   인쇄 / PDF 내보내기
+   - 컬러 블록 배경색을 인쇄에 그대로 유지(print-color-adjust)
+   - framer-motion 이 whileInView 전에 부여한 inline opacity:0 /
+     translateY 를 무시해 아래로 안 내린 영역도 모두 출력
+   - 크롬(스티키 내비)·푸터 버튼은 PDF에서 제외
+------------------------------------------------------------ */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  header,
+  footer {
+    display: none !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  article,
+  li {
+    break-inside: avoid;
+  }
+}
