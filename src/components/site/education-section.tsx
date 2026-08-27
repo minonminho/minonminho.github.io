@@ -17,6 +17,15 @@ export function EducationSection() {
               <div>
                 <p className="text-xl font-[540] tracking-tight">{item.degree}</p>
                 <p className="text-body-sm font-[330]">{item.school}</p>
+                {item.content && (
+                  <div className="mt-2 space-y-2">
+                    {item.content.map((para, i) => (
+                      <p key={i} className="text-body-sm font-[330]">
+                        {para}
+                      </p>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </FadeInItem>
