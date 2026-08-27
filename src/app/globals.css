@@ -212,6 +212,11 @@
      translateY 를 무시해 아래로 안 내린 영역도 모두 출력
    - 크롬(스티키 내비)·푸터 버튼은 PDF에서 제외
 ------------------------------------------------------------ */
+@page {
+  size: A4;
+  margin: 14mm;
+}
+
 @media print {
   * {
     -webkit-print-color-adjust: exact !important;
