@@ -12,10 +12,9 @@ export default function Home() {
   return (
     <>
       {/* On-screen portfolio — hidden when printing so only the CV document is exported */}
-      <div className="print:hidden">
+      <div className="print:hidden flex min-h-screen flex-col">
         <Navbar />
-        {/* DESIGN-figma.md {spacing.section}: 주요 섹션 간 세로 리듬은 96px 통일 */}
-        <main className="flex-1 space-y-24">
+        <main className="flex-1">
           <Hero />
           <AboutSection />
           <SkillsSection />

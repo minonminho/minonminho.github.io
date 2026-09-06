@@ -31,6 +31,8 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Build
         run: npm run build
+        env:
+          NEXT_PUBLIC_TALENT_RADAR_API_URL: ${{ vars.TALENT_RADAR_API_URL }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

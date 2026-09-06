@@ -6,21 +6,21 @@ export function EducationSection() {
   return (
     <section
       id="education"
-      className="mx-auto max-w-7xl scroll-mt-20 px-6 lg:px-12"
+      className="site-shell section-space scroll-mt-20"
     >
       <SectionHeading title={sectionTitles.education} />
       <FadeInStagger>
         {education.map((item) => (
           <FadeInItem key={item.year}>
-            <div className="grid gap-1 border-t border-hairline py-6 first:border-hairline last:border-b last:border-hairline md:grid-cols-[160px_1fr] md:gap-8">
-              <p className="text-caption pt-1">{item.year}</p>
+            <div className="grid gap-3 border-t border-border-subtle py-8 last:border-b md:grid-cols-[180px_1fr] md:gap-10">
+              <p className="text-caption pt-1 text-text-secondary">{item.year}</p>
               <div>
-                <p className="text-xl font-[540] tracking-tight">{item.degree}</p>
-                <p className="text-body-sm font-[330]">{item.school}</p>
+                <p className="text-headline">{item.degree}</p>
+                <p className="text-body-sm mt-1 text-text-secondary">{item.school}</p>
                 {item.content && (
-                  <div className="mt-2 space-y-2">
+                  <div className="mt-4 max-w-4xl space-y-2 text-text-secondary">
                     {item.content.map((para, i) => (
-                      <p key={i} className="text-body-sm font-[330]">
+                      <p key={i} className="text-body-sm">
                         {para}
                       </p>
                     ))}

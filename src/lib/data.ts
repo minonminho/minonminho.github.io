@@ -224,10 +224,23 @@ export const jobs: readonly Job[] = [
 export type Project = {
   period: string;
   title: string;
+  subtitle?: string;
   paragraphs: readonly string[];
+  href?: string;
+  ctaLabel?: string;
 };
 
 export const projects: readonly Project[] = [
+  {
+    period: "AX LAB",
+    title: "Talent Radar",
+    subtitle: "AI-powered Talent Sourcing & Intelligence",
+    paragraphs: [
+      "A lightweight talent intelligence prototype that combines deterministic filtering, public professional signals, and selective AI reasoning to identify high-signal candidates while minimizing token usage.",
+    ],
+    href: "/lab/talent-radar",
+    ctaLabel: "Launch Demo",
+  },
   {
     period: "2026.03 – Present",
     title: "AX Task Force (AI Transformation)",

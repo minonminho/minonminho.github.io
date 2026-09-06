@@ -1,40 +1,51 @@
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+
 import { FadeInStagger, FadeInItem } from "@/components/motion/fade-in";
-import { ColorBlock } from "@/components/site/color-block";
 import { SectionHeading } from "@/components/site/section-heading";
+import { Button } from "@/components/ui/button";
 import { projects, sectionTitles } from "@/lib/data";
 
 export function ProjectExperienceSection() {
   return (
     <section
       id="projects"
-      className="mx-auto max-w-7xl scroll-mt-20 px-0 md:px-6 lg:px-12"
+      className="site-shell section-space scroll-mt-20"
     >
-      <ColorBlock tone="cream">
-        <SectionHeading title={sectionTitles.projectExperience} />
+      <SectionHeading title={sectionTitles.projectExperience} />
 
-        <FadeInStagger>
-          {projects.map((project) => (
-            <FadeInItem key={`${project.period}-${project.title}`}>
-              <article className="grid gap-1 border-t border-ink/15 py-6 first:border-t last:border-b last:border-t-0 md:grid-cols-[160px_1fr] md:gap-8">
-                <p className="text-caption pt-1">{project.period}</p>
-                <div>
-                  <h3 className="text-headline">{project.title}</h3>
-                  <div className="mt-3 space-y-3">
-                    {project.paragraphs.map((paragraph) => (
-                      <p
-                        key={paragraph.slice(0, 40)}
-                        className="text-body-sm font-[330]"
-                      >
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
+      <FadeInStagger>
+        {projects.map((project) => (
+          <FadeInItem key={`${project.period}-${project.title}`}>
+            <article className="grid gap-3 border-t border-border-subtle py-8 last:border-b md:grid-cols-[180px_1fr] md:gap-10">
+              <p className="text-caption pt-1 text-text-secondary">{project.period}</p>
+              <div>
+                <h3 className="text-headline">{project.title}</h3>
+                {project.subtitle && (
+                  <p className="text-body-sm mt-1 font-medium text-text-secondary">
+                    {project.subtitle}
+                  </p>
+                )}
+                <div className="mt-4 max-w-4xl space-y-3 text-text-secondary">
+                  {project.paragraphs.map((paragraph) => (
+                    <p key={paragraph.slice(0, 40)} className="text-body-sm">
+                      {paragraph}
+                    </p>
+                  ))}
                 </div>
-              </article>
-            </FadeInItem>
-          ))}
-        </FadeInStagger>
-      </ColorBlock>
+                {project.href && project.ctaLabel && (
+                  <Button asChild variant="outline" size="sm" className="mt-5">
+                    <Link href={project.href}>
+                      {project.ctaLabel}
+                      <ArrowUpRight className="size-4" aria-hidden="true" />
+                    </Link>
+                  </Button>
+                )}
+              </div>
+            </article>
+          </FadeInItem>
+        ))}
+      </FadeInStagger>
     </section>
   );
 }

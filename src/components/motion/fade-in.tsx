@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
 type FadeInProps = {
@@ -10,13 +10,15 @@ type FadeInProps = {
 };
 
 export function FadeIn({ children, delay = 0, className }: FadeInProps) {
+  const reducedMotion = useReducedMotion();
+
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 24 }}
+      initial={reducedMotion ? false : { opacity: 0, y: 4 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-64px" }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 0.61, 0.36, 1] }}
+      transition={{ duration: 0.18, delay, ease: "linear" }}
     >
       {children}
     </motion.div>
@@ -40,11 +42,13 @@ export function FadeInStagger({
   children: ReactNode;
   className?: string;
 }) {
+  const reducedMotion = useReducedMotion();
+
   return (
     <motion.div
       className={className}
       variants={containerVariants}
-      initial="hidden"
+      initial={reducedMotion ? false : "hidden"}
       whileInView="visible"
       viewport={{ once: true, margin: "-64px" }}
     >
@@ -54,11 +58,14 @@ export function FadeInStagger({
 }
 
 export function FadeInItem({ children, className }: FadeInProps) {
+  const reducedMotion = useReducedMotion();
+
   return (
     <motion.div
       className={className}
       variants={itemVariants}
-      transition={{ duration: 0.5, ease: [0.22, 0.61, 0.36, 1] }}
+      initial={reducedMotion ? false : undefined}
+      transition={{ duration: 0.18, ease: "linear" }}
     >
       {children}
     </motion.div>
