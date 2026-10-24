@@ -12,7 +12,7 @@ export function BriefHome({ latest, issues }: { latest?: Brief; issues: BriefSum
   const { language, text, copy } = useBriefLanguage();
   const leadVisual = latest?.sections.flatMap((section) => section.items).find((item) => item.visual.image)?.visual;
   return <>
-    <main lang={language} id="brief-main" className="flex-1">
+    <main lang={language} id="brief-main" className={`flex-1 ${language === "ko" ? "break-keep" : ""}`}>
       <section className="site-shell border-b-2 border-border-strong pb-16 pt-16 md:pb-20 md:pt-24">
         <div className="flex flex-wrap items-center justify-between gap-4"><p className="text-eyebrow">{copy("AI / Engineering notes", "AI / 엔지니어링 브리핑")}</p><p className="font-mono text-[11px] tracking-wider text-text-secondary">{copy("ENGLISH / 한국어 NOTES", "한국어 / 영어 전환 가능")}</p></div>
         <h1 className="text-display-xl mt-8">Daily Brief<span className="text-signal-ice">.</span></h1>

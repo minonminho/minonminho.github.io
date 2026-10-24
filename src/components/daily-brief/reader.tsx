@@ -22,7 +22,7 @@ export function BriefReader({ brief, older, newer }: { brief: Brief; older?: Bri
   const duration = readingMinutes(brief);
   const { language, text, copy } = useBriefLanguage();
   useEffect(() => { document.title = `${text(brief.title)} · Daily Brief`; }, [language, brief.title]);
-  return <div lang={language}>
+  return <div lang={language} className={language === "ko" ? "break-keep" : undefined}>
     <header className="site-shell border-b-2 border-border-strong pb-12 pt-12 md:pb-16 md:pt-16">
       <Link href="/daily-brief/" className="inline-flex min-h-10 items-center gap-2 text-sm text-text-secondary hover:text-signal-ice focus-visible:outline-2 focus-visible:outline-signal-ice"><ArrowLeft className="size-4" aria-hidden="true" /> {copy("All editions", "전체 브리핑")}</Link>
       <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3 text-xs text-text-secondary"><span className="text-eyebrow text-signal-ice">Daily Brief</span><time dateTime={brief.date}>{formatBriefDate(brief.date, true, language)}</time><span className="inline-flex items-center gap-2"><Clock3 className="size-3.5" aria-hidden="true" /> {copy(`${duration} min read`, `약 ${duration}분 읽기`)}</span><a href="#vocabulary" className="min-h-6 underline underline-offset-4 hover:text-signal-ice">{copy(`${brief.glossary.length} Korean notes`, `용어 설명 ${brief.glossary.length}개`)}</a><a href="#sources" className="min-h-6 text-signal-ice underline underline-offset-4">{copy(`${brief.sources.length} original sources ↗`, `원문 ${brief.sources.length}개 ↗`)}</a></div>
