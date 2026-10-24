@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FlaskConical, Menu, X, FileDown } from "lucide-react";
+import { FlaskConical, Menu, X, FileDown, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { nav, profile } from "@/lib/data";
 
@@ -20,10 +20,11 @@ const labLinkClassName =
 const navLinkClassName =
   "inline-flex min-h-10 items-center border-b border-transparent text-sm font-medium text-text-secondary transition-colors duration-150 hover:border-signal-ice hover:text-text-primary focus-visible:border-signal-ice focus-visible:outline-none";
 
-export function Navbar() {
+export function Navbar({ showCvDownload = true }: { showCvDownload?: boolean }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const labActive = pathname.startsWith("/lab");
+  const briefActive = pathname.startsWith("/daily-brief");
 
   return (
     <header className="sticky top-0 z-50 border-b-2 border-border-strong bg-background">
@@ -35,9 +36,9 @@ export function Navbar() {
           >
             MINHO LEE
           </Link>
-          <span className="hidden h-4 w-px bg-border-default sm:block" aria-hidden="true" />
+          {showCvDownload && <span className="hidden h-4 w-px bg-border-default sm:block" aria-hidden="true" />}
           {/* 정적 호스팅이라 서버 렌더링 PDF 불가 → 네이티브 인쇄로 CV(PDF) 저장 */}
-          <Button
+          {showCvDownload && <Button
             type="button"
             variant="outline"
             size="sm"
@@ -46,10 +47,14 @@ export function Navbar() {
           >
             <FileDown className="size-3.5" aria-hidden="true" />
             CV Download
-          </Button>
+          </Button>}
         </div>
 
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden items-center gap-6 xl:flex">
+          <Link href="/daily-brief/" className={`${labLinkClassName} ${briefActive ? "border-signal-ice text-text-primary" : ""}`} aria-current={briefActive ? "page" : undefined}>
+            <BookOpen className="size-4" aria-hidden="true" />
+            Daily Brief
+          </Link>
           <Link
             href="/lab"
             className={`${labLinkClassName} ${labActive ? "border-signal-ice text-text-primary" : ""}`}
@@ -75,7 +80,7 @@ export function Navbar() {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden text-text-secondary"
+          className="xl:hidden text-text-secondary"
           aria-expanded={open}
           aria-controls="mobile-navigation"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -86,9 +91,9 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <div id="mobile-navigation" className="border-t border-border-subtle bg-surface-01 md:hidden">
+        <div id="mobile-navigation" className="border-t border-border-subtle bg-surface-01 xl:hidden">
           <div className="site-shell flex flex-col py-4">
-            <Button
+            {showCvDownload && <Button
               type="button"
               variant="outline"
               size="sm"
@@ -97,7 +102,11 @@ export function Navbar() {
             >
               <FileDown className="size-3.5" aria-hidden="true" />
               CV Download
-            </Button>
+            </Button>}
+            <Link href="/daily-brief/" onClick={() => setOpen(false)} className={`${navLinkClassName} ${briefActive ? "border-signal-ice text-text-primary" : ""} w-fit gap-2 py-3`} aria-current={briefActive ? "page" : undefined}>
+              <BookOpen className="size-4" aria-hidden="true" />
+              Daily Brief
+            </Link>
             <Link
               href="/lab"
               onClick={() => setOpen(false)}

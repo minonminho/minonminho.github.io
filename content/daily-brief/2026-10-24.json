@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "publishedAt": "2026-10-24T02:24:06.632191+00:00",
+  "title": "The next layer is judgment.",
+  "dek": "AI can produce more work. The harder question is how we know what to trust—and how we build the judgment to check it.",
+  "focus": "Good morning, Minho. This edition connects software verification, enterprise access, and recruiting research to one practical question: where should human attention go?",
+  "visual": "verification",
+  "topics": [
+    "Research",
+    "Models & tools",
+    "Workflows",
+    "People & work"
+  ],
+  "editorialNote": "First edition · Prepared on October 24, 2026. The October 22 research is recent context; the October 21, October 16, and October 8 items are dated background, not overnight news. Interpretations below are editorial judgments, not source claims.",
+  "sections": [
+    {
+      "id": "signals",
+      "label": "What matters",
+      "items": [
+        {
+          "title": "From running tests to proving properties",
+          "publishedDate": "2026-10-22",
+          "status": "research",
+          "summary": "Anthropic and Theorem report using Claude to prove security properties across 123 open-source libraries. The work applies formal verification[1] at the assembly-code level: instead of checking selected examples, it reasons about defined rules across the modeled inputs and environment.",
+          "change": "Writing proofs has historically required substantial expert effort. This research shows how a model can help produce them across a collection of real libraries, rather than only a small demonstration.",
+          "availability": "A subset of proofs and the modeled system semantics have been published. This is a research workflow, not a guarantee automatically attached to every AI-written program.",
+          "limitation": "The guarantees depend on specific assumptions, including a single-threaded RISC-V Linux environment and bounded inputs. They do not cover every kind of bug or deployment.",
+          "implication": "Before asking Codex to build an HR dashboard, write down its invariants[2]: duplicate records must not inflate headcount, missing dates must stay visible, and restricted records must remain inaccessible. Tests can check these rules even when formal proofs are impractical.",
+          "sourceIds": [
+            "formal-verification"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "label": "Tool watch",
+      "items": [
+        {
+          "title": "Enterprise access is becoming part of the product",
+          "publishedDate": "2026-10-21",
+          "status": "preview",
+          "summary": "OpenAI and Google Cloud announced a partnership to bring OpenAI models and Codex workflows to Google Cloud. Google describes the initial model rollout as a private preview[3] for selected enterprise customers.",
+          "change": "The announcement adds another route for companies to access these tools through an existing cloud environment and purchasing relationship.",
+          "availability": "Selected customers can request access. OpenAI says general availability[4] is planned for the coming weeks; that is a plan, not confirmation that all customers have access today.",
+          "limitation": "The announcement alone does not establish your organization’s eligibility, final costs, or approved data-handling terms.",
+          "implication": "For overseas research labs, compare access controls, data governance[5], and integration effort alongside model quality. There is no immediate reason to switch a personal workflow simply because another distribution channel was announced.",
+          "sourceIds": [
+            "openai-google",
+            "google-preview"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "label": "A practical case",
+      "items": [
+        {
+          "title": "A repeatable research brief for recruiting",
+          "publishedDate": "2026-10-08",
+          "status": "case-study",
+          "summary": "In an OpenAI customer story, Oracle describes a recruiting tool that starts with a job description, studies comparable roles, benchmarks compensation, and examines talent availability across locations.",
+          "change": "Oracle reports that research previously taking two to four days can support preparation in roughly 15–20 minutes. The team also describes a more consistent intake process across recruiters.",
+          "availability": "This is an internal Oracle workflow described in a customer story, not a ready-made public recruiting product.",
+          "limitation": "The time savings are company-reported. The story does not independently establish research accuracy or isolate the effect of AI from process redesign.",
+          "implication": "Borrow the structure before borrowing the performance claim. For one public role, build a brief with role requirements, target locations, talent signals, dated sources, and unanswered questions. Measure consistency and evidence quality as well as speed.",
+          "sourceIds": [
+            "oracle"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "label": "People & work",
+      "items": [
+        {
+          "title": "Human review can become the scarce resource",
+          "publishedDate": "2026-10-16",
+          "status": "research",
+          "summary": "Anthropic’s internal study reports a smaller share of junior technical hiring and more emphasis on autonomy[6] and judgment. It also describes human attention as a bottleneck[7] when employees supervise large volumes of agent output.",
+          "change": "The study suggests that some employees increasingly spend effort designing and monitoring workflows, in addition to producing individual deliverables.",
+          "availability": "The published analysis draws on internal company data and employee interviews. It is evidence about one organization’s experience.",
+          "limitation": "A fast-growing AI company is an unusual workplace. Its hiring patterns do not establish what all employers will experience, and the findings should not be treated as a universal staffing forecast.",
+          "implication": "For HR, the useful question is developmental: if routine tasks shrink, which assignments will help junior employees learn to challenge an AI result? Consider source checking, exception handling, and explaining why a recommendation should be rejected.",
+          "sourceIds": [
+            "employment"
+          ]
+        }
+      ]
+    }
+  ],
+  "experiment": {
+    "title": "Audit one AI announcement",
+    "minutes": 15,
+    "steps": [
+      "Choose one public announcement about an AI feature you might actually use. Save its original URL and publication date.",
+      "Ask your AI tool for three columns: available now, announced for later, and not established. Require a short supporting passage for each claim.",
+      "Check the three claims that would most affect your decision. Confirm that each passage supports the exact claim, including any access conditions.",
+      "Write a two-sentence decision: what you would try today, and what evidence you still need. Keep facts separate from your interpretation."
+    ],
+    "measure": "Record how many claims were classified correctly and how long your checks took. Look for traceability[8]: can another person follow each important conclusion back to its evidence?"
+  },
+  "glossary": [
+    {
+      "id": 1,
+      "term": "Formal verification",
+      "ko": "정형 검증",
+      "explanation": "프로그램이 정해진 조건에서 특정 규칙을 항상 지킨다는 것을 수학적으로 증명하는 방법이에요. 몇 가지 사례를 실행하는 테스트와는 범위가 달라요.",
+      "example": "허용된 모든 입력에 대해 메모리 오류가 나지 않는다는 성질을, 명시한 환경과 가정 안에서 증명하는 것이에요."
+    },
+    {
+      "id": 2,
+      "term": "Invariant",
+      "ko": "항상 지켜져야 하는 규칙",
+      "explanation": "작업이 진행되거나 데이터가 바뀌어도 계속 참이어야 하는 조건을 뜻해요.",
+      "example": "같은 직원의 행을 두 번 불러와도 전체 인원 수가 늘어나면 안 된다는 규칙이에요."
+    },
+    {
+      "id": 3,
+      "term": "Private preview",
+      "ko": "제한된 고객 대상 사전 제공",
+      "explanation": "일부 선정된 사용자나 기업만 새 기능을 먼저 시험할 수 있는 단계예요. 누구나 쓸 수 있다는 뜻은 아니에요.",
+      "example": "관심 신청을 해도 별도 승인을 받아야 실제 기능을 사용할 수 있어요."
+    },
+    {
+      "id": 4,
+      "term": "General availability",
+      "ko": "정식 제공",
+      "explanation": "제한된 시험 단계를 지나 정식으로 제공되는 상태예요. 요금제나 지역에 따른 조건은 남을 수 있어요.",
+      "example": "다음 달 정식 제공 예정이라는 발표는 오늘 내 계정에서 사용할 수 있다는 뜻이 아니에요."
+    },
+    {
+      "id": 5,
+      "term": "Data governance",
+      "ko": "데이터 관리 원칙과 체계",
+      "explanation": "누가 어떤 데이터를 어떤 목적으로 쓸 수 있는지 정하고, 접근과 사용 이력을 관리하는 체계예요.",
+      "example": "해외 연구소의 인사자료를 어느 지역에서 처리하고 누가 열람할 수 있는지 정하는 일이 포함돼요."
+    },
+    {
+      "id": 6,
+      "term": "Autonomy",
+      "ko": "자율성",
+      "explanation": "이 글에서는 직원이 세세한 지시를 기다리지 않고 스스로 판단하고 일을 진행하는 능력을 뜻해요.",
+      "example": "보고서의 모순을 발견했을 때 지시를 기다리기보다 원자료를 확인하고 해결안을 제안하는 것이에요."
+    },
+    {
+      "id": 7,
+      "term": "Bottleneck",
+      "ko": "병목",
+      "explanation": "전체 작업의 속도나 처리량을 제한하는 지점이에요.",
+      "example": "AI가 보고서 100개를 만들어도 담당자가 하루에 5개만 검토할 수 있다면 사람의 검토가 병목이에요."
+    },
+    {
+      "id": 8,
+      "term": "Traceability",
+      "ko": "추적 가능성",
+      "explanation": "답변이나 결론이 어떤 원자료와 근거에서 나왔는지 거슬러 확인할 수 있는 정도예요.",
+      "example": "인재 시장 분석의 수치에서 해당 보고서의 날짜와 원문까지 바로 찾아갈 수 있는 것이에요."
+    }
+  ],
+  "sources": [
+    {
+      "id": "formal-verification",
+      "title": "LLMs are making formal software verification feasible at a much larger scale",
+      "publisher": "Anthropic",
+      "url": "https://www.anthropic.com/research/formal-verification",
+      "publishedDate": "2026-10-22"
+    },
+    {
+      "id": "openai-google",
+      "title": "OpenAI models are coming to Google Cloud",
+      "publisher": "OpenAI",
+      "url": "https://openai.com/index/openai-models-google-cloud/",
+      "publishedDate": "2026-10-21"
+    },
+    {
+      "id": "google-preview",
+      "title": "Google Cloud expands model choice and flexibility, bringing OpenAI models to customers",
+      "publisher": "Google Cloud",
+      "url": "https://cloud.google.com/blog/products/ai-machine-learning/google-cloud-brings-openai-models-to-customers",
+      "publishedDate": "2026-10-21"
+    },
+    {
+      "id": "oracle",
+      "title": "How Oracle turns days of work into minutes with ChatGPT and Codex",
+      "publisher": "OpenAI / Oracle customer story",
+      "url": "https://openai.com/index/oracle/",
+      "publishedDate": "2026-10-08"
+    },
+    {
+      "id": "employment",
+      "title": "How employment is changing at Anthropic",
+      "publisher": "Anthropic",
+      "url": "https://www.anthropic.com/research/employment-at-anthropic",
+      "publishedDate": "2026-10-16"
+    }
+  ]
+}
