@@ -29,6 +29,23 @@
           "implication": "Define invariants[2] before delegating implementation. For a parser, specify how malformed input must fail and which valid inputs must always round-trip; use tests or proofs appropriate to the risk.",
           "sourceIds": [
             "formal-verification"
+          ],
+          "visual": {
+            "variant": "proof-pipeline",
+            "caption": "Conceptual workflow based on the research: the compiled fuzz target, specification, and machine model constrain the proof; Rocq checks the proof against that specification. The modeled assumptions still matter.",
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "paper",
+              "title": "Technical appendix",
+              "url": "https://www-cdn.anthropic.com/files/4zrzovbb/website/6867eadf760258fa8b42a504600cd3c036d16358.pdf"
+            },
+            {
+              "kind": "code",
+              "title": "OSS Verify proofs",
+              "url": "https://github.com/theorem-labs/oss-verify-proofs"
+            }
           ]
         }
       ]
@@ -49,7 +66,19 @@
           "sourceIds": [
             "openai-google",
             "google-preview"
-          ]
+          ],
+          "visual": {
+            "variant": "models",
+            "caption": "Google Cloud’s original announcement image. It describes a distribution partnership; the image is not evidence of a model-quality improvement.",
+            "image": {
+              "url": "https://storage.googleapis.com/gweb-cloudblog-publish/images/Open-ai-google-models-hero.max-2500x2500.png",
+              "width": 2436,
+              "height": 1200,
+              "alt": "Google Cloud announcement: OpenAI models for Google Cloud customers.",
+              "sourceId": "google-preview"
+            }
+          },
+          "resources": []
         }
       ]
     },
@@ -68,7 +97,13 @@
           "implication": "Try a bounded audit of one public endpoint: map entry points, authentication checks, and parsing order; ask the agent for evidence-backed changes rather than automatic sweeping edits.",
           "sourceIds": [
             "attack-surface"
-          ]
+          ],
+          "visual": {
+            "variant": "security-gates",
+            "caption": "Conceptual comparison based on the OpenSSH case: check whether the requested algorithm is allowed before parsing its complex key material. This shows the control ordering, not a measured exploit rate.",
+            "image": null
+          },
+          "resources": []
         }
       ]
     },
@@ -87,6 +122,29 @@
           "implication": "Track throughput[7] and latency[8] together. A configuration that maximizes total tokens per second may not deliver the best interactive response time. Benchmark representative traffic before selecting a serving stack.",
           "sourceIds": [
             "torchtpu"
+          ],
+          "visual": {
+            "variant": "systems",
+            "caption": "Google’s original TPU inference-stack diagram connects applications, orchestration, serving engines, KV-cache management, compilers, kernels, and hardware.",
+            "image": {
+              "url": "https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/tpu_inference-stack.original.png",
+              "width": 1910,
+              "height": 1068,
+              "alt": "Google TPU inference stack showing applications, orchestration, vLLM and SGLang engines, KV-cache management, frameworks, and hardware.",
+              "sourceId": "torchtpu"
+            }
+          },
+          "resources": [
+            {
+              "kind": "code",
+              "title": "vLLM–TorchTPU",
+              "url": "https://github.com/vllm-project/vllm-torchtpu"
+            },
+            {
+              "kind": "code",
+              "title": "SGLang–TorchTPU",
+              "url": "https://github.com/sgl-project/sglang-torchtpu"
+            }
           ]
         }
       ]

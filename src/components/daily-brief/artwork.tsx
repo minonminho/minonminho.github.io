@@ -5,6 +5,8 @@ const descriptions: Record<Visual, string> = {
   workflow: "A repeatable engineering workflow combines input data, tool execution, and verifiable output.",
   systems: "Concurrent requests share an inference service. Scheduling and memory affect response time and throughput.",
   models: "Different model capabilities connect to one workflow through a common access layer.",
+  "proof-pipeline": "A compiled binary and a specification guide an agent's proof, which a separate proof checker verifies.",
+  "security-gates": "Moving a policy check ahead of complex parsing limits which inputs can reach the parser.",
 };
 
 // Original vector diagrams, using the site's signal tokens. These are conceptual,
@@ -18,9 +20,8 @@ export function BriefArtwork({ variant = "verification", compact = false }: { va
           {[60, 120, 180, 240, 300].map((y) => <path key={y} d={`M40 ${y}H560`} />)}
         </g>
         <g fill="var(--text-secondary)" fontFamily="monospace" fontSize="10" letterSpacing="1.5">
-          <text x="40" y="28">{variant === "verification" ? "FROM OUTPUT TO EVIDENCE" : variant === "systems" ? "REQUESTS / INFERENCE / OUTPUT" : variant === "models" ? "CAPABILITY / ACCESS / WORK" : "REPEATABLE ENGINEERING"}</text>
+          <text x="40" y="28">{variant === "verification" ? "FROM OUTPUT TO EVIDENCE" : variant === "systems" ? "REQUESTS / INFERENCE / OUTPUT" : variant === "models" ? "CAPABILITY / ACCESS / WORK" : variant === "proof-pipeline" ? "FROM A FUZZ TARGET TO A CHECKED PROOF" : variant === "security-gates" ? "CHANGE WHAT UNTRUSTED INPUT CAN REACH" : "REPEATABLE ENGINEERING"}</text>
           <text x="40" y="324">CONCEPTUAL DIAGRAM</text>
-          <text x="520" y="324">FIG. 01</text>
         </g>
         {variant === "verification" && <>
           <g fill="none" stroke="var(--text-tertiary)" strokeWidth="1.5">
@@ -62,6 +63,23 @@ export function BriefArtwork({ variant = "verification", compact = false }: { va
             <rect x="305" y="145" width="90" height="70" stroke="var(--signal-ice)" /><path d="M395 180h54" /><rect x="449" y="153" width="80" height="54" />
           </g>
           <g fill="var(--text-secondary)" fontSize="11" fontFamily="monospace"><text x="98" y="115">MODEL A</text><text x="98" y="185">MODEL B</text><text x="98" y="255">MODEL C</text><text x="318" y="185">ACCESS</text><text x="462" y="185">WORK</text></g>
+        </>}
+        {variant === "proof-pipeline" && <>
+          <g fill="var(--surface-01)" stroke="var(--text-tertiary)" strokeWidth="1.5">
+            <rect x="40" y="85" width="144" height="64" /><rect x="40" y="215" width="144" height="64" />
+            <path d="M184 117h29v65h36m-65 65h29v-65" /><rect x="249" y="143" width="125" height="78" />
+            <path d="M374 182h49m-10-6 10 6-10 6" /><rect x="423" y="143" width="136" height="78" stroke="var(--signal-mint)" />
+          </g>
+          <g fill="var(--text-secondary)" fontSize="11" fontFamily="monospace" textAnchor="middle"><text x="112" y="113">COMPILED</text><text x="112" y="131">FUZZ TARGET</text><text x="112" y="241">SPEC +</text><text x="112" y="259">MACHINE MODEL</text><text x="311" y="175">AGENT WRITES</text><text x="311" y="193">THE PROOF</text><text x="491" y="175" fill="var(--signal-mint)">ROCQ CHECKS</text><text x="491" y="193" fill="var(--signal-mint)">THE PROOF</text></g>
+        </>}
+        {variant === "security-gates" && <>
+          <g fill="var(--surface-01)" stroke="var(--text-tertiary)" strokeWidth="1.5">
+            <rect x="40" y="95" width="130" height="55" /><rect x="235" y="95" width="130" height="55" stroke="var(--signal-dust)" /><rect x="430" y="95" width="130" height="55" />
+            <path d="M170 122h65m130 0h65" />
+            <rect x="40" y="215" width="130" height="55" /><rect x="235" y="215" width="130" height="55" stroke="var(--signal-mint)" /><rect x="430" y="215" width="130" height="55" />
+            <path d="M170 242h65m130 0h65" />
+          </g>
+          <g fill="var(--text-secondary)" fontSize="11" fontFamily="monospace" textAnchor="middle"><text x="105" y="80">BEFORE</text><text x="105" y="127">INPUT</text><text x="300" y="118" fill="var(--signal-dust)">COMPLEX</text><text x="300" y="135" fill="var(--signal-dust)">PARSER</text><text x="495" y="127">POLICY CHECK</text><text x="105" y="200">AFTER</text><text x="105" y="247">INPUT</text><text x="300" y="247" fill="var(--signal-mint)">POLICY CHECK</text><text x="495" y="238">COMPLEX</text><text x="495" y="255">PARSER</text></g>
         </>}
       </svg>
       {!compact && <figcaption className="border-t border-border-subtle px-5 py-3 text-xs leading-relaxed text-text-secondary">{descriptions[variant]}</figcaption>}

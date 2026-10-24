@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
-import { BriefArtwork } from "@/components/daily-brief/artwork";
+import { StoryFigure } from "@/components/daily-brief/story-figure";
 import { BriefArchive } from "@/components/daily-brief/archive";
 import { getBriefs, getBriefSummaries } from "@/lib/daily-brief/content";
 import { formatBriefDate, readingMinutes } from "@/lib/daily-brief/types";
@@ -14,6 +14,7 @@ export const metadata = {
 
 export default function DailyBriefPage() {
   const latest = getBriefs()[0];
+  const leadVisual = latest?.sections.flatMap((section) => section.items).find((item) => item.visual.image)?.visual;
   return <>
     <Navbar showCvDownload={false} />
     <main id="brief-main" className="flex-1">
@@ -34,7 +35,7 @@ export default function DailyBriefPage() {
             <p className="mt-8 font-mono text-xs text-text-secondary">{readingMinutes(latest)} MIN READ <span className="mx-3 text-text-tertiary">/</span> {latest.glossary.length} VOCABULARY NOTES</p>
             <Link href={`/daily-brief/${latest.date}/`} className="mt-8 inline-flex min-h-11 items-center gap-8 border-b border-signal-ice text-sm font-medium text-signal-ice transition-colors hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal-ice">Read the brief <ArrowUpRight className="size-4" aria-hidden="true" /></Link>
           </div>
-          <BriefArtwork variant={latest.visual} />
+          <StoryFigure visual={leadVisual ?? { variant: latest.visual, caption: latest.focus, image: null }} source={latest.sources.find((source) => source.id === leadVisual?.image?.sourceId)} />
         </div>
       </section> : <section className="site-shell section-space"><h2 className="text-headline">The first edition is on its way.</h2><p className="mt-4 text-text-secondary">Published briefs will appear here, with sources and Korean vocabulary notes.</p></section>}
       <BriefArchive issues={getBriefSummaries()} />

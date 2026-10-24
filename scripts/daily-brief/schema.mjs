@@ -4,6 +4,7 @@ const date = { ...string, pattern: "^\\d{4}-\\d{2}-\\d{2}$" };
 const nullableDate = { anyOf: [date, { type: "null" }] };
 const array = (items, minItems = 0, maxItems = 30) => ({ type: "array", items, minItems, maxItems });
 const object = (properties) => ({ type: "object", properties, required: Object.keys(properties), additionalProperties: false });
+const visualVariant = { type: "string", enum: ["verification", "workflow", "systems", "models", "proof-pipeline", "security-gates"] };
 
 export const primaryDomains = ["openai.com", "developers.openai.com", "help.openai.com", "anthropic.com", "platform.claude.com", "support.claude.com", "deepmind.google", "blog.google", "research.google", "ai.google.dev", "cloud.google.com", "microsoft.com", "learn.microsoft.com", "nvidia.com", "research.nvidia.com", "ai.meta.com", "about.fb.com", "huggingface.co", "arxiv.org", "github.com", "docs.github.com", "developers.googleblog.com", "developers.google.com", "pytorch.org", "vllm.ai", "sglang.ai", "lmsys.org", "mistral.ai", "qwen.ai", "aws.amazon.com", "artificialanalysis.ai", "mlcommons.org"];
 
@@ -14,7 +15,7 @@ export const briefSchema = object({
   title: string,
   dek: string,
   focus: string,
-  visual: { type: "string", enum: ["verification", "workflow", "systems", "models"] },
+  visual: visualVariant,
   topics: array({ type: "string", enum: ["Models & tools", "Workflows", "Systems & inference", "Research"] }, 1, 4),
   editorialNote: string,
   sections: array(object({
@@ -25,6 +26,18 @@ export const briefSchema = object({
       status: { type: "string", enum: ["research", "available", "preview", "announced", "case-study"] },
       summary: string, change: string, availability: string, limitation: string, implication: string,
       sourceIds: array(string, 1, 3),
+      visual: object({
+        variant: visualVariant,
+        caption: string,
+        image: { anyOf: [object({
+          url: string,
+          width: { type: "integer", minimum: 1, maximum: 10000 },
+          height: { type: "integer", minimum: 1, maximum: 10000 },
+          alt: string,
+          sourceId: string,
+        }), { type: "null" }] },
+      }),
+      resources: array(object({ kind: { type: "string", enum: ["paper", "code", "docs", "demo", "benchmark"] }, title: string, url: string }), 0, 4),
     }), 0, 3),
   }), 4, 4),
   experiment: object({ title: string, minutes: { type: "integer", minimum: 10, maximum: 20 }, steps: array(string, 3, 5), measure: string }),
@@ -65,6 +78,15 @@ export function normalizeUrl(value) {
   return url.toString().replace(/\/$/, "");
 }
 
+export function isBriefImageUrl(value) {
+  if (isPrimaryUrl(value)) return true;
+  try {
+    const url = new URL(value);
+    const imageHosts = ["storage.googleapis.com", "images.ctfassets.net", "cdn.sanity.io", "images.openai.com", "cdn.openai.com", "raw.githubusercontent.com", "lh3.googleusercontent.com"];
+    return url.protocol === "https:" && !url.username && !url.password && !url.port && imageHosts.includes(url.hostname);
+  } catch { return false; }
+}
+
 function validDate(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
 }
@@ -83,6 +105,12 @@ export function validateBrief(brief, expectedDate = brief?.date) {
   if (brief.sources.some((source) => !isPrimaryUrl(source.url))) throw new Error("Only HTTPS primary-source URLs are allowed");
   const items = brief.sections.flatMap((section) => section.items);
   if (items.some((item) => item.sourceIds.some((id) => !sourceIds.has(id)))) throw new Error("Unresolved source reference");
+  for (const item of items) {
+    const image = item.visual.image;
+    if (image && (!isBriefImageUrl(image.url) || !item.sourceIds.includes(image.sourceId))) throw new Error("Image must use a verified host and cite this story's source");
+    if (item.resources.some((resource) => !isPrimaryUrl(resource.url))) throw new Error("Resource links must use HTTPS primary-source URLs");
+    if (new Set(item.resources.map((resource) => normalizeUrl(resource.url))).size !== item.resources.length) throw new Error("Duplicate resource links");
+  }
   if (brief.sources.some((source) => !items.some((item) => item.sourceIds.includes(source.id)))) throw new Error("Unused source");
   const notes = new Set(brief.glossary.map((note) => note.id));
   if (notes.size !== brief.glossary.length || brief.glossary.some((note, i) => note.id !== i + 1)) throw new Error("Vocabulary numbering must be consecutive");

@@ -1,4 +1,16 @@
-export type Visual = "verification" | "workflow" | "systems" | "models";
+export type Visual = "verification" | "workflow" | "systems" | "models" | "proof-pipeline" | "security-gates";
+
+export type StoryVisual = {
+  variant: Visual;
+  caption: string;
+  image: {
+    url: string;
+    width: number;
+    height: number;
+    alt: string;
+    sourceId: string;
+  } | null;
+};
 
 export type BriefItem = {
   title: string;
@@ -10,6 +22,8 @@ export type BriefItem = {
   limitation: string;
   implication: string;
   sourceIds: string[];
+  visual: StoryVisual;
+  resources: { kind: "paper" | "code" | "docs" | "demo" | "benchmark"; title: string; url: string }[];
 };
 
 export type Brief = {

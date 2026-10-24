@@ -67,3 +67,22 @@ test("a quiet edition may omit all news without manufacturing stories or sources
   brief.experiment.measure = "Count how many claims you could verify from the original public documents.";
   assert.doesNotThrow(() => validateBrief(brief));
 });
+
+test("original images require safe URLs, dimensions, and attribution to the story", () => {
+  rejects([
+    (brief) => { brief.sections[1].items[0].visual.image.url = "javascript:alert(1)"; },
+    (brief) => { brief.sections[1].items[0].visual.image.width = 0; },
+    (brief) => { brief.sections[1].items[0].visual.image.sourceId = "formal-verification"; },
+    (brief) => { brief.sections[1].items[0].visual.image.url = "https://127.0.0.1/private.png"; },
+  ]);
+  const brief = copy();
+  brief.sections[0].items[0].visual.image = null;
+  assert.doesNotThrow(() => validateBrief(brief));
+});
+
+test("paper and code resources reject unsafe and duplicate links", () => {
+  rejects([
+    (brief) => { brief.sections[0].items[0].resources[0].url = "javascript:alert(1)"; },
+    (brief) => { brief.sections[0].items[0].resources.push({ ...brief.sections[0].items[0].resources[0] }); },
+  ]);
+});
