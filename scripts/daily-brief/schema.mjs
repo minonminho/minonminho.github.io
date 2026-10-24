@@ -5,7 +5,7 @@ const nullableDate = { anyOf: [date, { type: "null" }] };
 const array = (items, minItems = 0, maxItems = 30) => ({ type: "array", items, minItems, maxItems });
 const object = (properties) => ({ type: "object", properties, required: Object.keys(properties), additionalProperties: false });
 
-export const primaryDomains = ["openai.com", "developers.openai.com", "help.openai.com", "anthropic.com", "platform.claude.com", "support.claude.com", "deepmind.google", "blog.google", "research.google", "ai.google.dev", "cloud.google.com", "microsoft.com", "learn.microsoft.com", "nvidia.com", "research.nvidia.com", "ai.meta.com", "about.fb.com", "huggingface.co", "arxiv.org", "github.com", "docs.github.com"];
+export const primaryDomains = ["openai.com", "developers.openai.com", "help.openai.com", "anthropic.com", "platform.claude.com", "support.claude.com", "deepmind.google", "blog.google", "research.google", "ai.google.dev", "cloud.google.com", "microsoft.com", "learn.microsoft.com", "nvidia.com", "research.nvidia.com", "ai.meta.com", "about.fb.com", "huggingface.co", "arxiv.org", "github.com", "docs.github.com", "developers.googleblog.com", "developers.google.com", "pytorch.org", "vllm.ai", "sglang.ai", "lmsys.org", "mistral.ai", "qwen.ai", "aws.amazon.com", "artificialanalysis.ai", "mlcommons.org"];
 
 export const briefSchema = object({
   schemaVersion: { type: "integer", enum: [1] },
@@ -14,11 +14,11 @@ export const briefSchema = object({
   title: string,
   dek: string,
   focus: string,
-  visual: { type: "string", enum: ["verification", "workflow", "people", "models"] },
-  topics: array({ type: "string", enum: ["Models & tools", "Workflows", "People & work", "Research"] }, 1, 4),
+  visual: { type: "string", enum: ["verification", "workflow", "systems", "models"] },
+  topics: array({ type: "string", enum: ["Models & tools", "Workflows", "Systems & inference", "Research"] }, 1, 4),
   editorialNote: string,
   sections: array(object({
-    id: { type: "string", enum: ["signals", "tools", "practice", "people"] },
+    id: { type: "string", enum: ["signals", "tools", "practice", "engineering"] },
     label: string,
     items: array(object({
       title: string, publishedDate: nullableDate,
@@ -73,7 +73,7 @@ export function validateBrief(brief, expectedDate = brief?.date) {
   validate(brief, briefSchema);
   if (!validDate(brief.date) || brief.date !== expectedDate) throw new Error("Issue date must match its filename and requested date");
   if (!Number.isFinite(Date.parse(brief.publishedAt)) || new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(brief.publishedAt)) !== brief.date) throw new Error("publishedAt must be a timestamp on the issue's Korean date");
-  if (brief.sections.map((section) => section.id).join(",") !== "signals,tools,practice,people") throw new Error("Expected the four sections in editorial order");
+  if (brief.sections.map((section) => section.id).join(",") !== "signals,tools,practice,engineering") throw new Error("Expected the four sections in editorial order");
   if (brief.sections.slice(1).some((section) => section.items.length > 1)) throw new Error("Only the signals section may contain more than one story");
   const dates = [...brief.sources.map((source) => source.publishedDate), ...brief.sections.flatMap((section) => section.items.map((item) => item.publishedDate))].filter(Boolean);
   if (dates.some((value) => !validDate(value) || value > brief.date)) throw new Error("Invalid or future-dated source/story");

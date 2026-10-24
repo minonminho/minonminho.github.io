@@ -1,4 +1,4 @@
-export type Visual = "verification" | "workflow" | "people" | "models";
+export type Visual = "verification" | "workflow" | "systems" | "models";
 
 export type BriefItem = {
   title: string;
@@ -23,7 +23,7 @@ export type Brief = {
   topics: string[];
   editorialNote: string;
   sections: {
-    id: "signals" | "tools" | "practice" | "people";
+    id: "signals" | "tools" | "practice" | "engineering";
     label: string;
     items: BriefItem[];
   }[];

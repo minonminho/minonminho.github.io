@@ -2,8 +2,8 @@ import type { Visual } from "@/lib/daily-brief/types";
 
 const descriptions: Record<Visual, string> = {
   verification: "A proposed answer passes through evidence checks before becoming a trusted result.",
-  workflow: "A research brief connects a role, the market, and evidence in a repeatable workflow.",
-  people: "Several agent outputs converge on a human review point, illustrating a possible bottleneck.",
+  workflow: "A repeatable engineering workflow combines input data, tool execution, and verifiable output.",
+  systems: "Concurrent requests share an inference service. Scheduling and memory affect response time and throughput.",
   models: "Different model capabilities connect to one workflow through a common access layer.",
 };
 
@@ -18,7 +18,7 @@ export function BriefArtwork({ variant = "verification", compact = false }: { va
           {[60, 120, 180, 240, 300].map((y) => <path key={y} d={`M40 ${y}H560`} />)}
         </g>
         <g fill="var(--text-secondary)" fontFamily="monospace" fontSize="10" letterSpacing="1.5">
-          <text x="40" y="28">{variant === "verification" ? "FROM OUTPUT TO EVIDENCE" : variant === "people" ? "THE REVIEW LAYER" : variant === "models" ? "CAPABILITY / ACCESS / WORK" : "REPEATABLE RESEARCH"}</text>
+          <text x="40" y="28">{variant === "verification" ? "FROM OUTPUT TO EVIDENCE" : variant === "systems" ? "REQUESTS / INFERENCE / OUTPUT" : variant === "models" ? "CAPABILITY / ACCESS / WORK" : "REPEATABLE ENGINEERING"}</text>
           <text x="40" y="324">CONCEPTUAL DIAGRAM</text>
           <text x="520" y="324">FIG. 01</text>
         </g>
@@ -38,14 +38,15 @@ export function BriefArtwork({ variant = "verification", compact = false }: { va
             <text x="94" y="274">PROPOSAL</text><text x="278" y="240">CHECK</text><text x="426" y="274">EVIDENCE</text>
           </g>
         </>}
-        {variant === "people" && <>
+        {variant === "systems" && <>
           <g fill="var(--surface-01)" stroke="var(--text-tertiary)" strokeWidth="1.5">
             {[88, 164, 240].map((y) => <g key={y}><rect x="90" y={y} width="92" height="38" /><path d={`M182 ${y + 19}H270L350 164`} /></g>)}
-            <circle cx="390" cy="145" r="22" stroke="var(--signal-orbit)" />
-            <path d="M348 222c0-55 84-55 84 0" stroke="var(--signal-orbit)" />
+            <rect x="350" y="124" width="82" height="48" stroke="var(--signal-orbit)" />
+            <rect x="350" y="182" width="82" height="48" stroke="var(--signal-orbit)" />
+            <path d="M363 145h55m-55 58h55" stroke="var(--signal-orbit)" />
             <path d="M432 180h70m-12-6 12 6-12 6" />
           </g>
-          <g fill="var(--text-secondary)" fontSize="12" fontFamily="monospace"><text x="99" y="112">AGENT 01</text><text x="99" y="188">AGENT 02</text><text x="99" y="264">AGENT 03</text><text x="347" y="266">JUDGMENT</text></g>
+          <g fill="var(--text-secondary)" fontSize="11" fontFamily="monospace"><text x="96" y="112">REQUEST 01</text><text x="96" y="188">REQUEST 02</text><text x="96" y="264">REQUEST 03</text><text x="350" y="266">INFERENCE</text></g>
         </>}
         {variant === "workflow" && <>
           <g fill="var(--surface-01)" stroke="var(--text-tertiary)" strokeWidth="1.5">
@@ -53,7 +54,7 @@ export function BriefArtwork({ variant = "verification", compact = false }: { va
             <path d="M195 140h66v44h60m-126 52h66v-52" />
             <rect x="321" y="142" width="190" height="84" stroke="var(--signal-mint)" />
           </g>
-          <g fill="var(--text-secondary)" fontSize="12" fontFamily="monospace"><text x="94" y="146">THE ROLE</text><text x="85" y="241">THE MARKET</text><text x="347" y="181">RESEARCH BRIEF</text><text x="353" y="204" fontSize="10">+ SOURCE EVIDENCE</text></g>
+          <g fill="var(--text-secondary)" fontSize="12" fontFamily="monospace"><text x="94" y="146">INPUT DATA</text><text x="85" y="241">TOOL CALLS</text><text x="347" y="181">TESTED OUTPUT</text><text x="353" y="204" fontSize="10">+ REPRODUCIBLE CHECKS</text></g>
         </>}
         {variant === "models" && <>
           <g fill="var(--surface-01)" stroke="var(--text-tertiary)" strokeWidth="1.5">

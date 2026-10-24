@@ -63,6 +63,7 @@ test("a quiet edition may omit all news without manufacturing stories or sources
   brief.sources = [];
   brief.glossary = brief.glossary.slice(0, 3);
   brief.focus = "No material development was verified today. Use the experiment to practice formal verification[1], defining an invariant[2], and assessing a private preview[3].";
+  brief.experiment.steps = ["Choose a small public function.", "Define inputs and expected outputs.", "Run the tests and inspect failures."];
   brief.experiment.measure = "Count how many claims you could verify from the original public documents.";
   assert.doesNotThrow(() => validateBrief(brief));
 });

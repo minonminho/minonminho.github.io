@@ -9,7 +9,7 @@ import { formatBriefDate, readingMinutes } from "@/lib/daily-brief/types";
 
 export const metadata = {
   title: "Daily Brief · Minho Lee",
-  description: "A five-minute perspective on AI, tools, and the changing nature of work. In English, with Korean vocabulary notes.",
+  description: "AI trends through an engineer's lens: models, developer tools, inference, and practical experiments. In English, with Korean vocabulary notes.",
 };
 
 export default function DailyBriefPage() {
@@ -18,10 +18,10 @@ export default function DailyBriefPage() {
     <Navbar showCvDownload={false} />
     <main id="brief-main" className="flex-1">
       <section className="site-shell border-b-2 border-border-strong pb-16 pt-16 md:pb-20 md:pt-24">
-        <div className="flex flex-wrap items-center justify-between gap-4"><p className="text-eyebrow">Notes on intelligence & work</p><p className="font-mono text-[11px] tracking-wider text-text-secondary">ENGLISH / 한국어 NOTES</p></div>
+        <div className="flex flex-wrap items-center justify-between gap-4"><p className="text-eyebrow">AI / Engineering notes</p><p className="font-mono text-[11px] tracking-wider text-text-secondary">ENGLISH / 한국어 NOTES</p></div>
         <h1 className="text-display-xl mt-8">Daily Brief<span className="text-signal-ice">.</span></h1>
         <div className="mt-6 flex flex-wrap items-end justify-between gap-8">
-          <p className="max-w-2xl text-subhead">What changed in AI. What it means for our work.<br className="hidden sm:block" /> One clear perspective, a few useful words, and something to try.</p>
+          <p className="max-w-2xl text-subhead">What changed in AI. How it works. What you can build.<br className="hidden sm:block" /> Models, developer tools, inference, and experiments worth running.</p>
           <a href="#archive" className="inline-flex min-h-10 items-center gap-3 text-sm text-text-secondary hover:text-signal-ice focus-visible:outline-2 focus-visible:outline-signal-ice">Explore the archive <ArrowDown className="size-4" aria-hidden="true" /></a>
         </div>
       </section>

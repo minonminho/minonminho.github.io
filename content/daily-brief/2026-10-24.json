@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "date": "2026-10-24",
   "publishedAt": "2026-10-24T02:24:06.632191+00:00",
-  "title": "The next layer is judgment.",
-  "dek": "AI can produce more work. The harder question is how we know what to trust—and how we build the judgment to check it.",
-  "focus": "Good morning, Minho. This edition connects software verification, enterprise access, and recruiting research to one practical question: where should human attention go?",
+  "title": "Proofs, native TPU serving, and safer agents.",
+  "dek": "An engineering view of AI progress: what models can verify, how inference stacks evolve, and which claims you can reproduce.",
+  "focus": "Today’s engineering question: what evidence turns a promising AI capability into a system you can reliably build and operate?",
   "visual": "verification",
   "topics": [
     "Research",
     "Models & tools",
     "Workflows",
-    "People & work"
+    "Systems & inference"
   ],
-  "editorialNote": "First edition · Prepared on October 24, 2026. The October 22 research is recent context; the October 21, October 16, and October 8 items are dated background, not overnight news. Interpretations below are editorial judgments, not source claims.",
+  "editorialNote": "Revised on October 24, 2026 for an engineering focus. These October 20–22 announcements are dated recent context, not overnight news. Interpretations are editorial judgments; performance and security claims remain scoped to their stated conditions.",
   "sections": [
     {
       "id": "signals",
-      "label": "What matters",
+      "label": "Models & capabilities",
       "items": [
         {
-          "title": "From running tests to proving properties",
+          "title": "Coding models are moving from tests toward proofs",
           "publishedDate": "2026-10-22",
           "status": "research",
-          "summary": "Anthropic and Theorem report using Claude to prove security properties across 123 open-source libraries. The work applies formal verification[1] at the assembly-code level: instead of checking selected examples, it reasons about defined rules across the modeled inputs and environment.",
-          "change": "Writing proofs has historically required substantial expert effort. This research shows how a model can help produce them across a collection of real libraries, rather than only a small demonstration.",
-          "availability": "A subset of proofs and the modeled system semantics have been published. This is a research workflow, not a guarantee automatically attached to every AI-written program.",
-          "limitation": "The guarantees depend on specific assumptions, including a single-threaded RISC-V Linux environment and bounded inputs. They do not cover every kind of bug or deployment.",
-          "implication": "Before asking Codex to build an HR dashboard, write down its invariants[2]: duplicate records must not inflate headcount, missing dates must stay visible, and restricted records must remain inaccessible. Tests can check these rules even when formal proofs are impractical.",
+          "summary": "Anthropic and Theorem report that Claude helped prove security properties across 123 open-source libraries using formal verification[1]. The proofs target compiled code under an explicit mathematical model.",
+          "change": "Instead of checking selected test inputs, this approach proves specified properties across the modeled input space. It expands what a coding model can help verify, not just generate.",
+          "availability": "A subset of proofs and system semantics is public. The reported setting includes single-threaded RISC-V Linux binaries, a fixed memory budget, and bounded inputs.",
+          "limitation": "These assumptions matter. The result is not a proof that arbitrary AI-generated code is correct, and it does not replace application-specific specifications.",
+          "implication": "Define invariants[2] before delegating implementation. For a parser, specify how malformed input must fail and which valid inputs must always round-trip; use tests or proofs appropriate to the risk.",
           "sourceIds": [
             "formal-verification"
           ]
@@ -35,17 +35,17 @@
     },
     {
       "id": "tools",
-      "label": "Tool watch",
+      "label": "Developer tools",
       "items": [
         {
-          "title": "Enterprise access is becoming part of the product",
+          "title": "Separate a new access route from a new model capability",
           "publishedDate": "2026-10-21",
           "status": "preview",
-          "summary": "OpenAI and Google Cloud announced a partnership to bring OpenAI models and Codex workflows to Google Cloud. Google describes the initial model rollout as a private preview[3] for selected enterprise customers.",
-          "change": "The announcement adds another route for companies to access these tools through an existing cloud environment and purchasing relationship.",
-          "availability": "Selected customers can request access. OpenAI says general availability[4] is planned for the coming weeks; that is a plan, not confirmation that all customers have access today.",
-          "limitation": "The announcement alone does not establish your organization’s eligibility, final costs, or approved data-handling terms.",
-          "implication": "For overseas research labs, compare access controls, data governance[5], and integration effort alongside model quality. There is no immediate reason to switch a personal workflow simply because another distribution channel was announced.",
+          "summary": "OpenAI and Google Cloud announced model access and Codex workflows through Google Cloud. Google describes the first rollout as a private preview[3] for selected enterprise customers.",
+          "change": "This changes an integration and purchasing route. The announcement alone does not establish a new model architecture or a quality improvement.",
+          "availability": "Selected customers can request access. OpenAI describes broader availability as planned for the coming weeks.",
+          "limitation": "Account eligibility, regional support, quotas, and the exact workflow need checking before choosing this route for a deployment.",
+          "implication": "Evaluate the integration against a fixed task set. Check authentication, failure handling, and end-to-end behavior before changing a working toolchain.",
           "sourceIds": [
             "openai-google",
             "google-preview"
@@ -55,110 +55,117 @@
     },
     {
       "id": "practice",
-      "label": "A practical case",
+      "label": "Engineering case",
       "items": [
         {
-          "title": "A repeatable research brief for recruiting",
-          "publishedDate": "2026-10-08",
-          "status": "case-study",
-          "summary": "In an OpenAI customer story, Oracle describes a recruiting tool that starts with a job description, studies comparable roles, benchmarks compensation, and examines talent availability across locations.",
-          "change": "Oracle reports that research previously taking two to four days can support preparation in roughly 15–20 minutes. The team also describes a more consistent intake process across recruiters.",
-          "availability": "This is an internal Oracle workflow described in a customer story, not a ready-made public recruiting product.",
-          "limitation": "The time savings are company-reported. The story does not independently establish research accuracy or isolate the effect of AI from process redesign.",
-          "implication": "Borrow the structure before borrowing the performance claim. For one public role, build a brief with role requirements, target locations, talent signals, dated sources, and unanswered questions. Measure consistency and evidence quality as well as speed.",
+          "title": "Use an agent to map reachable code, not only find bugs",
+          "publishedDate": "2026-10-20",
+          "status": "research",
+          "summary": "Anthropic used Claude to examine attack surface[4] across 25 open-source projects and reports 493 issues involving unnecessary exposure, configuration interactions, or code executing before appropriate controls.",
+          "change": "The workflow asks which code an untrusted caller can reach and whether it needs to be exposed. This can reduce risk even when individual vulnerabilities remain unknown.",
+          "availability": "The research describes methods engineers can adapt: inspect defaults, test interacting options, and trace code reached before authentication.",
+          "limitation": "Reported issues are not all directly exploitable vulnerabilities. A suggested restriction can also break intended behavior, so patches need maintainer review and tests.",
+          "implication": "Try a bounded audit of one public endpoint: map entry points, authentication checks, and parsing order; ask the agent for evidence-backed changes rather than automatic sweeping edits.",
           "sourceIds": [
-            "oracle"
+            "attack-surface"
           ]
         }
       ]
     },
     {
-      "id": "people",
-      "label": "People & work",
+      "id": "engineering",
+      "label": "Systems & inference",
       "items": [
         {
-          "title": "Human review can become the scarce resource",
-          "publishedDate": "2026-10-16",
-          "status": "research",
-          "summary": "Anthropic’s internal study reports a smaller share of junior technical hiring and more emphasis on autonomy[6] and judgment. It also describes human attention as a bottleneck[7] when employees supervise large volumes of agent output.",
-          "change": "The study suggests that some employees increasingly spend effort designing and monitoring workflows, in addition to producing individual deliverables.",
-          "availability": "The published analysis draws on internal company data and employee interviews. It is evidence about one organization’s experience.",
-          "limitation": "A fast-growing AI company is an unusual workplace. Its hiring patterns do not establish what all employers will experience, and the findings should not be treated as a universal staffing forecast.",
-          "implication": "For HR, the useful question is developmental: if routine tasks shrink, which assignments will help junior employees learn to challenge an AI result? Consider source checking, exception handling, and explaining why a recommendation should be rejected.",
+          "title": "PyTorch-native TPU backends extend the serving stack",
+          "publishedDate": "2026-10-20",
+          "status": "available",
+          "summary": "Google announced new PyTorch-native backends for vLLM and SGLang, built on TorchTPU. These are inference[5] stack changes; both frameworks already had JAX-based TPU backends.",
+          "change": "The design preserves familiar framework components such as schedulers and KV cache[6] managers while adding TPU implementations underneath. Google describes prefix caching, cache offloading, and separate prefill/decode hosts.",
+          "availability": "The announcement links public projects for both backends and TorchTPU. Reproducing a deployment still requires suitable TPU access, supported models, and the corresponding configuration.",
+          "limitation": "Google’s benchmark claims do not predict your workload. Compare the same model, precision, input/output lengths, concurrency, hardware, and measurement method.",
+          "implication": "Track throughput[7] and latency[8] together. A configuration that maximizes total tokens per second may not deliver the best interactive response time. Benchmark representative traffic before selecting a serving stack.",
           "sourceIds": [
-            "employment"
+            "torchtpu"
           ]
         }
       ]
     }
   ],
   "experiment": {
-    "title": "Audit one AI announcement",
+    "title": "Test a coding agent against fixed edge cases",
     "minutes": 15,
     "steps": [
-      "Choose one public announcement about an AI feature you might actually use. Save its original URL and publication date.",
-      "Ask your AI tool for three columns: available now, announced for later, and not established. Require a short supporting passage for each claim.",
-      "Check the three claims that would most affect your decision. Confirm that each passage supports the exact claim, including any access conditions.",
-      "Write a two-sentence decision: what you would try today, and what evidence you still need. Keep facts separate from your interpretation."
+      "Choose a small public JavaScript parser or pure function. Write six explicit input/output cases, including empty, malformed, and boundary inputs.",
+      "Ask your coding agent for an implementation that satisfies the cases. Run the tests yourself and inspect each failure.",
+      "Add one previously unseen edge case, request a patch, and rerun the original cases as regression[9] tests.",
+      "Record the test results and elapsed time. Keep the prompt, code, and cases so you can repeat the same experiment later."
     ],
-    "measure": "Record how many claims were classified correctly and how long your checks took. Look for traceability[8]: can another person follow each important conclusion back to its evidence?"
+    "measure": "Count passed cases, unexpected behavior, and changes that broke earlier cases. This is a small local probe, not a general model-performance benchmark."
   },
   "glossary": [
     {
       "id": 1,
       "term": "Formal verification",
       "ko": "정형 검증",
-      "explanation": "프로그램이 정해진 조건에서 특정 규칙을 항상 지킨다는 것을 수학적으로 증명하는 방법이에요. 몇 가지 사례를 실행하는 테스트와는 범위가 달라요.",
-      "example": "허용된 모든 입력에 대해 메모리 오류가 나지 않는다는 성질을, 명시한 환경과 가정 안에서 증명하는 것이에요."
+      "explanation": "정해진 환경과 가정 안에서 프로그램이 특정 성질을 항상 지킨다는 것을 수학적으로 증명하는 방법이에요.",
+      "example": "몇 가지 입력을 시험하는 대신, 모델링한 모든 입력에서 특정 메모리 오류가 없다는 성질을 증명해요."
     },
     {
       "id": 2,
       "term": "Invariant",
       "ko": "항상 지켜져야 하는 규칙",
-      "explanation": "작업이 진행되거나 데이터가 바뀌어도 계속 참이어야 하는 조건을 뜻해요.",
-      "example": "같은 직원의 행을 두 번 불러와도 전체 인원 수가 늘어나면 안 된다는 규칙이에요."
+      "explanation": "입력이나 실행 단계가 바뀌어도 유지되어야 하는 조건이에요.",
+      "example": "잘못된 날짜 문자열을 입력하면 정상적인 날짜로 처리하지 않고 반드시 오류를 반환해야 한다는 규칙이에요."
     },
     {
       "id": 3,
       "term": "Private preview",
-      "ko": "제한된 고객 대상 사전 제공",
-      "explanation": "일부 선정된 사용자나 기업만 새 기능을 먼저 시험할 수 있는 단계예요. 누구나 쓸 수 있다는 뜻은 아니에요.",
-      "example": "관심 신청을 해도 별도 승인을 받아야 실제 기능을 사용할 수 있어요."
+      "ko": "제한된 대상에게 먼저 제공하는 시험 단계",
+      "explanation": "선정된 고객만 새 기능을 먼저 사용할 수 있는 상태예요. 일반 사용 가능 여부와 구분해야 해요.",
+      "example": "문서에 기능이 소개되어 있어도 내 프로젝트에 접근 권한이 없으면 호출할 수 없어요."
     },
     {
       "id": 4,
-      "term": "General availability",
-      "ko": "정식 제공",
-      "explanation": "제한된 시험 단계를 지나 정식으로 제공되는 상태예요. 요금제나 지역에 따른 조건은 남을 수 있어요.",
-      "example": "다음 달 정식 제공 예정이라는 발표는 오늘 내 계정에서 사용할 수 있다는 뜻이 아니에요."
+      "term": "Attack surface",
+      "ko": "공격 표면",
+      "explanation": "외부의 신뢰할 수 없는 입력이나 사용자가 접근할 수 있는 코드와 기능의 범위예요.",
+      "example": "인증하기 전에 복잡한 파일 파서를 실행하면, 로그인하지 않은 요청도 그 코드에 도달할 수 있어요."
     },
     {
       "id": 5,
-      "term": "Data governance",
-      "ko": "데이터 관리 원칙과 체계",
-      "explanation": "누가 어떤 데이터를 어떤 목적으로 쓸 수 있는지 정하고, 접근과 사용 이력을 관리하는 체계예요.",
-      "example": "해외 연구소의 인사자료를 어느 지역에서 처리하고 누가 열람할 수 있는지 정하는 일이 포함돼요."
+      "term": "Inference",
+      "ko": "추론 실행",
+      "explanation": "학습된 모델에 입력을 넣어 답변이나 예측을 만들어 내는 과정이에요.",
+      "example": "이미 학습된 언어 모델이 프롬프트를 읽고 다음 토큰을 생성하는 실행을 뜻해요."
     },
     {
       "id": 6,
-      "term": "Autonomy",
-      "ko": "자율성",
-      "explanation": "이 글에서는 직원이 세세한 지시를 기다리지 않고 스스로 판단하고 일을 진행하는 능력을 뜻해요.",
-      "example": "보고서의 모순을 발견했을 때 지시를 기다리기보다 원자료를 확인하고 해결안을 제안하는 것이에요."
+      "term": "KV cache",
+      "ko": "키·값 캐시",
+      "explanation": "Key–Value cache의 약자예요. 이전 토큰의 어텐션 계산에 필요한 키와 값을 저장해 중복 계산을 줄여요.",
+      "example": "대화 앞부분을 재사용하면 계산을 줄일 수 있지만, 긴 문맥의 캐시는 많은 메모리를 차지해요."
     },
     {
       "id": 7,
-      "term": "Bottleneck",
-      "ko": "병목",
-      "explanation": "전체 작업의 속도나 처리량을 제한하는 지점이에요.",
-      "example": "AI가 보고서 100개를 만들어도 담당자가 하루에 5개만 검토할 수 있다면 사람의 검토가 병목이에요."
+      "term": "Throughput",
+      "ko": "처리량",
+      "explanation": "일정 시간에 시스템이 처리하는 작업의 총량이에요.",
+      "example": "동시 요청 전체에서 초당 생성한 토큰 수로 서버의 처리량을 측정할 수 있어요."
     },
     {
       "id": 8,
-      "term": "Traceability",
-      "ko": "추적 가능성",
-      "explanation": "답변이나 결론이 어떤 원자료와 근거에서 나왔는지 거슬러 확인할 수 있는 정도예요.",
-      "example": "인재 시장 분석의 수치에서 해당 보고서의 날짜와 원문까지 바로 찾아갈 수 있는 것이에요."
+      "term": "Latency",
+      "ko": "지연 시간",
+      "explanation": "요청한 뒤 원하는 응답을 받기까지 걸리는 시간이에요. 어떤 응답을 기준으로 재는지도 정해야 해요.",
+      "example": "첫 토큰까지 걸리는 시간과 전체 답변이 끝날 때까지의 시간은 서로 다른 지표예요."
+    },
+    {
+      "id": 9,
+      "term": "Regression",
+      "ko": "기존 기능이 다시 깨지는 현상",
+      "explanation": "새로운 변경 때문에 이전에 잘 동작하던 기능이 실패하는 것을 뜻해요. 이를 찾는 검사가 회귀 테스트예요.",
+      "example": "잘못된 입력 처리를 고쳤는데 정상 입력까지 실패한다면 회귀가 발생한 거예요."
     }
   ],
   "sources": [
@@ -184,18 +191,18 @@
       "publishedDate": "2026-10-21"
     },
     {
-      "id": "oracle",
-      "title": "How Oracle turns days of work into minutes with ChatGPT and Codex",
-      "publisher": "OpenAI / Oracle customer story",
-      "url": "https://openai.com/index/oracle/",
-      "publishedDate": "2026-10-08"
+      "id": "attack-surface",
+      "title": "Using Claude to reduce the attack surface of code",
+      "publisher": "Anthropic",
+      "url": "https://www.anthropic.com/research/attack-surface-reduction",
+      "publishedDate": "2026-10-20"
     },
     {
-      "id": "employment",
-      "title": "How employment is changing at Anthropic",
-      "publisher": "Anthropic",
-      "url": "https://www.anthropic.com/research/employment-at-anthropic",
-      "publishedDate": "2026-10-16"
+      "id": "torchtpu",
+      "title": "Announcing New vLLM and SGLang Inference Engines on TPU",
+      "publisher": "Google Developers",
+      "url": "https://developers.googleblog.com/announcing-new-vllm-and-sglang-inference-engines-on-tpu/",
+      "publishedDate": "2026-10-20"
     }
   ]
 }

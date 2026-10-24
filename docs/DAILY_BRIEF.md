@@ -1,6 +1,10 @@
 # Daily Brief
 
-An English AI morning briefing with Korean vocabulary notes, original topic diagrams, source links, and a practical experiment, following **Silent Precision**.
+An English AI engineering morning briefing with Korean vocabulary notes, original topic diagrams, source links, and a practical experiment, following **Silent Precision**.
+
+## Editorial focus
+
+Explain what changed relative to a baseline, the underlying mechanism, the evidence and benchmark conditions, current access, implementation trade-offs, and a reproducible next step. Cover models and research broadly, including coding, reasoning, multimodality, agents, robotics, open weights, retrieval, and serving. Prioritize engineering relevance rather than HR or workforce implications. Keep normal editions short; rotate topics instead of forcing every domain into every issue.
 
 ## Delivery
 
@@ -19,7 +23,7 @@ There is no separate model API, API key, database, or generation server to confi
 
 Next.js generates every edition at build time, preserving GitHub Pages hosting. `trailingSlash: true` emits `daily-brief/YYYY-MM-DD/index.html`, so date links work when opened directly. Existing pages are also exported with directory indexes.
 
-Four original **conceptual** vector diagrams explain verification, workflows, human review, and model access. They illustrate ideas, not measured data or provider performance. Set the edition's `visual` to `verification`, `workflow`, `people`, or `models`.
+Four original **conceptual** vector diagrams explain verification, engineering workflows, inference serving, and model access. They illustrate ideas, not measured data or provider performance. Set the edition's `visual` to `verification`, `workflow`, `systems`, or `models`.
 
 The inaugural edition is dated **October 24, 2026** and labels its older background explicitly. It does not claim that every included story broke overnight.
 
@@ -28,8 +32,8 @@ The inaugural edition is dated **October 24, 2026** and labels its older backgro
 1. Determine today's date and current instant in **Asia/Seoul**. Read this runbook, the current schema, and the last seven editions from `main`. Use the schema that is currently in the repository, not a stale remembered copy.
 2. Check whether `content/daily-brief/YYYY-MM-DD.json` already exists. If it exists, do not replace it or regenerate it. Verify its deployment and report the existing link. A missing-file response must be a real 404; authentication errors are not proof of absence.
 3. Research meaningful changes from the preceding 24 hours. Open primary sources and confirm dates, availability, limitations, and claim evidence. Deduplicate previous coverage. Clearly date older context when genuinely useful. On quiet days, use empty section item arrays and say no material update was verified. Do not invent stories to fill sections.
-4. Produce plain English at B1–B2 level, roughly 450–650 words on normal days, with up to 10 numbered Korean vocabulary explanations and concrete Korean examples. Keep article text factual; put analysis in `implication`. Expand acronyms on first use. Connect to HR when relevant without narrowing the whole brief to HR.
-5. Use the schema's four sections in order: `signals`, `tools`, `practice`, `people`. Add one 10–20 minute experiment. Each news item references verified source IDs; dates must not exceed the issue date. Use HTTPS primary-source URLs. Do not put HTML/Markdown or note markers in titles. Every numbered term must resolve to a Korean note, and every listed source must support an item. Empty editions may have zero sources.
+4. Produce plain English at B1–B2 level, roughly 450–650 words on normal days, with up to 10 numbered Korean vocabulary explanations and concrete Korean examples. Keep article text factual; put analysis in `implication`. Expand acronyms on first use. Use an engineer’s perspective: capabilities and model architecture, agent tooling, evaluation, retrieval, inference cost/latency/throughput, multimodal systems, and reproducible implementations. Do not personalize to the reader’s HR profession or add recurring hiring/organizational commentary.
+5. Use the schema's four sections in order: `signals` (Models & capabilities), `tools` (Developer tools), `practice` (Engineering case), `engineering` (Systems & inference). Add one 10–20 minute experiment. Each news item references verified source IDs; dates must not exceed the issue date. Use HTTPS primary-source URLs. Do not put HTML/Markdown or note markers in titles. Every numbered term must resolve to a Korean note, and every listed source must support an item. Empty editions may have zero sources.
 6. Validate the candidate locally using `validateBrief(candidate, today)` from `scripts/daily-brief/schema.mjs`. This requires only Node.js, not npm dependencies or any API secret. Copy/fetch the current module and candidate into a temporary local workspace, import the module, and run the validator. Confirm that source links are reachable and support their exact claims. Failed research, validation, or source verification means **do not publish**; report the specific failure.
 7. Create **only** today's JSON file on `main`, in one GitHub contents-API commit with a message such as `content: publish AI brief YYYY-MM-DD`. Never force-push, alter old editions, modify application code/workflows, or change repository settings during an ordinary publishing run. The user authorized this recurring public publication; do not request routine approval each morning. If permissions are rejected or unavailable, stop and tell the user rather than bypassing them.
 8. Wait for **Deploy to GitHub Pages**, then verify the dated public page. If the build or deployment fails, report it and link the failure; do not say it was published. Do not replace old content to retry. If another writer creates today's file first, read and use that edition instead of overwriting it.
