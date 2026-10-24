@@ -50,10 +50,10 @@ test("unresolved, unused, or duplicate sources block publication", () => {
 
 test("broken glossary references and unreadable note locations are rejected", () => {
   rejects([
-    (brief) => { brief.focus += " Missing note[99]."; },
+    (brief) => { brief.focus.en += " Missing note[99]."; },
     (brief) => { brief.glossary.pop(); },
     (brief) => { brief.glossary[0].id = 2; },
-    (brief) => { brief.sections[0].items[0].title += "[1]"; },
+    (brief) => { brief.sections[0].items[0].title.en += "[1]"; },
   ]);
 });
 
@@ -62,9 +62,9 @@ test("a quiet edition may omit all news without manufacturing stories or sources
   brief.sections.forEach((section) => { section.items = []; });
   brief.sources = [];
   brief.glossary = brief.glossary.slice(0, 3);
-  brief.focus = "No material development was verified today. Use the experiment to practice formal verification[1], defining an invariant[2], and assessing a private preview[3].";
-  brief.experiment.steps = ["Choose a small public function.", "Define inputs and expected outputs.", "Run the tests and inspect failures."];
-  brief.experiment.measure = "Count how many claims you could verify from the original public documents.";
+  brief.focus = { en: "No material development was verified today. Use the experiment to practice formal verification[1], defining an invariant[2], and assessing a private preview[3].", ko: "새로운 소식은 확인되지 않았습니다. 정형 검증[1], 불변 조건[2], 사전 제공[3] 개념을 확인해보세요." };
+  brief.experiment.steps = [{en:"Choose a small public function.",ko:"작은 공개 함수를 고릅니다."}, {en:"Define inputs and expected outputs.",ko:"입력과 기대 결과를 정합니다."}, {en:"Run the tests and inspect failures.",ko:"테스트를 실행하고 실패를 확인합니다."}];
+  brief.experiment.measure = {en:"Count how many claims you could verify from the original public documents.",ko:"원문으로 확인한 주장 수를 셉니다."};
   assert.doesNotThrow(() => validateBrief(brief));
 });
 
@@ -84,5 +84,15 @@ test("paper and code resources reject unsafe and duplicate links", () => {
   rejects([
     (brief) => { brief.sections[0].items[0].resources[0].url = "javascript:alert(1)"; },
     (brief) => { brief.sections[0].items[0].resources.push({ ...brief.sections[0].items[0].resources[0] }); },
+  ]);
+});
+
+
+test("every edition requires Korean and English text with matching note references", () => {
+  rejects([
+    (brief) => { delete brief.sections[0].items[0].summary.ko; },
+    (brief) => { brief.title.ko = ""; },
+    (brief) => { brief.sections[0].items[0].summary.ko = brief.sections[0].items[0].summary.ko.replace("[1]", "[2]"); },
+    (brief) => { brief.sections[0].items[0].visual.caption.ko = ""; },
   ]);
 });

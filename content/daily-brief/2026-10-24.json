@@ -1,10 +1,19 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "date": "2026-10-24",
   "publishedAt": "2026-10-24T02:24:06.632191+00:00",
-  "title": "Proofs, native TPU serving, and safer agents.",
-  "dek": "An engineering view of AI progress: what models can verify, how inference stacks evolve, and which claims you can reproduce.",
-  "focus": "Today’s engineering question: what evidence turns a promising AI capability into a system you can reliably build and operate?",
+  "title": {
+    "en": "Proofs, native TPU serving, and safer agents.",
+    "ko": "증명하는 AI, TPU 추론, 더 안전한 에이전트"
+  },
+  "dek": {
+    "en": "An engineering view of AI progress: what models can verify, how inference stacks evolve, and which claims you can reproduce.",
+    "ko": "AI가 무엇을 검증할 수 있는지, 추론 인프라가 어떻게 바뀌는지, 성능 주장을 직접 확인하는 방법을 엔지니어 관점에서 살펴봅니다."
+  },
+  "focus": {
+    "en": "Today’s engineering question: what evidence turns a promising AI capability into a system you can reliably build and operate?",
+    "ko": "새로운 AI 기능을 믿고 구현·운영할 수 있으려면 어떤 근거를 확인해야 할까요?"
+  },
   "visual": "verification",
   "topics": [
     "Research",
@@ -12,38 +21,71 @@
     "Workflows",
     "Systems & inference"
   ],
-  "editorialNote": "Revised on October 24, 2026 for an engineering focus. These October 20–22 announcements are dated recent context, not overnight news. Interpretations are editorial judgments; performance and security claims remain scoped to their stated conditions.",
+  "editorialNote": {
+    "en": "Revised on October 24, 2026 for an engineering focus. These October 20–22 announcements are dated recent context, not overnight news. Interpretations are editorial judgments; performance and security claims remain scoped to their stated conditions.",
+    "ko": "2026년 10월 24일 엔지니어 관점으로 수정한 글입니다. 10월 20~22일 발표를 다루는 최근 동향 정리이며, 밤사이 새로 나온 소식은 아닙니다. 해석은 필자의 판단이며, 성능과 보안 주장은 명시된 조건 안에서 이해해야 합니다."
+  },
   "sections": [
     {
       "id": "signals",
-      "label": "Models & capabilities",
+      "label": {
+        "en": "Models & capabilities",
+        "ko": "모델과 성능"
+      },
       "items": [
         {
-          "title": "Coding models are moving from tests toward proofs",
+          "title": {
+            "en": "Coding models are moving from tests toward proofs",
+            "ko": "코딩 모델이 테스트를 넘어 수학적 증명까지 돕기 시작했습니다"
+          },
           "publishedDate": "2026-10-22",
           "status": "research",
-          "summary": "Anthropic and Theorem report that Claude helped prove security properties across 123 open-source libraries using formal verification[1]. The proofs target compiled code under an explicit mathematical model.",
-          "change": "Instead of checking selected test inputs, this approach proves specified properties across the modeled input space. It expands what a coding model can help verify, not just generate.",
-          "availability": "A subset of proofs and system semantics is public. The reported setting includes single-threaded RISC-V Linux binaries, a fixed memory budget, and bounded inputs.",
-          "limitation": "These assumptions matter. The result is not a proof that arbitrary AI-generated code is correct, and it does not replace application-specific specifications.",
-          "implication": "Define invariants[2] before delegating implementation. For a parser, specify how malformed input must fail and which valid inputs must always round-trip; use tests or proofs appropriate to the risk.",
+          "summary": {
+            "en": "Anthropic and Theorem report that Claude helped prove security properties across 123 open-source libraries using formal verification[1]. The proofs target compiled code under an explicit mathematical model.",
+            "ko": "Anthropic과 Theorem은 Claude를 활용해 오픈소스 라이브러리 123개의 보안 속성을 정형 검증[1]했다고 발표했습니다. 증명 대상은 컴파일된 코드이며, 명시된 수학적 모델과 가정 안에서 성립합니다."
+          },
+          "change": {
+            "en": "Instead of checking selected test inputs, this approach proves specified properties across the modeled input space. It expands what a coding model can help verify, not just generate.",
+            "ko": "일부 입력만 실행해 보는 테스트와 달리, 모델링한 입력 범위 전체에서 특정 속성이 성립함을 증명합니다. 코드를 생성하는 능력을 넘어, 검증을 도울 수 있는 범위가 넓어진 사례입니다."
+          },
+          "availability": {
+            "en": "A subset of proofs and system semantics is public. The reported setting includes single-threaded RISC-V Linux binaries, a fixed memory budget, and bounded inputs.",
+            "ko": "일부 증명 코드와 실행 환경의 의미 정의가 공개됐습니다. 연구의 조건에는 단일 스레드 RISC-V Linux 프로그램, 고정된 메모리 예산, 입력 크기 제한이 포함됩니다."
+          },
+          "limitation": {
+            "en": "These assumptions matter. The result is not a proof that arbitrary AI-generated code is correct, and it does not replace application-specific specifications.",
+            "ko": "이 가정들은 중요합니다. 모든 AI 생성 코드가 올바르다는 뜻이 아니며, 애플리케이션이 무엇을 해야 하는지 명세하는 작업도 여전히 필요합니다."
+          },
+          "implication": {
+            "en": "Define invariants[2] before delegating implementation. For a parser, specify how malformed input must fail and which valid inputs must always round-trip; use tests or proofs appropriate to the risk.",
+            "ko": "구현을 맡기기 전에 불변 조건[2]부터 정해보세요. 파서라면 잘못된 입력을 어떻게 거부할지, 정상 입력을 변환했다가 되돌렸을 때 무엇이 같아야 하는지 명시하고, 위험 수준에 맞는 테스트나 증명을 적용하는 식입니다."
+          },
           "sourceIds": [
             "formal-verification"
           ],
           "visual": {
             "variant": "proof-pipeline",
-            "caption": "Conceptual workflow based on the research: the compiled fuzz target, specification, and machine model constrain the proof; Rocq checks the proof against that specification. The modeled assumptions still matter.",
+            "caption": {
+              "en": "Conceptual workflow based on the research: the compiled fuzz target, specification, and machine model constrain the proof; Rocq checks the proof against that specification. The modeled assumptions still matter.",
+              "ko": "연구를 바탕으로 그린 개념도입니다. 컴파일된 퍼즈 테스트, 명세, 컴퓨터 실행 모델을 바탕으로 에이전트가 증명을 작성하고 Rocq가 이를 검사합니다. 증명 결과의 범위는 모델과 가정에 따라 제한됩니다."
+            },
             "image": null
           },
           "resources": [
             {
               "kind": "paper",
-              "title": "Technical appendix",
+              "title": {
+                "en": "Technical appendix",
+                "ko": "기술 부록"
+              },
               "url": "https://www-cdn.anthropic.com/files/4zrzovbb/website/6867eadf760258fa8b42a504600cd3c036d16358.pdf"
             },
             {
               "kind": "code",
-              "title": "OSS Verify proofs",
+              "title": {
+                "en": "OSS Verify proofs",
+                "ko": "공개 증명 코드"
+              },
               "url": "https://github.com/theorem-labs/oss-verify-proofs"
             }
           ]
@@ -52,29 +94,56 @@
     },
     {
       "id": "tools",
-      "label": "Developer tools",
+      "label": {
+        "en": "Developer tools",
+        "ko": "개발 도구"
+      },
       "items": [
         {
-          "title": "Separate a new access route from a new model capability",
+          "title": {
+            "en": "Separate a new access route from a new model capability",
+            "ko": "새로운 이용 경로와 모델 성능 개선은 구분해야 합니다"
+          },
           "publishedDate": "2026-10-21",
           "status": "preview",
-          "summary": "OpenAI and Google Cloud announced model access and Codex workflows through Google Cloud. Google describes the first rollout as a private preview[3] for selected enterprise customers.",
-          "change": "This changes an integration and purchasing route. The announcement alone does not establish a new model architecture or a quality improvement.",
-          "availability": "Selected customers can request access. OpenAI describes broader availability as planned for the coming weeks.",
-          "limitation": "Account eligibility, regional support, quotas, and the exact workflow need checking before choosing this route for a deployment.",
-          "implication": "Evaluate the integration against a fixed task set. Check authentication, failure handling, and end-to-end behavior before changing a working toolchain.",
+          "summary": {
+            "en": "OpenAI and Google Cloud announced model access and Codex workflows through Google Cloud. Google describes the first rollout as a private preview[3] for selected enterprise customers.",
+            "ko": "OpenAI와 Google Cloud는 Google Cloud에서 OpenAI 모델과 Codex 작업 흐름을 제공하는 협력을 발표했습니다. Google은 초기 제공 단계를 일부 기업 고객을 위한 제한적 사전 제공[3]이라고 설명합니다."
+          },
+          "change": {
+            "en": "This changes an integration and purchasing route. The announcement alone does not establish a new model architecture or a quality improvement.",
+            "ko": "달라지는 것은 도구를 연결하고 구매하는 경로입니다. 이 발표만으로 새로운 모델 구조나 품질 향상이 입증된 것은 아닙니다."
+          },
+          "availability": {
+            "en": "Selected customers can request access. OpenAI describes broader availability as planned for the coming weeks.",
+            "ko": "선정된 고객은 접근 권한을 신청할 수 있습니다. OpenAI는 더 넓은 제공 범위를 앞으로 몇 주 안에 열 계획이라고 밝혔습니다."
+          },
+          "limitation": {
+            "en": "Account eligibility, regional support, quotas, and the exact workflow need checking before choosing this route for a deployment.",
+            "ko": "실제 배포에 사용하기 전에는 계정 자격, 지원 지역, 사용 한도, 구체적인 연동 방법을 확인해야 합니다."
+          },
+          "implication": {
+            "en": "Evaluate the integration against a fixed task set. Check authentication, failure handling, and end-to-end behavior before changing a working toolchain.",
+            "ko": "동일한 테스트 과제를 정해 새 연동 경로를 평가해보세요. 이미 잘 동작하는 도구 구성을 바꾸기 전에 인증, 오류 처리, 처음부터 끝까지의 동작을 점검하는 것이 좋습니다."
+          },
           "sourceIds": [
             "openai-google",
             "google-preview"
           ],
           "visual": {
             "variant": "models",
-            "caption": "Google Cloud’s original announcement image. It describes a distribution partnership; the image is not evidence of a model-quality improvement.",
+            "caption": {
+              "en": "Google Cloud’s original announcement image. It describes a distribution partnership; the image is not evidence of a model-quality improvement.",
+              "ko": "Google Cloud의 공식 발표 이미지입니다. 모델을 이용할 수 있는 경로가 추가된다는 뜻이며, 이 이미지 자체가 모델 품질 향상의 근거는 아닙니다."
+            },
             "image": {
               "url": "https://storage.googleapis.com/gweb-cloudblog-publish/images/Open-ai-google-models-hero.max-2500x2500.png",
               "width": 2436,
               "height": 1200,
-              "alt": "Google Cloud announcement: OpenAI models for Google Cloud customers.",
+              "alt": {
+                "en": "Google Cloud announcement: OpenAI models for Google Cloud customers.",
+                "ko": "Google Cloud 고객을 위한 OpenAI 모델 제공 발표 이미지"
+              },
               "sourceId": "google-preview"
             }
           },
@@ -84,23 +153,47 @@
     },
     {
       "id": "practice",
-      "label": "Engineering case",
+      "label": {
+        "en": "Engineering case",
+        "ko": "구현 사례"
+      },
       "items": [
         {
-          "title": "Use an agent to map reachable code, not only find bugs",
+          "title": {
+            "en": "Use an agent to map reachable code, not only find bugs",
+            "ko": "버그 찾기뿐 아니라 외부 입력이 도달할 수 있는 코드도 분석할 수 있습니다"
+          },
           "publishedDate": "2026-10-20",
           "status": "research",
-          "summary": "Anthropic used Claude to examine attack surface[4] across 25 open-source projects and reports 493 issues involving unnecessary exposure, configuration interactions, or code executing before appropriate controls.",
-          "change": "The workflow asks which code an untrusted caller can reach and whether it needs to be exposed. This can reduce risk even when individual vulnerabilities remain unknown.",
-          "availability": "The research describes methods engineers can adapt: inspect defaults, test interacting options, and trace code reached before authentication.",
-          "limitation": "Reported issues are not all directly exploitable vulnerabilities. A suggested restriction can also break intended behavior, so patches need maintainer review and tests.",
-          "implication": "Try a bounded audit of one public endpoint: map entry points, authentication checks, and parsing order; ask the agent for evidence-backed changes rather than automatic sweeping edits.",
+          "summary": {
+            "en": "Anthropic used Claude to examine attack surface[4] across 25 open-source projects and reports 493 issues involving unnecessary exposure, configuration interactions, or code executing before appropriate controls.",
+            "ko": "Anthropic은 Claude로 오픈소스 프로젝트 25개의 공격 표면[4]을 분석해, 불필요한 기능 노출·설정 간 상호작용·보안 검사 전에 실행되는 코드와 관련된 문제 493개를 발견했다고 보고했습니다."
+          },
+          "change": {
+            "en": "The workflow asks which code an untrusted caller can reach and whether it needs to be exposed. This can reduce risk even when individual vulnerabilities remain unknown.",
+            "ko": "이 방식은 신뢰할 수 없는 요청이 어느 코드까지 도달하는지, 그 코드를 정말 외부에 노출해야 하는지 묻습니다. 아직 발견하지 못한 취약점이 남아 있어도 위험을 줄이는 데 도움이 될 수 있습니다."
+          },
+          "availability": {
+            "en": "The research describes methods engineers can adapt: inspect defaults, test interacting options, and trace code reached before authentication.",
+            "ko": "연구에는 개발자가 응용할 수 있는 방법이 소개돼 있습니다. 기본 설정을 확인하고, 설정 조합을 시험하고, 인증 이전에 도달하는 코드를 추적하는 방식입니다."
+          },
+          "limitation": {
+            "en": "Reported issues are not all directly exploitable vulnerabilities. A suggested restriction can also break intended behavior, so patches need maintainer review and tests.",
+            "ko": "보고된 문제가 모두 바로 악용 가능한 취약점은 아닙니다. 접근을 제한하는 수정이 정상 기능을 깨뜨릴 수도 있으므로, 유지보수자의 검토와 테스트가 필요합니다."
+          },
+          "implication": {
+            "en": "Try a bounded audit of one public endpoint: map entry points, authentication checks, and parsing order; ask the agent for evidence-backed changes rather than automatic sweeping edits.",
+            "ko": "공개된 엔드포인트 하나를 정해 작은 범위로 점검해보세요. 입력 지점, 인증 검사, 파싱 순서를 정리하고, 에이전트에게 일괄 자동 수정보다는 근거가 있는 변경안을 요구하는 것이 좋습니다."
+          },
           "sourceIds": [
             "attack-surface"
           ],
           "visual": {
             "variant": "security-gates",
-            "caption": "Conceptual comparison based on the OpenSSH case: check whether the requested algorithm is allowed before parsing its complex key material. This shows the control ordering, not a measured exploit rate.",
+            "caption": {
+              "en": "Conceptual comparison based on the OpenSSH case: check whether the requested algorithm is allowed before parsing its complex key material. This shows the control ordering, not a measured exploit rate.",
+              "ko": "OpenSSH 사례를 바탕으로 그린 개념도입니다. 복잡한 키 데이터를 파싱하기 전에 요청한 알고리즘이 허용되는지 검사하도록 순서를 바꿉니다. 실제 공격 성공률을 측정한 그래프는 아닙니다."
+            },
             "image": null
           },
           "resources": []
@@ -109,40 +202,73 @@
     },
     {
       "id": "engineering",
-      "label": "Systems & inference",
+      "label": {
+        "en": "Systems & inference",
+        "ko": "시스템과 추론"
+      },
       "items": [
         {
-          "title": "PyTorch-native TPU backends extend the serving stack",
+          "title": {
+            "en": "PyTorch-native TPU backends extend the serving stack",
+            "ko": "PyTorch 기반 TPU 백엔드로 추론 서버의 선택지가 넓어졌습니다"
+          },
           "publishedDate": "2026-10-20",
           "status": "available",
-          "summary": "Google announced new PyTorch-native backends for vLLM and SGLang, built on TorchTPU. These are inference[5] stack changes; both frameworks already had JAX-based TPU backends.",
-          "change": "The design preserves familiar framework components such as schedulers and KV cache[6] managers while adding TPU implementations underneath. Google describes prefix caching, cache offloading, and separate prefill/decode hosts.",
-          "availability": "The announcement links public projects for both backends and TorchTPU. Reproducing a deployment still requires suitable TPU access, supported models, and the corresponding configuration.",
-          "limitation": "Google’s benchmark claims do not predict your workload. Compare the same model, precision, input/output lengths, concurrency, hardware, and measurement method.",
-          "implication": "Track throughput[7] and latency[8] together. A configuration that maximizes total tokens per second may not deliver the best interactive response time. Benchmark representative traffic before selecting a serving stack.",
+          "summary": {
+            "en": "Google announced new PyTorch-native backends for vLLM and SGLang, built on TorchTPU. These are inference[5] stack changes; both frameworks already had JAX-based TPU backends.",
+            "ko": "Google은 TorchTPU를 바탕으로 한 vLLM·SGLang의 PyTorch 기반 TPU 백엔드를 발표했습니다. 모델 자체가 아니라 추론[5]을 실행하는 소프트웨어 구성이 바뀐 것으로, 두 프레임워크에는 이미 JAX 기반 TPU 백엔드가 있었습니다."
+          },
+          "change": {
+            "en": "The design preserves familiar framework components such as schedulers and KV cache[6] managers while adding TPU implementations underneath. Google describes prefix caching, cache offloading, and separate prefill/decode hosts.",
+            "ko": "작업 스케줄러와 KV 캐시[6] 관리 같은 익숙한 프레임워크 구성은 유지하면서, 아래쪽 연산 구현을 TPU에 맞추는 구조입니다. Google은 프리픽스 캐싱, 캐시 이동, 프롬프트 처리와 토큰 생성의 서버 분리 등을 설명합니다."
+          },
+          "availability": {
+            "en": "The announcement links public projects for both backends and TorchTPU. Reproducing a deployment still requires suitable TPU access, supported models, and the corresponding configuration.",
+            "ko": "발표에는 두 백엔드와 TorchTPU의 공개 프로젝트 링크가 있습니다. 직접 배포하려면 적절한 TPU 이용 권한, 지원 모델, 해당 설정이 필요합니다."
+          },
+          "limitation": {
+            "en": "Google’s benchmark claims do not predict your workload. Compare the same model, precision, input/output lengths, concurrency, hardware, and measurement method.",
+            "ko": "Google이 제시한 벤치마크 결과를 내 작업에 그대로 적용할 수는 없습니다. 모델, 정밀도, 입력·출력 길이, 동시 요청 수, 하드웨어, 측정 방법을 맞춰 비교해야 합니다."
+          },
+          "implication": {
+            "en": "Track throughput[7] and latency[8] together. A configuration that maximizes total tokens per second may not deliver the best interactive response time. Benchmark representative traffic before selecting a serving stack.",
+            "ko": "처리량[7]과 지연 시간[8]을 함께 보세요. 전체 초당 토큰 수가 가장 높은 설정이 대화형 서비스의 응답 속도까지 가장 좋은 것은 아닙니다. 실제와 비슷한 요청으로 비교한 뒤 추론 서버 구성을 고르는 것이 좋습니다."
+          },
           "sourceIds": [
             "torchtpu"
           ],
           "visual": {
             "variant": "systems",
-            "caption": "Google’s original TPU inference-stack diagram connects applications, orchestration, serving engines, KV-cache management, compilers, kernels, and hardware.",
+            "caption": {
+              "en": "Google’s original TPU inference-stack diagram connects applications, orchestration, serving engines, KV-cache management, compilers, kernels, and hardware.",
+              "ko": "Google의 원본 TPU 추론 구조도입니다. 위에서부터 애플리케이션, 작업 조율, 추론 엔진, KV 캐시 관리, 프레임워크·컴파일러·커널을 거쳐 아래쪽 하드웨어로 연결됩니다."
+            },
             "image": {
               "url": "https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/tpu_inference-stack.original.png",
               "width": 1910,
               "height": 1068,
-              "alt": "Google TPU inference stack showing applications, orchestration, vLLM and SGLang engines, KV-cache management, frameworks, and hardware.",
+              "alt": {
+                "en": "Google TPU inference stack showing applications, orchestration, vLLM and SGLang engines, KV-cache management, frameworks, and hardware.",
+                "ko": "애플리케이션, 작업 조율, vLLM·SGLang, KV 캐시 관리, 프레임워크, 하드웨어로 이어지는 Google의 TPU 추론 구조도"
+              },
               "sourceId": "torchtpu"
             }
           },
           "resources": [
             {
               "kind": "code",
-              "title": "vLLM–TorchTPU",
+              "title": {
+                "en": "vLLM–TorchTPU",
+                "ko": "vLLM–TorchTPU 코드"
+              },
               "url": "https://github.com/vllm-project/vllm-torchtpu"
             },
             {
               "kind": "code",
-              "title": "SGLang–TorchTPU",
+              "title": {
+                "en": "SGLang–TorchTPU",
+                "ko": "SGLang–TorchTPU 코드"
+              },
               "url": "https://github.com/sgl-project/sglang-torchtpu"
             }
           ]
@@ -151,15 +277,33 @@
     }
   ],
   "experiment": {
-    "title": "Test a coding agent against fixed edge cases",
+    "title": {
+      "en": "Test a coding agent against fixed edge cases",
+      "ko": "고정된 경계 사례로 코딩 에이전트를 시험해보세요"
+    },
     "minutes": 15,
     "steps": [
-      "Choose a small public JavaScript parser or pure function. Write six explicit input/output cases, including empty, malformed, and boundary inputs.",
-      "Ask your coding agent for an implementation that satisfies the cases. Run the tests yourself and inspect each failure.",
-      "Add one previously unseen edge case, request a patch, and rerun the original cases as regression[9] tests.",
-      "Record the test results and elapsed time. Keep the prompt, code, and cases so you can repeat the same experiment later."
+      {
+        "en": "Choose a small public JavaScript parser or pure function. Write six explicit input/output cases, including empty, malformed, and boundary inputs.",
+        "ko": "작은 공개 JavaScript 파서나 순수 함수 하나를 고릅니다. 빈 값, 잘못된 형식, 경계값을 포함해 입력과 기대 결과 여섯 가지를 적습니다."
+      },
+      {
+        "en": "Ask your coding agent for an implementation that satisfies the cases. Run the tests yourself and inspect each failure.",
+        "ko": "코딩 에이전트에게 이 사례들을 만족하는 구현을 요청합니다. 테스트는 직접 실행하고, 실패한 경우를 하나씩 확인합니다."
+      },
+      {
+        "en": "Add one previously unseen edge case, request a patch, and rerun the original cases as regression[9] tests.",
+        "ko": "처음에 없던 경계 사례 하나를 추가한 뒤 수정을 요청합니다. 기존 사례들도 회귀[9] 테스트로 다시 실행합니다."
+      },
+      {
+        "en": "Record the test results and elapsed time. Keep the prompt, code, and cases so you can repeat the same experiment later.",
+        "ko": "테스트 결과와 걸린 시간을 기록합니다. 같은 실험을 반복할 수 있도록 프롬프트, 코드, 테스트 사례를 함께 보관합니다."
+      }
     ],
-    "measure": "Count passed cases, unexpected behavior, and changes that broke earlier cases. This is a small local probe, not a general model-performance benchmark."
+    "measure": {
+      "en": "Count passed cases, unexpected behavior, and changes that broke earlier cases. This is a small local probe, not a general model-performance benchmark.",
+      "ko": "통과한 사례 수, 예상 밖의 동작, 기존 사례를 깨뜨린 변경을 셉니다. 작은 로컬 실험이므로 모델의 전반적인 성능을 보여주는 벤치마크로 일반화하지는 마세요."
+    }
   },
   "glossary": [
     {
@@ -229,35 +373,50 @@
   "sources": [
     {
       "id": "formal-verification",
-      "title": "LLMs are making formal software verification feasible at a much larger scale",
+      "title": {
+        "en": "LLMs are making formal software verification feasible at a much larger scale",
+        "ko": "LLM을 활용한 대규모 소프트웨어 정형 검증 연구"
+      },
       "publisher": "Anthropic",
       "url": "https://www.anthropic.com/research/formal-verification",
       "publishedDate": "2026-10-22"
     },
     {
       "id": "openai-google",
-      "title": "OpenAI models are coming to Google Cloud",
+      "title": {
+        "en": "OpenAI models are coming to Google Cloud",
+        "ko": "Google Cloud에서의 OpenAI 모델 제공 계획"
+      },
       "publisher": "OpenAI",
       "url": "https://openai.com/index/openai-models-google-cloud/",
       "publishedDate": "2026-10-21"
     },
     {
       "id": "google-preview",
-      "title": "Google Cloud expands model choice and flexibility, bringing OpenAI models to customers",
+      "title": {
+        "en": "Google Cloud expands model choice and flexibility, bringing OpenAI models to customers",
+        "ko": "Google Cloud의 OpenAI 모델 제공과 선택 범위 확대"
+      },
       "publisher": "Google Cloud",
       "url": "https://cloud.google.com/blog/products/ai-machine-learning/google-cloud-brings-openai-models-to-customers",
       "publishedDate": "2026-10-21"
     },
     {
       "id": "attack-surface",
-      "title": "Using Claude to reduce the attack surface of code",
+      "title": {
+        "en": "Using Claude to reduce the attack surface of code",
+        "ko": "Claude를 활용한 코드 공격 표면 축소"
+      },
       "publisher": "Anthropic",
       "url": "https://www.anthropic.com/research/attack-surface-reduction",
       "publishedDate": "2026-10-20"
     },
     {
       "id": "torchtpu",
-      "title": "Announcing New vLLM and SGLang Inference Engines on TPU",
+      "title": {
+        "en": "Announcing New vLLM and SGLang Inference Engines on TPU",
+        "ko": "TPU용 vLLM·SGLang 추론 엔진 발표"
+      },
       "publisher": "Google Developers",
       "url": "https://developers.googleblog.com/announcing-new-vllm-and-sglang-inference-engines-on-tpu/",
       "publishedDate": "2026-10-20"

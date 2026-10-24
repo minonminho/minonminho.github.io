@@ -4,45 +4,46 @@ const date = { ...string, pattern: "^\\d{4}-\\d{2}-\\d{2}$" };
 const nullableDate = { anyOf: [date, { type: "null" }] };
 const array = (items, minItems = 0, maxItems = 30) => ({ type: "array", items, minItems, maxItems });
 const object = (properties) => ({ type: "object", properties, required: Object.keys(properties), additionalProperties: false });
+const localizedText = object({ ko: string, en: string });
 const visualVariant = { type: "string", enum: ["verification", "workflow", "systems", "models", "proof-pipeline", "security-gates"] };
 
 export const primaryDomains = ["openai.com", "developers.openai.com", "help.openai.com", "anthropic.com", "platform.claude.com", "support.claude.com", "deepmind.google", "blog.google", "research.google", "ai.google.dev", "cloud.google.com", "microsoft.com", "learn.microsoft.com", "nvidia.com", "research.nvidia.com", "ai.meta.com", "about.fb.com", "huggingface.co", "arxiv.org", "github.com", "docs.github.com", "developers.googleblog.com", "developers.google.com", "pytorch.org", "vllm.ai", "sglang.ai", "lmsys.org", "mistral.ai", "qwen.ai", "aws.amazon.com", "artificialanalysis.ai", "mlcommons.org"];
 
 export const briefSchema = object({
-  schemaVersion: { type: "integer", enum: [1] },
+  schemaVersion: { type: "integer", enum: [2] },
   date,
   publishedAt: string,
-  title: string,
-  dek: string,
-  focus: string,
+  title: localizedText,
+  dek: localizedText,
+  focus: localizedText,
   visual: visualVariant,
   topics: array({ type: "string", enum: ["Models & tools", "Workflows", "Systems & inference", "Research"] }, 1, 4),
-  editorialNote: string,
+  editorialNote: localizedText,
   sections: array(object({
     id: { type: "string", enum: ["signals", "tools", "practice", "engineering"] },
-    label: string,
+    label: localizedText,
     items: array(object({
-      title: string, publishedDate: nullableDate,
+      title: localizedText, publishedDate: nullableDate,
       status: { type: "string", enum: ["research", "available", "preview", "announced", "case-study"] },
-      summary: string, change: string, availability: string, limitation: string, implication: string,
+      summary: localizedText, change: localizedText, availability: localizedText, limitation: localizedText, implication: localizedText,
       sourceIds: array(string, 1, 3),
       visual: object({
         variant: visualVariant,
-        caption: string,
+        caption: localizedText,
         image: { anyOf: [object({
           url: string,
           width: { type: "integer", minimum: 1, maximum: 10000 },
           height: { type: "integer", minimum: 1, maximum: 10000 },
-          alt: string,
+          alt: localizedText,
           sourceId: string,
         }), { type: "null" }] },
       }),
-      resources: array(object({ kind: { type: "string", enum: ["paper", "code", "docs", "demo", "benchmark"] }, title: string, url: string }), 0, 4),
+      resources: array(object({ kind: { type: "string", enum: ["paper", "code", "docs", "demo", "benchmark"] }, title: localizedText, url: string }), 0, 4),
     }), 0, 3),
   }), 4, 4),
-  experiment: object({ title: string, minutes: { type: "integer", minimum: 10, maximum: 20 }, steps: array(string, 3, 5), measure: string }),
+  experiment: object({ title: localizedText, minutes: { type: "integer", minimum: 10, maximum: 20 }, steps: array(localizedText, 3, 5), measure: localizedText }),
   glossary: array(object({ id: { type: "integer", minimum: 1, maximum: 20 }, term: string, ko: string, explanation: string, example: string }), 3, 12),
-  sources: array(object({ id: { ...string, pattern: "^[a-z0-9-]+$" }, title: string, publisher: string, url: string, publishedDate: nullableDate }), 0, 12),
+  sources: array(object({ id: { ...string, pattern: "^[a-z0-9-]+$" }, title: localizedText, publisher: string, url: string, publishedDate: nullableDate }), 0, 12),
 });
 
 function validate(value, schema, location = "brief") {
@@ -115,10 +116,15 @@ export function validateBrief(brief, expectedDate = brief?.date) {
   const notes = new Set(brief.glossary.map((note) => note.id));
   if (notes.size !== brief.glossary.length || brief.glossary.some((note, i) => note.id !== i + 1)) throw new Error("Vocabulary numbering must be consecutive");
   if (brief.glossary.some((note) => !/[가-힣]/.test(note.ko + note.explanation + note.example))) throw new Error("Vocabulary notes must contain Korean");
-  const prose = JSON.stringify([brief.focus, ...items.map(({ title, summary, change, availability, limitation, implication }) => [title, summary, change, availability, limitation, implication]), brief.experiment]);
-  // Only these rendered fields may contain note markers (titles are plain text).
-  if (items.some((item) => /\[\d+\]/.test(item.title)) || /\[\d+\]/.test(brief.experiment.title)) throw new Error("Put note markers in body text, not titles");
-  const refs = [...prose.matchAll(/\[(\d+)\]/g)].map((match) => Number(match[1]));
-  if (refs.some((id) => !notes.has(id)) || [...notes].some((id) => !refs.includes(id))) throw new Error("Unresolved or unused vocabulary reference");
+  const bodyTexts = [brief.focus, ...items.flatMap(({ summary, change, availability, limitation, implication }) => [summary, change, availability, limitation, implication]), ...brief.experiment.steps, brief.experiment.measure];
+  const refsIn = (text) => [...text.matchAll(/\[(\d+)\]/g)].map((match) => Number(match[1]));
+  for (const value of bodyTexts) {
+    if (JSON.stringify(refsIn(value.ko)) !== JSON.stringify(refsIn(value.en))) throw new Error("Korean and English note markers must match");
+  }
+  for (const language of ["ko", "en"]) {
+    if (items.some((item) => refsIn(item.title[language]).length) || refsIn(brief.experiment.title[language]).length) throw new Error("Put note markers in body text, not titles");
+    const refs = bodyTexts.flatMap((value) => refsIn(value[language]));
+    if (refs.some((id) => !notes.has(id)) || [...notes].some((id) => !refs.includes(id))) throw new Error("Unresolved or unused vocabulary reference");
+  }
   return brief;
 }
