@@ -73,7 +73,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/huggingface/hub
-          key: papers-en-ko-opus-mt-v1
+          key: papers-en-ko-opus-mt-tc-big-ae8606b7-v1
 
       - name: Install local translation runtime
         run: |
