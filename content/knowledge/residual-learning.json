@@ -1,0 +1,198 @@
+{
+  "id": "concept:residual-learning",
+  "slug": "residual-learning",
+  "canonicalName": {
+    "en": "Residual learning",
+    "ko": "Residual learning (잔차 학습)"
+  },
+  "dek": {
+    "en": "Residual blocks learn a correction to their input and add the input back through a shortcut.",
+    "ko": "잔차 블록은 입력에 더할 보정값을 학습하고 지름길로 원래 입력을 다시 더합니다."
+  },
+  "domain": [
+    "Deep Learning",
+    "Computer Vision"
+  ],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": [
+    "arxiv:1512.03385"
+  ],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:1512.03385",
+      "title": {
+        "en": "Deep Residual Learning for Image Recognition",
+        "ko": "이미지 인식을 위한 심층 잔차 학습"
+      },
+      "reviewUrl": "/daily-brief/papers/deep-residual-learning/",
+      "url": "https://arxiv.org/abs/1512.03385v1"
+    }
+  ],
+  "relatedConcepts": [],
+  "visualAsset": {
+    "url": "https://ar5iv.labs.arxiv.org/html/1512.03385/assets/figure2.png",
+    "alt": {
+      "en": "Residual block in which an identity shortcut is added to the learned residual function.",
+      "ko": "학습된 잔차 함수에 항등 지름길을 더하는 잔차 블록."
+    },
+    "caption": {
+      "en": "A shortcut carries x around the stacked layers, which learn F(x); the output is F(x) + x.",
+      "ko": "지름길은 x를 층들 너머로 전달하고 층들은 F(x)를 학습해 출력 F(x) + x를 만듭니다."
+    },
+    "credit": "Original figure by the paper authors; linked from https://arxiv.org/abs/1512.03385.",
+    "license": "See the license and reuse terms on the linked source paper."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": {
+        "en": "Concept at a glance",
+        "ko": "개념 한눈에 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "A residual block learns the difference between its desired mapping and its input, then adds the input back.",
+          "ko": "잔차 블록은 원하는 변환과 입력의 차이를 학습한 뒤 입력을 다시 더합니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": {
+        "en": "How it works",
+        "ko": "작동 방식"
+      },
+      "paragraphs": [
+        {
+          "en": "For input x, stacked layers produce F(x), and an identity shortcut forms F(x) + x. Projection shortcuts handle shape changes.",
+          "ko": "입력 x에 대해 층들이 F(x)를 만들고 항등 지름길이 F(x) + x를 구성합니다. 모양이 달라질 때는 투영 지름길을 씁니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": {
+        "en": "Read the figure",
+        "ko": "그림 읽기"
+      },
+      "paragraphs": [
+        {
+          "en": "The block diagram makes the bypass explicit: information and gradients can travel along a short path around nonlinear layers.",
+          "ko": "블록 그림은 우회 경로를 보여줍니다. 정보와 그래디언트가 비선형 층을 돌아 짧은 경로로 전달될 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": {
+        "en": "Compare the idea",
+        "ko": "비교해서 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "A plain stack must learn the whole mapping. A residual stack can represent identity by driving F(x) toward zero.",
+          "ko": "일반 층 쌓기는 전체 변환을 학습하지만, 잔차 구조는 F(x)를 0에 가깝게 해 항등 변환을 표현할 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": {
+        "en": "Implementation notes",
+        "ko": "구현 점검"
+      },
+      "paragraphs": [
+        {
+          "en": "Keep shortcut and residual tensor shapes compatible; use a projection when channels or stride change. Compare models at matched depth and compute.",
+          "ko": "지름길과 잔차 텐서의 형태를 맞추고 채널·Stride가 바뀌면 투영을 사용합니다. 깊이와 계산량을 맞춰 비교합니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": {
+        "en": "Limits",
+        "ko": "한계"
+      },
+      "paragraphs": [
+        {
+          "en": "Shortcuts ease optimization but do not remove compute, memory, data, or training-dynamics constraints. An ensemble result should not be described as one model.",
+          "ko": "지름길은 최적화를 돕지만 계산량·메모리·데이터·학습 동역학 제약을 없애지는 않습니다. 앙상블 결과를 단일 모델 결과로 부르면 안 됩니다."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": {
+        "en": "Takeaway",
+        "ko": "핵심 정리"
+      },
+      "paragraphs": [
+        {
+          "en": "The key idea is a learnable correction plus a route that preserves the input, making identity-like behavior easy to express.",
+          "ko": "핵심은 학습 가능한 보정값과 입력을 보존하는 경로를 결합해 항등에 가까운 동작을 쉽게 표현하는 것입니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": {
+        "en": "Original paper",
+        "ko": "논문 원문"
+      },
+      "url": "https://arxiv.org/abs/1512.03385",
+      "publisher": "arXiv",
+      "type": "research-paper"
+    },
+    {
+      "label": {
+        "en": "Authors’ ResNet repository",
+        "ko": "저자 ResNet 저장소"
+      },
+      "url": "https://github.com/KaimingHe/deep-residual-networks",
+      "publisher": "github.com",
+      "type": "implementation-or-reference"
+    }
+  ],
+  "onePager": {
+    "title": "Residual learning (잔차 학습)",
+    "subtitle": "잔차 블록은 입력에 더할 보정값을 학습하고 지름길로 원래 입력을 다시 더합니다.",
+    "oneLine": "핵심은 학습 가능한 보정값과 입력을 보존하는 경로를 결합해 항등에 가까운 동작을 쉽게 표현하는 것입니다.",
+    "sections": [
+      {
+        "heading": "문제",
+        "body": "깊은 층에서 최적화가 어려워지고 학습 오차도 악화될 수 있습니다."
+      },
+      {
+        "heading": "핵심 구조",
+        "body": "층은 전체 변환이 아닌 잔차 F(x)를 학습합니다."
+      },
+      {
+        "heading": "지름길",
+        "body": "입력을 잔차 출력에 더해 F(x) + x를 만듭니다."
+      },
+      {
+        "heading": "구현 점검",
+        "body": "형태가 바뀌는 블록에서는 투영 지름길을 사용합니다."
+      },
+      {
+        "heading": "해석",
+        "body": "잔차 경로는 최적화를 돕지만 비용을 없애지는 않습니다."
+      }
+    ],
+    "flow": [
+      "입력 x",
+      "층이 F(x) 학습",
+      "지름길로 x 전달",
+      "F(x) + x"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/1512.03385"
+    ],
+    "status": "ready",
+    "pdfPath": "/knowledge/residual-learning-one-pager.pdf",
+    "docxPath": "/knowledge/residual-learning-one-pager.docx"
+  }
+}

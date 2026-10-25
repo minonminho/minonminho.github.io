@@ -1,0 +1,198 @@
+{
+  "id": "concept:rlhf",
+  "slug": "rlhf",
+  "canonicalName": {
+    "en": "Reinforcement learning from human feedback",
+    "ko": "Reinforcement learning from human feedback (RLHF)"
+  },
+  "dek": {
+    "en": "RLHF uses human comparisons to train a reward model, then optimizes a language model toward those learned preferences.",
+    "ko": "RLHF는 사람의 비교 평가로 보상 모델을 학습하고 언어 모델이 그 선호를 따르도록 최적화합니다."
+  },
+  "domain": [
+    "Large Language Models",
+    "Alignment"
+  ],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": [
+    "arxiv:2203.02155"
+  ],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:2203.02155",
+      "title": {
+        "en": "Training Language Models to Follow Instructions with Human Feedback",
+        "ko": "사람 피드백으로 지시를 따르도록 언어 모델 학습하기"
+      },
+      "reviewUrl": "/daily-brief/papers/instructgpt-human-feedback/",
+      "url": "https://arxiv.org/abs/2203.02155v1"
+    }
+  ],
+  "relatedConcepts": [],
+  "visualAsset": {
+    "url": "https://ar5iv.labs.arxiv.org/html/2203.02155/assets/InstructGPT_Diagram3.1.png",
+    "alt": {
+      "en": "InstructGPT pipeline from human demonstrations to reward modeling and PPO optimization.",
+      "ko": "사람 시연 데이터에서 보상 모델링과 PPO 최적화로 이어지는 InstructGPT 절차."
+    },
+    "caption": {
+      "en": "A supervised starting model is ranked by labelers, then optimized against a learned reward.",
+      "ko": "지도 학습 초기 모델의 출력을 평가자가 순위화하고, 학습된 보상으로 최적화합니다."
+    },
+    "credit": "Original figure by the paper authors; linked from https://arxiv.org/abs/2203.02155.",
+    "license": "See the license and reuse terms on the linked source paper."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": {
+        "en": "Concept at a glance",
+        "ko": "개념 한눈에 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "RLHF is a training family that uses reward signals derived from human preferences to adjust model behavior.",
+          "ko": "RLHF는 사람의 선호에서 만든 보상 신호로 모델 동작을 조정하는 학습 방식입니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": {
+        "en": "How it works",
+        "ko": "작동 방식"
+      },
+      "paragraphs": [
+        {
+          "en": "InstructGPT uses demonstrations for supervised fine-tuning, ranked outputs for reward-model training, and PPO to optimize the policy.",
+          "ko": "InstructGPT는 시연 답변으로 지도 미세 조정하고, 출력 순위로 보상 모델을 만든 뒤 PPO로 정책을 최적화합니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": {
+        "en": "Read the figure",
+        "ko": "그림 읽기"
+      },
+      "paragraphs": [
+        {
+          "en": "The three stages connect human judgments to a learned reward, but the reward remains a proxy for the preferences represented in the data.",
+          "ko": "세 단계는 사람 평가를 학습된 보상으로 연결하지만, 보상은 데이터에 표현된 선호의 대리 지표입니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": {
+        "en": "Compare the idea",
+        "ko": "비교해서 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "Supervised fine-tuning imitates demonstrations; reward learning uses relative comparisons; RL optimizes responses against the learned reward.",
+          "ko": "지도 미세 조정은 시연을 모방하고, 보상 학습은 상대 비교를 쓰며, 강화학습은 그 보상에 맞춰 응답을 최적화합니다."
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": {
+        "en": "Implementation notes",
+        "ko": "구현 점검"
+      },
+      "paragraphs": [
+        {
+          "en": "Document the labeler pool and rubric, retain held-out prompts, and monitor reward-model disagreement and policy regressions.",
+          "ko": "평가자 집단과 기준을 기록하고 프롬프트를 분리 보관하며, 보상 모델 불일치와 정책 성능 저하를 모니터링합니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": {
+        "en": "Limits",
+        "ko": "한계"
+      },
+      "paragraphs": [
+        {
+          "en": "The learned objective encodes a specific sample of preferences; it can be incomplete or exploitable and does not guarantee truthfulness or harmlessness.",
+          "ko": "학습 목표에는 특정 선호 표본이 반영됩니다. 불완전하거나 악용될 수 있으며 진실성·무해성을 보장하지 않습니다."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": {
+        "en": "Takeaway",
+        "ko": "핵심 정리"
+      },
+      "paragraphs": [
+        {
+          "en": "Human preference is a useful but bounded training signal; alignment claims must name who judged what, on which prompts.",
+          "ko": "사람의 선호는 유용하지만 범위가 제한된 학습 신호입니다. 정렬 주장은 누가 어떤 프롬프트를 평가했는지 밝혀야 합니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": {
+        "en": "Original paper",
+        "ko": "논문 원문"
+      },
+      "url": "https://arxiv.org/abs/2203.02155",
+      "publisher": "arXiv",
+      "type": "research-paper"
+    },
+    {
+      "label": {
+        "en": "Original InstructGPT study",
+        "ko": "InstructGPT 원 연구"
+      },
+      "url": "https://arxiv.org/abs/2203.02155",
+      "publisher": "arxiv.org",
+      "type": "implementation-or-reference"
+    }
+  ],
+  "onePager": {
+    "title": "Reinforcement learning from human feedback (RLHF)",
+    "subtitle": "RLHF는 사람의 비교 평가로 보상 모델을 학습하고 언어 모델이 그 선호를 따르도록 최적화합니다.",
+    "oneLine": "사람의 선호는 유용하지만 범위가 제한된 학습 신호입니다. 정렬 주장은 누가 어떤 프롬프트를 평가했는지 밝혀야 합니다.",
+    "sections": [
+      {
+        "heading": "입력",
+        "body": "사람이 작성한 시연과 출력 비교를 모읍니다."
+      },
+      {
+        "heading": "학습",
+        "body": "비교에서 보상 모델을 만들고 정책을 최적화합니다."
+      },
+      {
+        "heading": "목표",
+        "body": "정의된 평가 집단의 선호를 모델 동작에 반영합니다."
+      },
+      {
+        "heading": "운영",
+        "body": "평가자·기준·프롬프트 분포를 기록합니다."
+      },
+      {
+        "heading": "주의할 점",
+        "body": "보상은 선호의 대리값이지 보편적 가치가 아닙니다."
+      }
+    ],
+    "flow": [
+      "시연 답변",
+      "선호 순위",
+      "보상 모델",
+      "PPO 정책"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/2203.02155"
+    ],
+    "status": "ready",
+    "pdfPath": "/knowledge/rlhf-one-pager.pdf",
+    "docxPath": "/knowledge/rlhf-one-pager.docx"
+  }
+}

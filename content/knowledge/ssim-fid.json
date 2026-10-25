@@ -1,0 +1,198 @@
+{
+  "id": "concept:ssim-fid",
+  "slug": "ssim-fid",
+  "canonicalName": {
+    "en": "SSIM and FID",
+    "ko": "SSIM과 FID"
+  },
+  "dek": {
+    "en": "SSIM and FID compare images from different perspectives; neither alone proves that an output is usable or editable.",
+    "ko": "SSIM과 FID는 이미지를 서로 다른 관점에서 비교하며, 어느 하나만으로 결과의 사용성·편집성을 입증하지는 못합니다."
+  },
+  "domain": [
+    "Evaluation",
+    "Computer Vision"
+  ],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": [
+    "arxiv:2610.24738"
+  ],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:2610.24738",
+      "title": {
+        "en": "Editing Images into Reusable Layers via Compositional Edit-Prior Distillation",
+        "ko": "Compositional Edit-Prior Distillation으로 재사용 가능한 이미지 레이어 만들기"
+      },
+      "reviewUrl": "/daily-brief/papers/layereditor/",
+      "url": "https://arxiv.org/abs/2610.24738v1"
+    }
+  ],
+  "relatedConcepts": [],
+  "visualAsset": {
+    "url": "https://arxiv.org/html/2610.24738v1/appendix_2.png",
+    "alt": {
+      "en": "LayerEditor qualitative examples showing edited composites and separated layers.",
+      "ko": "편집 합성 결과와 분리된 레이어를 보여주는 LayerEditor 정성 예시."
+    },
+    "caption": {
+      "en": "Visual examples complement metrics but do not replace random sampling and user editing tests.",
+      "ko": "시각 예시는 지표를 보완하지만 무작위 표본과 사용자 편집 시험을 대신하지 않습니다."
+    },
+    "credit": "Original figure by the paper authors; linked from https://arxiv.org/abs/2610.24738.",
+    "license": "See the license and reuse terms on the linked source paper."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": {
+        "en": "Concept at a glance",
+        "ko": "개념 한눈에 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "SSIM estimates local structural similarity; FID compares feature distributions of generated and reference images.",
+          "ko": "SSIM은 국소 구조 유사도를 추정하고 FID는 생성 이미지와 기준 이미지의 특징 분포를 비교합니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": {
+        "en": "How it works",
+        "ko": "작동 방식"
+      },
+      "paragraphs": [
+        {
+          "en": "Both reduce image sets to summary numbers but use different representations and respond differently to distortions and distribution shifts.",
+          "ko": "둘 다 이미지 집합을 요약 숫자로 만들지만 표현 방식이 달라 왜곡과 분포 변화에 다르게 반응합니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": {
+        "en": "Read the figure",
+        "ko": "그림 읽기"
+      },
+      "paragraphs": [
+        {
+          "en": "LayerEditor reports direct-image and recomposed-layer scores separately, because a polished direct image can hide weak layers.",
+          "ko": "LayerEditor는 완성 이미지와 레이어 재합성 점수를 구분해, 보기 좋은 직접 결과가 약한 레이어를 숨길 수 있음을 다룹니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": {
+        "en": "Compare the idea",
+        "ko": "비교해서 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "SSIM is paired and structure-oriented; FID is distribution-oriented and usually computed over feature statistics from many samples.",
+          "ko": "SSIM은 이미지 쌍의 구조에 초점을 두고 FID는 여러 표본의 특징 통계로 분포를 비교합니다."
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": {
+        "en": "Implementation notes",
+        "ko": "구현 점검"
+      },
+      "paragraphs": [
+        {
+          "en": "Keep dataset, preprocessing, resolution, and sample count fixed; report complementary metrics and inspect individual failures.",
+          "ko": "데이터셋·전처리·해상도·표본 수를 고정하고 보완 지표와 개별 실패 사례를 함께 확인합니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": {
+        "en": "Limits",
+        "ko": "한계"
+      },
+      "paragraphs": [
+        {
+          "en": "Neither metric directly measures semantic correctness, human preference, text editability, or whether layers survive downstream edits.",
+          "ko": "두 지표 모두 의미 정확성·사람 선호·텍스트 편집 가능성·후속 레이어 편집 내구성을 직접 측정하지 않습니다."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": {
+        "en": "Takeaway",
+        "ko": "핵심 정리"
+      },
+      "paragraphs": [
+        {
+          "en": "Choose metrics for the decision being made and pair them with qualitative inspection and task-specific user tests.",
+          "ko": "의사결정에 맞는 지표를 고르고 정성 점검과 과제별 사용자 시험을 함께 사용해야 합니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": {
+        "en": "Original paper",
+        "ko": "논문 원문"
+      },
+      "url": "https://arxiv.org/abs/2610.24738",
+      "publisher": "arXiv",
+      "type": "research-paper"
+    },
+    {
+      "label": {
+        "en": "LayerEditor metrics and examples",
+        "ko": "LayerEditor 지표와 예시"
+      },
+      "url": "https://arxiv.org/html/2610.24738v1",
+      "publisher": "arxiv.org",
+      "type": "implementation-or-reference"
+    }
+  ],
+  "onePager": {
+    "title": "SSIM과 FID",
+    "subtitle": "SSIM과 FID는 이미지를 서로 다른 관점에서 비교하며, 어느 하나만으로 결과의 사용성·편집성을 입증하지는 못합니다.",
+    "oneLine": "의사결정에 맞는 지표를 고르고 정성 점검과 과제별 사용자 시험을 함께 사용해야 합니다.",
+    "sections": [
+      {
+        "heading": "SSIM",
+        "body": "이미지 쌍의 구조적 유사도를 추정합니다."
+      },
+      {
+        "heading": "FID",
+        "body": "생성·기준 분포의 특징 통계를 비교합니다."
+      },
+      {
+        "heading": "사용",
+        "body": "보완적인 관점으로 함께 보고합니다."
+      },
+      {
+        "heading": "고정할 것",
+        "body": "전처리·해상도·표본 수를 통제합니다."
+      },
+      {
+        "heading": "주의할 점",
+        "body": "수치만으로 사용성이나 편집성을 입증할 수 없습니다."
+      }
+    ],
+    "flow": [
+      "기준 이미지",
+      "지표 계산",
+      "다른 관점 비교",
+      "사례 검토"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/2610.24738"
+    ],
+    "status": "ready",
+    "pdfPath": "/knowledge/ssim-fid-one-pager.pdf",
+    "docxPath": "/knowledge/ssim-fid-one-pager.docx"
+  }
+}

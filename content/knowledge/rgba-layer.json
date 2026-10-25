@@ -1,0 +1,198 @@
+{
+  "id": "concept:rgba-layer",
+  "slug": "rgba-layer",
+  "canonicalName": {
+    "en": "RGBA layer",
+    "ko": "RGBA 레이어"
+  },
+  "dek": {
+    "en": "An RGBA layer stores color and opacity for a full canvas so a visual element can be recomposed separately.",
+    "ko": "RGBA 레이어는 전체 캔버스의 색상과 불투명도를 저장해 시각 요소를 따로 합성할 수 있게 합니다."
+  },
+  "domain": [
+    "Computer Graphics",
+    "Image Editing"
+  ],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": [
+    "arxiv:2610.24738"
+  ],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:2610.24738",
+      "title": {
+        "en": "Editing Images into Reusable Layers via Compositional Edit-Prior Distillation",
+        "ko": "Compositional Edit-Prior Distillation으로 재사용 가능한 이미지 레이어 만들기"
+      },
+      "reviewUrl": "/daily-brief/papers/layereditor/",
+      "url": "https://arxiv.org/abs/2610.24738v1"
+    }
+  ],
+  "relatedConcepts": [],
+  "visualAsset": {
+    "url": "https://arxiv.org/html/2610.24738v1/appendix_2.png",
+    "alt": {
+      "en": "LayerEditor output with a finished canvas alongside separated RGBA layers.",
+      "ko": "완성 캔버스와 분리된 RGBA 레이어를 함께 보여주는 LayerEditor 출력."
+    },
+    "caption": {
+      "en": "An RGBA layer carries RGB appearance and an alpha mask for later composition.",
+      "ko": "RGBA 레이어는 이후 합성을 위해 RGB 모양과 Alpha 마스크를 함께 저장합니다."
+    },
+    "credit": "Original figure by the paper authors; linked from https://arxiv.org/abs/2610.24738.",
+    "license": "See the license and reuse terms on the linked source paper."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": {
+        "en": "Concept at a glance",
+        "ko": "개념 한눈에 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "An RGBA layer is a full-size image with red, green, blue, and alpha channels.",
+          "ko": "RGBA 레이어는 빨강·초록·파랑·알파 채널을 가진 전체 크기 이미지입니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": {
+        "en": "How it works",
+        "ko": "작동 방식"
+      },
+      "paragraphs": [
+        {
+          "en": "RGB records appearance and alpha records per-pixel opacity; layer order determines which pixels cover others.",
+          "ko": "RGB는 모양을, Alpha는 픽셀별 불투명도를 기록하고 레이어 순서가 가려지는 영역을 정합니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": {
+        "en": "Read the figure",
+        "ko": "그림 읽기"
+      },
+      "paragraphs": [
+        {
+          "en": "LayerEditor predicts a direct edited canvas and an ordered RGBA stack; recomposition checks whether the stack explains the visible result.",
+          "ko": "LayerEditor는 편집 캔버스와 순서가 있는 RGBA 묶음을 예측하며, 다시 합쳐 시각 결과를 설명하는지 확인합니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": {
+        "en": "Compare the idea",
+        "ko": "비교해서 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "A flattened RGB image is easy to display but loses element-level opacity and edit boundaries; RGBA layers preserve a reusable decomposition.",
+          "ko": "평탄화된 RGB는 표시하기 쉽지만 요소별 투명도와 편집 경계를 잃습니다. RGBA 레이어는 재사용 가능한 분해를 보존합니다."
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": {
+        "en": "Implementation notes",
+        "ko": "구현 점검"
+      },
+      "paragraphs": [
+        {
+          "en": "Composite layers in a documented back-to-front order and test edges, transparency, empty masks, and recomposition at different backgrounds.",
+          "ko": "뒤에서 앞으로 순서를 명시해 합성하고 경계·투명도·빈 마스크·배경 변경 시 재합성을 시험합니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": {
+        "en": "Limits",
+        "ko": "한계"
+      },
+      "paragraphs": [
+        {
+          "en": "Layer structure does not make raster text editable as fonts or vectors. Moving elements can reveal missing pixels or artifacts at boundaries.",
+          "ko": "레이어 구조가 래스터 텍스트를 폰트·벡터로 바꾸지는 않습니다. 요소를 옮기면 빠진 픽셀이나 경계 결함이 드러날 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": {
+        "en": "Takeaway",
+        "ko": "핵심 정리"
+      },
+      "paragraphs": [
+        {
+          "en": "A reusable layer is useful only when its mask, ordering, and recomposed result survive the edits a user needs.",
+          "ko": "재사용 레이어는 마스크·순서·재합성 결과가 실제 사용자 편집을 견딜 때 유용합니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": {
+        "en": "Original paper",
+        "ko": "논문 원문"
+      },
+      "url": "https://arxiv.org/abs/2610.24738",
+      "publisher": "arXiv",
+      "type": "research-paper"
+    },
+    {
+      "label": {
+        "en": "LayerEditor original paper",
+        "ko": "LayerEditor 원 논문"
+      },
+      "url": "https://arxiv.org/abs/2610.24738v1",
+      "publisher": "arxiv.org",
+      "type": "implementation-or-reference"
+    }
+  ],
+  "onePager": {
+    "title": "RGBA 레이어",
+    "subtitle": "RGBA 레이어는 전체 캔버스의 색상과 불투명도를 저장해 시각 요소를 따로 합성할 수 있게 합니다.",
+    "oneLine": "재사용 레이어는 마스크·순서·재합성 결과가 실제 사용자 편집을 견딜 때 유용합니다.",
+    "sections": [
+      {
+        "heading": "채널",
+        "body": "RGB는 색, Alpha는 픽셀별 불투명도를 담습니다."
+      },
+      {
+        "heading": "구성",
+        "body": "각 레이어는 전체 캔버스 기준으로 정렬될 수 있습니다."
+      },
+      {
+        "heading": "합성",
+        "body": "순서와 Alpha 값으로 최종 화면을 계산합니다."
+      },
+      {
+        "heading": "점검",
+        "body": "경계·투명도·재배치 후 결과를 확인합니다."
+      },
+      {
+        "heading": "주의할 점",
+        "body": "레이어가 분리돼도 텍스트가 편집 가능한 폰트가 되지는 않습니다."
+      }
+    ],
+    "flow": [
+      "RGB 색",
+      "Alpha 마스크",
+      "레이어 순서",
+      "합성 캔버스"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/2610.24738"
+    ],
+    "status": "ready",
+    "pdfPath": "/knowledge/rgba-layer-one-pager.pdf",
+    "docxPath": "/knowledge/rgba-layer-one-pager.docx"
+  }
+}

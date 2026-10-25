@@ -1,0 +1,198 @@
+{
+  "id": "concept:in-context-learning",
+  "slug": "in-context-learning",
+  "canonicalName": {
+    "en": "In-context learning",
+    "ko": "In-context learning (문맥 내 학습)"
+  },
+  "dek": {
+    "en": "A language model infers a task from instructions or examples placed in its input, without updating its parameters for that request.",
+    "ko": "언어 모델이 요청별 파라미터 갱신 없이 입력에 포함된 지시나 예시에서 과제를 파악합니다."
+  },
+  "domain": [
+    "Large Language Models",
+    "Prompting"
+  ],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": [
+    "arxiv:2005.14165"
+  ],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:2005.14165",
+      "title": {
+        "en": "Language Models are Few-Shot Learners",
+        "ko": "언어 모델은 Few-shot 학습자다"
+      },
+      "reviewUrl": "/daily-brief/papers/language-models-few-shot-learners/",
+      "url": "https://arxiv.org/abs/2005.14165v4"
+    }
+  ],
+  "relatedConcepts": [],
+  "visualAsset": {
+    "url": "https://ar5iv.labs.arxiv.org/html/2005.14165/assets/figures/metalearning.png",
+    "alt": {
+      "en": "Meta-learning diagram showing examples in the input as task context during inference.",
+      "ko": "추론 시 입력 속 예시가 과제 문맥으로 작동하는 모습을 나타낸 메타 학습 그림."
+    },
+    "caption": {
+      "en": "The model uses demonstrations within a forward pass; the paper does not update model weights per task.",
+      "ko": "모델은 순전파 안에서 시연 예시를 사용하며, 과제마다 가중치를 갱신하지 않습니다."
+    },
+    "credit": "Original figure by the paper authors; linked from https://arxiv.org/abs/2005.14165.",
+    "license": "See the license and reuse terms on the linked source paper."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": {
+        "en": "Concept at a glance",
+        "ko": "개념 한눈에 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "In-context learning is task adaptation from the current prompt rather than from a gradient update to model parameters.",
+          "ko": "In-context learning은 파라미터 그래디언트 갱신 대신 현재 프롬프트에서 과제에 적응하는 방식입니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": {
+        "en": "How it works",
+        "ko": "작동 방식"
+      },
+      "paragraphs": [
+        {
+          "en": "The prompt may contain an instruction, demonstrations, and a new example; an autoregressive model predicts the continuation.",
+          "ko": "프롬프트에는 지시, 시연 예시, 새 입력이 들어갈 수 있고 자기회귀 모델이 이어질 내용을 예측합니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": {
+        "en": "Read the figure",
+        "ko": "그림 읽기"
+      },
+      "paragraphs": [
+        {
+          "en": "The paper describes pre-training as learning broad patterns and inference-time context as a rapid inner-loop adaptation.",
+          "ko": "논문은 사전 학습이 넓은 패턴을 익히고 추론 시 문맥이 빠른 내부 적응 역할을 한다고 설명합니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": {
+        "en": "Compare the idea",
+        "ko": "비교해서 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "Fine-tuning changes model parameters; in-context learning changes the input sequence while keeping the model fixed.",
+          "ko": "미세 조정은 모델 파라미터를 바꾸고, In-context learning은 모델을 고정한 채 입력 시퀀스를 바꿉니다."
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": {
+        "en": "Implementation notes",
+        "ko": "구현 점검"
+      },
+      "paragraphs": [
+        {
+          "en": "Control example order, wording, number of demonstrations, and context length. Evaluate with held-out prompts, not only a single hand-picked example.",
+          "ko": "예시 순서·표현·개수·문맥 길이를 관리합니다. 직접 고른 한 사례만이 아니라 분리된 프롬프트로 평가합니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": {
+        "en": "Limits",
+        "ko": "한계"
+      },
+      "paragraphs": [
+        {
+          "en": "Prompt-based performance can be sensitive to formatting and examples. Strong in-context results do not prove durable learning or reliable reasoning.",
+          "ko": "프롬프트 성능은 형식과 예시에 민감할 수 있습니다. 좋은 결과가 지속 학습이나 신뢰할 수 있는 추론을 증명하지는 않습니다."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": {
+        "en": "Takeaway",
+        "ko": "핵심 정리"
+      },
+      "paragraphs": [
+        {
+          "en": "Treat the prompt as a temporary task interface and measure how robustly the model uses its examples.",
+          "ko": "프롬프트를 임시 과제 인터페이스로 보고 모델이 예시를 얼마나 안정적으로 활용하는지 측정합니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": {
+        "en": "Original paper",
+        "ko": "논문 원문"
+      },
+      "url": "https://arxiv.org/abs/2005.14165",
+      "publisher": "arXiv",
+      "type": "research-paper"
+    },
+    {
+      "label": {
+        "en": "Original paper and evaluation",
+        "ko": "논문과 평가"
+      },
+      "url": "https://arxiv.org/abs/2005.14165",
+      "publisher": "arxiv.org",
+      "type": "implementation-or-reference"
+    }
+  ],
+  "onePager": {
+    "title": "In-context learning (문맥 내 학습)",
+    "subtitle": "언어 모델이 요청별 파라미터 갱신 없이 입력에 포함된 지시나 예시에서 과제를 파악합니다.",
+    "oneLine": "프롬프트를 임시 과제 인터페이스로 보고 모델이 예시를 얼마나 안정적으로 활용하는지 측정합니다.",
+    "sections": [
+      {
+        "heading": "정의",
+        "body": "현재 입력에 든 예시로 과제를 파악합니다."
+      },
+      {
+        "heading": "파라미터",
+        "body": "요청 중에는 모델 가중치를 갱신하지 않습니다."
+      },
+      {
+        "heading": "비교",
+        "body": "미세 조정은 가중치를, In-context는 프롬프트를 바꿉니다."
+      },
+      {
+        "heading": "점검",
+        "body": "예시 순서·개수·표현에 대한 민감도를 측정합니다."
+      },
+      {
+        "heading": "주의할 점",
+        "body": "프롬프트 성능은 지속 학습의 증거가 아닙니다."
+      }
+    ],
+    "flow": [
+      "지시",
+      "예시",
+      "새 입력",
+      "문맥 기반 응답"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/2005.14165"
+    ],
+    "status": "ready",
+    "pdfPath": "/knowledge/in-context-learning-one-pager.pdf",
+    "docxPath": "/knowledge/in-context-learning-one-pager.docx"
+  }
+}

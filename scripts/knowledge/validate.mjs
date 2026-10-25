@@ -20,13 +20,18 @@ for (const concept of registry.concepts) {
   const article = JSON.parse(readFileSync(articlePath, "utf8"));
   if (article.id !== concept.id || article.slug !== concept.slug) throw new Error(`Registry/article identity mismatch for ${concept.slug}.`);
   if (!article.sections || article.sections.length < 7 || !article.sections.some((section) => section.id === "visualization")) throw new Error(`${concept.slug} is missing required brief sections or visualization.`);
-  if (!article.visualAsset?.alt?.ko || !article.visualAsset?.caption?.ko || !article.visualAsset?.credit) throw new Error(`${concept.slug} is missing visualization accessibility or attribution.`);
+  if (!article.visualAsset?.alt?.en || !article.visualAsset?.alt?.ko || !article.visualAsset?.caption?.en || !article.visualAsset?.caption?.ko || !article.visualAsset?.credit) throw new Error(`${concept.slug} is missing visualization accessibility or attribution.`);
   if (article.sources.length < 2 || article.sources.some((source) => !/^https:\/\//.test(source.url))) throw new Error(`${concept.slug} needs valid HTTPS source references.`);
   for (const sourcePaper of concept.sourcePapers) {
     if (!papers.some((paper) => normalizePaperId(paper.paperId) === normalizePaperId(sourcePaper))) throw new Error(`${concept.slug} references an untracked paper: ${sourcePaper}.`);
   }
-  const image = path.join(root, "public", article.visualAsset.path.replace(/^\//, ""));
-  if (!existsSync(image)) throw new Error(`Missing visual asset ${article.visualAsset.path}.`);
+  if (article.visualAsset.path) {
+    const image = path.join(root, "public", article.visualAsset.path.replace(/^\//, ""));
+    if (!existsSync(image)) throw new Error(`Missing visual asset ${article.visualAsset.path}.`);
+  } else {
+    if (!/^https:\/\//.test(article.visualAsset.url ?? "")) throw new Error(`${concept.slug} needs either a local visualization asset or an HTTPS source figure.`);
+    if (!article.visualAsset.license) throw new Error(`${concept.slug} must include reuse/license guidance for its external figure.`);
+  }
   if (!article.onePager || article.onePager.sections.length < 5) throw new Error(`${concept.slug} is missing its separate One-Pager content.`);
   for (const [format, documentPath, signature] of [
     ["PDF", concept.onePager.pdfPath, "%PDF-"],

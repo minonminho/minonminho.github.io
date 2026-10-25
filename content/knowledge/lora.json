@@ -1,0 +1,209 @@
+{
+  "id": "concept:lora",
+  "slug": "lora",
+  "canonicalName": {
+    "en": "LoRA",
+    "ko": "LoRA"
+  },
+  "dek": {
+    "en": "LoRA freezes a shared pretrained model and learns compact low-rank matrices for a task-specific weight update.",
+    "ko": "LoRA는 공유 사전 학습 모델을 고정하고 과제별 가중치 업데이트를 작은 저랭크 행렬로 학습합니다."
+  },
+  "domain": [
+    "Large Language Models",
+    "Parameter-Efficient Fine-Tuning"
+  ],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": [
+    "arxiv:2106.09685",
+    "arxiv:2610.24738"
+  ],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:2106.09685",
+      "title": {
+        "en": "LoRA: Low-Rank Adaptation of Large Language Models",
+        "ko": "LoRA: 대규모 언어 모델의 저랭크 적응"
+      },
+      "reviewUrl": "/daily-brief/papers/lora-low-rank-adaptation/",
+      "url": "https://arxiv.org/abs/2106.09685v2"
+    },
+    {
+      "id": "arxiv:2610.24738",
+      "title": {
+        "en": "Editing Images into Reusable Layers via Compositional Edit-Prior Distillation",
+        "ko": "Compositional Edit-Prior Distillation으로 재사용 가능한 이미지 레이어 만들기"
+      },
+      "reviewUrl": "/daily-brief/papers/layereditor/",
+      "url": "https://arxiv.org/abs/2610.24738v1"
+    }
+  ],
+  "relatedConcepts": [],
+  "visualAsset": {
+    "url": "https://ar5iv.labs.arxiv.org/html/2106.09685/assets/figure1.png",
+    "alt": {
+      "en": "LoRA reparameterization with frozen base weights and trainable low-rank matrices.",
+      "ko": "고정된 기본 가중치와 학습 가능한 저랭크 행렬로 구성된 LoRA 재매개화."
+    },
+    "caption": {
+      "en": "The adapter learns a low-rank update that can be merged into the base weights at inference.",
+      "ko": "어댑터는 추론 시 기본 가중치에 합칠 수 있는 저랭크 업데이트를 학습합니다."
+    },
+    "credit": "Original figure by the paper authors; linked from https://arxiv.org/abs/2106.09685.",
+    "license": "See the license and reuse terms on the linked source paper."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": {
+        "en": "Concept at a glance",
+        "ko": "개념 한눈에 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "LoRA represents a task-specific weight change as a product of small trainable matrices while the original weights stay frozen.",
+          "ko": "LoRA는 원래 가중치를 고정하고 과제별 변화를 작은 학습 행렬의 곱으로 표현합니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": {
+        "en": "How it works",
+        "ko": "작동 방식"
+      },
+      "paragraphs": [
+        {
+          "en": "For a base matrix W, the adapted matrix is W + B·A, where A and B have a low inner rank. The update can be merged for serving.",
+          "ko": "기본 행렬 W에 랭크가 낮은 A와 B의 곱 B·A를 더합니다. 서빙 전에 업데이트를 합칠 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": {
+        "en": "Read the figure",
+        "ko": "그림 읽기"
+      },
+      "paragraphs": [
+        {
+          "en": "The LoRA paper motivates a low-rank update; LayerEditor later uses LoRA as one way to adapt its pretrained image editor.",
+          "ko": "LoRA 논문은 저랭크 업데이트를 제안하고, LayerEditor는 사전 학습 이미지 편집기를 조정하는 한 방법으로 LoRA를 사용합니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": {
+        "en": "Compare the idea",
+        "ko": "비교해서 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "Full fine-tuning updates and stores all model weights. LoRA stores a shared frozen base plus a smaller task adapter.",
+          "ko": "전체 미세 조정은 모든 가중치를 갱신·저장합니다. LoRA는 고정된 공유 모델과 작은 과제 어댑터를 보관합니다."
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": {
+        "en": "Implementation notes",
+        "ko": "구현 점검"
+      },
+      "paragraphs": [
+        {
+          "en": "Choose target matrices and rank empirically; account for optimizer state, adapter switching, merging, and numerical behavior in the serving stack.",
+          "ko": "대상 행렬과 랭크를 경험적으로 선택하고 옵티마이저 상태·어댑터 전환·병합·서빙 수치 동작을 고려합니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": {
+        "en": "Limits",
+        "ko": "한계"
+      },
+      "paragraphs": [
+        {
+          "en": "A low-rank update may not capture every task’s useful change. Reported parameter and memory savings are tied to the paper’s model and optimizer comparison.",
+          "ko": "저랭크 업데이트가 모든 과제의 유효한 변화를 표현하는 것은 아닙니다. 논문의 파라미터·메모리 절감 수치는 해당 모델과 옵티마이저 비교에 한정됩니다."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": {
+        "en": "Takeaway",
+        "ko": "핵심 정리"
+      },
+      "paragraphs": [
+        {
+          "en": "LoRA is a compact adaptation interface around a shared base model, not a replacement for evaluating adaptation quality.",
+          "ko": "LoRA는 공유 기본 모델 위의 작은 적응 인터페이스이며, 적응 품질 평가를 대체하지는 않습니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": {
+        "en": "Original paper",
+        "ko": "논문 원문"
+      },
+      "url": "https://arxiv.org/abs/2106.09685",
+      "publisher": "arXiv",
+      "type": "research-paper"
+    },
+    {
+      "label": {
+        "en": "Microsoft LoRA implementation",
+        "ko": "Microsoft LoRA 구현"
+      },
+      "url": "https://github.com/microsoft/LoRA",
+      "publisher": "github.com",
+      "type": "implementation-or-reference"
+    }
+  ],
+  "onePager": {
+    "title": "LoRA",
+    "subtitle": "LoRA는 공유 사전 학습 모델을 고정하고 과제별 가중치 업데이트를 작은 저랭크 행렬로 학습합니다.",
+    "oneLine": "LoRA는 공유 기본 모델 위의 작은 적응 인터페이스이며, 적응 품질 평가를 대체하지는 않습니다.",
+    "sections": [
+      {
+        "heading": "정의",
+        "body": "기본 가중치는 고정하고 작은 저랭크 업데이트만 학습합니다."
+      },
+      {
+        "heading": "형태",
+        "body": "W에 B·A를 더하며 A와 B의 안쪽 차원이 작습니다."
+      },
+      {
+        "heading": "효과",
+        "body": "과제 어댑터를 작게 저장하고 기본 모델을 공유합니다."
+      },
+      {
+        "heading": "구현 점검",
+        "body": "대상 행렬·랭크·옵티마이저·병합 방식을 측정합니다."
+      },
+      {
+        "heading": "주의할 점",
+        "body": "절감량과 품질은 모델·과제·설정에 따라 다릅니다."
+      }
+    ],
+    "flow": [
+      "고정 모델 W",
+      "학습 A와 B",
+      "저랭크 업데이트",
+      "병합 또는 어댑터 적용"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/2106.09685",
+      "https://arxiv.org/abs/2610.24738"
+    ],
+    "status": "ready",
+    "pdfPath": "/knowledge/lora-one-pager.pdf",
+    "docxPath": "/knowledge/lora-one-pager.docx"
+  }
+}

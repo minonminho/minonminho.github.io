@@ -173,10 +173,18 @@ export function PaperReviewReader({ review, knowledgeLinks, apiBaseUrl = "" }: {
   const headings = [...body.matchAll(/^##\s+(.+)$/gm)].map((match) => match[1]);
 
   return <div lang={language} className={`site-shell pb-20 pt-10 md:pb-28 md:pt-14 ${language === "ko" ? "break-keep" : ""}`}>
-    <Link href="/daily-brief/highlight/" className="inline-flex min-h-10 items-center gap-2 text-sm text-text-secondary hover:text-signal-ice focus-visible:outline-2 focus-visible:outline-signal-ice"><ArrowLeft className="size-4" aria-hidden="true" /> {copy("Back to paper highlights", "논문 하이라이트로 돌아가기")}</Link>
+    <Link href="/daily-brief/papers/" className="inline-flex min-h-10 items-center gap-2 text-sm text-text-secondary hover:text-signal-ice focus-visible:outline-2 focus-visible:outline-signal-ice"><ArrowLeft className="size-4" aria-hidden="true" /> {copy("Back to paper briefs", "논문 Brief 목록으로 돌아가기")}</Link>
 
     <header className="mt-8 border-b-2 border-border-strong pb-9 md:mt-12 md:pb-12">
-      <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] tracking-wide text-text-secondary"><span className="inline-flex items-center gap-2 text-signal-mint"><StarIcon />{copy("DAILY PAPER / FIRST READ", "DAILY PAPER / 먼저 읽기")}</span><span aria-hidden="true">/</span><span>HF #{review.dailyRank}</span><span aria-hidden="true">/</span><time dateTime={review.dailyDate}>{formatBriefDate(review.dailyDate, false, language)}</time><span aria-hidden="true">/</span><span>{review.upvotesAtSelection} {copy("votes at selection", "선정 당시 추천")}</span><span className="border border-border-default px-2 py-1 text-text-secondary">{copy("LOCAL TEST DRAFT", "로컬 테스트 초안")}</span></div>
+      <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] tracking-wide text-text-secondary">
+        <span className="inline-flex items-center gap-2 text-signal-mint"><StarIcon />{review.sourceType === "foundational-seed" ? copy("FOUNDATIONAL SEED PAPER", "기반 Seed 논문") : copy("DAILY PAPER / FIRST READ", "DAILY PAPER / 먼저 읽기")}</span>
+        {review.sourceType === "huggingface-daily" && <>
+          <span aria-hidden="true">/</span><span>HF #{review.dailyRank}</span>
+          {review.dailyDate && <><span aria-hidden="true">/</span><time dateTime={review.dailyDate}>{formatBriefDate(review.dailyDate, false, language)}</time></>}
+          {review.upvotesAtSelection !== null && <><span aria-hidden="true">/</span><span>{review.upvotesAtSelection} {copy("votes at selection", "선정 당시 추천")}</span></>}
+        </>}
+        {review.reviewStatus === "draft" && <span className="border border-border-default px-2 py-1 text-text-secondary">{copy("LOCAL TEST DRAFT", "로컬 테스트 초안")}</span>}
+      </div>
       <h1 className={`text-display-xl mt-7 max-w-5xl leading-[1.1] ${language === "ko" ? "break-keep" : ""}`}>{text(review.title)}</h1>
       <p className="mt-6 max-w-3xl text-subhead leading-8 text-text-secondary">{text(review.dek)}</p>
       <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-text-secondary"><span>{review.authors}</span><span aria-hidden="true">·</span><span>{review.canonicalId}</span><span aria-hidden="true">·</span><time dateTime={review.publishedDate}>{formatBriefDate(review.publishedDate, false, language)}</time><a href={`https://arxiv.org/abs/${review.version}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-9 items-center gap-2 text-signal-ice underline decoration-border-default underline-offset-4">{copy("Original paper", "논문 원문")}<ExternalLink className="size-3.5" aria-hidden="true" /></a></div>
@@ -198,7 +206,7 @@ export function PaperReviewReader({ review, knowledgeLinks, apiBaseUrl = "" }: {
           <h2 id="related-knowledge-title" className="mt-3 text-headline">{copy("Concepts connected to this paper", "이 논문에서 연결된 개념")}</h2>
           <ul className="mt-4 space-y-3">{allKnowledgeLinks.map((item) => <li key={item.id}><Link href={item.href} className="inline-flex min-h-11 items-center gap-2 text-sm text-signal-ice hover:text-text-primary">{item.title[language]}<ArrowUpRight className="size-4" aria-hidden="true" /></Link></li>)}</ul>
         </section>}
-        <Link href="/daily-brief/highlight/" className="mt-10 inline-flex min-h-11 items-center gap-2 text-sm text-signal-ice hover:text-text-primary focus-visible:outline-2 focus-visible:outline-signal-ice"><ArrowLeft className="size-4" aria-hidden="true" />{copy("Back to all highlights", "전체 하이라이트로 돌아가기")}<ArrowUpRight className="size-4" aria-hidden="true" /></Link>
+    <Link href="/daily-brief/papers/" className="mt-10 inline-flex min-h-11 items-center gap-2 text-sm text-signal-ice hover:text-text-primary focus-visible:outline-2 focus-visible:outline-signal-ice"><ArrowLeft className="size-4" aria-hidden="true" />{copy("Back to all paper briefs", "전체 논문 Brief로 돌아가기")}<ArrowUpRight className="size-4" aria-hidden="true" /></Link>
       </article>
     </div>
   </div>;

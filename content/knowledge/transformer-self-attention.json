@@ -1,0 +1,198 @@
+{
+  "id": "concept:transformer-self-attention",
+  "slug": "transformer-self-attention",
+  "canonicalName": {
+    "en": "Transformer self-attention",
+    "ko": "Transformer Self-attention"
+  },
+  "dek": {
+    "en": "A Transformer lets each token gather information from other positions through parallel attention, without recurrent state.",
+    "ko": "Transformer는 순환 상태 없이 병렬 어텐션으로 각 토큰이 다른 위치의 정보를 모으게 합니다."
+  },
+  "domain": [
+    "Deep Learning",
+    "Natural Language Processing"
+  ],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": [
+    "arxiv:1706.03762"
+  ],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:1706.03762",
+      "title": {
+        "en": "Attention Is All You Need",
+        "ko": "Attention Is All You Need: 어텐션만으로 충분하다"
+      },
+      "reviewUrl": "/daily-brief/papers/attention-is-all-you-need/",
+      "url": "https://arxiv.org/abs/1706.03762v7"
+    }
+  ],
+  "relatedConcepts": [],
+  "visualAsset": {
+    "url": "https://arxiv.org/html/1706.03762v7/Figures/ModalNet-21.png",
+    "alt": {
+      "en": "Transformer encoder and decoder built from self-attention and feed-forward layers.",
+      "ko": "Self-attention과 피드포워드 층으로 구성된 Transformer 인코더와 디코더."
+    },
+    "caption": {
+      "en": "The original architecture pairs self-attention with position-wise feed-forward layers and residual paths.",
+      "ko": "원 논문 구조는 Self-attention, 위치별 피드포워드 층, 잔차 경로를 결합합니다."
+    },
+    "credit": "Original figure by the paper authors; linked from https://arxiv.org/abs/1706.03762.",
+    "license": "See the license and reuse terms on the linked source paper."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": {
+        "en": "Concept at a glance",
+        "ko": "개념 한눈에 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "Self-attention builds each token representation by taking a learned weighted sum of information from other tokens.",
+          "ko": "Self-attention은 다른 토큰의 정보를 학습된 가중합으로 모아 각 토큰 표현을 만듭니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": {
+        "en": "How it works",
+        "ko": "작동 방식"
+      },
+      "paragraphs": [
+        {
+          "en": "Queries score keys, softmax turns scores into weights, and those weights mix values. Multiple heads perform this operation in parallel across learned subspaces.",
+          "ko": "Query가 Key를 평가하고 Softmax가 점수를 가중치로 바꾸며, 가중치로 Value를 섞습니다. 여러 Head는 서로 다른 표현 공간에서 이를 병렬 수행합니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": {
+        "en": "Read the figure",
+        "ko": "그림 읽기"
+      },
+      "paragraphs": [
+        {
+          "en": "The paper’s encoder-decoder diagram shows attention replacing recurrence in both stacks; positional encodings provide sequence order.",
+          "ko": "논문의 인코더-디코더 그림은 두 스택에서 순환 구조를 어텐션으로 대체하며, 위치 인코딩이 순서를 보완함을 보여줍니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": {
+        "en": "Compare the idea",
+        "ko": "비교해서 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "Unlike an RNN, self-attention can connect distant positions in one layer and process positions in parallel, but dense attention compares token pairs.",
+          "ko": "RNN과 달리 한 층에서 먼 위치를 연결하고 병렬 처리할 수 있지만, Dense attention은 토큰 쌍을 계산합니다."
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": {
+        "en": "Implementation notes",
+        "ko": "구현 점검"
+      },
+      "paragraphs": [
+        {
+          "en": "Track sequence length, attention memory, masking, and positional information. The original translation system uses encoder-decoder attention; decoder-only models use causal masking.",
+          "ko": "시퀀스 길이, 어텐션 메모리, 마스킹, 위치 정보를 관리해야 합니다. 원 번역 모델은 인코더-디코더 어텐션을 쓰고, Decoder-only 모델은 인과 마스크를 씁니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": {
+        "en": "Limits",
+        "ko": "한계"
+      },
+      "paragraphs": [
+        {
+          "en": "Attention weights are part of a computation, not a guaranteed human-readable explanation. Standard dense self-attention has quadratic pairwise work in sequence length.",
+          "ko": "어텐션 가중치는 계산의 일부이지 사람이 읽을 수 있는 설명을 보장하지 않습니다. 표준 Dense self-attention은 시퀀스 길이에 대해 쌍별 계산량이 제곱으로 늘어납니다."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": {
+        "en": "Takeaway",
+        "ko": "핵심 정리"
+      },
+      "paragraphs": [
+        {
+          "en": "Self-attention is a flexible token-mixing operation; the Transformer is the full architecture that organizes it with feed-forward blocks, residual paths, normalization, and positions.",
+          "ko": "Self-attention은 토큰을 섞는 연산이고, Transformer는 이를 피드포워드 블록·잔차 경로·정규화·위치 정보와 결합한 전체 구조입니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": {
+        "en": "Original paper",
+        "ko": "논문 원문"
+      },
+      "url": "https://arxiv.org/abs/1706.03762",
+      "publisher": "arXiv",
+      "type": "research-paper"
+    },
+    {
+      "label": {
+        "en": "Tensor2Tensor implementation",
+        "ko": "Tensor2Tensor 구현"
+      },
+      "url": "https://github.com/tensorflow/tensor2tensor",
+      "publisher": "github.com",
+      "type": "implementation-or-reference"
+    }
+  ],
+  "onePager": {
+    "title": "Transformer Self-attention",
+    "subtitle": "Transformer는 순환 상태 없이 병렬 어텐션으로 각 토큰이 다른 위치의 정보를 모으게 합니다.",
+    "oneLine": "Self-attention은 토큰을 섞는 연산이고, Transformer는 이를 피드포워드 블록·잔차 경로·정규화·위치 정보와 결합한 전체 구조입니다.",
+    "sections": [
+      {
+        "heading": "무엇을 계산하나",
+        "body": "Query-Key 유사도로 토큰 간 가중치를 만들고 Value를 섞습니다."
+      },
+      {
+        "heading": "무엇이 달라지나",
+        "body": "순환 상태 없이 먼 토큰 관계를 병렬 계산합니다."
+      },
+      {
+        "heading": "구현 점검",
+        "body": "길이에 따른 메모리, 마스크, 위치 정보를 확인합니다."
+      },
+      {
+        "heading": "주의할 점",
+        "body": "어텐션 가중치를 곧바로 설명이나 인과로 해석하지 않습니다."
+      },
+      {
+        "heading": "활용",
+        "body": "번역·언어 이해·생성 등 시퀀스 표현의 기본 연산입니다."
+      }
+    ],
+    "flow": [
+      "토큰 임베딩",
+      "Query / Key / Value",
+      "가중 정보 결합",
+      "새 토큰 표현"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/1706.03762"
+    ],
+    "status": "ready",
+    "pdfPath": "/knowledge/transformer-self-attention-one-pager.pdf",
+    "docxPath": "/knowledge/transformer-self-attention-one-pager.docx"
+  }
+}

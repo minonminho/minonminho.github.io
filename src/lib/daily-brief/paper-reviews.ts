@@ -10,10 +10,11 @@ export type PaperReview = {
   canonicalId: string;
   version: string;
   reviewStatus: "draft" | "published";
+  sourceType: "huggingface-daily" | "foundational-seed";
   publishedDate: string;
-  dailyDate: string;
-  dailyRank: number;
-  upvotesAtSelection: number;
+  dailyDate: string | null;
+  dailyRank: number | null;
+  upvotesAtSelection: number | null;
   authors: string;
   title: LocalizedText;
   dek: LocalizedText;
@@ -27,7 +28,7 @@ export type PaperReview = {
 };
 
 export type PaperReviewSummary = Pick<PaperReview,
-  "slug" | "canonicalId" | "reviewStatus" | "publishedDate" | "dailyDate" | "dailyRank" | "upvotesAtSelection" | "title" | "dek" | "hero"
+  "slug" | "canonicalId" | "reviewStatus" | "sourceType" | "publishedDate" | "dailyDate" | "dailyRank" | "upvotesAtSelection" | "title" | "dek" | "hero"
 >;
 
 const directory = path.join(process.cwd(), "content/paper-reviews");
@@ -51,13 +52,23 @@ function parseReview(markdown: string, file: string): PaperReview {
   if (metadata.reviewStatus !== "draft" && metadata.reviewStatus !== "published") {
     throw new Error(`${file} reviewStatus must be draft or published.`);
   }
+  const sourceType = metadata.sourceType ?? "huggingface-daily";
+  if (sourceType !== "huggingface-daily" && sourceType !== "foundational-seed") {
+    throw new Error(`${file} sourceType must be huggingface-daily or foundational-seed.`);
+  }
+  if (sourceType === "huggingface-daily" && (typeof metadata.dailyRank !== "number" || !Number.isInteger(metadata.dailyRank) || metadata.dailyRank < 1 || typeof metadata.dailyDate !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(metadata.dailyDate))) {
+    throw new Error(`${file} needs a dated Hugging Face rank.`);
+  }
+  if (sourceType === "foundational-seed" && (metadata.dailyRank !== null || metadata.dailyDate !== null || metadata.upvotesAtSelection !== null)) {
+    throw new Error(`${file} must not claim Hugging Face ranking for a foundational seed paper.`);
+  }
   if (!metadata.hero?.url || !metadata.hero?.license || !metadata.hero?.alt?.en || !metadata.hero?.alt?.ko) {
     throw new Error(`${file} needs a licensed hero image with bilingual alt text.`);
   }
   if (!/^[a-z0-9-]+$/.test(metadata.slug) || !/^\d{4}-\d{2}-\d{2}$/.test(metadata.publishedDate)) {
     throw new Error(`${file} has an invalid slug or publishedDate.`);
   }
-  return { ...metadata, body: { en: english, ko: korean } };
+  return { ...metadata, sourceType, body: { en: english, ko: korean } };
 }
 
 export const getPaperReviews = cache((): PaperReview[] => {
@@ -73,5 +84,9 @@ export function getPaperReview(slug: string) {
 }
 
 export function getPaperReviewSummaries(): PaperReviewSummary[] {
-  return getPaperReviews().map(({ body: _body, ...summary }) => summary);
+  return getPaperReviews().map((review) => {
+    const summary = { ...review };
+    Reflect.deleteProperty(summary, "body");
+    return summary;
+  });
 }

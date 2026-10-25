@@ -82,7 +82,7 @@ export function buildEvent(markdown, file = "paper-review.md") {
       title: metadata.title,
       authors: metadata.authors,
       url: paperUrl,
-      reviewUrl: `/daily-brief/highlight/review/${metadata.slug}/`,
+      reviewUrl: `/daily-brief/papers/${metadata.slug}/`,
       excerpt: metadata.dek,
       hero: metadata.hero,
     },

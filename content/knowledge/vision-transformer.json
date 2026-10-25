@@ -1,0 +1,198 @@
+{
+  "id": "concept:vision-transformer",
+  "slug": "vision-transformer",
+  "canonicalName": {
+    "en": "Vision Transformer",
+    "ko": "Vision Transformer (ViT)"
+  },
+  "dek": {
+    "en": "ViT turns image patches into a token sequence so a standard Transformer can process an image.",
+    "ko": "ViT는 이미지 패치를 토큰 시퀀스로 바꿔 표준 Transformer가 처리하게 합니다."
+  },
+  "domain": [
+    "Computer Vision",
+    "Transformers"
+  ],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": [
+    "arxiv:2010.11929"
+  ],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:2010.11929",
+      "title": {
+        "en": "An Image Is Worth 16×16 Words: Transformers for Image Recognition at Scale",
+        "ko": "이미지는 16×16 단어만큼 가치 있다: 대규모 이미지 인식을 위한 Transformer"
+      },
+      "reviewUrl": "/daily-brief/papers/vision-transformer/",
+      "url": "https://arxiv.org/abs/2010.11929v2"
+    }
+  ],
+  "relatedConcepts": [],
+  "visualAsset": {
+    "url": "https://ar5iv.labs.arxiv.org/html/2010.11929/assets/model_scheme.png",
+    "alt": {
+      "en": "ViT patch embedding, positional encoding, Transformer encoder, and classification token.",
+      "ko": "ViT의 패치 임베딩, 위치 인코딩, Transformer 인코더, 분류 토큰."
+    },
+    "caption": {
+      "en": "The input image is divided into patches and handled as a sequence of learned embeddings.",
+      "ko": "입력 이미지를 패치로 나누고 학습된 임베딩 시퀀스로 처리합니다."
+    },
+    "credit": "Original figure by the paper authors; linked from https://arxiv.org/abs/2010.11929.",
+    "license": "See the license and reuse terms on the linked source paper."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": {
+        "en": "Concept at a glance",
+        "ko": "개념 한눈에 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "ViT applies a standard Transformer encoder to embedded image patches rather than pixels in a grid-aware convolution stack.",
+          "ko": "ViT는 격자 합성곱 대신 임베딩된 이미지 패치에 표준 Transformer 인코더를 적용합니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": {
+        "en": "How it works",
+        "ko": "작동 방식"
+      },
+      "paragraphs": [
+        {
+          "en": "A linear projection maps flattened patches to tokens; learned positions are added, and a classification token gathers image-level information.",
+          "ko": "선형 투영이 펼친 패치를 토큰으로 바꾸고 학습 위치 정보를 더하며, 분류 토큰이 이미지 전체 정보를 모읍니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": {
+        "en": "Read the figure",
+        "ko": "그림 읽기"
+      },
+      "paragraphs": [
+        {
+          "en": "The model scheme shows the image-to-patch sequence and the standard Transformer encoder used for classification.",
+          "ko": "구조 그림은 이미지를 패치 시퀀스로 바꾸고 표준 Transformer 인코더로 분류하는 과정을 보여줍니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": {
+        "en": "Compare the idea",
+        "ko": "비교해서 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "CNNs encode local connectivity and translation structure by design; ViT learns these regularities from data and can scale well with large pre-training.",
+          "ko": "CNN은 지역 연결과 이동 구조를 설계에 담지만, ViT는 데이터에서 이를 배우며 대규모 사전 학습에서 잘 확장될 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": {
+        "en": "Implementation notes",
+        "ko": "구현 점검"
+      },
+      "paragraphs": [
+        {
+          "en": "Patch size sets token count and attention cost. Match pre-training scale, resolution, and fine-tuning data to the deployment task.",
+          "ko": "패치 크기가 토큰 수와 어텐션 비용을 결정합니다. 배포 과제에 사전 학습 규모·해상도·미세 조정 데이터를 맞춥니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": {
+        "en": "Limits",
+        "ko": "한계"
+      },
+      "paragraphs": [
+        {
+          "en": "The paper’s strongest results rely on large-scale pre-training. Smaller-data settings can favor convolutional inductive biases.",
+          "ko": "논문의 강한 결과는 대규모 사전 학습에 의존합니다. 데이터가 적으면 합성곱의 귀납적 편향이 유리할 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": {
+        "en": "Takeaway",
+        "ko": "핵심 정리"
+      },
+      "paragraphs": [
+        {
+          "en": "ViT shows that image recognition can use the Transformer sequence interface, with data scale compensating for weaker built-in visual biases.",
+          "ko": "ViT는 이미지 인식에도 Transformer 시퀀스 인터페이스를 쓸 수 있으며, 데이터 규모가 약한 시각 편향을 보완할 수 있음을 보입니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": {
+        "en": "Original paper",
+        "ko": "논문 원문"
+      },
+      "url": "https://arxiv.org/abs/2010.11929",
+      "publisher": "arXiv",
+      "type": "research-paper"
+    },
+    {
+      "label": {
+        "en": "Google Research ViT code",
+        "ko": "Google Research ViT 코드"
+      },
+      "url": "https://github.com/google-research/vision_transformer",
+      "publisher": "github.com",
+      "type": "implementation-or-reference"
+    }
+  ],
+  "onePager": {
+    "title": "Vision Transformer (ViT)",
+    "subtitle": "ViT는 이미지 패치를 토큰 시퀀스로 바꿔 표준 Transformer가 처리하게 합니다.",
+    "oneLine": "ViT는 이미지 인식에도 Transformer 시퀀스 인터페이스를 쓸 수 있으며, 데이터 규모가 약한 시각 편향을 보완할 수 있음을 보입니다.",
+    "sections": [
+      {
+        "heading": "입력",
+        "body": "이미지를 같은 크기의 패치로 나눕니다."
+      },
+      {
+        "heading": "표현",
+        "body": "각 패치를 임베딩하고 위치 정보를 더합니다."
+      },
+      {
+        "heading": "처리",
+        "body": "토큰 시퀀스를 Transformer 인코더에 넣습니다."
+      },
+      {
+        "heading": "비용",
+        "body": "패치 크기가 시퀀스 길이와 어텐션 비용을 바꿉니다."
+      },
+      {
+        "heading": "주의할 점",
+        "body": "작은 데이터에서는 사전 학습 규모가 특히 중요합니다."
+      }
+    ],
+    "flow": [
+      "이미지",
+      "패치 분할",
+      "위치 포함 토큰",
+      "Transformer 분류"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/2010.11929"
+    ],
+    "status": "ready",
+    "pdfPath": "/knowledge/vision-transformer-one-pager.pdf",
+    "docxPath": "/knowledge/vision-transformer-one-pager.docx"
+  }
+}

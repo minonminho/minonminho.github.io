@@ -12,6 +12,7 @@
     "paper:validate": "node scripts/paper-reviews/validate.mjs",
     "paper:test": "node --test scripts/paper-reviews/history.test.mjs",
     "knowledge:process": "node scripts/knowledge/process-paper.mjs",
+    "knowledge:curate-foundational": "node scripts/knowledge/curate-foundational.mjs && python scripts/knowledge/generate-one-pager.py",
     "knowledge:validate": "node scripts/knowledge/validate.mjs",
     "knowledge:test": "node --test scripts/knowledge/*.test.mjs",
     "knowledge:one-pager": "python scripts/knowledge/generate-one-pager.py",

@@ -15,10 +15,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const review = getPaperReview((await params).slug);
   if (!review) return {};
-  return { title: `${review.title.ko} · Paper Review`, description: review.dek.ko };
+  return { title: `${review.title.ko} · Daily Paper Brief`, description: review.dek.ko };
 }
 
-export default async function PaperReviewPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function DailyPaperBriefPage({ params }: { params: Promise<{ slug: string }> }) {
   const review = getPaperReview((await params).slug);
   if (!review) notFound();
   const knowledgeLinks = getKnowledgeLinksForPaper(review.canonicalId);
