@@ -14,7 +14,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ date: string }> }) {
   const brief = getBrief((await params).date);
   if (!brief) return {};
-  return { title: `${brief.title.ko} · Daily Brief`, description: brief.dek.ko };
+  return { title: `${brief.title.en} · Daily Brief`, description: brief.dek.en };
 }
 
 export default async function BriefPage({ params }: { params: Promise<{ date: string }> }) {
