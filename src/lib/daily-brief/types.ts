@@ -32,6 +32,7 @@ export type Brief = {
   schemaVersion: 2;
   date: string;
   publishedAt: string;
+  updatedAt: string;
   title: LocalizedText;
   dek: LocalizedText;
   focus: LocalizedText;
@@ -48,7 +49,7 @@ export type Brief = {
   sources: { id: string; title: LocalizedText; publisher: string; url: string; publishedDate: string | null }[];
 };
 
-export type BriefSummary = Pick<Brief, "date" | "title" | "dek" | "topics"> & { readingMinutes: number };
+export type BriefSummary = Pick<Brief, "date" | "updatedAt" | "title" | "dek" | "topics"> & { readingMinutes: number };
 
 export function formatBriefDate(date: string, long = false, language: Language = "en") {
   return new Intl.DateTimeFormat(language === "ko" ? "ko-KR" : "en-US", {

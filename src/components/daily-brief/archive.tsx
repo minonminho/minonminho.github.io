@@ -36,7 +36,7 @@ export function BriefArchive({ issues }: { issues: BriefSummary[] }) {
       <p className="mt-6 text-xs text-text-secondary" role="status">{copy(`${filtered.length} ${filtered.length === 1 ? "edition" : "editions"}`, `브리핑 ${filtered.length}개`)}</p>
       <div className="mt-4 border-t border-border-default">
         {filtered.map((issue) => <Link key={issue.date} href={`/daily-brief/${issue.date}/`} className="group grid gap-4 border-b border-border-subtle py-7 transition-colors hover:bg-surface-01 focus-visible:outline-2 focus-visible:outline-signal-ice md:grid-cols-[160px_minmax(0,1fr)_40px] md:gap-8">
-          <div className="text-xs leading-6 text-text-secondary"><time dateTime={issue.date} className="font-mono">{formatBriefDate(issue.date, false, language)}</time><p>{copy(`${issue.readingMinutes} min read`, `약 ${issue.readingMinutes}분 읽기`)}</p></div>
+          <div className="text-xs leading-6 text-text-secondary"><time dateTime={issue.date} className="font-mono">{formatBriefDate(issue.date, false, language)}</time><p>{copy(`${issue.readingMinutes} min read`, `약 ${issue.readingMinutes}분 읽기`)}</p><p>{copy("Updated", "최종 수정")} <time dateTime={issue.updatedAt}>{formatBriefDate(issue.updatedAt, false, language)}</time></p></div>
           <div><h3 className="text-headline group-hover:text-signal-ice">{text(issue.title)}</h3><p className="mt-3 max-w-3xl text-body text-text-secondary">{text(issue.dek)}</p><p className="mt-4 text-xs text-signal-ice">{issue.topics.map(topicLabel).join(" / ")}</p></div>
           <ArrowUpRight className="size-5 text-text-secondary md:justify-self-end" aria-hidden="true" />
         </Link>)}
