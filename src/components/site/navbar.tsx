@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FlaskConical, Menu, X, FileDown, BookOpen } from "lucide-react";
+import { Menu, X, FileDown, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { nav, profile } from "@/lib/data";
 
@@ -14,7 +14,7 @@ const navLinks = [
   { href: "/#education", label: nav.education },
 ];
 
-const labLinkClassName =
+const iconNavLinkClassName =
   "inline-flex min-h-10 items-center gap-2 border-b border-transparent text-sm font-medium text-text-secondary transition-colors duration-150 hover:border-signal-ice hover:text-text-primary focus-visible:border-signal-ice focus-visible:outline-none";
 
 const navLinkClassName =
@@ -23,7 +23,6 @@ const navLinkClassName =
 export function Navbar({ showCvDownload = true }: { showCvDownload?: boolean }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const labActive = pathname.startsWith("/lab");
   const briefActive = pathname.startsWith("/daily-brief") || pathname.startsWith("/knowledge");
 
   return (
@@ -51,17 +50,9 @@ export function Navbar({ showCvDownload = true }: { showCvDownload?: boolean }) 
         </div>
 
         <div className="hidden items-center gap-6 xl:flex">
-          <Link href="/daily-brief/" className={`${labLinkClassName} ${briefActive ? "border-signal-ice text-text-primary" : ""}`} aria-current={briefActive ? "page" : undefined}>
+          <Link href="/daily-brief/" className={`${iconNavLinkClassName} ${briefActive ? "border-signal-ice text-text-primary" : ""}`} aria-current={briefActive ? "page" : undefined}>
             <BookOpen className="size-4" aria-hidden="true" />
             Daily Brief
-          </Link>
-          <Link
-            href="/lab"
-            className={`${labLinkClassName} ${labActive ? "border-signal-ice text-text-primary" : ""}`}
-            aria-current={labActive ? "page" : undefined}
-          >
-            <FlaskConical className="size-4" aria-hidden="true" />
-            Lab
           </Link>
           {navLinks.map((link) => (
             <Link
@@ -106,15 +97,6 @@ export function Navbar({ showCvDownload = true }: { showCvDownload?: boolean }) 
             <Link href="/daily-brief/" onClick={() => setOpen(false)} className={`${navLinkClassName} ${briefActive ? "border-signal-ice text-text-primary" : ""} w-fit gap-2 py-3`} aria-current={briefActive ? "page" : undefined}>
               <BookOpen className="size-4" aria-hidden="true" />
               Daily Brief
-            </Link>
-            <Link
-              href="/lab"
-              onClick={() => setOpen(false)}
-              className={`${navLinkClassName} ${labActive ? "border-signal-ice text-text-primary" : ""} w-fit gap-2 py-3`}
-              aria-current={labActive ? "page" : undefined}
-            >
-              <FlaskConical className="size-4" aria-hidden="true" />
-              Lab
             </Link>
             {navLinks.map((link) => (
               <Link
