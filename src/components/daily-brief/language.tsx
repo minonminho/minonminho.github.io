@@ -4,9 +4,9 @@ import { useSyncExternalStore } from "react";
 import type { Language, LocalizedText } from "@/lib/daily-brief/types";
 import { DailyBriefWorkspaceNav } from "@/components/daily-brief/workspace-nav";
 
-const storageKey = "daily-brief-language";
+const storageKey = "daily-brief-language-v2";
 const changeEvent = "daily-brief-language-change";
-let memoryLanguage: Language = "ko";
+let memoryLanguage: Language = "en";
 
 function snapshot(): Language {
   try {
@@ -26,7 +26,7 @@ function subscribe(notify: () => void) {
 }
 
 export function useBriefLanguage() {
-  const language = useSyncExternalStore(subscribe, snapshot, () => "ko" as Language);
+  const language = useSyncExternalStore(subscribe, snapshot, () => "en" as Language);
   return {
     language,
     text: (value: LocalizedText) => value[language],
