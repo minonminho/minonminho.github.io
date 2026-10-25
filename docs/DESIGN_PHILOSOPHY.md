@@ -36,7 +36,7 @@ Technology should feel advanced without looking like science fiction.
 
 The desired impression is:
 
-> Dark. Cold. Sharp. Precise. Quiet. Future-facing.
+> Calm. Clear. Sharp. Precise. Quiet. Future-facing.
 
 ---
 
@@ -76,7 +76,7 @@ It means intentional absence.
 
 Whitespace is an active design element.
 
-Dark space is an active design element.
+Neutral surfaces and typography are active design elements.
 
 Silence is an active design element.
 
@@ -103,7 +103,7 @@ Allow:
 - emptiness
 - asymmetry
 - pauses
-- darkness
+- quiet tonal space
 - isolated objects
 - controlled rhythm
 
@@ -113,49 +113,42 @@ A small object surrounded by a large empty area may carry more visual weight tha
 
 ---
 
-## 05. Darkness
+## 05. Editorial Neutrality
 
-Darkness is the natural environment of the system.
+Silent Precision works equally in light and dark environments.
 
-Dark does not mean:
+Light mode uses pale sage, warm ivory paper, and neutral ink. Dark mode uses
+layered green-gray surfaces and pale text. Neither mode relies on near-black surfaces or harsh glare.
 
-- pure black everywhere
-- gamer aesthetic
-- cyberpunk
-- neon
-- glowing UI
+Keep the canvas continuous. Use sage, ivory, inset surfaces, and a dark functional
+panel to create depth. Distinguish sections with whitespace, thin rules, small
+index labels, and a clear relationship between titles and prose.
 
-Darkness should have layers.
+Paco Coursey (https://paco.me/) and Emil Kowalski (https://emilkowal.ski/) are the
+supporting visual references for editorial restraint. Their personal sites were
+reviewed on 2026-10-25. Adapt the principles to this portfolio rather than copying
+their identity, content, or source.
 
-Use subtle differences between:
-
-- void
-- surface
-- graphite
-- steel
-- text
-
-The result should resemble a physical space under controlled lighting.
+The operating system/browser preference selects the mode automatically. Both modes
+preserve the same hierarchy, whitespace, thin lines, and information architecture.
+Surface layers must remain distinct without heavy shadows or decoration.
 
 ---
 
-## 06. Light
+## 06. Signals & Contrast
 
-Light should be scarce.
+The user-supplied Japan air alert site
+(https://ttang-air-alert.vividfox6.chatgpt.site/) is the current reference for color
+depth and selection-linked interaction. Sage canvas, ivory panels, a dark feature
+surface, lime actions, and coral selected controls form a coherent set of layers.
 
-Because light is scarce, it becomes meaningful.
+Color communicates grouping, depth, and meaningful distinctions in both modes.
 
-White elements should therefore be used intentionally.
+Ice, Orbit, Mint, and Dust become deeper ink shades on paper and muted pastel shades
+on charcoal. Preserve their semantic roles rather than identical hex values.
 
-Pastel colors behave like signals appearing within darkness.
-
-Think of:
-
-> distant light in space
-
-rather than:
-
-> colorful interface
+Body text, supporting text, links, focus states, and diagrams must stay readable on
+every surface they use. A quiet interface must still be easy to read.
 
 ---
 
@@ -173,7 +166,7 @@ Do not decorate interfaces with:
 
 Instead borrow the qualities of space:
 
-- darkness
+- quiet tonal space
 - scale
 - distance
 - silence
@@ -265,9 +258,12 @@ Avoid excessively friendly or playful geometry.
 
 Color is information.
 
-Most interfaces should remain nearly monochromatic.
+Keep body text and section titles neutral. Sage panels group related controls;
+lime emphasizes an action on a dark surface; coral identifies the active choice.
+Legacy blue, lavender, mint, and rose signals remain available for metadata and data.
+Avoid alternating full-width colored sections and decorative gradients.
 
-Pastel colors may appear as signals.
+Theme-adapted blue, lavender, mint, and rose may appear as signals.
 
 Examples:
 
@@ -292,13 +288,17 @@ Color should indicate:
 - change
 - emphasis
 
-Never add color merely because an interface feels empty.
+Let whitespace and typography carry the composition. Preserve clear contrast for sustained reading.
 
 ---
 
 ## 12. Typography
 
-Typography should feel architectural.
+Typography should feel architectural and remain comfortable for sustained reading.
+
+Use Pretendard Variable for English and Korean prose, 16px body text with a 1.8 line
+height, and Geist Mono for technical metadata. Preserve reading width and paragraph
+spacing; do not use tiny metadata styling for long-form content.
 
 Text should establish:
 
@@ -348,6 +348,11 @@ Structured.
 Technical.
 
 Information should progressively reveal itself when useful.
+
+Practice selection changes the explanation and related destination together.
+Skill search and category controls help visitors find a specific capability.
+Native career/project disclosures reveal detail while preserving a readable overview.
+Each interaction must change useful information; do not add controls as decoration.
 
 This creates the feeling of looking inside a mechanical system.
 

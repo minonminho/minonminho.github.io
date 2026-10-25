@@ -16,6 +16,7 @@ export const nav = {
   skills: "Skills",
   experience: "Experience",
   education: "Education",
+  sideProjects: "Side Project",
   getInTouch: "Get in touch",
 };
 
@@ -25,6 +26,7 @@ export const sectionTitles = {
   workHistory: "Work History",
   projectExperience: "Project Experience",
   education: "Education",
+  sideProjects: "Side Project",
 };
 
 export type SkillGroup = {
@@ -231,16 +233,6 @@ export type Project = {
 };
 
 export const projects: readonly Project[] = [
-  {
-    period: "AX LAB",
-    title: "Talent Radar",
-    subtitle: "AI-powered Talent Sourcing & Intelligence",
-    paragraphs: [
-      "A lightweight talent intelligence prototype that combines deterministic filtering, public professional signals, and selective AI reasoning to identify high-signal candidates while minimizing token usage.",
-    ],
-    href: "/lab/talent-radar",
-    ctaLabel: "Launch Demo",
-  },
   {
     period: "2026.03 – Present",
     title: "AX Task Force (AI Transformation)",

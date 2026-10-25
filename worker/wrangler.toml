@@ -1,6 +1,0 @@
-name = "talent-radar-api"
-main = "src/index.ts"
-compatibility_date = "2026-09-05"
-
-[vars]
-ALLOWED_ORIGINS = "https://minonminho.github.io,http://localhost:3000"

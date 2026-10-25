@@ -1,11 +1,20 @@
+export type SectionAccent = "ice" | "orbit" | "mint" | "dust";
+
 type SectionHeadingProps = {
+  id: string;
   title: string;
+  index: string;
+  accent: SectionAccent;
 };
 
-export function SectionHeading({ title }: SectionHeadingProps) {
+export function SectionHeading({ id, title, index, accent }: SectionHeadingProps) {
   return (
-    <div className="mb-10 border-b-2 border-border-strong pb-4 md:mb-12">
-      <h2 className="text-display-lg max-w-3xl">{title}</h2>
+    <div className="profile-section-heading" data-accent={accent}>
+      <p className="text-caption mb-3 flex items-center gap-2.5">
+        <span className="section-marker" aria-hidden="true" />
+        <span aria-hidden="true">{index}</span>
+      </p>
+      <h2 id={id} className="text-base font-medium leading-6 text-text-primary">{title}</h2>
     </div>
   );
 }

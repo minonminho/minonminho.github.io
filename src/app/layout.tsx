@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { Geist_Mono } from "next/font/google";
+import { VisitorAnalytics } from "@/components/analytics/visitor-analytics";
 import "./globals.css";
 
-// DESIGN-figma.md 폰트 대체: figmaSans → Geist, figmaMono → Geist Mono
-// Geist는 가변 폰트라 320/340/480/540 같은 세밀한 웨이트를 그대로 쓸 수 있다.
-const geistSans = Geist({
-  variable: "--font-sans",
-  subsets: ["latin"],
+const pretendard = localFont({
+  src: "./fonts/PretendardVariable.woff2",
+  variable: "--font-pretendard",
+  weight: "100 900",
+  display: "swap",
+  fallback: ["Arial", "Apple SD Gothic Neo", "Malgun Gothic", "sans-serif"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-mono",
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -24,10 +27,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${pretendard.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body id="top" className="min-h-screen flex flex-col bg-background">
         {children}
+        <VisitorAnalytics />
       </body>
     </html>
   );
