@@ -3,16 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, FileDown, BookOpen } from "lucide-react";
+import { Menu, X, FileDown, BookOpen, BrainCircuit, PanelsTopLeft, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { nav, profile } from "@/lib/data";
-
-const navLinks = [
-  { href: "/#about", label: nav.about },
-  { href: "/#skills", label: nav.skills },
-  { href: "/#experience", label: nav.experience },
-  { href: "/#education", label: nav.education },
-];
 
 const iconNavLinkClassName =
   "inline-flex min-h-10 items-center gap-2 border-b border-transparent text-sm font-medium text-text-secondary transition-colors duration-150 hover:border-signal-ice hover:text-text-primary focus-visible:border-signal-ice focus-visible:outline-none";
@@ -20,10 +13,22 @@ const iconNavLinkClassName =
 const navLinkClassName =
   "inline-flex min-h-10 items-center border-b border-transparent text-sm font-medium text-text-secondary transition-colors duration-150 hover:border-signal-ice hover:text-text-primary focus-visible:border-signal-ice focus-visible:outline-none";
 
+const utilityButtonClassName = "text-xs text-text-tertiary";
+
 export function Navbar({ showCvDownload = true }: { showCvDownload?: boolean }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const briefActive = pathname.startsWith("/daily-brief") || pathname.startsWith("/knowledge");
+  const briefActive = pathname.startsWith("/daily-brief");
+  const knowledgeActive = pathname.startsWith("/knowledge");
+  const projectsActive = pathname.startsWith("/side-projects");
+  const profileActive = pathname === "/";
+
+  const primaryLinks = [
+    { href: "/daily-brief/", label: "Daily Brief", icon: BookOpen, active: briefActive },
+    { href: "/knowledge/", label: "Knowledge", icon: BrainCircuit, active: knowledgeActive },
+    { href: "/side-projects/", label: "Side Projects", icon: PanelsTopLeft, active: projectsActive },
+    { href: "/#about", label: "Profile", icon: UserRound, active: profileActive },
+  ];
 
   return (
     <header className="sticky top-0 z-50 border-b-2 border-border-strong bg-background">
@@ -35,34 +40,23 @@ export function Navbar({ showCvDownload = true }: { showCvDownload?: boolean }) 
           >
             MINHO LEE
           </Link>
-          {showCvDownload && <span className="hidden h-4 w-px bg-border-default sm:block" aria-hidden="true" />}
-          {/* 정적 호스팅이라 서버 렌더링 PDF 불가 → 네이티브 인쇄로 CV(PDF) 저장 */}
-          {showCvDownload && <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="hidden text-xs text-text-tertiary sm:inline-flex"
-            onClick={() => window.print()}
-          >
-            <FileDown className="size-3.5" aria-hidden="true" />
-            CV Download
-          </Button>}
         </div>
 
-        <div className="hidden items-center gap-6 xl:flex">
-          <Link href="/daily-brief/" className={`${iconNavLinkClassName} ${briefActive ? "border-signal-ice text-text-primary" : ""}`} aria-current={briefActive ? "page" : undefined}>
-            <BookOpen className="size-4" aria-hidden="true" />
-            Daily Brief
-          </Link>
-          {navLinks.map((link) => (
+        <div className="hidden items-center gap-5 xl:flex">
+          {primaryLinks.map(({ href, label, icon: Icon, active }) => (
             <Link
-              key={link.href}
-              href={link.href}
-              className={navLinkClassName}
+              key={href}
+              href={href}
+              className={`${iconNavLinkClassName} ${active ? "border-signal-ice text-text-primary" : ""}`}
+              aria-current={active ? "page" : undefined}
             >
-              {link.label}
+              <Icon className="size-4" aria-hidden="true" />
+              {label}
             </Link>
           ))}
+          {showCvDownload && <Button type="button" variant="ghost" size="sm" className={utilityButtonClassName} onClick={() => window.print()}>
+            <FileDown className="size-3.5" aria-hidden="true" />CV
+          </Button>}
           <Button asChild size="sm">
             <a href={`mailto:${profile.email}`}>{nav.getInTouch}</a>
           </Button>
@@ -84,30 +78,21 @@ export function Navbar({ showCvDownload = true }: { showCvDownload?: boolean }) 
       {open && (
         <div id="mobile-navigation" className="border-t border-border-subtle bg-surface-01 xl:hidden">
           <div className="site-shell flex flex-col py-4">
-            {showCvDownload && <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="mb-3 w-fit text-xs text-text-tertiary sm:hidden"
-              onClick={() => window.print()}
-            >
-              <FileDown className="size-3.5" aria-hidden="true" />
-              CV Download
-            </Button>}
-            <Link href="/daily-brief/" onClick={() => setOpen(false)} className={`${navLinkClassName} ${briefActive ? "border-signal-ice text-text-primary" : ""} w-fit gap-2 py-3`} aria-current={briefActive ? "page" : undefined}>
-              <BookOpen className="size-4" aria-hidden="true" />
-              Daily Brief
-            </Link>
-            {navLinks.map((link) => (
+            {primaryLinks.map(({ href, label, icon: Icon, active }) => (
               <Link
-                key={link.href}
-                href={link.href}
+                key={href}
+                href={href}
                 onClick={() => setOpen(false)}
-                className={`${navLinkClassName} w-fit py-3`}
+                className={`${navLinkClassName} w-fit gap-2 py-3 ${active ? "border-signal-ice text-text-primary" : ""}`}
+                aria-current={active ? "page" : undefined}
               >
-                {link.label}
+                <Icon className="size-4" aria-hidden="true" />
+                {label}
               </Link>
             ))}
+            {showCvDownload && <Button type="button" variant="ghost" size="sm" className="mt-2 w-fit text-xs text-text-tertiary" onClick={() => { setOpen(false); window.print(); }}>
+              <FileDown className="size-3.5" aria-hidden="true" />CV
+            </Button>}
             <Button asChild size="sm" className="mt-4 w-full">
               <a href={`mailto:${profile.email}`} onClick={() => setOpen(false)}>
                 {nav.getInTouch}
