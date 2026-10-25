@@ -10,8 +10,10 @@ export type PaperReview = {
   canonicalId: string;
   version: string;
   reviewStatus: "draft" | "published";
-  sourceType: "huggingface-daily" | "foundational-seed";
+  sourceType: "huggingface-daily" | "huggingface-weekly" | "huggingface-monthly" | "foundational-seed";
   publishedDate: string;
+  periodLabel: string | null;
+  periodRank: number | null;
   dailyDate: string | null;
   dailyRank: number | null;
   upvotesAtSelection: number | null;
@@ -28,7 +30,7 @@ export type PaperReview = {
 };
 
 export type PaperReviewSummary = Pick<PaperReview,
-  "slug" | "canonicalId" | "reviewStatus" | "sourceType" | "publishedDate" | "dailyDate" | "dailyRank" | "upvotesAtSelection" | "title" | "dek" | "hero"
+  "slug" | "canonicalId" | "reviewStatus" | "sourceType" | "publishedDate" | "periodLabel" | "periodRank" | "dailyDate" | "dailyRank" | "upvotesAtSelection" | "title" | "dek" | "hero"
 >;
 
 const directory = path.join(process.cwd(), "content/paper-reviews");
@@ -53,13 +55,16 @@ function parseReview(markdown: string, file: string): PaperReview {
     throw new Error(`${file} reviewStatus must be draft or published.`);
   }
   const sourceType = metadata.sourceType ?? "huggingface-daily";
-  if (sourceType !== "huggingface-daily" && sourceType !== "foundational-seed") {
-    throw new Error(`${file} sourceType must be huggingface-daily or foundational-seed.`);
+  if (!["huggingface-daily", "huggingface-weekly", "huggingface-monthly", "foundational-seed"].includes(sourceType)) {
+    throw new Error(`${file} sourceType must identify a Hugging Face cadence or foundational seed.`);
   }
-  if (sourceType === "huggingface-daily" && (typeof metadata.dailyRank !== "number" || !Number.isInteger(metadata.dailyRank) || metadata.dailyRank < 1 || typeof metadata.dailyDate !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(metadata.dailyDate))) {
-    throw new Error(`${file} needs a dated Hugging Face rank.`);
+  const isHuggingFace = sourceType.startsWith("huggingface-");
+  const periodRank = metadata.periodRank ?? metadata.dailyRank;
+  const periodLabel = metadata.periodLabel ?? metadata.dailyDate;
+  if (isHuggingFace && (typeof periodRank !== "number" || !Number.isInteger(periodRank) || periodRank < 1 || typeof periodLabel !== "string" || !periodLabel)) {
+    throw new Error(`${file} needs a Hugging Face period and rank.`);
   }
-  if (sourceType === "foundational-seed" && (metadata.dailyRank !== null || metadata.dailyDate !== null || metadata.upvotesAtSelection !== null)) {
+  if (sourceType === "foundational-seed" && (metadata.dailyRank !== null || metadata.dailyDate !== null || metadata.upvotesAtSelection !== null || (metadata.periodRank ?? null) !== null || (metadata.periodLabel ?? null) !== null)) {
     throw new Error(`${file} must not claim Hugging Face ranking for a foundational seed paper.`);
   }
   if (!metadata.hero?.url || !metadata.hero?.license || !metadata.hero?.alt?.en || !metadata.hero?.alt?.ko) {
@@ -68,7 +73,13 @@ function parseReview(markdown: string, file: string): PaperReview {
   if (!/^[a-z0-9-]+$/.test(metadata.slug) || !/^\d{4}-\d{2}-\d{2}$/.test(metadata.publishedDate)) {
     throw new Error(`${file} has an invalid slug or publishedDate.`);
   }
-  return { ...metadata, sourceType, body: { en: english, ko: korean } };
+  return {
+    ...metadata,
+    sourceType,
+    periodLabel: periodLabel ?? null,
+    periodRank: periodRank ?? null,
+    body: { en: english, ko: korean },
+  };
 }
 
 export const getPaperReviews = cache((): PaperReview[] => {

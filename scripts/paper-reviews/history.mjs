@@ -33,12 +33,12 @@ export function readPaperHistory(root = process.cwd()) {
   for (const file of readdirSync(legacyDirectory).filter((name) => /^\d{4}-\d{2}-\d{2}\.json$/.test(name))) {
     const record = JSON.parse(readFileSync(path.join(legacyDirectory, file), "utf8"));
     if (!record.paperId) throw new Error(`${file} is missing paperId.`);
-    history.push({ paperId: record.paperId, source: `legacy highlight ${file}` });
+    history.push({ paperId: record.paperId, source: `legacy highlight ${file}`, kind: "highlight" });
   }
 
   for (const file of readdirSync(reviewDirectory).filter((name) => name.endsWith(".md"))) {
     const metadata = parseReviewMetadata(readFileSync(path.join(reviewDirectory, file), "utf8"));
-    history.push({ paperId: metadata.canonicalId, source: `paper review ${file}` });
+    history.push({ paperId: metadata.canonicalId, source: `paper review ${file}`, kind: "review" });
   }
 
   return history;
@@ -49,10 +49,14 @@ export function assertNoDuplicatePaperIds(entries) {
   for (const entry of entries) {
     const normalized = normalizePaperId(entry.paperId);
     if (!normalized) throw new Error(`Missing canonical paper ID in ${entry.source ?? "paper history"}.`);
-    const previous = owners.get(normalized);
+    // A paper can have both a concise brief and a separate Highlight article.
+    // Deduplicate each collection independently so neither can repeat itself.
+    const collection = entry.kind ?? "shared";
+    const key = `${collection}:${normalized}`;
+    const previous = owners.get(key);
     if (previous) {
       throw new Error(`Paper ${normalized} appears twice: ${previous} and ${entry.source ?? "paper history"}.`);
     }
-    owners.set(normalized, entry.source ?? "paper history");
+    owners.set(key, entry.source ?? "paper history");
   }
 }

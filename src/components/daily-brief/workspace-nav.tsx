@@ -14,8 +14,8 @@ const menus: { id: string; label: Copy; items: Item[] }[] = [
     label: { en: "Papers", ko: "논문" },
     items: [
       { label: { en: "Daily", ko: "Daily" }, href: "/daily-brief/papers/" },
-      { label: { en: "Weekly", ko: "Weekly" }, planned: true },
-      { label: { en: "Monthly", ko: "Monthly" }, planned: true },
+      { label: { en: "Weekly", ko: "Weekly" }, href: "/daily-brief/papers/#weekly-papers-heading" },
+      { label: { en: "Monthly", ko: "Monthly" }, href: "/daily-brief/papers/#monthly-papers-heading" },
       { label: { en: "Highlighted", ko: "Highlighted" }, href: "/daily-brief/highlight/" },
     ],
   },

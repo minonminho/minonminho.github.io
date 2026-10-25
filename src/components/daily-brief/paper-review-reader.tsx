@@ -170,6 +170,10 @@ export function PaperReviewReader({ review, knowledgeLinks, apiBaseUrl = "" }: {
   const allKnowledgeLinks = [...new Map([...knowledgeLinks, ...remoteLinks].map((item) => [item.id, item])).values()];
   const { language, text, copy } = useBriefLanguage();
   const body = review.body[language];
+  const isHuggingFace = review.sourceType.startsWith("huggingface-");
+  const cadence = review.sourceType === "huggingface-weekly" ? copy("WEEKLY PAPER", "주간 논문") : review.sourceType === "huggingface-monthly" ? copy("MONTHLY PAPER", "월간 논문") : copy("DAILY PAPER", "일간 논문");
+  const period = review.periodLabel ?? review.dailyDate;
+  const rank = review.periodRank ?? review.dailyRank;
   const headings = [...body.matchAll(/^##\s+(.+)$/gm)].map((match) => match[1]);
 
   return <div lang={language} className={`site-shell pb-20 pt-10 md:pb-28 md:pt-14 ${language === "ko" ? "break-keep" : ""}`}>
@@ -177,10 +181,10 @@ export function PaperReviewReader({ review, knowledgeLinks, apiBaseUrl = "" }: {
 
     <header className="mt-8 border-b-2 border-border-strong pb-9 md:mt-12 md:pb-12">
       <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] tracking-wide text-text-secondary">
-        <span className="inline-flex items-center gap-2 text-signal-mint"><StarIcon />{review.sourceType === "foundational-seed" ? copy("FOUNDATIONAL SEED PAPER", "기반 Seed 논문") : copy("DAILY PAPER / FIRST READ", "DAILY PAPER / 먼저 읽기")}</span>
-        {review.sourceType === "huggingface-daily" && <>
-          <span aria-hidden="true">/</span><span>HF #{review.dailyRank}</span>
-          {review.dailyDate && <><span aria-hidden="true">/</span><time dateTime={review.dailyDate}>{formatBriefDate(review.dailyDate, false, language)}</time></>}
+        <span className="inline-flex items-center gap-2 text-signal-mint"><StarIcon />{isHuggingFace ? `${cadence} / ${copy("FIRST READ", "먼저 읽기")}` : copy("FOUNDATIONAL SEED PAPER", "기반 Seed 논문")}</span>
+        {isHuggingFace && <>
+          <span aria-hidden="true">/</span><span>HF #{rank}</span>
+          {period && <><span aria-hidden="true">/</span><time dateTime={period}>{review.sourceType === "huggingface-daily" ? formatBriefDate(period, false, language) : period}</time></>}
           {review.upvotesAtSelection !== null && <><span aria-hidden="true">/</span><span>{review.upvotesAtSelection} {copy("votes at selection", "선정 당시 추천")}</span></>}
         </>}
         {review.reviewStatus === "draft" && <span className="border border-border-default px-2 py-1 text-text-secondary">{copy("LOCAL TEST DRAFT", "로컬 테스트 초안")}</span>}
