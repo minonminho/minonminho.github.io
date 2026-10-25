@@ -22,7 +22,8 @@ HIGHLIGHTS = ROOT / "content/daily-brief/highlights"
 HF_API = "https://huggingface.co/api/daily_papers"
 HF_PAGE = "https://huggingface.co/papers/{paper_id}"
 ARXIV_PAGE = "https://arxiv.org/abs/{paper_id}"
-TRANSLATION_MODEL = "Helsinki-NLP/opus-mt-en-ko"
+TRANSLATION_MODEL = "Helsinki-NLP/opus-mt-tc-big-en-ko"
+TRANSLATION_REVISION = "ae8606b7b29a495f31ce679cee2007f536a3a5ce"
 KOREA = ZoneInfo("Asia/Seoul")
 
 
@@ -231,12 +232,12 @@ class Translator:
     def __init__(self) -> None:
         try:
             import torch
-            from transformers import MarianMTModel, MarianTokenizer
+            from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
         except ImportError as error:
             raise RuntimeError("Install torch, transformers, and sentencepiece to translate paper briefs.") from error
         torch.set_num_threads(2)
-        self.tokenizer = MarianTokenizer.from_pretrained(TRANSLATION_MODEL)
-        self.model = MarianMTModel.from_pretrained(TRANSLATION_MODEL)
+        self.tokenizer = AutoTokenizer.from_pretrained(TRANSLATION_MODEL, revision=TRANSLATION_REVISION)
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(TRANSLATION_MODEL, revision=TRANSLATION_REVISION)
         self.model.eval()
         self.cache: dict[str, str] = {}
 
