@@ -51,7 +51,7 @@ export function KnowledgeLibrary({ concepts, terms = [], apiBaseUrl = "" }: { co
         <span className="sr-only">{copy("Search concepts", "개념 검색")}</span>
         <input value={query} onChange={(event) => setQuery(event.currentTarget.value)} placeholder={copy("Search concepts or aliases", "개념 또는 별칭 검색")} className="min-w-0 flex-1 bg-transparent text-sm text-text-primary outline-none placeholder:text-text-tertiary" />
       </label>
-      <label className="flex min-h-12 items-center gap-3 border border-border-default bg-surface-01 px-4 text-xs text-text-secondary">
+      <label id="domains" className="flex min-h-12 items-center gap-3 border border-border-default bg-surface-01 px-4 text-xs text-text-secondary">
         <span>{copy("Domain", "분야")}</span>
         <select value={domain} onChange={(event) => setDomain(event.currentTarget.value)} className="min-w-0 flex-1 bg-transparent text-sm text-text-primary outline-none">
           <option value="all">{copy("All domains", "전체 분야")}</option>
