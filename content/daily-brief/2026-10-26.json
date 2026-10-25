@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-26",
+  "publishedAt": "2026-10-25T22:33:41.176Z",
+  "title": {
+    "ko": "AI 에이전트의 중요한 과제: 기억, 복구, 그리고 격리",
+    "en": "What matters for AI agents: memory, recovery, and isolation"
+  },
+  "dek": {
+    "ko": "Qwen Code와 OpenClaw의 최근 릴리스, OpenAI의 실행 환경 보안 설계를 엔지니어 관점에서 읽습니다.",
+    "en": "Engineering lessons from Qwen Code and OpenClaw releases, and OpenAI's agent containment design."
+  },
+  "focus": {
+    "ko": "최근 24시간 동안 확인된 대형 모델 발표는 많지 않았습니다. 이번 호는 10월 23~24일 발표된 공식 자료를 날짜와 함께 다룹니다. 더 유능한 에이전트를 운영하려면 답변 능력만이 아니라 실행 상태, 복구 경로, 접근 권한을 제대로 설계해야 합니다.",
+    "en": "No major model launch was verified in the last 24 hours. This edition clearly dates official material from October 23–24. For reliable agents, answer quality is not enough: execution state, recovery, and access boundaries also need careful engineering."
+  },
+  "visual": "workflow",
+  "topics": [
+    "Models & tools",
+    "Workflows",
+    "Systems & inference"
+  ],
+  "editorialNote": {
+    "ko": "2026년 10월 26일 오전 작성. 소개하는 발표는 오늘 새로 공개된 소식이 아니라 10월 23~24일의 공식 자료입니다. 릴리스 기능과 보안 결과는 각각 개발 프로젝트 및 OpenAI의 자체 설명이며, 독립적인 성능 검증으로 간주하지 않습니다.",
+    "en": "Prepared on October 26, 2026. These are official October 23–24 updates, not announcements from the last 24 hours. Feature and security claims come from the projects and OpenAI; they are not independent performance tests."
+  },
+  "sections": [
+    {
+      "id": "signals",
+      "label": {
+        "ko": "모델과 성능",
+        "en": "Models & capabilities"
+      },
+      "items": []
+    },
+    {
+      "id": "tools",
+      "label": {
+        "ko": "개발 도구",
+        "en": "Developer tools"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "Qwen Code v0.26.1: 관리형 세션의 컨텍스트와 토큰 관리 강화",
+            "en": "Qwen Code v0.26.1 adds explicit session and token controls"
+          },
+          "publishedDate": "2026-10-24",
+          "status": "available",
+          "summary": {
+            "ko": "10월 24일 UTC에 공개된 Qwen Code v0.26.1은 관리형 세션에서 유휴 상태일 때만 실행하는 수동 컨텍스트 압축[1]을 지원합니다. 데몬 인증용 토큰[2]을 소유자만 읽을 수 있는 파일에 선택적으로 저장하는 기능도 추가했습니다.",
+            "en": "Released on October 24 UTC, Qwen Code v0.26.1 adds manual context compaction[1] for managed sessions when they are idle. It also supports optionally saving a daemon authentication token[2] in an owner-only file."
+          },
+          "change": {
+            "ko": "기존 작업 기록을 무조건 길게 유지하는 대신 압축 시점을 제어하고, 재시작 시 인증 상태를 선택적으로 복원할 수 있습니다. 릴리스에는 관리형 세션의 복구 사유와 가능한 후속 동작을 더 명확히 표시하는 변경도 포함됐습니다.",
+            "en": "Instead of keeping all earlier context active, users can choose when to compress it. They can also preserve daemon authentication across restarts when configured. Managed session recovery messages are clearer."
+          },
+          "availability": {
+            "ko": "공식 버전 태그와 코드는 공개됐습니다. 그러나 관리형 세션, WebShell, 데몬은 서로 다른 실행 경로이므로 기능과 설정 가능 여부가 다를 수 있습니다.",
+            "en": "The tagged release and source code are public. Managed sessions, WebShell, and daemon mode are different paths; supported features and setup may vary."
+          },
+          "limitation": {
+            "ko": "압축이 필수 지침과 테스트 조건을 보존하는지는 직접 확인해야 합니다. 토큰이 디스크에 남으면 유출 위험도 커질 수 있으며, 이 릴리스는 새로운 모델의 추론 성능을 입증하지 않습니다.",
+            "en": "Verify that compaction keeps important instructions and test requirements. A saved token can create a security risk if exposed. The release does not demonstrate a new model capability."
+          },
+          "implication": {
+            "ko": "긴 코딩 작업을 운영한다면 압축 전후의 요구사항 목록을 비교하고 재시작 후 인증 정보, 실행 로그, 코드 파일이 각자 올바르게 복구되는지 시험하세요.",
+            "en": "For a long coding task, compare the requirements list before and after compaction. Test whether credentials, logs, and code recover correctly after a restart."
+          },
+          "sourceIds": [
+            "qwen-0261"
+          ],
+          "visual": {
+            "variant": "workflow",
+            "caption": {
+              "ko": "개념도: 활성 대화, 압축된 기록, 선택적으로 저장된 인증 상태가 분리된 작업 흐름입니다. 실제 제품 화면이나 벤치마크가 아닙니다.",
+              "en": "Conceptual flow separating live context, compressed history, and optionally saved credentials. Not a product screenshot or benchmark."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "code",
+              "title": {
+                "ko": "Qwen Code 코드 저장소",
+                "en": "Qwen Code source code"
+              },
+              "url": "https://github.com/QwenLM/qwen-code"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "label": {
+        "ko": "구현 사례",
+        "en": "Engineering case"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "OpenClaw 2026.10.7: 도구 실행 중단 이후의 상태 복구",
+            "en": "OpenClaw 2026.10.7 improves interrupted tool-run recovery"
+          },
+          "publishedDate": "2026-10-24",
+          "status": "available",
+          "summary": {
+            "ko": "10월 24일 공개된 OpenClaw v2026.10.7은 작업이 중단됐을 때 미완료 도구 결과와 복구 경위를 보존하는 기능을 개선했습니다. 실행 상태를 되살리는 세션 복구[3]가 주요 주제입니다.",
+            "en": "OpenClaw v2026.10.7 was released on October 24. Its notes describe better preservation of unfinished tool outcomes and recovery details after interrupted sessions. Reliable session recovery[3] is a central theme."
+          },
+          "change": {
+            "ko": "도구가 파일을 쓴 직후 에이전트가 멈추면, 응답이 없다는 이유만으로 다시 실행해 중복 결과를 만들 수 있습니다. 릴리스는 종료된 대화의 복구 잔여 상태를 정리하고 늦게 도착하는 결과 처리도 다룹니다.",
+            "en": "If a tool writes a file and the agent stops before answering, a retry may repeat the write. The release clears old recovery state from stopped conversations and improves handling of late results."
+          },
+          "availability": {
+            "ko": "공식 GitHub 릴리스에 변경 내역과 배포 파일이 공개돼 있습니다. 지원 기능은 운영체제 및 연결된 도구에 따라 다를 수 있습니다.",
+            "en": "The official GitHub release includes the changes and packages. Availability of particular features may depend on the operating system and connected tools."
+          },
+          "limitation": {
+            "ko": "프로젝트의 자체 릴리스 노트일 뿐, 모든 장애 복구를 검증한 독립 시험은 아닙니다. 외부 API 호출처럼 중복 실행이 위험한 작업에는 멱등성[4] 처리가 필요합니다.",
+            "en": "These are project release notes, not independent proof of recovery under every failure. Side-effecting calls, especially external APIs, still need idempotency[4]."
+          },
+          "implication": {
+            "ko": "에이전트가 파일을 수정한 직후 강제 중단하고 같은 요청으로 다시 시작해보세요. 실제 파일의 상태와 세션 기록을 비교하여 중복 작업이 발생하는지 확인할 수 있습니다.",
+            "en": "Stop an agent just after a file write and then retry the same request. Compare the real file with the session history to see whether work was repeated."
+          },
+          "sourceIds": [
+            "openclaw-1007"
+          ],
+          "visual": {
+            "variant": "workflow",
+            "caption": {
+              "ko": "개념도: 도구 실행, 결과 저장, 응답 전송 사이에 중단이 발생한 경우 저장된 결과부터 점검하는 복구 흐름입니다.",
+              "en": "Conceptual recovery path: if execution stops between tool use, stored results, and response, inspect the real outcome before retrying."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "code",
+              "title": {
+                "ko": "OpenClaw 코드 저장소",
+                "en": "OpenClaw source code"
+              },
+              "url": "https://github.com/openclaw/openclaw"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "label": {
+        "ko": "시스템과 추론",
+        "en": "Systems & inference"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "OpenAI의 에이전트 격리 설계: 샌드박스를 넘어 여러 경계로",
+            "en": "OpenAI describes layered containment for powerful agents"
+          },
+          "publishedDate": "2026-10-23",
+          "status": "case-study",
+          "summary": {
+            "ko": "OpenAI는 10월 23일 프런티어 모델의 내부 학습·평가 환경에 대한 격리[5] 설계를 설명했습니다. 에이전트가 코드를 실행하더라도 허용되지 않은 인터넷 접근이나 격리 작업 간 통신을 하지 못하도록 여러 계층의 제어를 적용한다는 내용입니다.",
+            "en": "On October 23, OpenAI described containment[5] for internal frontier-model training and evaluation. The aim is to let agents execute code while blocking unauthorized internet access and communication between isolated tasks."
+          },
+          "change": {
+            "ko": "오프라인 웹 콘텐츠, 제한된 컨테이너, 가상머신, 네트워크 통제, 감시 체계를 결합하는 심층 방어[6] 방식입니다. OpenAI는 자체 에이전트 레드팀이 여러 소프트웨어 취약점과 인프라 설정 문제를 찾아 수정을 이끌었다고 보고합니다.",
+            "en": "OpenAI combines an offline web environment, restricted containers, virtual machines, network controls, and monitoring. This defense in depth[6] should limit damage if one layer fails. The company says agent red teams found software vulnerabilities and configuration errors."
+          },
+          "availability": {
+            "ko": "이것은 OpenAI 내부 연구 시스템 사례이며 일반 이용자가 켤 수 있는 새 API는 아닙니다. 접근 경계 설계 원칙은 다른 에이전트 서비스의 위협 모델에도 참고할 수 있습니다.",
+            "en": "This is an internal research case study, not a new public API. The design ideas can inform threat models for other agent services."
+          },
+          "limitation": {
+            "ko": "실험과 개선 효과는 OpenAI의 자체 보고입니다. 다른 조직의 배포 환경에서 동일하게 재현된 결과로 해석해서는 안 됩니다. 격리 기술 한 가지만으로 안전을 보장할 수도 없습니다.",
+            "en": "The tests and results are company-reported, not independently reproduced across other deployments. One sandbox cannot guarantee safety on its own."
+          },
+          "implication": {
+            "ko": "에이전트가 실행할 수 있는 명령뿐 아니라 파일, 인증 정보, 내부 서비스, 외부 네트워크 경계를 독립적으로 점검하세요. 정상 서비스가 우회 연결 경로가 되는지도 평가해야 합니다.",
+            "en": "Check commands, files, credentials, internal services, and outbound networks separately. Also test whether trusted services could provide unintended indirect access."
+          },
+          "sourceIds": [
+            "openai-containment"
+          ],
+          "visual": {
+            "variant": "security-gates",
+            "caption": {
+              "ko": "개념도: 샌드박스, 가상머신, 네트워크와 감시 계층을 중첩한 격리 구조입니다. 실제 내부 인프라 구성도가 아닙니다.",
+              "en": "Conceptual layers of isolation: sandbox, virtual machine, network perimeter, and monitoring. Not a diagram of the actual internal infrastructure."
+            },
+            "image": null
+          },
+          "resources": []
+        }
+      ]
+    }
+  ],
+  "experiment": {
+    "title": {
+      "ko": "15분 실습: 중단 후 중복 파일 쓰기 방지",
+      "en": "15-minute exercise: avoid duplicate file writes after a restart"
+    },
+    "minutes": 15,
+    "steps": [
+      {
+        "ko": "임시 폴더에 `task.json`과 `result.txt`를 만듭니다. 같은 작업 ID를 가진 요청을 처리하는 간단한 Node.js 스크립트를 작성합니다.",
+        "en": "Create `task.json` and `result.txt` in a temporary folder. Write a small Node.js script that processes a request with a task ID."
+      },
+      {
+        "ko": "첫 실행에서 `result.txt`를 쓴 뒤 완료 응답을 남기기 전에 프로세스가 종료되는 상황을 재현합니다.",
+        "en": "On the first run, simulate the process stopping after it writes `result.txt` but before it records the final response."
+      },
+      {
+        "ko": "동일한 작업 ID로 다시 실행하되, 쓰기 전에 파일과 ID를 확인하여 이미 처리된 작업은 건너뛰도록 수정합니다.",
+        "en": "Retry using the same task ID. Before writing, check the saved file and ID, and skip work that is already complete."
+      },
+      {
+        "ko": "재실행 전후 결과 개수를 비교합니다. 실제 서비스나 비밀 토큰 대신 로컬 테스트 파일만 사용합니다.",
+        "en": "Compare result counts before and after the retry. Use local test files, not real external services or secret tokens."
+      }
+    ],
+    "measure": {
+      "ko": "동일 ID를 두 번 처리해도 결과 기록은 한 개만 남아야 합니다. 중단 지점을 바꿔 실패 여부도 기록합니다.",
+      "en": "Two attempts with the same ID should leave only one result. Move the interruption point and record any failure."
+    }
+  },
+  "glossary": [
+    {
+      "id": 1,
+      "term": "Context compaction",
+      "ko": "컨텍스트 압축",
+      "explanation": "대화나 도구 실행 기록을 짧은 요약으로 바꿔 다음 단계에 필요한 입력 길이를 줄이는 기법이에요.",
+      "example": "기존 로그는 줄이고 남은 작업과 필수 조건은 요약에 남깁니다."
+    },
+    {
+      "id": 2,
+      "term": "Authentication token",
+      "ko": "인증 토큰",
+      "explanation": "정해진 서비스에 접근할 권한을 증명하는 문자열이에요. 노출되면 다른 사람이 해당 권한을 사용할 수 있어요.",
+      "example": "데몬 토큰을 저장할 때는 본인만 읽을 수 있도록 파일 권한을 제한합니다."
+    },
+    {
+      "id": 3,
+      "term": "Session recovery",
+      "ko": "세션 복구",
+      "explanation": "실행 중 중단된 프로그램이 이전 작업 상태를 불러와 이어서 진행하는 과정이에요.",
+      "example": "파일 저장 후 응답 전에 종료됐다면 저장된 파일을 확인하고 다음 단계부터 시작해요."
+    },
+    {
+      "id": 4,
+      "term": "Idempotency",
+      "ko": "멱등성",
+      "explanation": "같은 작업을 여러 번 요청해도 최종 결과는 한 번 수행했을 때와 같아지는 성질이에요.",
+      "example": "같은 주문 ID가 다시 들어오면 결제를 중복 진행하지 않게 해요."
+    },
+    {
+      "id": 5,
+      "term": "Containment",
+      "ko": "격리",
+      "explanation": "프로그램이 허용된 파일, 실행 환경, 네트워크 바깥에 접근하지 못하도록 제한하는 방법이에요.",
+      "example": "에이전트는 임시 작업 폴더에서만 코드를 실행하고 중요한 파일은 보지 못하도록 해요."
+    },
+    {
+      "id": 6,
+      "term": "Defense in depth",
+      "ko": "심층 방어",
+      "explanation": "서로 다른 보안 제어를 여러 겹으로 적용해 하나가 실패해도 피해가 확대되지 않게 하는 설계예요.",
+      "example": "프로세스 권한을 제한하고 가상머신도 분리하며, 외부 네트워크 연결도 별도로 막아요."
+    }
+  ],
+  "sources": [
+    {
+      "id": "qwen-0261",
+      "title": {
+        "ko": "Qwen Code v0.26.1 릴리스 노트",
+        "en": "Qwen Code v0.26.1 release notes"
+      },
+      "publisher": "QwenLM",
+      "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.26.1",
+      "publishedDate": "2026-10-24"
+    },
+    {
+      "id": "openclaw-1007",
+      "title": {
+        "ko": "OpenClaw v2026.10.7 릴리스 노트",
+        "en": "OpenClaw v2026.10.7 release notes"
+      },
+      "publisher": "OpenClaw",
+      "url": "https://github.com/openclaw/openclaw/releases/tag/v2026.10.7",
+      "publishedDate": "2026-10-24"
+    },
+    {
+      "id": "openai-containment",
+      "title": {
+        "ko": "OpenAI 프런티어 모델 학습 환경 보안 설계",
+        "en": "Securing our frontier model training environment"
+      },
+      "publisher": "OpenAI",
+      "url": "https://openai.com/index/securing-our-frontier-model-training-environment/",
+      "publishedDate": "2026-10-23"
+    }
+  ]
+}
