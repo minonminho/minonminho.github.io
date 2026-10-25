@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
+  <title id="title">Alpha source-over compositing</title>
+  <desc id="desc">A semi-transparent rose foreground layer is placed over a blue backdrop to produce a composite image.</desc>
+  <defs>
+    <pattern id="checker" width="28" height="28" patternUnits="userSpaceOnUse">
+      <rect width="28" height="28" fill="#f1f3f4"/><rect width="14" height="14" fill="#ccd2d6"/><rect x="14" y="14" width="14" height="14" fill="#ccd2d6"/>
+    </pattern>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#a9c7d8"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="440" fill="#0b0d0f"/>
+  <g font-family="Arial, sans-serif" fill="#eceff1">
+    <text x="80" y="64" font-size="18" letter-spacing="3" fill="#afcdbe">01 / FOREGROUND</text>
+    <text x="470" y="64" font-size="18" letter-spacing="3" fill="#afcdbe">02 / BACKDROP</text>
+    <text x="850" y="64" font-size="18" letter-spacing="3" fill="#afcdbe">03 / COMPOSITE</text>
+    <text x="80" y="354" font-size="20">RGBA layer</text>
+    <text x="470" y="354" font-size="20">Opaque background</text>
+    <text x="850" y="354" font-size="20">Visible output</text>
+    <text x="80" y="390" font-size="15" fill="#a7adb4">Alpha = 0.55</text>
+    <text x="470" y="390" font-size="15" fill="#a7adb4">Cᵦ = blue</text>
+    <text x="850" y="390" font-size="15" fill="#a7adb4">Cₒ = αCₛ + (1−α)Cᵦ</text>
+  </g>
+  <rect x="80" y="105" width="250" height="210" rx="10" fill="url(#checker)" stroke="#464f59" stroke-width="2"/>
+  <circle cx="205" cy="210" r="72" fill="#d58d9b" fill-opacity="0.55" stroke="#f0bdc7" stroke-opacity="0.65" stroke-width="3"/>
+  <rect x="470" y="105" width="250" height="210" rx="10" fill="#54728b" stroke="#91b3ca" stroke-width="2"/>
+  <path d="M365 210 H435" stroke="#a9c7d8" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="850" y="105" width="250" height="210" rx="10" fill="#54728b" stroke="#91b3ca" stroke-width="2"/>
+  <circle cx="975" cy="210" r="72" fill="#d58d9b" fill-opacity="0.55" stroke="#f0bdc7" stroke-opacity="0.65" stroke-width="3"/>
+  <path d="M755 210 H815" stroke="#a9c7d8" stroke-width="3" marker-end="url(#arrow)"/>
+</svg>

@@ -31,12 +31,21 @@ jobs:
         run: npm run brief:test
       - name: Validate Daily Brief content
         run: npm run brief:validate
+      - name: Test paper review history safeguards
+        run: npm run paper:test
+      - name: Validate paper review content
+        run: npm run paper:validate
+      - name: Test Knowledge idempotency
+        run: npm run knowledge:test
+      - name: Validate Knowledge content
+        run: npm run knowledge:validate
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Build
         run: npm run build
         env:
           NEXT_PUBLIC_TALENT_RADAR_API_URL: ${{ vars.TALENT_RADAR_API_URL }}
+          NEXT_PUBLIC_KNOWLEDGE_API_URL: ${{ vars.KNOWLEDGE_API_URL }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

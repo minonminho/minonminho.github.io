@@ -8,8 +8,10 @@ import type {
   TalentRadarApiResponse,
   TalentSearchMetrics,
 } from "../../src/lib/talentRadar/types";
+import { handleKnowledgeRequest, type KnowledgeEnv } from "./knowledge";
+export { KnowledgePaperWorkflow } from "./knowledge";
 
-type Env = {
+type Env = KnowledgeEnv & {
   GITHUB_TOKEN?: string;
   ALLOWED_ORIGINS?: string;
 };
@@ -169,6 +171,8 @@ async function handleSearch(request: Request, env: Env) {
 const worker = {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+    const knowledgeResponse = await handleKnowledgeRequest(request, env);
+    if (knowledgeResponse) return knowledgeResponse;
     if (url.pathname !== "/search" && url.pathname !== "/search/") {
       return json({ error: "Not found." }, request, env, 404);
     }

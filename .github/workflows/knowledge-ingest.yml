@@ -1,0 +1,34 @@
+name: Dispatch paper reviews to Knowledge Agent
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/paper-reviews/**/*.md"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: knowledge-ingest-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout changed paper review
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Dispatch published reviews
+        run: node scripts/knowledge/dispatch-paper.mjs
+        env:
+          GITHUB_BEFORE: ${{ github.event.before }}
+          GITHUB_SHA: ${{ github.sha }}
+          KNOWLEDGE_API_URL: ${{ vars.KNOWLEDGE_API_URL }}
+          KNOWLEDGE_INGEST_TOKEN: ${{ secrets.KNOWLEDGE_INGEST_TOKEN }}

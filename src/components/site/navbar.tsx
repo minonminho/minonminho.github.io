@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FlaskConical, Menu, X, FileDown, BookOpen } from "lucide-react";
+import { FlaskConical, Menu, X, FileDown, BookOpen, BookOpenText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { nav, profile } from "@/lib/data";
 
@@ -25,6 +25,7 @@ export function Navbar({ showCvDownload = true }: { showCvDownload?: boolean }) 
   const pathname = usePathname();
   const labActive = pathname.startsWith("/lab");
   const briefActive = pathname.startsWith("/daily-brief");
+  const knowledgeActive = pathname.startsWith("/knowledge");
 
   return (
     <header className="sticky top-0 z-50 border-b-2 border-border-strong bg-background">
@@ -51,6 +52,10 @@ export function Navbar({ showCvDownload = true }: { showCvDownload?: boolean }) 
         </div>
 
         <div className="hidden items-center gap-6 xl:flex">
+          <Link href="/knowledge/" className={`${labLinkClassName} ${knowledgeActive ? "border-signal-ice text-text-primary" : ""}`} aria-current={knowledgeActive ? "page" : undefined}>
+            <BookOpenText className="size-4" aria-hidden="true" />
+            Knowledge
+          </Link>
           <Link href="/daily-brief/" className={`${labLinkClassName} ${briefActive ? "border-signal-ice text-text-primary" : ""}`} aria-current={briefActive ? "page" : undefined}>
             <BookOpen className="size-4" aria-hidden="true" />
             Daily Brief
@@ -106,6 +111,10 @@ export function Navbar({ showCvDownload = true }: { showCvDownload?: boolean }) 
             <Link href="/daily-brief/" onClick={() => setOpen(false)} className={`${navLinkClassName} ${briefActive ? "border-signal-ice text-text-primary" : ""} w-fit gap-2 py-3`} aria-current={briefActive ? "page" : undefined}>
               <BookOpen className="size-4" aria-hidden="true" />
               Daily Brief
+            </Link>
+            <Link href="/knowledge/" onClick={() => setOpen(false)} className={`${navLinkClassName} ${knowledgeActive ? "border-signal-ice text-text-primary" : ""} w-fit gap-2 py-3`} aria-current={knowledgeActive ? "page" : undefined}>
+              <BookOpenText className="size-4" aria-hidden="true" />
+              Knowledge
             </Link>
             <Link
               href="/lab"

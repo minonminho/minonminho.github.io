@@ -4,6 +4,7 @@ import { BriefHome } from "@/components/daily-brief/home";
 import { LanguageBar } from "@/components/daily-brief/language";
 import { getBriefs, getBriefSummaries } from "@/lib/daily-brief/content";
 import { getHighlightSummaries } from "@/lib/daily-brief/highlights";
+import { getPaperReviewSummaries } from "@/lib/daily-brief/paper-reviews";
 
 export const metadata = {
   title: "Daily Brief · Minho Lee",
@@ -11,5 +12,5 @@ export const metadata = {
 };
 
 export default function DailyBriefPage() {
-  return <><Navbar showCvDownload={false} /><LanguageBar /><BriefHome latest={getBriefs()[0]} issues={getBriefSummaries()} spotlight={getHighlightSummaries()[0]} /><Footer /></>;
+  return <><Navbar showCvDownload={false} /><LanguageBar /><BriefHome latest={getBriefs()[0]} issues={getBriefSummaries()} spotlight={getHighlightSummaries()[0]} paperReview={getPaperReviewSummaries()[0]} /><Footer /></>;
 }
