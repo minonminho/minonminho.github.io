@@ -1,0 +1,194 @@
+{
+  "date": "2026-10-25",
+  "paperId": "2610.31329",
+  "paperDate": "2026-10-22",
+  "dailyDate": "2026-10-23",
+  "dailyRank": 1,
+  "upvotesAtSelection": 239,
+  "title": {
+    "en": "WeVisOne-VL: Unified Visual Perception from Objects to Pixels",
+    "ko": "WeVisOne-VL: 객체 인식부터 픽셀 단위 이해까지 하나로"
+  },
+  "dek": {
+    "en": "Can one vision-language model describe an object, locate it, and produce its exact pixels? This paper connects language-level understanding to masks and mattes through a small pixel decoder.",
+    "ko": "하나의 비전 언어 모델이 사물을 설명하고 위치를 찾는 데서 나아가 정확한 픽셀 영역까지 출력할 수 있을까요? 이 논문은 작은 픽셀 디코더로 언어 이해와 마스크·매트를 연결합니다."
+  },
+  "selectionReason": {
+    "en": "#1 on Hugging Face Daily Papers for October 23, 2026, with 239 upvotes when selected. Upvotes are a community signal, not a measure of paper quality.",
+    "ko": "2026년 10월 23일 Hugging Face Daily Papers 1위 논문이며 선정 시점에 239표를 받았습니다. 추천 수는 커뮤니티의 관심을 보여주는 신호이지, 논문의 품질을 직접 측정하는 수치는 아닙니다."
+  },
+  "summary": {
+    "en": "WeVisOne-VL unifies object-level and pixel-level visual perception via structured token prediction, supporting detection, localization, counting, OCR, segmentation, and matting with a lightweight pixel decoder and multi-stage training.",
+    "ko": "WeVisOne-VL은 구조화된 토큰 예측으로 객체 수준과 픽셀 수준의 시각 인식을 통합합니다. 가벼운 픽셀 디코더와 여러 단계의 학습을 통해 탐지, 위치 지정, 개수 세기, OCR, 분할, 매팅을 지원합니다."
+  },
+  "summaryAttribution": {
+    "en": "English summary supplied by Hugging Face’s paper API; Korean version translated for this page.",
+    "ko": "영문 요약은 Hugging Face 논문 API가 제공한 내용이며, 이 페이지에서 한국어로 옮겼습니다."
+  },
+  "figure": {
+    "url": "https://cdn-uploads.huggingface.co/production/uploads/66c98c27fafc0fc87c280749/hoztVcjSPXoLjRfeCTYu9.png",
+    "width": 2253,
+    "height": 1089,
+    "alt": {
+      "en": "Original WeVisOne-VL figure shared with the Hugging Face paper entry.",
+      "ko": "Hugging Face 논문 페이지에 공유된 WeVisOne-VL 원문 그림"
+    },
+    "caption": {
+      "en": "The authors’ original paper figure, reused from the Hugging Face entry. Open it at full size to inspect the visual tasks and model design.",
+      "ko": "Hugging Face 논문 항목에 올라온 저자 원문 그림입니다. 크게 열어 시각 과제와 모델 구조를 살펴보세요."
+    }
+  },
+  "sections": [
+    {
+      "id": "problem",
+      "heading": {
+        "en": "From naming an object to drawing its boundary",
+        "ko": "사물 이름 붙이기에서 경계 그리기까지"
+      },
+      "paragraphs": [
+        {
+          "en": "A vision-language model can answer “what is in this image?” or point to a region with a box. A precise segmentation mask asks for more: which pixels belong to the object, including its edges. That output often comes from a separate vision component and a different interface.",
+          "ko": "비전 언어 모델은 “이 이미지에 무엇이 있지?”라는 질문에 답하거나 사각형으로 위치를 가리킬 수 있습니다. 정밀한 분할 마스크는 한 단계 더 나아가 경계선을 포함해 어느 픽셀이 그 사물에 속하는지 표시해야 합니다. 보통 별도의 비전 구성 요소와 다른 인터페이스가 필요합니다."
+        },
+        {
+          "en": "WeVisOne-VL explores a common interface for both kinds of output. The model can express semantic answers such as a label or location, then route a request for detailed pixels to a compact decoder. The interesting idea is the connection between the two outputs, not simply adding another segmentation model beside a chat model.",
+          "ko": "WeVisOne-VL은 두 종류의 출력을 하나의 인터페이스로 다루려 합니다. 모델이 이름이나 위치 같은 의미 정보를 표현한 뒤, 세밀한 픽셀 결과가 필요한 요청은 작은 디코더로 연결합니다. 흥미로운 점은 대화 모델 옆에 분할 모델을 하나 더 붙이는 데 그치지 않고 두 출력을 이어보려는 설계입니다."
+        }
+      ]
+    },
+    {
+      "id": "mechanism",
+      "heading": {
+        "en": "One token opens the pixel path",
+        "ko": "특수 토큰 하나가 픽셀 출력을 호출합니다"
+      },
+      "paragraphs": [
+        {
+          "en": "Built on Qwen3-VL, WeVisOne-VL uses the special <OBJ> token to trigger a 9.6-million-parameter pixel decoder. Coordinates can be represented as tokens too, while the decoder turns visual features into dense pixel outputs. The authors say this avoids requiring a separate SAM-style segmentation backbone.",
+          "ko": "Qwen3-VL을 기반으로 한 WeVisOne-VL은 특수 토큰 <OBJ>를 사용해 960만 파라미터의 픽셀 디코더를 호출합니다. 좌표 역시 토큰으로 나타낼 수 있고, 디코더는 시각 특징을 촘촘한 픽셀 출력으로 바꿉니다. 저자들은 SAM 계열의 별도 분할 백본이 필요하지 않다고 설명합니다."
+        },
+        {
+          "en": "Training combines three stages of supervised fine-tuning with mixed-task reinforcement learning. The paper describes a large and varied training mixture and reports evaluation across more than 30 benchmarks. Those are the authors’ reported results; reproducing them still depends on the released setup, prompts, and benchmark conditions.",
+          "ko": "학습은 세 단계의 지도 미세 조정과 여러 과제를 섞은 강화 학습을 결합합니다. 논문은 다양하고 큰 학습 데이터 구성을 설명하고 30개가 넘는 벤치마크에서 평가했다고 보고합니다. 이는 저자들이 제시한 결과이며, 재현 여부는 공개된 설정과 프롬프트, 벤치마크 조건에 달려 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "heading": {
+        "en": "Why engineers may care",
+        "ko": "엔지니어가 눈여겨볼 이유"
+      },
+      "paragraphs": [
+        {
+          "en": "A shared output format can simplify a product that needs both conversational answers and editable visual regions. One request might ask for a count, another for a box, and a third for a transparent foreground matte. A common model interface could reduce glue code across these tasks and make the result easier to pass into a tool or editor.",
+          "ko": "공통 출력 형식은 대화형 답변과 편집 가능한 이미지 영역이 함께 필요한 제품을 단순하게 만들 수 있습니다. 어떤 요청은 개수를 묻고, 다른 요청은 사각형 위치나 투명 배경용 매트를 원할 수 있습니다. 모델 인터페이스가 통일되면 과제마다 붙는 연결 코드를 줄이고 결과를 도구나 편집기로 전달하기 쉬워질 수 있습니다."
+        },
+        {
+          "en": "For an implementation trial, compare the model with a VLM-plus-segmenter pipeline on the same images and prompts. Measure boundary quality, latency, memory, and how often it returns a plausible mask when the requested object is absent. A small decoder is useful only if the end-to-end trade-off holds on the images your product actually sees.",
+          "ko": "직접 시험한다면 같은 이미지와 프롬프트로 이 모델과 VLM+분할기 조합을 비교해보세요. 경계 품질, 지연 시간, 메모리 사용량, 찾는 사물이 없을 때 그럴듯한 마스크를 잘못 내놓는 빈도를 측정하면 됩니다. 작은 디코더가 실제 제품 이미지에서 전체 성능과 비용의 균형을 만들 때 의미가 있습니다."
+        }
+      ]
+    }
+  ],
+  "takeaway": {
+    "en": "The paper’s practical bet is that a language model can choose the right level of visual detail, while a small specialized decoder handles the pixels.",
+    "ko": "이 논문의 실용적 가설은 언어 모델이 필요한 시각 정보의 수준을 고르고, 작은 전용 디코더가 픽셀을 처리할 수 있다는 것입니다."
+  },
+  "terminology": [
+    {
+      "term": "Vision-language model (VLM)",
+      "koTerm": "비전 언어 모델",
+      "description": {
+        "en": "A model that processes images and language together, such as answering a question about a picture.",
+        "ko": "이미지와 언어를 함께 다루는 모델입니다. 사진에 관한 질문에 답하는 모델이 예입니다."
+      },
+      "example": {
+        "en": "“What kind of vehicle is this?” → “A red bicycle.”",
+        "ko": "“이건 어떤 탈것이야?” → “빨간 자전거예요.”"
+      }
+    },
+    {
+      "term": "Object-level and pixel-level output",
+      "koTerm": "객체 수준·픽셀 수준 출력",
+      "description": {
+        "en": "Object-level output identifies an entity or gives its box; pixel-level output marks the exact pixels that belong to it.",
+        "ko": "객체 수준은 사물의 이름이나 위치 사각형을 알려주고, 픽셀 수준은 그 사물에 속하는 정확한 픽셀을 표시합니다."
+      },
+      "example": {
+        "en": "“A dog is here” plus a box versus a mask following the dog’s silhouette.",
+        "ko": "“여기에 개가 있어요”라는 답과 사각형 표시, 그리고 개의 윤곽을 따라가는 마스크의 차이입니다."
+      }
+    },
+    {
+      "term": "Pixel decoder",
+      "koTerm": "픽셀 디코더",
+      "description": {
+        "en": "A component that converts visual features into dense outputs such as segmentation masks.",
+        "ko": "시각 특징을 분할 마스크처럼 촘촘한 픽셀 결과로 바꾸는 구성 요소입니다."
+      },
+      "example": {
+        "en": "A caption names the object; the pixel decoder colors the object’s region in a mask.",
+        "ko": "캡션이 사물의 이름을 말하고, 픽셀 디코더는 마스크에서 그 사물의 영역을 색칠합니다."
+      }
+    },
+    {
+      "term": "Matting",
+      "koTerm": "매팅",
+      "description": {
+        "en": "Estimating how much each pixel belongs to a foreground subject, often to create a clean transparent cutout.",
+        "ko": "각 픽셀이 전경 사물에 얼마나 속하는지 추정하는 작업입니다. 배경을 투명하게 분리할 때 자주 쓰입니다."
+      },
+      "example": {
+        "en": "Soft hair edges remain natural when removing a portrait background.",
+        "ko": "인물 사진의 배경을 지울 때 머리카락의 부드러운 가장자리를 자연스럽게 남깁니다."
+      }
+    },
+    {
+      "term": "Supervised fine-tuning (SFT)",
+      "koTerm": "지도 미세 조정",
+      "description": {
+        "en": "Training a pretrained model with examples that pair inputs with desired outputs.",
+        "ko": "입력과 원하는 출력이 짝을 이룬 예시를 사용해 사전 학습 모델을 추가로 학습하는 과정입니다."
+      },
+      "example": {
+        "en": "An image and prompt are paired with the expected label, box, or mask.",
+        "ko": "이미지와 프롬프트에 정답 이름, 위치 사각형, 마스크를 짝지어 학습합니다."
+      }
+    },
+    {
+      "term": "GRPO",
+      "koTerm": "그룹 상대 정책 최적화",
+      "description": {
+        "en": "A reinforcement-learning method that compares groups of candidate responses to improve a model’s policy.",
+        "ko": "여러 후보 응답을 한 그룹 안에서 비교해 모델의 응답 정책을 개선하는 강화 학습 방법입니다."
+      },
+      "example": {
+        "en": "For the same prompt, candidates with better task outcomes receive a stronger learning signal.",
+        "ko": "같은 프롬프트의 후보 중 과제를 더 잘 수행한 응답이 더 강한 학습 신호를 받습니다."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": { "en": "Hugging Face paper page", "ko": "Hugging Face 논문 페이지" },
+      "url": "https://huggingface.co/papers/2610.31329",
+      "publisher": "Hugging Face"
+    },
+    {
+      "label": { "en": "arXiv paper", "ko": "arXiv 논문 원문" },
+      "url": "https://arxiv.org/abs/2610.31329",
+      "publisher": "arXiv"
+    },
+    {
+      "label": { "en": "Authors’ project page and figures", "ko": "저자 프로젝트 페이지와 그림" },
+      "url": "https://tencent.github.io/WeVisOne-VL/",
+      "publisher": "Tencent"
+    },
+    {
+      "label": { "en": "Code and reported benchmarks", "ko": "코드와 벤치마크 결과" },
+      "url": "https://github.com/Tencent/WeVisOne-VL",
+      "publisher": "Tencent"
+    }
+  ]
+}

@@ -4,11 +4,13 @@ import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { StoryFigure } from "@/components/daily-brief/story-figure";
 import { BriefArchive } from "@/components/daily-brief/archive";
+import { PaperHighlightCard } from "@/components/daily-brief/highlight-card";
 import { useBriefLanguage } from "./language";
 import type { Brief, BriefSummary } from "@/lib/daily-brief/types";
+import type { HighlightSummary } from "@/lib/daily-brief/highlights";
 import { formatBriefDate, readingMinutes } from "@/lib/daily-brief/types";
 
-export function BriefHome({ latest, issues }: { latest?: Brief; issues: BriefSummary[] }) {
+export function BriefHome({ latest, issues, spotlight }: { latest?: Brief; issues: BriefSummary[]; spotlight?: HighlightSummary }) {
   const { language, text, copy } = useBriefLanguage();
   const leadVisual = latest?.sections.flatMap((section) => section.items).find((item) => item.visual.image)?.visual;
   return <>
@@ -21,6 +23,10 @@ export function BriefHome({ latest, issues }: { latest?: Brief; issues: BriefSum
           <a href="#archive" className="inline-flex min-h-10 items-center gap-3 text-sm text-text-secondary hover:text-signal-ice focus-visible:outline-2 focus-visible:outline-signal-ice">{copy("Explore the archive", "지난 브리핑 보기")} <ArrowDown className="size-4" aria-hidden="true" /></a>
         </div>
       </section>
+      {spotlight && <section className="site-shell border-b border-border-subtle py-12 md:py-16" aria-labelledby="spotlight-title">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-4"><div><p className="text-eyebrow text-signal-mint">{copy("Start here", "먼저 읽기")}</p><h2 id="spotlight-title" className="text-headline mt-2">{copy("Today’s paper highlight", "오늘의 논문 하이라이트")}</h2></div><Link href="/daily-brief/highlight/" className="min-h-10 text-sm text-text-secondary underline underline-offset-4 hover:text-signal-ice focus-visible:outline-2 focus-visible:outline-signal-ice">{copy("Highlight archive", "하이라이트 기록")} <span aria-hidden="true">↗</span></Link></div>
+        <PaperHighlightCard highlight={spotlight} featured />
+      </section>}
       {latest ? <section className="site-shell section-space border-b border-border-subtle" aria-labelledby="latest-title">
         <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
           <div>
