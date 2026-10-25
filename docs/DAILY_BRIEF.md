@@ -8,11 +8,11 @@ Explain what changed relative to a baseline, the underlying mechanism, the evide
 
 ## Languages
 
-The sticky **KOR / ENG** switch controls the archive, title, body, UI labels, captions, alt text, original-link labels, and conceptual diagram labels. **Korean is the default.** The preference is remembered in browser localStorage, works across Daily Brief pages, and synchronizes across tabs. If storage is unavailable, the switch still works for the current session. Static HTML starts in Korean, preventing a hydration mismatch.
+The sticky **KOR / ENG** switch controls the archive, title, body, UI labels, captions, alt text, original-link labels, and conceptual diagram labels. **English is the default.** The preference is remembered in browser localStorage, works across Daily Brief pages, and synchronizes across tabs. If storage is unavailable, the switch still works for the current session. Static HTML starts in English, preventing a hydration mismatch.
 
 Every edition uses **schemaVersion 2**. All prose fields are stored as `{ "ko": "...", "en": "..." }`: title, dek, focus, editorialNote, section labels, story title/summary/change/availability/limitation/implication, visual captions and image alt text, resource/source titles, and the experiment title/steps/measure. Dates, IDs, numbers describing settings, URLs, media dimensions, and source references are shared. Korean translations must preserve claims, caveats, and numbered note markers exactly; the validator rejects missing translations and mismatched markers. Vocabulary explanations remain in Korean in both modes, as a reading aid.
 
-Original source images are preserved and may contain English text; their captions and accessible descriptions switch languages. No translation API is called in the browser. Scheduled chat delivery is Korean by default, with the English version available on the website.
+Original source images are preserved and may contain English text; their captions and accessible descriptions switch languages. No translation API is called in the browser. Scheduled chat delivery is Korean by default; the website opens in English and retains the KOR / ENG switch.
 
 ## Delivery
 
