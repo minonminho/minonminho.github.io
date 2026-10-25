@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/#experience", label: nav.experience },
   { href: "/#education", label: nav.education },
   { href: "/side-projects/", label: nav.sideProjects },
+  { href: "/knowledge/", label: "Knowledge" },
 ];
 
 const navLinkClassName =
@@ -21,7 +22,7 @@ const navLinkClassName =
 export function Navbar({ showCvDownload = true }: { showCvDownload?: boolean }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const isCurrentPage = (href: string) => href === "/side-projects/" && pathname.startsWith("/side-projects");
+  const isCurrentPage = (href: string) => !href.includes("#") && (pathname === href.replace(/\/$/, "") || pathname.startsWith(href));
 
   return (
     <header className="sticky top-0 z-50 border-b border-border-subtle bg-surface-01">

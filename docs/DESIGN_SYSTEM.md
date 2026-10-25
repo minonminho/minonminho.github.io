@@ -211,7 +211,7 @@ The first entry in each section is open by default. Every detail remains in the 
 keyboard and no-JavaScript disclosure behavior work without custom state.
 
 Navigation lists About, Skills, Experience, Education, and Side Project in that
-order, followed by contact,
+order, then the Knowledge workspace and contact,
 and native CV printing. Keep profile data in `src/lib/data.ts`.
 
 `SideProjectsPage` lives at `/side-projects/`, with its own h1, metadata, navigation,
