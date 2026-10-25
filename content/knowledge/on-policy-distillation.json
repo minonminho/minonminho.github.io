@@ -1,0 +1,198 @@
+{
+  "id": "concept:on-policy-distillation",
+  "slug": "on-policy-distillation",
+  "canonicalName": {
+    "en": "On-policy distillation",
+    "ko": "On-policy distillation (온폴리시 증류)"
+  },
+  "dek": {
+    "en": "A teacher supervises states visited by the student’s current policy rather than only a fixed offline trajectory.",
+    "ko": "교사가 고정 오프라인 경로만이 아니라 현재 학생 정책이 실제 방문한 상태를 지도합니다."
+  },
+  "domain": [
+    "Machine Learning",
+    "Model Adaptation"
+  ],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": [
+    "arxiv:2610.24738"
+  ],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:2610.24738",
+      "title": {
+        "en": "Editing Images into Reusable Layers via Compositional Edit-Prior Distillation",
+        "ko": "Compositional Edit-Prior Distillation으로 재사용 가능한 이미지 레이어 만들기"
+      },
+      "reviewUrl": "/daily-brief/papers/layereditor/",
+      "url": "https://arxiv.org/abs/2610.24738v1"
+    }
+  ],
+  "relatedConcepts": [],
+  "visualAsset": {
+    "url": "https://arxiv.org/html/2610.24738v1/flowchart.png",
+    "alt": {
+      "en": "LayerEditor training flow with a frozen editing teacher guiding the adapting student.",
+      "ko": "고정 편집 교사가 적응 중인 학생 모델을 지도하는 LayerEditor 학습 흐름."
+    },
+    "caption": {
+      "en": "The teacher is queried on intermediate states encountered by the student’s denoising trajectory.",
+      "ko": "교사는 학생의 디노이징 경로에서 실제로 거치는 중간 상태를 평가합니다."
+    },
+    "credit": "Original figure by the paper authors; linked from https://arxiv.org/abs/2610.24738.",
+    "license": "See the license and reuse terms on the linked source paper."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": {
+        "en": "Concept at a glance",
+        "ko": "개념 한눈에 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "On-policy distillation queries a teacher on states produced by the student’s current behavior and transfers guidance there.",
+          "ko": "온폴리시 증류는 학생의 현재 동작이 만든 상태에서 교사를 호출해 그 지식을 전달합니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": {
+        "en": "How it works",
+        "ko": "작동 방식"
+      },
+      "paragraphs": [
+        {
+          "en": "LayerEditor’s frozen teacher provides guidance along the adapting editor’s own denoising states, helping preserve the original edit prior.",
+          "ko": "LayerEditor의 고정 교사는 적응 중인 편집기가 실제로 거치는 디노이징 상태를 지도해 기존 편집 사전 지식을 보존하려 합니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": {
+        "en": "Read the figure",
+        "ko": "그림 읽기"
+      },
+      "paragraphs": [
+        {
+          "en": "The training diagram distinguishes the frozen teacher from the student that produces direct and layered image outputs.",
+          "ko": "학습 그림은 직접 이미지와 레이어 결과를 만드는 학생 모델과 고정 교사를 구분합니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": {
+        "en": "Compare the idea",
+        "ko": "비교해서 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "Offline distillation uses a fixed teacher dataset; on-policy distillation evaluates the student’s current state distribution.",
+          "ko": "오프라인 증류는 고정 교사 데이터를 쓰고 온폴리시 증류는 학생의 현재 상태 분포를 평가합니다."
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": {
+        "en": "Implementation notes",
+        "ko": "구현 점검"
+      },
+      "paragraphs": [
+        {
+          "en": "Teacher queries can be expensive; cache or sample them carefully and compare student-only, teacher-only, and combined objectives.",
+          "ko": "교사 호출은 비쌀 수 있어 캐시·표본 추출을 신중히 하고 학생 단독·교사 단독·결합 목표를 비교합니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": {
+        "en": "Limits",
+        "ko": "한계"
+      },
+      "paragraphs": [
+        {
+          "en": "The term describes where supervision is sampled, not a guarantee that behavior is preserved. The teacher’s coverage and loss design still matter.",
+          "ko": "이 용어는 지도를 표집하는 상태를 말할 뿐 동작 보존을 보장하지 않습니다. 교사의 범위와 손실 설계도 중요합니다."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": {
+        "en": "Takeaway",
+        "ko": "핵심 정리"
+      },
+      "paragraphs": [
+        {
+          "en": "Distill where the student actually operates, then measure whether the teacher signal helps on the target output contract.",
+          "ko": "학생이 실제 동작하는 곳에서 증류하고 교사 신호가 목표 출력 품질을 돕는지 측정해야 합니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": {
+        "en": "Original paper",
+        "ko": "논문 원문"
+      },
+      "url": "https://arxiv.org/abs/2610.24738",
+      "publisher": "arXiv",
+      "type": "research-paper"
+    },
+    {
+      "label": {
+        "en": "LayerEditor method and figure",
+        "ko": "LayerEditor 방법과 그림"
+      },
+      "url": "https://arxiv.org/html/2610.24738v1",
+      "publisher": "arxiv.org",
+      "type": "implementation-or-reference"
+    }
+  ],
+  "onePager": {
+    "title": "On-policy distillation (온폴리시 증류)",
+    "subtitle": "교사가 고정 오프라인 경로만이 아니라 현재 학생 정책이 실제 방문한 상태를 지도합니다.",
+    "oneLine": "학생이 실제 동작하는 곳에서 증류하고 교사 신호가 목표 출력 품질을 돕는지 측정해야 합니다.",
+    "sections": [
+      {
+        "heading": "무엇을 뜻하나",
+        "body": "학생 정책이 만든 상태에서 교사가 지도를 제공합니다."
+      },
+      {
+        "heading": "대비",
+        "body": "고정된 오프라인 상태만 쓰는 증류와 다릅니다."
+      },
+      {
+        "heading": "적용",
+        "body": "학생이 실제 방문하는 분포를 교사가 평가합니다."
+      },
+      {
+        "heading": "비용",
+        "body": "교사 호출과 상태 표집을 관리해야 합니다."
+      },
+      {
+        "heading": "주의할 점",
+        "body": "온폴리시라는 이름만으로 능력 보존이 보장되지는 않습니다."
+      }
+    ],
+    "flow": [
+      "학생 상태",
+      "교사 평가",
+      "지도 신호",
+      "학생 업데이트"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/2610.24738"
+    ],
+    "status": "ready",
+    "pdfPath": "/knowledge/on-policy-distillation-one-pager.pdf",
+    "docxPath": "/knowledge/on-policy-distillation-one-pager.docx"
+  }
+}

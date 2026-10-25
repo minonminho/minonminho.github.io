@@ -1,0 +1,198 @@
+{
+  "id": "concept:retrieval-augmented-generation",
+  "slug": "retrieval-augmented-generation",
+  "canonicalName": {
+    "en": "Retrieval-augmented generation",
+    "ko": "Retrieval-augmented generation (검색 증강 생성)"
+  },
+  "dek": {
+    "en": "RAG retrieves external passages for an input and conditions a generator on those passages alongside learned model knowledge.",
+    "ko": "RAG는 입력에 맞는 외부 문서를 찾고, 생성기가 그 문서와 모델 내부 지식을 함께 사용하게 합니다."
+  },
+  "domain": [
+    "Large Language Models",
+    "Information Retrieval"
+  ],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": [
+    "arxiv:2005.11401"
+  ],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:2005.11401",
+      "title": {
+        "en": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+        "ko": "지식 집약형 NLP 과제를 위한 검색 증강 생성"
+      },
+      "reviewUrl": "/daily-brief/papers/retrieval-augmented-generation/",
+      "url": "https://arxiv.org/abs/2005.11401v4"
+    }
+  ],
+  "relatedConcepts": [],
+  "visualAsset": {
+    "url": "https://arxiv.org/html/2005.11401v4/posterior_plot.png",
+    "alt": {
+      "en": "Document posterior visualization from the original RAG-Token paper.",
+      "ko": "원 RAG-Token 논문의 문서 사후확률 시각화."
+    },
+    "caption": {
+      "en": "Different retrieved passages can support different generated tokens.",
+      "ko": "서로 다른 검색 문서가 서로 다른 생성 토큰을 뒷받침할 수 있습니다."
+    },
+    "credit": "Original figure by the paper authors; linked from https://arxiv.org/abs/2005.11401.",
+    "license": "See the license and reuse terms on the linked source paper."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": {
+        "en": "Concept at a glance",
+        "ko": "개념 한눈에 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "RAG combines a retriever over an external index with a generator that conditions on the retrieved passages.",
+          "ko": "RAG는 외부 색인을 검색하는 검색기와 검색된 문서를 참고하는 생성기를 결합합니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": {
+        "en": "How it works",
+        "ko": "작동 방식"
+      },
+      "paragraphs": [
+        {
+          "en": "The original setup uses a dense passage retriever, a Wikipedia vector index, and a BART generator; retrieved documents are treated as latent variables.",
+          "ko": "원 구성은 Dense Passage Retriever, Wikipedia 벡터 색인, BART 생성기를 사용하고 검색 문서를 잠재 변수로 다룹니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": {
+        "en": "Read the figure",
+        "ko": "그림 읽기"
+      },
+      "paragraphs": [
+        {
+          "en": "RAG-Sequence shares document evidence across an output; RAG-Token can assign different evidence to individual tokens.",
+          "ko": "RAG-Sequence는 답변 전체에 같은 문서 근거를 쓰고, RAG-Token은 토큰마다 근거 문서를 달리할 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": {
+        "en": "Compare the idea",
+        "ko": "비교해서 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "Parametric memory is stored in model weights; non-parametric memory is an index that can be inspected and replaced separately.",
+          "ko": "파라미터 기억은 모델 가중치에 있고, 비파라미터 기억은 별도로 확인·교체할 수 있는 색인에 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": {
+        "en": "Implementation notes",
+        "ko": "구현 점검"
+      },
+      "paragraphs": [
+        {
+          "en": "Version the corpus and index, log retrieved passages, and evaluate retrieval recall separately from answer quality and citation fidelity.",
+          "ko": "문서 집합과 색인 버전을 관리하고 검색 결과를 기록하며, 검색 재현율·답변 품질·인용 충실도를 나눠 평가합니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": {
+        "en": "Limits",
+        "ko": "한계"
+      },
+      "paragraphs": [
+        {
+          "en": "A correct answer depends on retrieval coverage, passage quality, and the generator’s use of evidence; retrieval does not eliminate unsupported claims.",
+          "ko": "정답은 검색 범위·문서 품질·생성기의 근거 활용에 달려 있습니다. 검색을 붙여도 근거 없는 주장이 사라지는 것은 아닙니다."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": {
+        "en": "Takeaway",
+        "ko": "핵심 정리"
+      },
+      "paragraphs": [
+        {
+          "en": "RAG makes one knowledge source easier to update and inspect, but retrieval and generation remain separate failure points.",
+          "ko": "RAG는 지식 출처를 갱신·확인하기 쉽게 하지만 검색과 생성은 각각 실패할 수 있습니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": {
+        "en": "Original paper",
+        "ko": "논문 원문"
+      },
+      "url": "https://arxiv.org/abs/2005.11401",
+      "publisher": "arXiv",
+      "type": "research-paper"
+    },
+    {
+      "label": {
+        "en": "Hugging Face RAG documentation",
+        "ko": "Hugging Face RAG 문서"
+      },
+      "url": "https://huggingface.co/docs/transformers/model_doc/rag",
+      "publisher": "huggingface.co",
+      "type": "implementation-or-reference"
+    }
+  ],
+  "onePager": {
+    "title": "Retrieval-augmented generation (검색 증강 생성)",
+    "subtitle": "RAG는 입력에 맞는 외부 문서를 찾고, 생성기가 그 문서와 모델 내부 지식을 함께 사용하게 합니다.",
+    "oneLine": "RAG는 지식 출처를 갱신·확인하기 쉽게 하지만 검색과 생성은 각각 실패할 수 있습니다.",
+    "sections": [
+      {
+        "heading": "구성",
+        "body": "외부 검색기와 텍스트 생성기를 연결합니다."
+      },
+      {
+        "heading": "기억",
+        "body": "모델 파라미터와 검색 색인을 별도로 둡니다."
+      },
+      {
+        "heading": "운영",
+        "body": "색인 버전과 검색된 문서를 기록합니다."
+      },
+      {
+        "heading": "평가",
+        "body": "검색 품질과 답변 품질을 나눠 확인합니다."
+      },
+      {
+        "heading": "주의할 점",
+        "body": "검색은 환각을 자동으로 제거하지 않습니다."
+      }
+    ],
+    "flow": [
+      "질문",
+      "문서 검색",
+      "근거와 질문 결합",
+      "생성 답변"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/2005.11401"
+    ],
+    "status": "ready",
+    "pdfPath": "/knowledge/retrieval-augmented-generation-one-pager.pdf",
+    "docxPath": "/knowledge/retrieval-augmented-generation-one-pager.docx"
+  }
+}

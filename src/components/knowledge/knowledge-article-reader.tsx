@@ -1,36 +1,44 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { ArrowLeft, ArrowUpRight, Download, ExternalLink } from "lucide-react";
 import { useBriefLanguage } from "@/components/daily-brief/language";
 import { AlphaCompositingDemo } from "./alpha-compositing-demo";
 import type { KnowledgeConcept } from "@/lib/knowledge/types";
 
+type RemoteConceptState = { slug: string; concept: KnowledgeConcept | null; error: boolean };
+
+function subscribeToLocation(callback: () => void) {
+  window.addEventListener("popstate", callback);
+  return () => window.removeEventListener("popstate", callback);
+}
+
+function readRequestedSlug(fallback: string) {
+  if (typeof window === "undefined") return fallback;
+  const requestedSlug = new URLSearchParams(window.location.search).get("slug");
+  return requestedSlug && /^[a-z0-9-]+$/.test(requestedSlug) ? requestedSlug : fallback;
+}
+
 export function KnowledgeArticleReader({ concepts, apiBaseUrl = "" }: { concepts: KnowledgeConcept[]; apiBaseUrl?: string }) {
   const { language, copy } = useBriefLanguage();
-  const [slug, setSlug] = useState(concepts[0]?.slug ?? "");
-  const [remoteConcept, setRemoteConcept] = useState<KnowledgeConcept | null>(null);
-  const [remoteError, setRemoteError] = useState(false);
-
-  useEffect(() => {
-    const requestedSlug = new URLSearchParams(window.location.search).get("slug");
-    if (requestedSlug && /^[a-z0-9-]+$/.test(requestedSlug)) setSlug(requestedSlug);
-  }, []);
+  const defaultSlug = concepts[0]?.slug ?? "";
+  const slug = useSyncExternalStore(subscribeToLocation, () => readRequestedSlug(defaultSlug), () => defaultSlug);
+  const [remoteState, setRemoteState] = useState<RemoteConceptState>({ slug: "", concept: null, error: false });
 
   const localConcept = concepts.find((concept) => concept.slug === slug);
   useEffect(() => {
-    setRemoteConcept(null);
-    setRemoteError(false);
     if (localConcept || !apiBaseUrl || !slug) return;
     const controller = new AbortController();
     fetch(`${apiBaseUrl.replace(/\/$/, "")}/knowledge/concepts/${encodeURIComponent(slug)}`, { signal: controller.signal })
       .then((response) => response.ok ? response.json() as Promise<KnowledgeConcept> : Promise.reject(new Error("Concept not found")))
-      .then(setRemoteConcept)
-      .catch((error: unknown) => { if (!(error instanceof DOMException && error.name === "AbortError")) setRemoteError(true); });
+      .then((concept) => setRemoteState({ slug, concept, error: false }))
+      .catch((error: unknown) => { if (!(error instanceof DOMException && error.name === "AbortError")) setRemoteState({ slug, concept: null, error: true }); });
     return () => controller.abort();
   }, [apiBaseUrl, localConcept, slug]);
 
+  const remoteConcept = remoteState.slug === slug ? remoteState.concept : null;
+  const remoteError = remoteState.slug === slug && remoteState.error;
   const concept = localConcept ?? remoteConcept;
   if (!concept) return <main className="site-shell flex-1 py-16">
     <Link href="/knowledge/" className="inline-flex min-h-10 items-center gap-2 text-sm text-signal-ice"><ArrowLeft className="size-4" aria-hidden="true" />{copy("Knowledge Library", "Knowledge 목록")}</Link>

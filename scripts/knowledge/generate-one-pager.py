@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Generate the sample A4 Knowledge One-Pager in PDF and DOCX formats."""
+"""Build the published Knowledge concept one-pagers as Korean PDF and DOCX files."""
 
 import json
+from html import escape
 from pathlib import Path
 
 from docx import Document
@@ -20,73 +21,108 @@ from reportlab.platypus import KeepTogether, Paragraph, SimpleDocTemplate, Space
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = ROOT / "content/knowledge/alpha-compositing.json"
+REGISTRY = ROOT / "content/knowledge/registry.json"
+CONTENT = ROOT / "content/knowledge"
 OUTPUT = ROOT / "public/knowledge"
-DOCX_PATH = OUTPUT / "alpha-compositing-one-pager.docx"
-PDF_PATH = OUTPUT / "alpha-compositing-one-pager.pdf"
 FONT = "NotoSansKR"
 FONT_PATH = Path(__file__).resolve().parent / "assets/NotoSansKR-Hangul.ttf"
 INK = "#111820"
 MUTED = "#48545E"
-ICE = "#9EBBCB"
-MINT = "#AFCABB"
+FLOW_COLORS = ["#F0E0E3", "#DCE6EC", "#D9E6DF", "#EEE7D7", "#E4DFF0"]
 
 
-def build_pdf(one_pager):
-    pdfmetrics.registerFont(TTFont(FONT, str(FONT_PATH), subfontIndex=0))
+def normalized_one_pager(article, summary):
+    raw = article["onePager"]
+    title = raw.get("title") or article["canonicalName"]["ko"]
+    subtitle = raw.get("subtitle") or article["dek"]["ko"]
+    one_line = raw.get("oneLine") or raw.get("oneLineDefinition") or raw.get("sections", [{}])[0].get("body", "")
+    sources = raw.get("sources") or [item["url"] for item in article.get("sources", [])]
+    flow = raw.get("flow") or ["전경 레이어", "Alpha 계산", "배경 결합", "합성 화면"]
+    paths = summary.get("onePager", {})
+    pdf_path = raw.get("pdfPath") or paths.get("pdfPath")
+    docx_path = raw.get("docxPath") or paths.get("docxPath")
+    if not pdf_path or not docx_path:
+        raise ValueError(f"Missing PDF/DOCX paths for {article['slug']}.")
+    return {
+        "title": title,
+        "subtitle": subtitle,
+        "oneLine": one_line,
+        "sections": raw["sections"],
+        "sources": sources,
+        "flow": flow,
+        "pdf": OUTPUT / Path(pdf_path).name,
+        "docx": OUTPUT / Path(docx_path).name,
+    }
+
+
+def flow_table(flow, styles, width):
+    steps = flow[:5]
+    if len(steps) < 2:
+        return None
+    arrow_width = 17
+    step_width = (width - arrow_width * (len(steps) - 1)) / len(steps)
+    cells = []
+    widths = []
+    for index, step in enumerate(steps):
+        cells.append(Paragraph(escape(str(step)), styles["flow"]))
+        widths.append(step_width)
+        if index < len(steps) - 1:
+            cells.append(Paragraph("→", styles["arrow"]))
+            widths.append(arrow_width)
+    table = Table([cells], colWidths=widths, rowHeights=None, hAlign="LEFT")
+    commands = [
+        ("TEXTCOLOR", (0, 0), (-1, -1), colors.HexColor(INK)),
+        ("FONTNAME", (0, 0), (-1, -1), FONT),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+        ("LEFTPADDING", (0, 0), (-1, -1), 3),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 3),
+        ("BOX", (0, 0), (-1, -1), 0.45, colors.HexColor("#C7D0D6")),
+    ]
+    for index in range(0, len(cells), 2):
+        commands.append(("BACKGROUND", (index, 0), (index, 0), colors.HexColor(FLOW_COLORS[(index // 2) % len(FLOW_COLORS)])))
+    table.setStyle(TableStyle(commands))
+    return table
+
+
+def build_pdf(item):
+    if FONT not in pdfmetrics.getRegisteredFontNames():
+        pdfmetrics.registerFont(TTFont(FONT, str(FONT_PATH), subfontIndex=0))
     styles = {
         "eyebrow": ParagraphStyle("eyebrow", fontName=FONT, fontSize=7.2, leading=9, textColor=colors.HexColor("#637783"), spaceAfter=5, wordWrap="CJK"),
         "title": ParagraphStyle("title", fontName=FONT, fontSize=18, leading=22, textColor=colors.HexColor(INK), spaceAfter=3, wordWrap="CJK"),
-        "subtitle": ParagraphStyle("subtitle", fontName=FONT, fontSize=9, leading=12, textColor=colors.HexColor(MUTED), spaceAfter=9, wordWrap="CJK"),
-        "definition": ParagraphStyle("definition", fontName=FONT, fontSize=9.5, leading=14.2, textColor=colors.HexColor(INK), spaceAfter=8, wordWrap="CJK"),
-        "heading": ParagraphStyle("heading", fontName=FONT, fontSize=9.1, leading=11.5, textColor=colors.HexColor(INK), spaceBefore=2, spaceAfter=2, wordWrap="CJK"),
-        "body": ParagraphStyle("body", fontName=FONT, fontSize=8.2, leading=12, textColor=colors.HexColor(MUTED), spaceAfter=5, wordWrap="CJK", alignment=TA_LEFT),
-        "source": ParagraphStyle("source", fontName=FONT, fontSize=6.4, leading=8, textColor=colors.HexColor(MUTED), spaceAfter=1, wordWrap="CJK"),
+        "subtitle": ParagraphStyle("subtitle", fontName=FONT, fontSize=9, leading=12, textColor=colors.HexColor(MUTED), spaceAfter=8, wordWrap="CJK"),
+        "definition": ParagraphStyle("definition", fontName=FONT, fontSize=9.3, leading=13.5, textColor=colors.HexColor(INK), spaceAfter=7, wordWrap="CJK"),
+        "heading": ParagraphStyle("heading", fontName=FONT, fontSize=8.8, leading=11, textColor=colors.HexColor(INK), spaceBefore=2, spaceAfter=1, wordWrap="CJK"),
+        "body": ParagraphStyle("body", fontName=FONT, fontSize=7.9, leading=11.2, textColor=colors.HexColor(MUTED), spaceAfter=3, wordWrap="CJK", alignment=TA_LEFT),
+        "source": ParagraphStyle("source", fontName=FONT, fontSize=6.2, leading=7.5, textColor=colors.HexColor(MUTED), spaceAfter=1, wordWrap="CJK"),
+        "flow": ParagraphStyle("flow", fontName=FONT, fontSize=7, leading=9, textColor=colors.HexColor(INK), alignment=1, wordWrap="CJK"),
+        "arrow": ParagraphStyle("arrow", fontName=FONT, fontSize=8, leading=9, textColor=colors.HexColor("#637783"), alignment=1),
     }
-
     story = [
         Paragraph("RESEARCH KNOWLEDGE / CONCEPT ONE-PAGER", styles["eyebrow"]),
-        Paragraph(one_pager["title"], styles["title"]),
-        Paragraph(one_pager["subtitle"], styles["subtitle"]),
-        Paragraph(f"<b>01. 한 줄 정의</b>  {one_pager['oneLine']}", styles["definition"]),
+        Paragraph(escape(item["title"]), styles["title"]),
+        Paragraph(escape(item["subtitle"]), styles["subtitle"]),
+        Paragraph(f"<b>01. 한 줄 정의</b>  {escape(item['oneLine'])}", styles["definition"]),
     ]
+    diagram = flow_table(item["flow"], styles, A4[0] - 68)
+    if diagram:
+        story.extend([diagram, Spacer(1, 5)])
 
-    for index, section in enumerate(one_pager["sections"], start=2):
+    for index, section in enumerate(item["sections"], start=2):
         story.append(KeepTogether([
-            Paragraph(f"{index:02d}. {section['heading']}", styles["heading"]),
-            Paragraph(section["body"], styles["body"]),
+            Paragraph(f"{index:02d}. {escape(section['heading'])}", styles["heading"]),
+            Paragraph(escape(section["body"]), styles["body"]),
         ]))
-        if index == 3:
-            diagram = Table(
-                [["전경 레이어  ·  α 0.55", "+", "불투명한 배경", "→", "합성 화면"]],
-                colWidths=[110, 22, 105, 24, 100],
-                rowHeights=[27],
-            )
-            diagram.setStyle(TableStyle([
-                ("BACKGROUND", (0, 0), (0, 0), colors.HexColor("#F0E0E3")),
-                ("BACKGROUND", (2, 0), (2, 0), colors.HexColor("#DCE6EC")),
-                ("BACKGROUND", (4, 0), (4, 0), colors.HexColor("#D9E6DF")),
-                ("TEXTCOLOR", (0, 0), (-1, -1), colors.HexColor(INK)),
-                ("FONTNAME", (0, 0), (-1, -1), FONT),
-                ("FONTSIZE", (0, 0), (-1, -1), 7.0),
-                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-                ("BOX", (0, 0), (-1, -1), 0.5, colors.HexColor("#C7D0D6")),
-                ("INNERGRID", (0, 0), (-1, -1), 0.35, colors.HexColor("#D2D9DE")),
-                ("LEFTPADDING", (0, 0), (-1, -1), 4),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 4),
-            ]))
-            story.extend([Spacer(1, 3), diagram, Spacer(1, 5), Paragraph("불투명 배경: 결과색 = Alpha × 앞색 + (1 − Alpha) × 배경색", styles["source"]), Spacer(1, 4)])
-
-    story.append(Spacer(1, 1))
-    story.append(Paragraph("SOURCES", styles["eyebrow"]))
-    for source in one_pager["sources"]:
-        story.append(Paragraph(source.replace("&", "&amp;"), styles["source"]))
+    story.extend([Spacer(1, 2), Paragraph("SOURCES", styles["eyebrow"])])
+    for source in item["sources"]:
+        story.append(Paragraph(escape(str(source)), styles["source"]))
 
     document = SimpleDocTemplate(
-        str(PDF_PATH), pagesize=A4,
-        leftMargin=34, rightMargin=34, topMargin=30, bottomMargin=28,
-        title=one_pager["title"], author="Minho Lee",
+        str(item["pdf"]), pagesize=A4, leftMargin=34, rightMargin=34,
+        topMargin=27, bottomMargin=25, title=item["title"], author="Minho Lee",
     )
     document.build(story)
 
@@ -98,7 +134,6 @@ def set_cell_shading(cell, fill):
 
 
 def set_table_borders(table, color="D2D9DE"):
-    tbl_pr = table._tbl.tblPr
     borders = OxmlElement("w:tblBorders")
     for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
         element = OxmlElement(f"w:{edge}")
@@ -107,7 +142,7 @@ def set_table_borders(table, color="D2D9DE"):
         element.set(qn("w:space"), "0")
         element.set(qn("w:color"), color)
         borders.append(element)
-    tbl_pr.append(borders)
+    table._tbl.tblPr.append(borders)
 
 
 def set_run_font(run, size, bold=False, color=INK):
@@ -118,76 +153,91 @@ def set_run_font(run, size, bold=False, color=INK):
     run._element.get_or_add_rPr().rFonts.set(qn("w:eastAsia"), "Noto Sans KR")
 
 
-def add_text(doc, text, size=8.3, bold=False, color=MUTED, before=0, after=3, line=1.05):
+def add_text(doc, text, size=8.1, bold=False, color=MUTED, before=0, after=2, line=1.0):
     paragraph = doc.add_paragraph()
     paragraph.paragraph_format.space_before = Pt(before)
     paragraph.paragraph_format.space_after = Pt(after)
     paragraph.paragraph_format.line_spacing = line
-    run = paragraph.add_run(text)
-    set_run_font(run, size, bold, color)
+    set_run_font(paragraph.add_run(str(text)), size, bold, color)
     return paragraph
 
 
-def build_docx(one_pager):
+def add_flow_to_docx(doc, flow):
+    steps = flow[:5]
+    if len(steps) < 2:
+        return
+    labels = []
+    for index, step in enumerate(steps):
+        labels.append(str(step))
+        if index < len(steps) - 1:
+            labels.append("→")
+    table = doc.add_table(rows=1, cols=len(labels))
+    table.autofit = False
+    total_width = 18.4
+    arrow_count = len(steps) - 1
+    step_width = (total_width - arrow_count * 0.65) / len(steps)
+    for index, (cell, label) in enumerate(zip(table.rows[0].cells, labels)):
+        arrow = index % 2 == 1
+        cell.width = Cm(0.65 if arrow else step_width)
+        cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+        if not arrow:
+            set_cell_shading(cell, FLOW_COLORS[index // 2 % len(FLOW_COLORS)])
+        paragraph = cell.paragraphs[0]
+        paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        paragraph.paragraph_format.space_after = Pt(0)
+        paragraph.paragraph_format.line_spacing = 0.95
+        set_run_font(paragraph.add_run(label), 6.5 if arrow else 6.8, arrow, INK)
+    set_table_borders(table)
+    add_text(doc, "", 1, after=2)
+
+
+def build_docx(item):
     doc = Document()
     section = doc.sections[0]
     section.page_width = Cm(21)
     section.page_height = Cm(29.7)
-    section.top_margin = Cm(1.05)
-    section.bottom_margin = Cm(1.05)
-    section.left_margin = Cm(1.25)
-    section.right_margin = Cm(1.25)
-
+    section.top_margin = Cm(0.95)
+    section.bottom_margin = Cm(0.9)
+    section.left_margin = Cm(1.15)
+    section.right_margin = Cm(1.15)
     normal = doc.styles["Normal"]
     normal.font.name = "Noto Sans KR"
-    normal.font.size = Pt(8.3)
+    normal.font.size = Pt(8.1)
     normal._element.rPr.rFonts.set(qn("w:eastAsia"), "Noto Sans KR")
-    normal.paragraph_format.space_after = Pt(3)
+    normal.paragraph_format.space_after = Pt(2)
 
-    add_text(doc, "RESEARCH KNOWLEDGE / CONCEPT ONE-PAGER", 7.2, True, "#637783", after=4)
-    add_text(doc, one_pager["title"], 17, False, INK, after=1, line=1.0)
-    add_text(doc, one_pager["subtitle"], 9.2, False, MUTED, after=8, line=1.05)
-    add_text(doc, "01. 한 줄 정의", 9.2, True, INK, after=1)
-    add_text(doc, one_pager["oneLine"], 8.5, False, MUTED, after=4)
+    add_text(doc, "RESEARCH KNOWLEDGE / CONCEPT ONE-PAGER", 7.2, True, "#637783", after=3)
+    add_text(doc, item["title"], 17, False, INK, after=1, line=1.0)
+    add_text(doc, item["subtitle"], 8.8, False, MUTED, after=5)
+    add_text(doc, "01. 한 줄 정의", 8.8, True, INK, after=1)
+    add_text(doc, item["oneLine"], 8.1, False, MUTED, after=4)
+    add_flow_to_docx(doc, item["flow"])
 
-    for index, item in enumerate(one_pager["sections"], start=2):
-        add_text(doc, f"{index:02d}. {item['heading']}", 8.8, True, INK, before=2, after=1)
-        add_text(doc, item["body"], 8.1, False, MUTED, after=3, line=1.02)
-        if index == 3:
-            table = doc.add_table(rows=1, cols=5)
-            table.autofit = False
-            widths = [Cm(5.6), Cm(0.65), Cm(4.7), Cm(0.65), Cm(5.0)]
-            labels = ["전경 레이어\nAlpha 55%", "+", "불투명한 배경\nAlpha 100%", "→", "합성된 화면"]
-            fills = ["F0E0E3", "FFFFFF", "DCE6EC", "FFFFFF", "D9E6DF"]
-            for cell, width, label, fill in zip(table.rows[0].cells, widths, labels, fills):
-                cell.width = width
-                cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
-                set_cell_shading(cell, fill)
-                paragraph = cell.paragraphs[0]
-                paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
-                paragraph.paragraph_format.space_after = Pt(0)
-                paragraph.paragraph_format.line_spacing = 1.0
-                run = paragraph.add_run(label)
-                set_run_font(run, 7.3, label in ["+", "→"], INK)
-            set_table_borders(table)
-            add_text(doc, "불투명 배경: 결과색 = Alpha × 앞색 + (1 − Alpha) × 배경색", 7.5, False, MUTED, before=3, after=4)
-
+    for index, entry in enumerate(item["sections"], start=2):
+        add_text(doc, f"{index:02d}. {entry['heading']}", 8.5, True, INK, before=1, after=0.5)
+        add_text(doc, entry["body"], 7.8, False, MUTED, after=2, line=1.0)
     add_text(doc, "SOURCES", 7.2, True, "#637783", before=2, after=1)
-    for source in one_pager["sources"]:
-        add_text(doc, source, 6.4, False, MUTED, after=1, line=1.0)
-
-    doc.core_properties.title = one_pager["title"]
+    for source in item["sources"]:
+        add_text(doc, source, 6, False, MUTED, after=0, line=1.0)
+    doc.core_properties.title = item["title"]
     doc.core_properties.subject = "A4 Concept One-Pager"
     doc.core_properties.author = "Minho Lee"
-    doc.save(DOCX_PATH)
+    doc.save(item["docx"])
 
 
 def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
-    concept = json.loads(SOURCE.read_text(encoding="utf-8"))
-    build_pdf(concept["onePager"])
-    build_docx(concept["onePager"])
-    print(f"Created {PDF_PATH} and {DOCX_PATH}")
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    generated = []
+    for summary in registry["concepts"]:
+        if summary["status"] != "published":
+            continue
+        article = json.loads((CONTENT / f"{summary['slug']}.json").read_text(encoding="utf-8"))
+        item = normalized_one_pager(article, summary)
+        build_pdf(item)
+        build_docx(item)
+        generated.append(summary["slug"])
+    print(f"Created {len(generated)} Knowledge One-Pager PDF/DOCX pairs: {', '.join(generated)}")
 
 
 if __name__ == "__main__":

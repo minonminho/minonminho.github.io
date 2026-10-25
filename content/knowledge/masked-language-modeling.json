@@ -1,0 +1,198 @@
+{
+  "id": "concept:masked-language-modeling",
+  "slug": "masked-language-modeling",
+  "canonicalName": {
+    "en": "Masked language modeling",
+    "ko": "Masked language modeling (마스크 언어 모델링)"
+  },
+  "dek": {
+    "en": "Masked language modeling trains a bidirectional encoder to recover selected tokens from surrounding context.",
+    "ko": "마스크 언어 모델링은 양방향 인코더가 주변 문맥에서 가린 토큰을 복원하도록 학습합니다."
+  },
+  "domain": [
+    "Natural Language Processing",
+    "Pretraining"
+  ],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": [
+    "arxiv:1810.04805"
+  ],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:1810.04805",
+      "title": {
+        "en": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+        "ko": "BERT: 언어 이해를 위한 심층 양방향 Transformer 사전 학습"
+      },
+      "reviewUrl": "/daily-brief/papers/bert-pretraining/",
+      "url": "https://arxiv.org/abs/1810.04805v2"
+    }
+  ],
+  "relatedConcepts": [],
+  "visualAsset": {
+    "url": "https://ar5iv.labs.arxiv.org/html/1810.04805/assets/bert_pretraining_finetuning.png",
+    "alt": {
+      "en": "BERT pre-training and fine-tuning diagram from the original paper.",
+      "ko": "원 논문에 실린 BERT 사전 학습과 미세 조정 그림."
+    },
+    "caption": {
+      "en": "A shared bidirectional encoder is pre-trained with masked tokens and then fine-tuned for downstream tasks.",
+      "ko": "공유 양방향 인코더를 가린 토큰으로 사전 학습한 뒤 여러 과제에 미세 조정합니다."
+    },
+    "credit": "Original figure by the paper authors; linked from https://arxiv.org/abs/1810.04805.",
+    "license": "See the license and reuse terms on the linked source paper."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": {
+        "en": "Concept at a glance",
+        "ko": "개념 한눈에 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "The model predicts tokens deliberately hidden from an input, using visible tokens on both sides as context.",
+          "ko": "모델이 입력에서 일부러 가린 토큰을 양쪽의 보이는 토큰 문맥을 이용해 예측합니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": {
+        "en": "How it works",
+        "ko": "작동 방식"
+      },
+      "paragraphs": [
+        {
+          "en": "BERT selects 15% of WordPiece positions for prediction and uses a replacement recipe so the model cannot rely only on a visible mask token.",
+          "ko": "BERT는 WordPiece 위치의 15%를 예측 대상으로 고르고, 항상 마스크 토큰만 보지 않도록 대체 방식을 섞습니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": {
+        "en": "Read the figure",
+        "ko": "그림 읽기"
+      },
+      "paragraphs": [
+        {
+          "en": "The paper’s diagram shows the same encoder initializing task models; only a task output layer is added before full fine-tuning.",
+          "ko": "논문 그림은 같은 인코더로 과제 모델을 초기화하고 출력층을 더한 뒤 전체를 미세 조정하는 흐름을 보여줍니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": {
+        "en": "Compare the idea",
+        "ko": "비교해서 보기"
+      },
+      "paragraphs": [
+        {
+          "en": "Unlike left-to-right language modeling, masked prediction can use right context while building a token representation.",
+          "ko": "왼쪽에서 오른쪽으로 예측하는 언어 모델과 달리, 토큰 표현을 만들 때 오른쪽 문맥도 사용할 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": {
+        "en": "Implementation notes",
+        "ko": "구현 점검"
+      },
+      "paragraphs": [
+        {
+          "en": "Use a bidirectional encoder and a vocabulary prediction head for pre-training; attach task heads and fine-tune for classification or span extraction.",
+          "ko": "사전 학습에는 양방향 인코더와 어휘 예측 층을 쓰고, 분류·정답 구간 추출에는 과제별 출력층을 붙여 미세 조정합니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": {
+        "en": "Limits",
+        "ko": "한계"
+      },
+      "paragraphs": [
+        {
+          "en": "Masked-token pre-training does not directly train left-to-right generation. The original English data and task suite also limit how broadly results transfer.",
+          "ko": "마스크 토큰 사전 학습은 왼쪽에서 오른쪽으로 문장을 생성하도록 직접 훈련하지 않습니다. 원래 영어 데이터와 과제 구성도 전이 범위를 제한합니다."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": {
+        "en": "Takeaway",
+        "ko": "핵심 정리"
+      },
+      "paragraphs": [
+        {
+          "en": "MLM gives an encoder access to both-side context by turning missing-token recovery into a scalable pre-training objective.",
+          "ko": "MLM은 빠진 토큰 복원을 확장 가능한 사전 학습 목표로 삼아 인코더가 양쪽 문맥을 활용하게 합니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": {
+        "en": "Original paper",
+        "ko": "논문 원문"
+      },
+      "url": "https://arxiv.org/abs/1810.04805",
+      "publisher": "arXiv",
+      "type": "research-paper"
+    },
+    {
+      "label": {
+        "en": "Google Research BERT code",
+        "ko": "Google Research BERT 코드"
+      },
+      "url": "https://github.com/google-research/bert",
+      "publisher": "github.com",
+      "type": "implementation-or-reference"
+    }
+  ],
+  "onePager": {
+    "title": "Masked language modeling (마스크 언어 모델링)",
+    "subtitle": "마스크 언어 모델링은 양방향 인코더가 주변 문맥에서 가린 토큰을 복원하도록 학습합니다.",
+    "oneLine": "MLM은 빠진 토큰 복원을 확장 가능한 사전 학습 목표로 삼아 인코더가 양쪽 문맥을 활용하게 합니다.",
+    "sections": [
+      {
+        "heading": "입력",
+        "body": "문장 토큰 중 일부를 예측 대상으로 선택합니다."
+      },
+      {
+        "heading": "학습",
+        "body": "주변의 왼쪽·오른쪽 문맥으로 원래 토큰을 맞힙니다."
+      },
+      {
+        "heading": "효과",
+        "body": "양방향 인코더 표현을 여러 과제에 재사용합니다."
+      },
+      {
+        "heading": "구현 점검",
+        "body": "마스크·랜덤 대체·원 토큰 유지 비율을 확인합니다."
+      },
+      {
+        "heading": "주의할 점",
+        "body": "MLM은 다음 토큰 생성 목표와 다릅니다."
+      }
+    ],
+    "flow": [
+      "문장 토큰",
+      "일부 위치 가리기",
+      "양방향 문맥",
+      "가린 토큰 예측"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/1810.04805"
+    ],
+    "status": "ready",
+    "pdfPath": "/knowledge/masked-language-modeling-one-pager.pdf",
+    "docxPath": "/knowledge/masked-language-modeling-one-pager.docx"
+  }
+}

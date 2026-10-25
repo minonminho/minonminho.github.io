@@ -35,7 +35,7 @@ async function main() {
     const sourcePaperReviews = summary.sourcePapers.map((id) => {
       const metadata = reviews.get(id);
       if (!metadata) return null;
-      return { id, title: metadata.title, reviewUrl: `/daily-brief/highlight/review/${metadata.slug}/`, url: `https://arxiv.org/abs/${id.replace(/^arxiv:/i, "")}` };
+      return { id, title: metadata.title, reviewUrl: `/daily-brief/papers/${metadata.slug}/`, url: `https://arxiv.org/abs/${id.replace(/^arxiv:/i, "")}` };
     }).filter(Boolean);
     return {
       ...article,

@@ -15,7 +15,36 @@
       "estimatedTokens": 0,
       "startedAt": "2026-10-25T02:15:13.480Z",
       "finishedAt": "2026-10-25T02:15:13.480Z",
-      "message": "Indexed 5 terminology records deterministically. 4 Brief candidate(s) await explicit AI configuration. Curated test content was reused; no model call or cloud job was run."
+      "message": "Initial terminology indexing is complete; all four queued terms now have curated, published Knowledge Briefs. No model call or cloud job was used."
+    },
+    {
+      "id": "local-foundational-papers-knowledge-v1",
+      "idempotencyKey": "curation:foundational-papers:2026-10-25:v1",
+      "paperId": "collection:foundational-papers-2026-10-25",
+      "status": "published",
+      "environment": "local-validation",
+      "selectedConceptIds": [
+        "concept:transformer-self-attention",
+        "concept:residual-learning",
+        "concept:masked-language-modeling",
+        "concept:in-context-learning",
+        "concept:retrieval-augmented-generation",
+        "concept:lora",
+        "concept:rlhf",
+        "concept:vision-transformer",
+        "concept:contrastive-image-text-learning",
+        "concept:denoising-diffusion",
+        "concept:rgba-layer",
+        "concept:on-policy-distillation",
+        "concept:ssim-fid"
+      ],
+      "termsSeen": 13,
+      "newConcepts": 13,
+      "modelCalls": 0,
+      "estimatedTokens": 0,
+      "startedAt": "2026-10-25T00:00:00.000Z",
+      "finishedAt": "2026-10-25T00:00:00.000Z",
+      "message": "Curated 13 bilingual source-linked Knowledge Briefs from the ten foundational papers and completed the prior pending terms. No model call or cloud job was used."
     }
   ]
 }
