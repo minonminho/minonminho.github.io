@@ -22,8 +22,9 @@ HIGHLIGHTS = ROOT / "content/daily-brief/highlights"
 HF_API = "https://huggingface.co/api/daily_papers"
 HF_PAGE = "https://huggingface.co/papers/{paper_id}"
 ARXIV_PAGE = "https://arxiv.org/abs/{paper_id}"
-TRANSLATION_MODEL = "Helsinki-NLP/opus-mt-tc-big-en-ko"
-TRANSLATION_REVISION = "ae8606b7b29a495f31ce679cee2007f536a3a5ce"
+TRANSLATION_MODEL = "Neurora/opus-hplt-en-ko-v2.0"
+TRANSLATION_REVISION = "06f3f7b03a97728560826d7387e1ea25224c65a9"
+TRANSLATION_MODEL_TAG = f"{TRANSLATION_MODEL}@{TRANSLATION_REVISION}"
 KOREA = ZoneInfo("Asia/Seoul")
 
 
@@ -149,13 +150,21 @@ def slug_for(paper_id: str) -> str:
     return f"hf-{re.sub(r'[^a-z0-9]+', '-', paper_id.lower()).strip('-')}"
 
 
-def review_ids() -> set[str]:
-    ids: set[str] = set()
+def review_translation_models() -> dict[str, str]:
+    models: dict[str, str] = {}
     for path in REVIEWS.glob("*.md"):
-        match = re.search(r'"canonicalId"\s*:\s*"([^"]+)"', path.read_text(encoding="utf-8"))
-        if match:
-            ids.add(normalized_id(match.group(1)))
-    return ids
+        content = path.read_text(encoding="utf-8")
+        match = re.match(r"^---\n([\s\S]*?)\n---", content)
+        if not match:
+            continue
+        try:
+            metadata = json.loads(match.group(1))
+        except json.JSONDecodeError:
+            continue
+        canonical_id = metadata.get("canonicalId")
+        if canonical_id:
+            models[normalized_id(canonical_id)] = clean(metadata.get("translationModel"))
+    return models
 
 
 def highlight_history() -> set[str]:
@@ -237,9 +246,16 @@ class Translator:
             raise RuntimeError("Install torch, transformers, and sentencepiece to translate paper briefs.") from error
         torch.set_num_threads(2)
         self.tokenizer = AutoTokenizer.from_pretrained(TRANSLATION_MODEL, revision=TRANSLATION_REVISION)
-        self.model = AutoModelForSeq2SeqLM.from_pretrained(TRANSLATION_MODEL, revision=TRANSLATION_REVISION)
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(
+            TRANSLATION_MODEL,
+            revision=TRANSLATION_REVISION,
+            torch_dtype=torch.float32,
+        )
         self.model.eval()
         self.cache: dict[str, str] = {}
+        sanity_translation = self.translate_many(["The weather is really nice today."])[0]
+        if not all(token in sanity_translation for token in ("오늘", "날씨", "좋")):
+            raise RuntimeError(f"Translation sanity check failed for {TRANSLATION_MODEL}: {sanity_translation!r}")
 
     @staticmethod
     def split(text: str, max_chars: int = 420) -> list[str]:
@@ -347,6 +363,7 @@ def review_markdown(paper: dict, cadence: str, period: str, period_rank: int, ru
         "version": paper["id"],
         "reviewStatus": "published",
         "sourceType": f"huggingface-{cadence}",
+        "translationModel": TRANSLATION_MODEL_TAG,
         "publishedDate": run_date.isoformat(),
         "dailyDate": period if cadence == "daily" else None,
         "dailyRank": period_rank if cadence == "daily" else None,
@@ -526,15 +543,20 @@ def publish(cadence: str, requested_date: str | None) -> None:
     if not papers:
         raise RuntimeError(f"Hugging Face returned no usable {cadence} papers for {period}.")
 
-    existing = review_ids()
-    new_papers = [paper for paper in papers if paper["id"] not in existing]
+    review_models = review_translation_models()
+    up_to_date = {
+        paper_id
+        for paper_id, model_tag in review_models.items()
+        if model_tag == TRANSLATION_MODEL_TAG
+    }
+    papers_to_update = [paper for paper in papers if paper["id"] not in up_to_date]
     feed_date = period if cadence == "daily" else ""
     highlight_path = HIGHLIGHTS / f"{run_date.isoformat()}.json"
     used_highlights = highlight_history()
     candidate = next((paper for paper in papers if cadence == "daily" and not highlight_path.exists() and paper["id"] not in used_highlights), None)
 
     prepared: list[tuple[dict, str, int, str, int, int]] = []
-    for paper in new_papers:
+    for paper in papers_to_update:
         image_url, width, height = image_for(paper)
         if not image_url:
             print(f"Skipping {paper['id']}: no original paper figure found.", file=sys.stderr)
@@ -549,7 +571,7 @@ def publish(cadence: str, requested_date: str | None) -> None:
             candidate = None
 
     if not prepared:
-        print(json.dumps({"cadence": cadence, "period": period, "papers_seen": len(papers), "new_summaries": 0, "highlight": "skipped" if cadence == "daily" else "not-applicable"}))
+        print(json.dumps({"cadence": cadence, "period": period, "papers_seen": len(papers), "updated_summaries": 0, "highlight": "skipped" if cadence == "daily" else "not-applicable"}))
         return
 
     all_inputs: dict[str, str] = {
@@ -572,12 +594,12 @@ def publish(cadence: str, requested_date: str | None) -> None:
 
     created = 0
     for paper, _, rank, image_url, _width, _height in prepared:
-        if paper["id"] in existing:
+        if paper["id"] in up_to_date:
             continue
         destination = REVIEWS / f"{slug_for(paper['id'])}.md"
         metadata = review_markdown(paper, cadence, period, rank, run_date, translated, image_url)
         destination.write_text(metadata, encoding="utf-8")
-        existing.add(paper["id"])
+        up_to_date.add(paper["id"])
         created += 1
 
     highlight_status = "not-applicable"
@@ -592,7 +614,7 @@ def publish(cadence: str, requested_date: str | None) -> None:
         else:
             highlight_status = "no-eligible-paper"
 
-    print(json.dumps({"cadence": cadence, "period": period, "papers_seen": len(papers), "new_summaries": created, "highlight": highlight_status}))
+    print(json.dumps({"cadence": cadence, "period": period, "papers_seen": len(papers), "updated_summaries": created, "highlight": highlight_status}))
 
 
 def main() -> None:
