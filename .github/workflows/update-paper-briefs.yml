@@ -1,6 +1,12 @@
 name: Update Daily Brief Papers
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/update-paper-briefs.yml"
+      - "scripts/paper-reviews/**"
   schedule:
     # 06:00 Korea Standard Time (UTC+9).
     - cron: "0 21 * * *"
