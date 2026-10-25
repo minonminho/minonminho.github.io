@@ -4,3 +4,25 @@ compatibility_date = "2026-09-05"
 
 [vars]
 ALLOWED_ORIGINS = "https://minonminho.github.io,http://localhost:3000"
+KNOWLEDGE_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8-fast"
+KNOWLEDGE_MAX_NEW_CONCEPTS = "1"
+KNOWLEDGE_AI_ENABLED = "false"
+KNOWLEDGE_WEEKLY_MAX_NEW_BRIEFS = "2"
+KNOWLEDGE_MONTHLY_AI_BUDGET_USD = "0"
+KNOWLEDGE_MAX_BRIEF_COST_USD = "0"
+KNOWLEDGE_MAX_RETRIES = "3"
+
+# Create a D1 database and replace the placeholder ID before deployment.
+[[d1_databases]]
+binding = "KNOWLEDGE_DB"
+database_name = "minho-knowledge-registry"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+[[workflows]]
+name = "knowledge-paper-workflow"
+binding = "KNOWLEDGE_WORKFLOW"
+class_name = "KnowledgePaperWorkflow"
+
+[ai]
+binding = "AI"

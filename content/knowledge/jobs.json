@@ -1,0 +1,21 @@
+{
+  "jobs": [
+    {
+      "id": "local-2610-24738-knowledge-v1",
+      "idempotencyKey": "paper:arxiv:2610.24738:knowledge:v1",
+      "paperId": "arxiv:2610.24738",
+      "status": "published",
+      "environment": "local-validation",
+      "selectedConceptIds": [
+        "concept:alpha-compositing"
+      ],
+      "termsSeen": 5,
+      "newConcepts": 1,
+      "modelCalls": 0,
+      "estimatedTokens": 0,
+      "startedAt": "2026-10-25T02:15:13.480Z",
+      "finishedAt": "2026-10-25T02:15:13.480Z",
+      "message": "Indexed 5 terminology records deterministically. 4 Brief candidate(s) await explicit AI configuration. Curated test content was reused; no model call or cloud job was run."
+    }
+  ]
+}

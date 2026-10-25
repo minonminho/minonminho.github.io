@@ -1,0 +1,196 @@
+{
+  "id": "concept:alpha-compositing",
+  "slug": "alpha-compositing",
+  "canonicalName": { "en": "Alpha compositing", "ko": "Alpha 합성" },
+  "dek": {
+    "en": "How transparency combines a foreground layer with the image behind it, and why the math matters when an editor exports reusable layers.",
+    "ko": "투명도를 기준으로 앞 레이어와 배경을 합치는 계산입니다. 편집 모델이 재사용 가능한 레이어를 내보낼 때 이 계산이 왜 중요한지 살펴봅니다."
+  },
+  "domain": ["Computer Graphics", "Image Editing"],
+  "version": 1,
+  "lastUpdated": "2026-10-25",
+  "sourcePapers": ["arxiv:2610.24738"],
+  "sourcePaperReviews": [
+    {
+      "id": "arxiv:2610.24738",
+      "title": {
+        "en": "Editing Images into Reusable Layers via Compositional Edit-Prior Distillation",
+        "ko": "Compositional Edit-Prior Distillation으로 재사용 가능한 이미지 레이어 만들기"
+      },
+      "reviewUrl": "/daily-brief/highlight/review/layereditor/",
+      "url": "https://arxiv.org/abs/2610.24738v1"
+    }
+  ],
+  "visualAsset": {
+    "path": "/knowledge/alpha-compositing-flow.svg",
+    "alt": {
+      "en": "A semi-transparent foreground layer is composited over a blue backdrop to produce the visible output.",
+      "ko": "반투명 전경 레이어를 파란 배경 위에 합성해 최종 화면을 만드는 과정"
+    },
+    "caption": {
+      "en": "Source-over compositing: the foreground contributes according to Alpha; the remaining part of an opaque backdrop shows through.",
+      "ko": "Source-over 합성에서는 Alpha만큼 전경이 반영되고, 불투명한 배경의 나머지 부분이 비쳐 보입니다."
+    },
+    "credit": "Original SVG diagram created for this article from the cited source-over equations."
+  },
+  "sections": [
+    {
+      "id": "definition",
+      "heading": { "en": "01. Definition & context", "ko": "01. 정의와 맥락" },
+      "paragraphs": [
+        {
+          "en": "Alpha compositing combines a foreground source with a backdrop using each pixel's Alpha value, which represents opacity or coverage. It is the step that turns separate image layers into one visible canvas.",
+          "ko": "Alpha 합성은 각 픽셀의 Alpha 값(불투명도 또는 덮임 정도)을 이용해 앞쪽 이미지와 배경을 결합합니다. 나뉘어 있는 이미지 레이어를 한 화면으로 만드는 계산입니다."
+        },
+        {
+          "en": "LayerEditor predicts both an edited canvas and RGBA layers. Those layers are useful only if their recomposed image remains close to the intended result, so compositing is part of the paper's central engineering problem.",
+          "ko": "LayerEditor는 편집된 화면과 RGBA 레이어를 함께 예측합니다. 레이어를 다시 합쳤을 때 의도한 결과와 가까워야 실제로 재사용할 수 있으므로, 합성은 이 논문의 핵심 엔지니어링 문제와 맞닿아 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "heading": { "en": "02. Architecture & mechanism", "ko": "02. 작동 원리" },
+      "paragraphs": [
+        {
+          "en": "For a foreground color Cₛ with opacity αₛ over an opaque backdrop color Cᵦ, source-over compositing gives Cₒ = αₛCₛ + (1 − αₛ)Cᵦ. Alpha 1 means the foreground fully covers the backdrop; Alpha 0 means it contributes nothing.",
+          "ko": "불투명한 배경색 Cᵦ 위에 불투명도가 αₛ인 전경색 Cₛ를 놓으면 source-over 합성 결과는 Cₒ = αₛCₛ + (1 − αₛ)Cᵦ입니다. Alpha가 1이면 전경이 배경을 완전히 덮고, 0이면 전경이 보이지 않습니다."
+        },
+        {
+          "en": "When the backdrop is also transparent, its Alpha must be combined too: αₒ = αₛ + αᵦ(1 − αₛ). Implementations commonly use premultiplied color internally; the simplified equation above assumes an opaque backdrop and ordinary, non-premultiplied RGB values.",
+          "ko": "배경도 투명할 수 있다면 배경의 Alpha도 함께 계산해야 합니다: αₒ = αₛ + αᵦ(1 − αₛ). 실제 구현은 색에 Alpha를 미리 곱한 premultiplied 값을 쓰기도 합니다. 위의 간단한 색상 식은 불투명한 배경과 일반 RGB 값을 가정합니다."
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "heading": { "en": "03. See the layers combine", "ko": "03. 레이어가 합쳐지는 모습" },
+      "paragraphs": [
+        {
+          "en": "Move the Alpha control. The foreground becomes more or less opaque, and the composite changes with it. The diagram uses a simple opaque backdrop so the foreground and backdrop contributions are easy to compare.",
+          "ko": "Alpha 조절 막대를 움직여 보세요. 전경의 불투명도가 바뀌고 최종 합성 화면도 함께 달라집니다. 기여 비율을 쉽게 비교하도록 예시 배경은 불투명하게 두었습니다."
+        }
+      ]
+    },
+    {
+      "id": "comparison",
+      "heading": { "en": "04. Compositing, blending, and segmentation", "ko": "04. 비슷한 개념과의 차이" },
+      "paragraphs": [
+        {
+          "en": "Compositing combines source and backdrop coverage. Blending changes how their colors interact before the compositing step; multiply and screen are examples of blend modes. Segmentation identifies which pixels belong to an object, while matting estimates partial foreground coverage at soft edges. These operations can work together, but they answer different questions.",
+          "ko": "합성은 전경과 배경의 덮임·투명도를 결합합니다. 블렌딩은 합성 전에 두 색이 어떻게 상호작용할지 바꾸며 multiply와 screen이 예입니다. 분할은 어떤 픽셀이 객체에 속하는지 찾고, 매팅은 부드러운 경계에서 전경이 차지하는 비율을 추정합니다. 서로 함께 쓰일 수 있지만 각각 답하는 질문은 다릅니다."
+        }
+      ],
+      "comparison": [
+        {
+          "term": { "en": "Compositing", "ko": "합성" },
+          "question": { "en": "How do the source and backdrop contribute to the output pixel?", "ko": "전경과 배경이 최종 픽셀에 각각 얼마나 기여하나?" }
+        },
+        {
+          "term": { "en": "Blending", "ko": "블렌딩" },
+          "question": { "en": "How should overlapping colors interact, such as multiply or screen?", "ko": "겹치는 색을 multiply나 screen처럼 어떻게 섞을까?" }
+        },
+        {
+          "term": { "en": "Segmentation / matting", "ko": "분할 / 매팅" },
+          "question": { "en": "Which pixels belong to the object, and how much at soft edges?", "ko": "어떤 픽셀이 객체에 속하며 경계에서는 그 비율이 얼마인가?" }
+        }
+      ]
+    },
+    {
+      "id": "implementation",
+      "heading": { "en": "05. Real-world implementation", "ko": "05. 실제 활용" },
+      "paragraphs": [
+        {
+          "en": "Compositing appears anywhere a foreground is placed over a backdrop: transparent PNG artwork, interface overlays, video effects, and layered poster edits. In the browser, Canvas 2D uses source-over as its default compositing operation; image editors expose equivalent layer opacity and compositing controls.",
+          "ko": "전경을 배경 위에 올리는 곳이면 합성이 쓰입니다. 투명 PNG, 화면 위 안내창, 영상 효과, 레이어를 나누어 편집하는 포스터가 예입니다. 브라우저의 Canvas 2D는 source-over를 기본 합성 방식으로 사용하고, 이미지 편집기는 레이어 불투명도와 합성 옵션을 제공합니다."
+        },
+        {
+          "en": "For an AI editor, evaluate both the direct rendered image and the image rebuilt from exported layers. Also try moving or recoloring one layer: a correct initial composite does not by itself prove that the layer stack will remain useful after edits.",
+          "ko": "AI 편집기를 평가할 때는 모델이 바로 출력한 이미지와 내보낸 레이어를 다시 합성한 이미지를 모두 확인해야 합니다. 레이어 하나를 옮기거나 색을 바꾸는 시험도 필요합니다. 처음 합성이 맞는다고 해서 후속 편집에서도 레이어가 유용하다는 뜻은 아닙니다."
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "heading": { "en": "06. Trade-offs & limitations", "ko": "06. 주의할 점" },
+      "paragraphs": [
+        {
+          "en": "Alpha compositing combines pixels; it does not decide what an object is or recover editable text and vector shapes. In LayerEditor's reported setup, text remains raster content and delicate transparent edges may degrade when layers are moved or recomposed. The authors evaluate reconstruction metrics, but not a broad set of downstream layer edits.",
+          "ko": "Alpha 합성은 픽셀을 결합할 뿐, 객체가 무엇인지 판별하거나 편집 가능한 글자·벡터 도형을 복원하지 않습니다. LayerEditor가 보고한 설정에서는 텍스트가 래스터 이미지로 남고, 섬세한 투명 경계는 레이어를 옮기거나 다시 합칠 때 깨질 수 있습니다. 저자들은 재구성 지표를 평가했지만 다양한 후속 레이어 편집까지 폭넓게 검증하지는 않았습니다."
+        },
+        {
+          "en": "If a design needs dependable reuse, inspect edge halos, transparent backdrops, color-space handling, and whether each layer can be changed without damaging unrelated content.",
+          "ko": "디자인을 안정적으로 재사용하려면 경계의 테두리 번짐, 투명 배경, 색 공간 처리, 레이어 하나를 수정해도 다른 내용이 손상되지 않는지를 따로 확인하세요."
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "heading": { "en": "07. Key takeaway", "ko": "07. 핵심 요약" },
+      "paragraphs": [
+        {
+          "en": "Alpha compositing is the rule that turns transparent image parts into a visible whole. For layered AI editing, the real test is whether those parts still produce a faithful image after recomposition and remain useful when changed.",
+          "ko": "Alpha 합성은 투명한 이미지 조각을 눈에 보이는 한 화면으로 바꾸는 규칙입니다. 레이어 기반 AI 편집의 진짜 시험은 재합성 결과가 충실한지, 그리고 레이어를 수정한 뒤에도 쓸모가 남는지입니다."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": { "en": "Compositing and Blending Level 1", "ko": "W3C Compositing and Blending Level 1 표준" },
+      "url": "https://www.w3.org/TR/compositing-1/",
+      "publisher": "W3C",
+      "type": "standard"
+    },
+    {
+      "label": { "en": "Compositing Digital Images", "ko": "Compositing Digital Images 원문" },
+      "url": "https://graphics.pixar.com/library/Compositing/paper.pdf",
+      "publisher": "Thomas Porter and Tom Duff, 1984",
+      "type": "research"
+    },
+    {
+      "label": { "en": "LayerEditor paper review", "ko": "LayerEditor 논문 리뷰" },
+      "url": "https://arxiv.org/abs/2610.24738v1",
+      "publisher": "Wen Xue et al., arXiv:2610.24738v1",
+      "type": "paper"
+    }
+  ],
+  "onePager": {
+    "title": "Alpha 합성 한 장 이해하기",
+    "subtitle": "투명도와 레이어가 최종 이미지를 만드는 방식",
+    "oneLine": "Alpha 합성은 앞 이미지의 투명도(Alpha)를 기준으로 앞·뒤 픽셀의 색을 섞어 한 화면으로 만드는 계산입니다.",
+    "sections": [
+      {
+        "heading": "왜 알아야 하는가",
+        "body": "AI 이미지 편집에서 결과를 RGBA 레이어로 나누어도, 다시 합쳤을 때 의도한 화면이 나오지 않으면 재사용성이 낮습니다. LayerEditor는 편집 이미지와 레이어를 함께 예측하므로 합성 결과를 별도로 확인해야 합니다."
+      },
+      {
+        "heading": "쉬운 비유와 작동 원리",
+        "body": "투명 필름을 그림 위에 겹치는 것과 비슷합니다. Alpha 1은 완전히 불투명, 0은 완전히 투명, 그 사이는 일부가 비치는 상태입니다. 불투명한 배경에서는 결과 색 = Alpha × 앞색 + (1 − Alpha) × 배경색으로 계산합니다."
+      },
+      {
+        "heading": "실제 활용 사례",
+        "body": "투명 PNG, 웹 화면의 오버레이, 영상 효과, 여러 레이어로 구성한 포스터를 한 화면에 표시할 때 사용합니다. 브라우저 Canvas 2D는 source-over를 기본 합성 방식으로 둡니다."
+      },
+      {
+        "heading": "비슷한 개념과의 차이",
+        "body": "합성은 앞·뒤 이미지의 기여율을 결합합니다. 블렌딩은 multiply처럼 겹치는 색의 상호작용을 정합니다. 분할·매팅은 합성 전에 객체 픽셀이나 경계의 투명도를 찾아냅니다."
+      },
+      {
+        "heading": "HR 업무에서 볼 점",
+        "body": "인재·조직 의사결정에 직접 적용되는 개념은 아닙니다. 다만 사내 포스터나 채용 콘텐츠를 레이어 단위로 수정할 때, AI가 만든 RGBA 레이어가 텍스트 편집과 경계 보존까지 보장하지는 않으므로 재사용 전에 확인해야 합니다."
+      },
+      {
+        "heading": "Key takeaway",
+        "body": "레이어를 나누는 것만으로 편집성이 보장되지는 않습니다. 다시 합친 결과의 충실도와, 각 레이어를 바꾼 뒤에도 다른 내용이 유지되는지를 함께 확인하세요."
+      }
+    ],
+    "sources": [
+      "W3C, Compositing and Blending Level 1, https://www.w3.org/TR/compositing-1/",
+      "Porter & Duff, Compositing Digital Images, 1984, https://graphics.pixar.com/library/Compositing/paper.pdf",
+      "Xue et al., arXiv:2610.24738v1, https://arxiv.org/abs/2610.24738v1"
+    ],
+    "pdfPath": "/knowledge/alpha-compositing-one-pager.pdf",
+    "docxPath": "/knowledge/alpha-compositing-one-pager.docx"
+  }
+}
