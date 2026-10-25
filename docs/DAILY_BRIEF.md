@@ -20,6 +20,12 @@ The user's existing **AI Morning Brief** ChatGPT automation is the publisher. It
 
 There is no separate model API, API key, database, or generation server to configure. The user's PC may be off. The automation is managed in ChatGPT, not in a second scheduled GitHub workflow. Its configured morning time is a start target; research and GitHub Pages build/deployment take additional time. Check the actual task result and deployment before claiming success.
 
+## Portfolio placement
+
+Daily Brief appears on the separate **Side Project** page (`/side-projects/`).
+Desktop and mobile menus link to that page immediately after Education; the project
+card opens `/daily-brief/`. Side Project is not a section of the home profile.
+
 ## Pages and source of truth
 
 - `/daily-brief/`: latest edition, search, topic filters, and date archive.

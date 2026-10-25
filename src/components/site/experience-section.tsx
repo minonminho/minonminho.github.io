@@ -1,42 +1,32 @@
 import { FadeInStagger, FadeInItem } from "@/components/motion/fade-in";
-import { SectionHeading } from "@/components/site/section-heading";
-import { Badge } from "@/components/ui/badge";
+import { EntryDetails } from "@/components/site/entry-details";
+import { ProfileSection } from "@/components/site/profile-section";
 import { jobs, sectionTitles } from "@/lib/data";
 
 export function ExperienceSection() {
   return (
-    <section
-      id="experience"
-      className="site-shell section-space scroll-mt-20"
-    >
-      <SectionHeading title={sectionTitles.workHistory} />
-
-      <FadeInStagger>
-        {jobs.map((job) => (
+    <ProfileSection id="experience" title={sectionTitles.workHistory} index="03" accent="orbit">
+      <FadeInStagger className="space-y-3">
+        {jobs.map((job, index) => (
           <FadeInItem key={`${job.period}-${job.title}`}>
-            <article className="grid gap-3 border-t border-border-subtle py-8 last:border-b md:grid-cols-[180px_1fr] md:gap-10">
-              <p className="text-caption pt-1 text-text-secondary">{job.period}</p>
-              <div>
-                <h3 className="text-headline">{job.title}</h3>
-                <p className="text-body-sm mt-1 text-text-secondary">{job.company}</p>
-                {job.badge && (
-                  <Badge variant="secondary" className="mt-4">
-                    {job.badge}
-                  </Badge>
-                )}
-                <ul className="mt-6 space-y-5">
-                  {job.bullets.map((bullet) => (
-                    <li key={bullet.heading} className="text-body-sm grid gap-1 md:grid-cols-[220px_1fr] md:gap-6">
-                      <p className="font-medium text-text-primary">{bullet.heading}</p>
-                      <p className="text-text-secondary">{bullet.description}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </article>
+            <EntryDetails title={job.title} period={job.period} subtitle={job.company} defaultOpen={index === 0}>
+              {job.badge && (
+                <p className="mt-3 text-xs font-medium text-signal-mint">
+                  {job.badge}
+                </p>
+              )}
+              <ul className="mt-5 space-y-5">
+                {job.bullets.map((bullet) => (
+                  <li key={bullet.heading} className="text-body grid gap-1">
+                    <p className="font-medium text-text-primary">{bullet.heading}</p>
+                    <p className="text-text-secondary">{bullet.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </EntryDetails>
           </FadeInItem>
         ))}
       </FadeInStagger>
-    </section>
+    </ProfileSection>
   );
 }

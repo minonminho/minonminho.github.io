@@ -2,6 +2,14 @@
 
 The public site is a GitHub Pages static export. The Cloudflare Worker and D1 schema in this repository are an implementation draft; they are not deployed from this workspace. The Worker dispatch is authenticated and runs only after a reviewed paper Markdown file changes on `main`. There is no Daily, Weekly, Monthly, or Landmark cron in the repository, and this change adds none.
 
+## Worker boundary
+
+The Worker now serves only the Knowledge API and `KnowledgePaperWorkflow`.
+Its Wrangler service name is `minho-knowledge-api`. The retired Talent Radar
+`/search` endpoint and GitHub search token are not part of this service; other
+non-Knowledge paths return 404. Existing D1, Workflow, authentication, AI budget,
+and disabled-by-default generation settings are preserved.
+
 ## What runs without AI
 
 The paper workflow normalizes terminology IDs, resolves the known alias map, records every bilingual term and its paper/source context in `knowledge_term_index` and `paper_term_index`, and links papers to existing Briefs. It never waits for Brief generation. Missing Briefs remain in the queue with the reviewed paper event cached. Static Knowledge pages show indexed terms separately from published Briefs. The local LayerEditor sample reuses its reviewed article and indexes all five terms; it does not call an AI model.

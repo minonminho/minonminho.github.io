@@ -2,7 +2,7 @@ import { ArrowUp } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-border-subtle bg-void py-8">
+    <footer className="mt-auto border-t border-border-subtle bg-background py-8">
       <div className="site-shell flex flex-wrap items-center justify-between gap-6">
         <p className="text-caption">MINHO LEE</p>
         <a

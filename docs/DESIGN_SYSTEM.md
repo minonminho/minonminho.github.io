@@ -1,692 +1,244 @@
-# SILENT PRECISION
-## Design System v1.0
+# Silent Precision
+## Design System v2.1 - Interactive Layers
 
-This document defines the implementation rules for the Silent Precision design language.
+This is the implementation contract for the portfolio and Daily Brief.
+`src/app/globals.css` is the source of truth for semantic colors and typography.
+This revision adds functional color layers and interaction to the editorial profile.
+It supersedes the flat neutral-only treatment and the earlier full-width pastel sections.
 
-All UI generated for this project should follow these rules unless explicitly overridden.
+## 1. Reference direction
 
----
+Reviewed live on 2026-10-25:
 
-# 01. Color Tokens
+- [Japan air alert](https://ttang-air-alert.vividfox6.chatgpt.site/): primary user-supplied
+  reference for a pale sage canvas, ivory control surfaces, a dark functional panel,
+  lime highlights, coral selection states, and selection-linked detail changes.
 
-## Foundation
+- [Paco Coursey](https://paco.me/): editorial reference for typography-led personal
+  content, generous whitespace, understated links, and unboxed groups.
+- [Emil Kowalski](https://emilkowal.ski/): secondary reference for a restrained
+  reading column, modest section titles, and consistent vertical rhythm.
+
+These are visual references. Use our own React components, content, and assets.
+Adapt their editorial restraint to a longer HR portfolio; retain the numbered
+metadata and thin rules of Silent Precision.
+
+## 2. Color
+
+Use a pale sage canvas with warm ivory panels in light mode. In dark mode,
+use a deep sage canvas and progressively lighter green-gray surfaces. A dark
+functional panel retains its own high-contrast foreground in both modes.
+
+| Layer | Role | Examples |
+| --- | --- | --- |
+| Canvas | Page background, quiet negative space | `--background` |
+| Paper | Grouped content and controls | `--surface-01`: summary, search results, disclosures |
+| Sage inset | Secondary content and control grouping | `--surface-02`: search toolbar, skill chips, open summary |
+| Dark panel | Focused interactive content | `--feature`, `--feature-ink`, `--feature-muted` |
+| Lime | Action and workflow emphasis inside the dark panel | `--lime`, `--on-lime` |
+| Coral | Current practice selection | `--selection-surface`, `--selection-ink`, `--selection-border` |
+
+Color indicates depth, grouping, and interaction. Keep the continuous page canvas;
+do not turn every section into a different full-width color block. Neutral prose,
+fine rules, modest headings, and Pretendard reading typography remain the foundation.
+Independent functional panels may use 12-14px corners and a restrained elevation
+shadow. Avoid glow, rainbow text, and decorative gradients.
 
 ```css
 :root {
-  --void: #08090B;
-  --background: #0B0D0F;
+  color-scheme: light;
+  --void: #eaf0df;
+  --background: #f3f5ef;
+  --foreground: var(--text-primary);
 
-  --surface-01: #101215;
-  --surface-02: #15181C;
-  --surface-03: #1C2025;
+  --surface-01: #fffefa;
+  --surface-02: #eaf0df;
+  --surface-03: #e0e8d7;
+  --graphite: #d5d4ce;
+  --steel: #65717b;
 
-  --graphite: #292D32;
-  --steel: #626971;
+  --text-primary: #172122;
+  --text-secondary: #4d5e57;
+  --text-tertiary: #5b685f;
 
-  --text-primary: #ECEFF1;
-  --text-secondary: #A7ADB4;
-  --text-tertiary: #676E76;
+  --border-subtle: #d7dfd3;
+  --border-default: #82937e;
+  --border-strong: #657c63;
 
-  --border-subtle: #2B3138;
-  --border-default: #464F59;
-  --border-strong: #5A6570;
+  --signal-ice: #386479;
+  --signal-orbit: #6d5d87;
+  --signal-mint: #3f694f;
+  --signal-dust: #a44d3d;
+
+  --lime: #d9f68a;
+  --on-lime: #24331d;
+  --selection-surface: #fff0e9;
+  --selection-ink: #a14a38;
+  --selection-border: #ad513e;
+  --feature: #142127;
+  --feature-ink: #f5f7ef;
+  --feature-muted: #c6d1c5;
+  --feature-border: #46594c;
+  --feature-inset: #21372b;
+
+  --card: var(--surface-01);
+  --card-foreground: var(--text-primary);
+  --popover: var(--surface-01);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--text-primary);
+  --primary-foreground: var(--background);
+  --secondary: var(--surface-02);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--surface-02);
+  --muted-foreground: var(--text-secondary);
+  --accent: var(--surface-03);
+  --accent-foreground: var(--text-primary);
+  --destructive: var(--signal-dust);
+  --border: var(--border-default);
+  --input: var(--border-strong);
+  --ring: var(--signal-ice);
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --void: #1d2724;
+    --background: #242e2c;
+    --surface-01: #2c3934;
+    --surface-02: #34463b;
+    --surface-03: #3c5041;
+    --graphite: #465661;
+    --steel: #a0afb9;
+    --text-primary: #f0f4eb;
+    --text-secondary: #ced8ce;
+    --text-tertiary: #b9c8bd;
+    --border-subtle: #506558;
+    --border-default: #829e87;
+    --border-strong: #afc3ae;
+    --signal-ice: #b9d5e3;
+    --signal-orbit: #d4c6eb;
+    --signal-mint: #c6dfa8;
+    --signal-dust: #f2bcaa;
+    --selection-surface: #50372d;
+    --selection-ink: #ffd0be;
+    --selection-border: #e0a18a;
+
+  }
 }
 ```
 
-Pure `#000000` and `#FFFFFF` should rarely be used.
-
-Darkness should contain visible layers.
-
----
-
-# 02. Signal Colors
-
-Pastel colors are reserved for information.
-
-```css
-:root {
-  --signal-ice: #A9C7D8;
-  --signal-orbit: #B9B2D8;
-  --signal-mint: #AFCDBE;
-  --signal-dust: #D1B1B7;
-}
-```
-
-Signal colors may indicate:
-
-- active states
-- categories
-- selections
-- data series
-- system status
-- important information
-
-Do not use multiple signal colors without semantic reason.
-
-Large areas of pastel color are discouraged.
-
----
-
-# 03. Typography
-
-Primary:
-
-```css
-font-family:
-  Inter,
-  Pretendard,
-  "Noto Sans KR",
-  system-ui,
-  sans-serif;
-```
-
-Technical:
-
-```css
-font-family:
-  "JetBrains Mono",
-  "SFMono-Regular",
-  monospace;
-```
-
-Use monospace for:
-
-- IDs
-- timestamps
-- coordinates
-- scores
-- versions
-- technical metadata
-
----
-
-# 04. Type Scale
-
-```text
-Display      56px / 1.05
-H1           40px / 1.15
-H2           30px / 1.2
-H3           22px / 1.3
-
-Body Large   18px / 1.6
-Body         15px / 1.6
-Small        13px / 1.5
-Metadata     11px / 1.4
-```
-
-Prefer weights:
-
-```text
-400
-500
-600
-```
-
-Avoid heavy typography unless deliberately required.
-
----
-
-# 05. Metadata Style
-
-Metadata is a signature element.
-
-Example:
-
-```text
-PROJECT / 003
-
-STATUS          ACTIVE
-VERSION         1.4.2
-UPDATED         2026.09.04
-```
-
-Recommended styling:
-
-```css
-font-family: monospace;
-font-size: 11px;
-letter-spacing: 0.08em;
-text-transform: uppercase;
-color: var(--text-tertiary);
-```
-
-Do not overuse metadata.
-
-It should reward closer inspection.
-
----
-
-# 06. Spacing
-
-Base spacing system:
-
-```text
-4
-8
-12
-16
-24
-32
-48
-64
-96
-128
-160
-```
-
-Standard UI spacing:
-
-```text
-8 / 16 / 24 / 32
-```
-
-Major sections:
-
-```text
-96 / 128 / 160
-```
-
-Large negative space is encouraged.
-
-Do not reduce whitespace simply because the interface appears empty.
-
----
-
-# 07. Grid
-
-Desktop:
-
-```text
-Max width: 1440px
-Columns: 12
-Gutter: 24px
-```
-
-Reading width:
-
-```text
-720–840px
-```
-
-Allow asymmetric layouts.
-
-Not every element needs to align centrally.
-
----
-
-# 08. Radius
-
-Use restrained rounding.
-
-```css
---radius-xs: 2px;
---radius-sm: 4px;
---radius-md: 6px;
---radius-lg: 8px;
-```
-
-Avoid radii above `12px` except for functional reasons.
-
-Pills are reserved for:
-
-- tags
-- filters
-- statuses
-
----
-
-# 09. Borders
-
-Default:
-
-```css
-border: 1px solid var(--border-subtle);
-```
-
-Borders should often replace:
-
-- shadows
-- cards
-- background containers
-
-Thin lines are part of the visual language.
-
-Use the three border levels deliberately:
-
-- `border-subtle` for internal rows and low-priority structure.
-- `border-default` for cards, controls, and visible containers.
-- `border-strong` for page, navigation, and major section boundaries.
-
-Major boundaries may use `2px`; internal structure remains `1px`.
-
----
-
-# 10. Shadows
-
-Default:
-
-```text
-none
-```
-
-Use shadows only when actual elevation must be communicated.
-
-Never use glow effects.
-
----
-
-# 11. Cards
-
-Do not automatically place content inside cards.
-
-Use cards only for independent objects.
-
-Valid examples:
-
-- Candidate
-- Project
-- Experiment
-- Location
-- Report
-
-Prefer:
-
-```text
-PROJECT / 001
-
-Talent Intelligence
-
-Candidate discovery and analysis
-system for specialized researchers.
-
-──────────────────────────────────
-
-STATUS                    ACTIVE
-```
-
-over nested floating cards.
-
----
-
-# 12. Buttons
-
-Standard height:
-
-```text
-36–40px
-```
-
-Radius:
-
-```text
-4–6px
-```
-
-Primary actions should be visually clear without becoming oversized.
-
-Avoid:
-
-- gradients
-- glow
-- excessive rounding
-- oversized CTA buttons
-
----
-
-# 13. Icons
-
-Preferred:
-
-```text
-Lucide
-```
-
-Rules:
-
-```text
-Stroke: 1.5px
-Default size: 16–18px
-```
-
-Icons should support information.
-
-Do not use icons as decoration.
-
----
-
-# 14. Navigation
-
-Navigation should occupy minimal visual space.
-
-Prefer:
-
-```text
-MINHO LEE                         WORK
-                                  LAB
-                                  ABOUT
-```
-
-or similarly restrained structures.
-
-Active navigation should use typography or a subtle indicator rather than large filled backgrounds.
-
----
-
-# 15. Interaction Depth
-
-Use progressive disclosure.
-
-### Default
-
-Show the object.
-
-### Hover / Focus
-
-Reveal secondary metadata.
-
-### Click
-
-Reveal detailed structure.
-
-Example:
-
-```text
-PROJECT
-   ↓
-PROJECT + STATUS
-   ↓
-ARCHITECTURE + DATA + PROCESS
-```
-
-Think:
-
-> mechanical watch case → transparent movement
-
----
-
-# 16. Motion
-
-Standard duration:
-
-```text
-120–220ms
-```
-
-Preferred properties:
-
-```text
-opacity
-transform
-clip-path
-border-color
-background-color
-```
-
-Movement distance should generally remain under:
-
-```text
-8px
-```
-
-Avoid springy or playful motion.
-
----
-
-# 17. Data Visualization
-
-Default visualization should be nearly monochromatic.
-
-Use signal colors to highlight important information.
-
-Preferred:
-
-- line
-- bar
-- scatter
-- timeline
-- matrix
-- tables
-
-Avoid:
-
-- decorative charts
-- unnecessary pie charts
-- rainbow palettes
-- excessive dashboard widgets
-
----
-
-# 18. Tables
-
-Tables are first-class UI elements.
-
-Use:
-
-- compact rows
-- subtle horizontal separators
-- monospace numbers
-- aligned numeric columns
-- restrained headers
-
-Do not convert structured data into cards solely for appearance.
-
----
-
-# 19. AI Components
-
-Never visually advertise AI with:
-
-- purple gradients
-- sparkle icons
-- glowing borders
-- robot illustrations
-
-AI should appear as infrastructure.
-
-Expose useful information such as:
-
-```text
-MODEL
-SOURCE
-CONFIDENCE
-LAST RUN
-STATUS
-```
-
-when relevant.
-
----
-
-# 20. Space Motifs
-
-Allowed:
-
-```text
-coordinates
-orbital lines
-small points
-technical numbering
-distance
-large negative space
-thin trajectories
-```
-
-Avoid literal:
-
-```text
-planets
-astronauts
-galaxies
-spaceships
-starfield backgrounds
-```
-
-unless the content itself requires them.
-
----
-
-# 21. Responsive Behavior
-
-```text
-Mobile      <640
-Tablet      640–1024
-Desktop     1024–1440
-Wide        >1440
-```
-
-Desktop may use dramatic negative space.
-
-Mobile should preserve:
-
-- hierarchy
-- precision
-- darkness
-- typography
-
-Do not simply scale the desktop layout down.
-
----
-
-# 22. Accessibility
-
-Minimum:
-
-```text
-WCAG AA
-Keyboard navigation
-Visible focus states
-Semantic HTML
-ARIA where required
-Reduced-motion support
-```
-
-Design precision includes accessibility.
-
----
-
-# 23. Forbidden Defaults
-
-Do not introduce the following unless explicitly requested:
-
-```text
-Glassmorphism
-Neon
-Glow
-Rainbow gradients
-Purple AI gradients
-Huge rounded cards
-Excessive pills
-Heavy shadows
-Floating dashboard cards
-Decorative illustrations
-Large hero CTAs
-Emoji-driven UI
-Cyberpunk aesthetics
-Generic SaaS layouts
-```
-
----
-
-# 24. Component Decision Rule
-
-Before creating a component:
-
-1. Can an existing primitive solve it?
-2. Is a container actually necessary?
-3. Can spacing establish the hierarchy?
-4. Can a border replace the background?
-5. Can typography replace decoration?
-6. Does the user need this information now?
-7. Could deeper information be revealed through interaction?
-
----
-
-# 25. Implementation Priority
-
-When generating UI, optimize in this order:
-
-```text
-1. Information architecture
-2. Hierarchy
-3. Grid
-4. Typography
-5. Spacing
-6. Interaction
-7. Color
-8. Decoration
-```
-
-Decoration is always last.
-
----
-
-# 26. Signature Pattern
-
-Where appropriate, interfaces should contain:
-
-```text
-PRIMARY OBJECT
-
-        ↓
-
-SECONDARY INFORMATION
-
-        ↓
-
-SYSTEM / MECHANISM
-```
-
-The deeper layer may contain:
-
-```text
-ID
-SOURCE
-TIME
-MODEL
-VERSION
-COORDINATE
-SCORE
-STATUS
-```
-
-This creates the signature:
-
-> Quiet exterior. Visible complexity.
-
----
-
-# 27. Final Instruction for AI Coding Agents
-
-Treat this document as the visual source of truth.
-
-Do not introduce generic SaaS styling.
-
-Do not make the interface friendlier by automatically adding:
-
-- rounded cards
-- gradients
-- colorful icons
-- large buttons
-- illustrations
-
-Do not interpret "futuristic" as cyberpunk.
-
-Do not interpret "luxury" as ornamental.
-
-Do not interpret "minimal" as empty.
-
-Instead:
-
-**Structure complexity.**
-
-**Preserve negative space.**
-
-**Reveal mechanisms selectively.**
-
-**Use color as signal.**
-
-**Prefer precision over decoration.**
-
-When uncertain, choose the solution that is:
-
-> quieter, sharper, darker, simpler, and more precise.
+The default is light. `prefers-color-scheme: dark` automatically follows the
+system/browser preference, including live changes. Tailwind `dark:` follows the
+same media query. `color-scheme` also adapts native controls. No client-side
+storage or theme hydration is needed. Print overrides the palette with white
+surfaces and dark ink, including when the system is in dark mode.
+
+Use semantic colors for text, borders, SVGs, and states. Card/popover tokens alias
+the appropriate surface and foreground. Body, secondary, tertiary, and signal
+text require at least 4.5:1 contrast on the surface they use. Meaningful non-text
+indicators and large text require 3:1. Low-priority structural rules may be subtle.
+
+## 3. Type
+
+**Pretendard Variable 1.3.9** is the shared English/Korean typeface for headings
+and prose. Load the bundled WOFF2 with `next/font/local`, weights 100-900,
+`display: swap`. Font loading does not depend on a runtime CDN.
+
+| Role | Size / line height | Weight |
+| --- | --- | --- |
+| Profile name | 36-48px / 1.05 | 500 |
+| General page title | 30-40px / 1.15 | 500 |
+| Profile section heading | 16px / 24px | 500 |
+| Entry title | 18px / 28px | 500 |
+| Body | 16px / 1.8 | 400 |
+| Compact text | 15px / 1.6 | 400 |
+| Dates and supporting links | 12-14px / 1.5-2 | 400 |
+| Index and technical metadata | 11px / 1.4, Geist Mono | 400-500 |
+
+Use normal word wrapping and left alignment. Do not justify prose or use tight
+tracking on body text. Prefer weights 400, 500, and 600. Technical metadata uses
+Geist Mono with restrained uppercase and letter spacing.
+
+Loader variables are `--font-pretendard` and `--font-geist-mono`. Tailwind aliases
+must reference these names rather than themselves.
+
+Font source: [Pretendard v1.3.9](https://github.com/orioncactus/pretendard/tree/v1.3.9).
+License: `src/app/fonts/OFL-Pretendard.txt` (SIL Open Font License 1.1).
+
+## 4. Layout and spacing
+
+- Site shell: 1120px maximum, centered; 16px mobile, 24px tablet, 48px desktop gutters.
+- Profile hero: 80px top / 64px bottom on smaller screens, 72px / 64px on desktop.
+- At 1024px and above, hero uses a flexible identity column and 420px practice explorer.
+- Profile sections: 184px title rail, 64px gap, flexible body (872px at maximum shell; panel padding keeps prose near 820px).
+- Below 1024px, titles stack above the body with a 28px gap.
+- Section padding: 48px on smaller screens, 56px on desktop.
+- A single 1px top rule separates sections. Titles remain unboxed and neutral.
+- Narrative entries stack dates, title, organization, and prose in reading order.
+- Skills live in one functional panel with a sage search/filter toolbar, ivory results,
+  and compact noninteractive skill chips. Do not make each skill a separate card.
+- Daily Brief shares the shell, neutral palette, fonts, and link states.
+  Data-heavy tools may retain their functional cards and tables.
+
+## 5. TypeScript components
+
+`ProfileSection` owns section landmarks, accessible heading IDs, spacing, the
+responsive title/body grid, index, and a typed accent choice. The five profile
+sections pass their existing content through this shared component.
+
+`SectionHeading` renders a small colored marker, numeric index, and neutral h2.
+Color is supplementary; text and numbering identify each section independently.
+
+`Hero` presents identity, location, contact, and experience navigation beside
+`PracticeExplorer`. The explorer is a client component: three real buttons select
+Global HR, Talent, or Applied AI, updating description, approach steps, evidence,
+and the destination link together. Buttons expose `aria-pressed` and `aria-controls`;
+updated prose uses a polite live region. The panel is readable on initial server render.
+
+`SkillExplorer` is a client component receiving canonical `SkillGroup` data. Search
+is case-insensitive and trims whitespace. Search and category filters combine,
+result counts are announced, and empty results offer a full reset. Chips are labels,
+not fake controls. Default rendering includes all skills.
+
+`EntryDetails` uses native `details` and `summary` for career and project entries.
+The first entry in each section is open by default. Every detail remains in the DOM;
+keyboard and no-JavaScript disclosure behavior work without custom state.
+
+Navigation lists About, Skills, Experience, Education, and Side Project in that
+order, then the Knowledge workspace and contact,
+and native CV printing. Keep profile data in `src/lib/data.ts`.
+
+`SideProjectsPage` lives at `/side-projects/`, with its own h1, metadata, navigation,
+and footer. `DailyBriefProjectCard` opens `/daily-brief/`, including the edition
+archive. The Applied AI practice action and desktop/mobile Side Project menus link
+to `/side-projects/`. The menu follows Education, but the home profile itself ends
+with Education. Side projects remain separate from professional Project Experience
+and the print-only CV. The Side Project menu exposes `aria-current="page"` when active.
+
+Do not place implementation terms or reference-site branding in product copy.
+
+## 6. Interaction and accessibility
+
+- Links use an underline, a visible focus indicator, or a clear navigation state.
+- Preserve keyboard navigation, semantic headings, mobile menu, and `aria-current`.
+- Keep controls at comfortable touch sizes (the shared button system is 36-44px).
+- Use a 180ms CSS entry reveal only under `prefers-reduced-motion: no-preference`.
+  Keep server-rendered content visible by default; do not branch initial render styles
+  on a browser-only motion preference. Content stays readable without JavaScript.
+- No hover-only essential content. Avoid decorative motion and spring effects.
+- Home printing shows the dedicated CV; navigation and footer are hidden.
+
+## 7. Verification
+
+Before accepting a visual revision, inspect desktop and mobile in both schemes.
+Check actual text/background contrast, wrapping, menu behavior, anchor navigation,
+font loading, native printing, and the Daily Brief routes. Exercise all practice selections and destination
+links, combined skill filters,
+empty-state reset, and keyboard disclosure toggling. Run a production build and
+TypeScript checks. Compare browser screenshots to the reference direction.
