@@ -22,25 +22,41 @@
 ---
 <!-- locale: en -->
 
-## The contribution in one minute
 
-A diffusion model first defines a forward Markov chain that gradually adds Gaussian noise until the data signal is mostly destroyed. A neural network learns the reverse transitions, starting from noise and gradually producing a sample. The paper connects a useful training parameterization to denoising score matching and shows that this family can generate high-quality images.
 
-## Method and evidence
+## TL;DR
 
-The model is trained with a weighted variational bound, with a simplified noise-prediction objective for training. Sampling follows the learned reverse chain over many steps. On unconditional CIFAR-10, the authors report an Inception Score of 9.46 and FID of 3.17. On 256×256 LSUN, they report sample quality comparable to ProgressiveGAN.
+- **Problem:** A diffusion model first defines a forward Markov chain that gradually adds Gaussian noise until the data signal is mostly destroyed.
+- **Core idea:** A neural network learns the reverse transitions, starting from noise and gradually producing a sample.
+- **Why it matters:** DDPM learns to reverse a gradual noising process, turning a simple noise distribution into high-quality samples through iterative denoising.
 
-## Limits and engineering implications
+## Research Problem
+
+A diffusion model first defines a forward Markov chain that gradually adds Gaussian noise until the data signal is mostly destroyed.
+
+## Key Contributions
+
+A neural network learns the reverse transitions, starting from noise and gradually producing a sample. The paper connects a useful training parameterization to denoising score matching and shows that this family can generate high-quality images.
+
+## Method Overview
+
+The model is trained with a weighted variational bound, with a simplified noise-prediction objective for training. Sampling follows the learned reverse chain over many steps.
+
+## Key Results
+
+On unconditional CIFAR-10, the authors report an Inception Score of 9.46 and FID of 3.17. On 256×256 LSUN, they report sample quality comparable to ProgressiveGAN.
+
+## Limitations & Implications
 
 The original sampler requires many sequential denoising steps, making generation slower than one-pass models. The authors also report that their likelihoods do not outperform the strongest likelihood-based models of the time. These results establish image quality for the studied settings, not universal efficiency, controllability, or safety. For a product, measure latency and quality at the same compute budget.
 
-## Terminology
+### Terminology for Knowledge
 
 | Term | Plain meaning | Why it matters here |
 | --- | --- | --- |
 | Denoising diffusion | A generative process that learns to reverse a sequence of gradually noised data states. | It turns sampling into repeated small denoising steps. |
 
-## References and figure credits
+## References
 
 - [Original paper, arXiv:2006.11239](https://arxiv.org/abs/2006.11239) · first submitted 19 June 2020.
 - [Authors’ diffusion implementation](https://github.com/hojonathanho/diffusion).
@@ -48,25 +64,41 @@ The original sampler requires many sequential denoising steps, making generation
 
 <!-- locale: ko -->
 
-## 1분 핵심 요약
 
-확산 모델은 먼저 데이터를 점진적으로 가우시안 노이즈로 오염시키는 정방향 마르코프 체인을 정의합니다. 신경망은 노이즈에서 출발해 샘플을 만드는 역방향 전이를 학습합니다. 논문은 유용한 학습 매개화가 Denoising score matching과 연결됨을 설명하고 이 계열 모델이 고품질 이미지를 만들 수 있음을 보입니다.
 
-## 방법과 근거
+## 핵심 요약 (TL;DR)
 
-모델은 가중 변분 하한으로 학습되며, 실제 학습에는 단순화된 노이즈 예측 목적 함수도 사용합니다. 샘플링은 여러 단계의 학습된 역방향 체인을 따라갑니다. 비조건부 CIFAR-10에서 저자들은 Inception Score 9.46, FID 3.17을 보고합니다. 256×256 LSUN에서는 ProgressiveGAN과 비슷한 샘플 품질을 기록했습니다.
+- **문제:** 확산 모델은 먼저 데이터를 점진적으로 가우시안 노이즈로 오염시키는 정방향 마르코프 체인을 정의합니다.
+- **핵심 아이디어:** 신경망은 노이즈에서 출발해 샘플을 만드는 역방향 전이를 학습합니다.
+- **중요성:** DDPM은 점진적으로 노이즈를 더하는 과정을 역으로 학습해, 반복적인 노이즈 제거로 단순한 노이즈 분포에서 고품질 샘플을 만듭니다.
 
-## 한계와 엔지니어 관점
+## 연구 문제
+
+확산 모델은 먼저 데이터를 점진적으로 가우시안 노이즈로 오염시키는 정방향 마르코프 체인을 정의합니다.
+
+## 핵심 기여
+
+신경망은 노이즈에서 출발해 샘플을 만드는 역방향 전이를 학습합니다. 논문은 유용한 학습 매개화가 Denoising score matching과 연결됨을 설명하고 이 계열 모델이 고품질 이미지를 만들 수 있음을 보입니다.
+
+## 방법론 개요
+
+모델은 가중 변분 하한으로 학습되며, 실제 학습에는 단순화된 노이즈 예측 목적 함수도 사용합니다. 샘플링은 여러 단계의 학습된 역방향 체인을 따라갑니다.
+
+## 주요 실험 결과
+
+비조건부 CIFAR-10에서 저자들은 Inception Score 9.46, FID 3.17을 보고합니다. 256×256 LSUN에서는 ProgressiveGAN과 비슷한 샘플 품질을 기록했습니다.
+
+## 한계와 시사점
 
 원래 샘플러는 순차적 노이즈 제거 단계를 많이 거치므로 한 번에 생성하는 모델보다 느립니다. 저자들은 당시 가장 강한 우도 기반 모델보다 우도가 낮다는 점도 보고합니다. 이 결과는 연구한 설정의 이미지 품질을 보여줄 뿐, 보편적인 효율·제어 가능성·안전성을 입증하지 않습니다. 제품에서는 같은 계산 예산에서 지연 시간과 품질을 비교해야 합니다.
 
-## 용어 정리
+### Knowledge 용어 정리
 
 | 용어 | 쉬운 뜻 | 여기서 중요한 이유 |
 | --- | --- | --- |
 | Denoising diffusion | 데이터에 점차 노이즈를 더한 상태의 연쇄를 역으로 학습하는 생성 방식입니다. | 여러 번의 작은 노이즈 제거로 샘플을 만듭니다. |
 
-## 참고 자료와 그림 출처
+## 참고 자료
 
 - [논문 원문, arXiv:2006.11239](https://arxiv.org/abs/2006.11239) · 2020년 6월 19일 최초 제출.
 - [저자들의 확산 모델 구현](https://github.com/hojonathanho/diffusion).
