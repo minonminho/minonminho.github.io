@@ -22,25 +22,41 @@
 ---
 <!-- locale: en -->
 
-## The contribution in one minute
 
-Most vision models are trained against a fixed label set. CLIP instead learns from image-caption pairs collected from the web. A text encoder and an image encoder are trained together so that the correct caption is ranked above other captions in the batch. At test time, class names or descriptions become text prompts that can be compared with an image embedding.
 
-## Method and evidence
+## TL;DR
 
-The authors train on 400 million image-text pairs and evaluate transfer across more than 30 datasets. CLIP supports zero-shot classification without task-specific gradient updates. On ImageNet, the paper reports zero-shot accuracy comparable to the original ResNet-50, without using that model’s 1.28 million labeled training examples.
+- **Problem:** Most vision models are trained against a fixed label set.
+- **Core idea:** CLIP instead learns from image-caption pairs collected from the web.
+- **Why it matters:** CLIP trains image and text encoders to match captions with images, then uses natural-language class descriptions for zero-shot transfer.
 
-## Limits and engineering implications
+## Research Problem
+
+Most vision models are trained against a fixed label set.
+
+## Key Contributions
+
+CLIP instead learns from image-caption pairs collected from the web. A text encoder and an image encoder are trained together so that the correct caption is ranked above other captions in the batch. At test time, class names or descriptions become text prompts that can be compared with an image embedding.
+
+## Method Overview
+
+The authors train on 400 million image-text pairs and evaluate transfer across more than 30 datasets.
+
+## Key Results
+
+CLIP supports zero-shot classification without task-specific gradient updates. On ImageNet, the paper reports zero-shot accuracy comparable to the original ResNet-50, without using that model’s 1.28 million labeled training examples.
+
+## Limitations & Implications
 
 Web captions are noisy and reflect gaps and biases in their source. Zero-shot scores can depend on class wording, prompt templates, and benchmark overlap. CLIP’s representation is not a guarantee of robust understanding, and the paper documents uneven performance across tasks. In practice, test prompt variants, out-of-distribution data, and subgroup performance before relying on a single aggregate score.
 
-## Terminology
+### Terminology for Knowledge
 
 | Term | Plain meaning | Why it matters here |
 | --- | --- | --- |
 | Contrastive image-text learning | Train two encoders to assign higher similarity to matched image-caption pairs than mismatched pairs. | It creates a shared space that supports text-based zero-shot classification. |
 
-## References and figure credits
+## References
 
 - [Original paper, arXiv:2103.00020](https://arxiv.org/abs/2103.00020) · first submitted 26 February 2021.
 - [OpenAI CLIP code and checkpoints](https://github.com/openai/CLIP).
@@ -48,25 +64,41 @@ Web captions are noisy and reflect gaps and biases in their source. Zero-shot sc
 
 <!-- locale: ko -->
 
-## 1분 핵심 요약
 
-대부분의 비전 모델은 고정된 라벨 집합을 예측하도록 학습합니다. CLIP은 웹에서 모은 이미지-설명 문장 쌍으로 학습합니다. 텍스트 인코더와 이미지 인코더를 함께 학습해 배치 안에서 올바른 설명이 다른 설명보다 높은 점수를 받게 합니다. 추론 시에는 클래스 이름이나 설명을 텍스트 프롬프트로 만들어 이미지 임베딩과 비교합니다.
 
-## 방법과 근거
+## 핵심 요약 (TL;DR)
 
-저자들은 이미지-텍스트 쌍 4억 개로 학습하고 30개가 넘는 데이터셋에서 전이를 평가했습니다. CLIP은 과제별 가중치 업데이트 없이 Zero-shot 분류를 지원합니다. ImageNet에서 원 ResNet-50과 비슷한 Zero-shot 정확도를 보였으며, ResNet-50 학습에 사용된 라벨 이미지 128만 장을 사용하지 않았다고 보고합니다.
+- **문제:** 대부분의 비전 모델은 고정된 라벨 집합을 예측하도록 학습합니다.
+- **핵심 아이디어:** CLIP은 웹에서 모은 이미지-설명 문장 쌍으로 학습합니다.
+- **중요성:** CLIP은 이미지와 설명 문장의 짝을 맞추도록 두 인코더를 학습한 뒤, 자연어 클래스 설명으로 Zero-shot 전이를 수행합니다.
 
-## 한계와 엔지니어 관점
+## 연구 문제
+
+대부분의 비전 모델은 고정된 라벨 집합을 예측하도록 학습합니다.
+
+## 핵심 기여
+
+CLIP은 웹에서 모은 이미지-설명 문장 쌍으로 학습합니다. 텍스트 인코더와 이미지 인코더를 함께 학습해 배치 안에서 올바른 설명이 다른 설명보다 높은 점수를 받게 합니다. 추론 시에는 클래스 이름이나 설명을 텍스트 프롬프트로 만들어 이미지 임베딩과 비교합니다.
+
+## 방법론 개요
+
+저자들은 이미지-텍스트 쌍 4억 개로 학습하고 30개가 넘는 데이터셋에서 전이를 평가했습니다.
+
+## 주요 실험 결과
+
+CLIP은 과제별 가중치 업데이트 없이 Zero-shot 분류를 지원합니다. ImageNet에서 원 ResNet-50과 비슷한 Zero-shot 정확도를 보였으며, ResNet-50 학습에 사용된 라벨 이미지 128만 장을 사용하지 않았다고 보고합니다.
+
+## 한계와 시사점
 
 웹 설명은 잡음이 있고 출처의 공백과 편향을 반영합니다. Zero-shot 점수는 클래스 문구, 프롬프트 템플릿, 벤치마크 중복에 영향을 받을 수 있습니다. CLIP의 표현이 견고한 이해를 보장하는 것은 아니며, 논문도 과제별 성능 차이를 기록합니다. 실제 적용에서는 프롬프트 변형, 분포 밖 데이터, 집단별 성능을 확인해야 합니다.
 
-## 용어 정리
+### Knowledge 용어 정리
 
 | 용어 | 쉬운 뜻 | 여기서 중요한 이유 |
 | --- | --- | --- |
 | Contrastive image-text learning | 짝이 맞는 이미지-설명은 가깝게, 맞지 않는 쌍은 멀게 학습하는 방식입니다. | 텍스트로 Zero-shot 분류를 할 수 있는 공유 표현 공간을 만듭니다. |
 
-## 참고 자료와 그림 출처
+## 참고 자료
 
 - [논문 원문, arXiv:2103.00020](https://arxiv.org/abs/2103.00020) · 2021년 2월 26일 최초 제출.
 - [OpenAI CLIP 코드와 체크포인트](https://github.com/openai/CLIP).
