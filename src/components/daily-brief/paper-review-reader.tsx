@@ -181,7 +181,7 @@ export function PaperReviewReader({ review, knowledgeLinks, apiBaseUrl = "" }: {
 
     <header className="mt-8 border-b-2 border-border-strong pb-9 md:mt-12 md:pb-12">
       <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] tracking-wide text-text-secondary">
-        <span className="inline-flex items-center gap-2 text-signal-mint"><StarIcon />{isHuggingFace ? `${cadence} / ${copy("FIRST READ", "먼저 읽기")}` : copy("FOUNDATIONAL SEED PAPER", "기반 Seed 논문")}</span>
+        <span className="inline-flex items-center gap-2 text-signal-mint"><StarIcon />{isHuggingFace ? `${cadence} / ${review.editorialStatus === "metadata-digest" ? copy("SOURCE DIGEST", "원문 요약") : copy("FIRST READ", "먼저 읽기")}` : copy("FOUNDATIONAL SEED PAPER", "기반 Seed 논문")}</span>
         {isHuggingFace && <>
           <span aria-hidden="true">/</span><span>HF #{rank}</span>
           {period && <><span aria-hidden="true">/</span><time dateTime={period}>{review.sourceType === "huggingface-daily" ? formatBriefDate(period, false, language) : period}</time></>}
@@ -200,6 +200,7 @@ export function PaperReviewReader({ review, knowledgeLinks, apiBaseUrl = "" }: {
       </aside>
 
       <article className="min-w-0">
+        {review.editorialStatus === "metadata-digest" && <p className="mb-7 border-l-2 border-signal-orbit bg-surface-01 px-5 py-4 text-sm leading-7 text-text-secondary">{copy("Automated source digest, not an independent research review. This text comes from discovery metadata and the author abstract. Verify methods, baselines, and results in the original paper.", "독립적인 논문 리뷰가 아닌 자동 원문 요약입니다. 발견 서비스 메타데이터와 저자 초록에 기반하며 방법론, Baseline, 결과는 논문 원문에서 별도로 검증해야 합니다.")}</p>}
         <figure className="overflow-hidden border border-border-default bg-surface-01">
           <a href={review.hero.url} target="_blank" rel="noopener noreferrer" className="block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-ice"><img src={review.hero.url} alt={text(review.hero.alt)} className="h-auto w-full" fetchPriority="high" /></a>
           <figcaption className="border-t border-border-subtle px-4 py-4 sm:px-5"><p className="text-eyebrow text-signal-ice">{copy("ORIGINAL AUTHOR FIGURE", "저자 원문 그림")}</p><p className="mt-2 text-xs leading-6 text-text-secondary">{text(review.hero.caption)}</p><p className="mt-1 font-mono text-[10px] text-text-tertiary">{review.hero.license} · {review.version}</p></figcaption>
