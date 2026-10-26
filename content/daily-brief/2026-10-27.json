@@ -1,0 +1,337 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-27",
+  "publishedAt": "2026-10-27T06:30:00+09:00",
+  "title": {
+    "ko": "AI 브리핑 — 시각 이해에서 화면 조작까지",
+    "en": "AI Briefing — From visual understanding to computer use"
+  },
+  "dek": {
+    "ko": "GPT‑6.1 Terra는 시각 추론과 컴퓨터 사용 성능을 낮은 API 가격으로 제공한다고 발표됐습니다. 회사 자체 평가와 실제 이용 조건을 나눠 봅니다.",
+    "en": "GPT-6.1 Terra is presented as a lower-cost model for visual reasoning and computer use. We separate the company’s test results from what developers can use and verify."
+  },
+  "focus": {
+    "ko": "오늘 확인된 변화는 OpenAI의 GPT‑6.1 Terra 출시입니다. 공개 자료는 모델 구조나 학습 기법보다 평가 결과, API 이용 방식, 가격을 설명합니다. 결과를 해석할 때 이 경계를 지킵니다.",
+    "en": "Today’s verified change is OpenAI’s GPT-6.1 Terra release. Public material explains evaluation results, API access, and price, but not model architecture or training. This briefing keeps that boundary clear."
+  },
+  "visual": "models",
+  "topics": [
+    "Models & tools",
+    "Systems & inference"
+  ],
+  "editorialNote": {
+    "ko": "지난 24시간에 별도의 오픈소스 구현 사례나 서빙 연구는 확인되지 않아 구현 사례 섹션을 비웠습니다. 아래 수치는 모두 OpenAI 자체 보고이며 독립 재현 결과가 아닙니다.",
+    "en": "I found no separate open-source implementation case or serving study in the past 24 hours, so the engineering-case section is empty. The results below are OpenAI’s reports, not independent reproductions."
+  },
+  "sections": [
+    {
+      "id": "signals",
+      "label": {
+        "ko": "모델과 역량",
+        "en": "Models & capabilities"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "GPT‑6.1 Terra: 화면을 보고 조작하는 모델",
+            "en": "GPT-6.1 Terra: a model for seeing and using computer screens"
+          },
+          "publishedDate": "2026-10-26",
+          "status": "available",
+          "summary": {
+            "ko": "OpenAI는 GPT‑6.1 Terra를 시각 추론과 컴퓨터 사용을 위한 빠르고 효율적인 모델로 공개했습니다. 회사는 이전 기준 모델 GPT‑5.6 Terra보다 성능이 크게 개선됐다고 설명합니다. Terminal‑Bench 4.0에서 최대 추론 설정 기준 해결률은 Terra 50.3%, GPT‑5.6 Terra 21.5%였습니다. 이 벤치마크는 명령줄 코딩 에이전트가 실제 작업을 푸는 능력을 평가합니다.[1]",
+            "en": "OpenAI released GPT-6.1 Terra as a fast, efficient model for visual reasoning and computer use. The company says it improves on the previous baseline, GPT-5.6 Terra. On Terminal-Bench 4.0, the reported solve rate at maximum reasoning was 50.3% for Terra and 21.5% for GPT-5.6 Terra. The benchmark tests coding agents on command-line tasks.[1]"
+          },
+          "change": {
+            "ko": "새 화면 입력 방식이 처음 생겼다는 주장이 아니라, 시각 정보로 복수 단계의 앱 작업을 수행하는 능력과 코딩 평가 점수가 함께 개선됐다는 보고입니다. OpenAI는 도면을 읽어 3D 모델을 만들거나 데스크톱 앱에서 여러 단계를 처리하는 예를 듭니다. 다만 공개 자료는 개선을 만든 구체적인 모델 구조나 학습 절차를 밝히지 않습니다. 따라서 특정 아키텍처가 원인이라고 추정할 수 없습니다.[2]",
+            "en": "The claim is not that screen input is a new idea. The reported change is better performance on multi-step app tasks and coding tests. OpenAI gives examples such as turning a drawing into a 3D model and completing several steps in a desktop app. The public material does not explain the model design or training method behind the gain. We cannot attribute it to a specific architecture.[2]"
+          },
+          "availability": {
+            "ko": "2026년 10월 26일 기준 GPT‑6.1 Terra는 ChatGPT Work와 Codex의 Plus, Pro, Enterprise, Edu 이용자에게 순차 제공된다고 공지됐습니다. 개발자는 API에서 `gpt-6.1-terra`를 사용할 수 있습니다. 모델 문서는 이미지 입력, 텍스트 입출력, 최대 1,050,000 토큰 문맥, 최대 128,000 토큰 출력을 기재합니다. 도구 호출에는 Responses API가 필요합니다.[3]",
+            "en": "As of October 26, 2026, GPT-6.1 Terra is rolling out to Plus, Pro, Enterprise, and Edu users in ChatGPT Work and Codex. Developers can use `gpt-6.1-terra` through the API. The model page lists image input, text input and output, a 1,050,000-token context window, and up to 128,000 output tokens. Tool calls require the Responses API.[3]"
+          },
+          "limitation": {
+            "ko": "수치는 모두 OpenAI의 자체 보고입니다. 공지에는 벤치마크 이름, 비교 모델, 추론 노력 설정 일부가 있지만 하드웨어·정밀도·프롬프트 및 출력 길이·동시성·전체 평가 프로토콜은 충분히 제시되지 않았습니다. 독립 재현도 확인하지 못했습니다. Agents’ Last Exam의 중간 추론 결과는 GPT‑5.6 Terra보다 15%포인트 높고 작업당 비용은 약 3분의 1이라고 회사가 보고했지만, 이를 모든 시각 작업의 성능이나 비용으로 일반화할 수는 없습니다.[4]",
+            "en": "All figures are OpenAI’s own reports. The announcement names the benchmarks, comparison model, and some reasoning settings. It does not give enough detail on hardware, precision, prompt and output length, concurrency, or the full test protocol. I found no independent reproduction. OpenAI also reports a 15-point gain over GPT-5.6 Terra on Agents’ Last Exam at medium reasoning, at about one-third the task cost. This is not a general result for every vision task.[4]"
+          },
+          "implication": {
+            "ko": "개발자는 모델 선택을 곧바로 전체 앱에 적용하기보다 화면 작업을 작은 테스트 세트로 재현해 보세요. 성공 여부뿐 아니라 잘못 누른 위치, 누락된 단계, 복구 가능성도 기록합니다. 적합할 수 있는 곳은 화면 이해가 중요한 반복 작업입니다. 복잡한 코딩 작업에서는 OpenAI도 GPT‑6.1 Sol이나 GPT‑6 Astra가 더 나은 선택일 수 있다고 밝힙니다.",
+            "en": "Do not switch an entire application based on a launch claim. First build a small test set for your own screen tasks. Record success, wrong clicks, missed steps, and recovery. This model may fit repeated work where screen understanding matters. For the hardest coding tasks, OpenAI says GPT-6.1 Sol or GPT-6 Astra may be a better choice."
+          },
+          "sourceIds": [
+            "terra-launch",
+            "terra-model-docs",
+            "terra-release-notes"
+          ],
+          "visual": {
+            "variant": "models",
+            "caption": {
+              "ko": "개념도: 화면 이미지 입력을 읽고, 단계별 동작을 계획한 뒤 앱 조작으로 이어지는 흐름입니다. 원본 벤치마크 수치나 내부 구조 그림은 아닙니다.",
+              "en": "Conceptual diagram: image input is interpreted, actions are planned, and the result becomes app interaction. It does not show benchmark data or internal model design."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "GPT‑6.1 Terra API 문서",
+                "en": "GPT-6.1 Terra API docs"
+              },
+              "url": "https://developers.openai.com/api/docs/models/gpt-6.1-terra"
+            },
+            {
+              "kind": "benchmark",
+              "title": {
+                "ko": "발표와 회사 평가 결과",
+                "en": "Announcement and company-reported evaluations"
+              },
+              "url": "https://openai.com/index/introducing-gpt-6-1-terra/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "label": {
+        "ko": "개발자 도구",
+        "en": "Developer tools"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "API 모델 ID와 도구 호출 조건",
+            "en": "API model ID and tool-calling condition"
+          },
+          "publishedDate": "2026-10-26",
+          "status": "available",
+          "summary": {
+            "ko": "OpenAI API 변경 기록은 10월 26일 `gpt-6.1-terra`를 Responses API와 Chat Completions에 추가했다고 기록합니다. 모델 문서상 함수 호출과 도구는 지원되지만 도구 호출에는 Responses API가 필요합니다.[5]",
+            "en": "OpenAI’s API changelog records `gpt-6.1-terra` for Responses API and Chat Completions on October 26. The model supports function calling and tools, but its documentation says tool calls require the Responses API.[5]"
+          },
+          "change": {
+            "ko": "기존 호출 코드를 복사하는 것만으로 도구 사용이 된다고 보면 안 됩니다. 텍스트 응답은 기존 통합 방식으로 시험할 수 있지만, 함수나 호스팅 도구를 부르는 흐름은 Responses API로 구현해야 합니다.",
+            "en": "Do not assume that copying an older request is enough for tool use. A text response can be tested through the documented endpoint, but function and hosted-tool flows should use the Responses API."
+          },
+          "availability": {
+            "ko": "모델 ID는 API 문서와 변경 기록에 게시돼 있습니다. 실제 호출은 API 계정 권한과 프로젝트 사용량 한도에 따릅니다. 새 유료 계정이나 별도 키가 제공된다는 뜻은 아닙니다.",
+            "en": "The model ID appears in the API documentation and changelog. Actual calls depend on API account access and project limits. The announcement does not provide a new account or API key."
+          },
+          "limitation": {
+            "ko": "도구 호출 사용 가능 여부만으로 앱 제어가 안정적이라고 결론 내릴 수 없습니다. 화면 변화, 권한 확인, 잘못된 도구 입력, 중단 후 재개를 별도로 평가해야 합니다.",
+            "en": "Tool support alone does not show that computer control is reliable. Test changing screen state, permission checks, invalid tool inputs, and recovery after interruption."
+          },
+          "implication": {
+            "ko": "마이그레이션 전에 텍스트 전용 호출과 도구 호출을 따로 스모크 테스트하세요. API 로그에 모델 ID, 도구 이름, 인자, 종료 상태를 남기면 릴리스 후 회귀를 찾기 쉽습니다.",
+            "en": "Before migration, run separate smoke tests for text-only and tool calls. Log the model ID, tool name, arguments, and final status so you can spot regressions after a release."
+          },
+          "sourceIds": [
+            "terra-api-changelog",
+            "terra-model-docs"
+          ],
+          "visual": {
+            "variant": "workflow",
+            "caption": {
+              "ko": "개념도: 모델 ID는 두 API에서 쓸 수 있지만 도구 호출 경로는 Responses API로 연결합니다.",
+              "en": "Conceptual diagram: the model ID is listed for two APIs, while tool calls go through the Responses API."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "OpenAI API 변경 기록",
+                "en": "OpenAI API changelog"
+              },
+              "url": "https://developers.openai.com/api/docs/changelog"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "label": {
+        "ko": "엔지니어링 구현 사례",
+        "en": "Engineering case"
+      },
+      "items": []
+    },
+    {
+      "id": "engineering",
+      "label": {
+        "ko": "시스템과 추론",
+        "en": "Systems & inference"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "토큰 단가보다 작업당 비용으로 비교하기",
+            "en": "Compare cost per task, not token price alone"
+          },
+          "publishedDate": "2026-10-26",
+          "status": "available",
+          "summary": {
+            "ko": "OpenAI는 GPT‑6.1 Terra 표준 API 단가가 GPT‑5.6 Terra와 GPT‑6.1 Sol보다 50% 낮다고 발표했습니다. 표준 요금은 입력 토큰 100만 개당 1달러, 캐시 입력 0.05달러, 출력 5달러입니다. API 문서는 272K 입력 토큰 초과 시 다른 배율이 적용되고, Fast 모드는 표준 가격의 2배라고 명시합니다.[6]",
+            "en": "OpenAI says GPT-6.1 Terra’s standard API rates are 50% lower than GPT-5.6 Terra and GPT-6.1 Sol. Standard rates are $1 per million input tokens, $0.05 for cached input, and $5 for output. The API page says requests above 272K input tokens use different multipliers, and Fast mode costs twice the standard rate.[6]"
+          },
+          "change": {
+            "ko": "이는 표시된 모델 가격이지 전체 서비스 비용이나 작업 완료 비용은 아닙니다. 캐시 입력, 긴 문맥, 추론 노력, 재시도, 도구 사용량이 달라지면 청구액도 달라집니다. 회사가 제시한 작업당 비용 비교는 특정 벤치마크 결과로 한정해야 합니다.",
+            "en": "This compares listed model prices, not total service cost or cost per completed task. Cache use, long context, reasoning effort, retries, and tool calls can change the bill. Company-reported task-cost comparisons should stay tied to their named benchmark."
+          },
+          "availability": {
+            "ko": "API 가격표와 모델 페이지에 가격과 조건이 공개돼 있습니다. 호출에는 API 사용 권한이 필요하며 발표 자료는 로컬 가중치 제공을 말하지 않습니다.",
+            "en": "The API pricing and conditions are public in the model documentation. API access is required, and the announcement does not say that local model weights are available."
+          },
+          "limitation": {
+            "ko": "요청당 토큰 비용만 비교하면 상호작용이 긴 에이전트의 비용을 낮게 볼 수 있습니다. 긴 문맥, 반복 호출, 외부 도구 비용, 실패 후 재실행이 빠지기 쉽습니다.",
+            "en": "Token price per request can understate the cost of an agent with many steps. Long context, repeated calls, external tools, and retries after failure are easy to miss."
+          },
+          "implication": {
+            "ko": "같은 작업 세트로 모델별 입력·출력 토큰, 캐시 적중, 도구 호출, 성공률, 재시도를 기록하세요. 그 뒤 `비용 / 성공한 작업 수`를 계산합니다. 비교 모델, 문맥 길이, 추론 설정을 고정해야 가격 변화가 예산에 주는 영향을 볼 수 있습니다.",
+            "en": "Use the same task set and record input and output tokens, cache hits, tool calls, success rate, and retries for each model. Then calculate cost per successful task. Keep the comparison model, context length, and reasoning setting fixed."
+          },
+          "sourceIds": [
+            "terra-launch",
+            "terra-model-docs"
+          ],
+          "visual": {
+            "variant": "systems",
+            "caption": {
+              "ko": "개념도: 캐시, 긴 문맥, 재시도, 도구 호출이 작업당 비용을 바꿉니다. 측정 결과 그래프가 아닙니다.",
+              "en": "Conceptual diagram: cache, long context, retries, and tool calls affect task cost. This is not a measured chart."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "GPT‑6.1 Terra 가격과 조건",
+                "en": "GPT-6.1 Terra pricing and conditions"
+              },
+              "url": "https://developers.openai.com/api/docs/models/gpt-6.1-terra"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "experiment": {
+    "title": {
+      "ko": "화면 이해 테스트 세트 만들기",
+      "en": "Build a small screen-understanding test set"
+    },
+    "minutes": 15,
+    "steps": [
+      {
+        "ko": "개인정보가 없는 화면 5개를 고릅니다. 표, 대화상자, 버튼 화면을 섞어 캡처합니다.",
+        "en": "Choose five screens without personal data. Include a table, a dialog, and buttons, then capture them."
+      },
+      {
+        "ko": "이미지 입력이 되는 무료 도구나 이미 가진 모델을 사용합니다. 화면마다 값을 찾거나 지정된 버튼을 누르는 단계를 요청합니다.",
+        "en": "Use a free image-capable tool or a model you already have. Ask it to find a value or list steps to press a named button."
+      },
+      {
+        "ko": "각 응답을 화면과 대조해 사실 정확도, 빠진 단계, 잘못된 위치 설명을 0/1로 기록합니다. 같은 프롬프트로 한 번 더 실행합니다.",
+        "en": "Check each answer against the screen. Score factual accuracy, missing steps, and wrong location claims as 0 or 1. Repeat with the same prompt."
+      },
+      {
+        "ko": "실패한 화면을 다시 보고 질문을 구체적으로 바꾼 뒤 점수가 개선되는지 확인합니다.",
+        "en": "Review failed screens, make the prompt more specific, and check whether the score improves."
+      }
+    ],
+    "measure": {
+      "ko": "10회 응답의 정답 수와 두 실행 간 일치율을 셉니다. 이 작은 실험은 한 도구와 다섯 화면만 평가하며 모델 간 일반 성능을 증명하지 않습니다.",
+      "en": "Count correct items across ten responses and agreement between the two runs. This small test covers one tool and five screens; it does not prove general model performance."
+    }
+  },
+  "glossary": [
+    {
+      "id": 1,
+      "term": "Visual reasoning",
+      "ko": "시각 추론",
+      "explanation": "이미지에서 글자, 물체, 배치와 관계를 파악해 질문에 답하거나 다음 행동을 정하는 과정이에요.",
+      "example": "화면 캡처에서 오류 메시지를 찾아 어느 버튼을 눌러야 하는지 설명해요."
+    },
+    {
+      "id": 2,
+      "term": "Terminal-Bench",
+      "ko": "명령줄 작업 평가",
+      "explanation": "터미널에서 코드를 수정하거나 명령을 실행해 개발 과제를 푸는 능력을 평가하는 시험이에요.",
+      "example": "페이지가 늦게 로드돼 흔들리는 문제를 찾아 수정하는 과제를 풀어요."
+    },
+    {
+      "id": 3,
+      "term": "Reasoning effort",
+      "ko": "추론 노력 설정",
+      "explanation": "모델이 답을 만들기 전에 사용하는 추론량을 조절하는 설정이에요. 값이 높으면 시간이나 비용이 더 들 수 있어요.",
+      "example": "같은 코드 문제를 medium과 max로 풀게 하고 정확도와 지연 시간을 비교해요."
+    },
+    {
+      "id": 4,
+      "term": "Benchmark",
+      "ko": "벤치마크",
+      "explanation": "모델이나 시스템을 같은 과제와 채점 방식으로 비교하는 평가 묶음이에요.",
+      "example": "동일한 코딩 문제 세트로 두 모델의 통과율을 비교해요."
+    },
+    {
+      "id": 5,
+      "term": "Responses API",
+      "ko": "Responses API",
+      "explanation": "모델 응답을 만들고 도구 사용 등 여러 단계를 처리하는 OpenAI API 인터페이스예요.",
+      "example": "모델이 계산 도구를 호출하고 결과를 받아 최종 답을 내도록 연결해요."
+    },
+    {
+      "id": 6,
+      "term": "Cached input",
+      "ko": "캐시된 입력",
+      "explanation": "이전 요청과 공통으로 반복되는 입력 일부를 재계산하지 않고 재사용하는 입력이에요.",
+      "example": "매 요청에 같은 긴 지침이 들어갈 때 캐시가 재사용되는지 확인해요."
+    }
+  ],
+  "sources": [
+    {
+      "id": "terra-launch",
+      "title": {
+        "ko": "GPT‑6.1 Terra 발표와 평가",
+        "en": "Introducing GPT-6.1 Terra"
+      },
+      "publisher": "OpenAI",
+      "url": "https://openai.com/index/introducing-gpt-6-1-terra/",
+      "publishedDate": "2026-10-26"
+    },
+    {
+      "id": "terra-model-docs",
+      "title": {
+        "ko": "GPT‑6.1 Terra API 모델 문서",
+        "en": "GPT-6.1 Terra API model documentation"
+      },
+      "publisher": "OpenAI API",
+      "url": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+      "publishedDate": "2026-10-26"
+    },
+    {
+      "id": "terra-release-notes",
+      "title": {
+        "ko": "ChatGPT 릴리스 노트: GPT‑6.1 Terra",
+        "en": "ChatGPT release notes: GPT-6.1 Terra"
+      },
+      "publisher": "OpenAI Help Center",
+      "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+      "publishedDate": "2026-10-26"
+    },
+    {
+      "id": "terra-api-changelog",
+      "title": {
+        "ko": "OpenAI API 변경 기록: GPT‑6.1 Terra",
+        "en": "OpenAI API changelog: GPT-6.1 Terra"
+      },
+      "publisher": "OpenAI API",
+      "url": "https://developers.openai.com/api/docs/changelog",
+      "publishedDate": "2026-10-26"
+    }
+  ]
+}
