@@ -362,6 +362,7 @@ def review_markdown(paper: dict, cadence: str, period: str, period_rank: int, ru
         "canonicalId": f"arxiv:{paper['id']}",
         "version": paper["id"],
         "reviewStatus": "published",
+        "editorialStatus": "metadata-digest",
         "sourceType": f"huggingface-{cadence}",
         "translationModel": TRANSLATION_MODEL_TAG,
         "publishedDate": run_date.isoformat(),
@@ -386,52 +387,100 @@ def review_markdown(paper: dict, cadence: str, period: str, period_rank: int, ru
     }
     references_en = source_lines(paper)
     references_ko = references_en.replace("Hugging Face paper entry", "Hugging Face 논문 페이지").replace("Original arXiv paper", "arXiv 논문 원문").replace("Project page", "프로젝트 페이지").replace("Code repository", "코드 저장소")
+    # HF supplies an AI summary and an author abstract, NOT a reviewed full paper.
+    # Never invent experiments or critical analysis from these two text fields.
+    en_parts = re.split(r"(?<=[.!?])\s+", abstract_en)
+    ko_parts = re.split(r"(?<=[.!?])\s+", abstract_ko)
+    def part(parts: list[str], begin: int, end: int | None, fallback: str) -> str:
+        return " ".join(parts[begin:end]).strip() or fallback
+
+    problem_en = part(en_parts, 0, 2, summary_en)
+    problem_ko = part(ko_parts, 0, 2, summary_ko)
+    contributions_en = part(en_parts, 2, 4, "The author abstract does not provide a separately checked contribution list. Read the paper for details.")
+    contributions_ko = part(ko_parts, 2, 4, "저자 초록에 독립적으로 확인된 기여 목록은 없습니다. 논문 원문 확인이 필요합니다.")
+    method_en = part(en_parts, 4, max(5, len(en_parts) - 2), "Method details have not been verified from the full original paper.")
+    method_ko = part(ko_parts, 4, max(5, len(ko_parts) - 2), "논문 원문을 바탕으로 방법론을 아직 검증하지 않았습니다.")
+    results_en = part(en_parts, max(4, len(en_parts) - 2), None, "No benchmark table or comparison has been independently verified.")
+    results_ko = part(ko_parts, max(4, len(ko_parts) - 2), None, "벤치마크 표나 비교 결과를 독립적으로 검증하지 않았습니다.")
+
     body = f"""---
 {json.dumps(meta, ensure_ascii=False, indent=2)}
 ---
 <!-- locale: en -->
 
-## The contribution in one minute
+## TL;DR
+
+> **Automated discovery digest — not an independent paper review.** Based on the Hugging Face AI summary and author abstract.
 
 {summary_en}
 
-## Method and evidence
+## Research Problem
 
-{abstract_en}
+**From author abstract.** {problem_en}
 
-## Limits and engineering implications
+## Key Contributions
+
+**Author-reported contributions.** {contributions_en}
+
+## Method Overview
+
+**Abstract-level description; not independently verified.** {method_en}
+
+## Key Results
+
+**Author-reported claims, not reproduced results.** {results_en}
+
+## Limitations & Implications
 
 {english_limit}
 
-## Terminology
+**Review status:** Original-paper analysis, baseline verification, and independent engineering conclusions are pending.
 
-{english_terms}
-
-## References and figure credits
+## References
 
 {references_en}
 
+### Terminology for Knowledge
+
+{english_terms}
+
 <!-- locale: ko -->
 
-## 1분 핵심 요약
+## 핵심 요약 (TL;DR)
+
+> **자동 수집 요약 — 독립적인 논문 리뷰가 아닙니다.** Hugging Face AI 요약과 저자 초록을 기반으로 합니다.
 
 {summary_ko}
 
-## 방법과 근거
+## 연구 문제
 
-{abstract_ko}
+**저자 초록 기반.** {problem_ko}
 
-## 한계와 엔지니어 관점
+## 핵심 기여
+
+**저자가 보고한 기여.** {contributions_ko}
+
+## 방법론 개요
+
+**초록 수준의 설명으로, 독립 검증하지 않았습니다.** {method_ko}
+
+## 주요 실험 결과
+
+**저자가 보고한 주장으로, 재현 결과가 아닙니다.** {results_ko}
+
+## 한계와 시사점
 
 {korean_limit}
 
-## 용어 정리
+**리뷰 상태:** 원문 분석, Baseline 검증 및 독립적인 엔지니어링 검토는 아직 진행되지 않았습니다.
 
-{korean_terms}
-
-## 참고 자료와 그림 출처
+## 참고 자료
 
 {references_ko}
+
+### Knowledge 용어 정리
+
+{korean_terms}
 """
     return body
 
@@ -553,7 +602,9 @@ def publish(cadence: str, requested_date: str | None) -> None:
     feed_date = period if cadence == "daily" else ""
     highlight_path = HIGHLIGHTS / f"{run_date.isoformat()}.json"
     used_highlights = highlight_history()
-    candidate = next((paper for paper in papers if cadence == "daily" and not highlight_path.exists() and paper["id"] not in used_highlights), None)
+    # Do not auto-publish a "deep review" from a Hugging Face AI summary alone.
+    # Selection/discovery remains enabled; a reviewed highlight must be authored from the full paper.
+    candidate = None
 
     prepared: list[tuple[dict, str, int, str, int, int]] = []
     for paper in papers_to_update:
