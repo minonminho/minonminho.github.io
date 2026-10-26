@@ -3,6 +3,7 @@
   "canonicalId": "arxiv:2610.24738",
   "version": "2610.24738v1",
   "reviewStatus": "draft",
+  "reviewFormat": "highlighted",
   "publishedDate": "2026-10-25",
   "dailyDate": "2026-10-23",
   "dailyRank": 2,
