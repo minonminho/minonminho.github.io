@@ -10,6 +10,7 @@ export type PaperReview = {
   canonicalId: string;
   version: string;
   reviewStatus: "draft" | "published";
+  editorialStatus?: "metadata-digest" | "reviewed";
   sourceType: "huggingface-daily" | "huggingface-weekly" | "huggingface-monthly" | "foundational-seed";
   publishedDate: string;
   periodLabel: string | null;
@@ -30,7 +31,7 @@ export type PaperReview = {
 };
 
 export type PaperReviewSummary = Pick<PaperReview,
-  "slug" | "canonicalId" | "reviewStatus" | "sourceType" | "publishedDate" | "periodLabel" | "periodRank" | "dailyDate" | "dailyRank" | "upvotesAtSelection" | "title" | "dek" | "hero"
+  "slug" | "canonicalId" | "reviewStatus" | "editorialStatus" | "sourceType" | "publishedDate" | "periodLabel" | "periodRank" | "dailyDate" | "dailyRank" | "upvotesAtSelection" | "title" | "dek" | "hero"
 >;
 
 const directory = path.join(process.cwd(), "content/paper-reviews");
