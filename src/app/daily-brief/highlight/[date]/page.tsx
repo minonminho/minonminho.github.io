@@ -14,7 +14,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ date: string }> }) {
   const highlight = getHighlight((await params).date);
   if (!highlight) return {};
-  return { title: `${highlight.title.ko} · Paper Highlight`, description: highlight.dek.ko };
+  return { title: `${highlight.title.en} · Paper Highlight`, description: highlight.dek.en };
 }
 
 export default async function PaperHighlightPage({ params }: { params: Promise<{ date: string }> }) {
