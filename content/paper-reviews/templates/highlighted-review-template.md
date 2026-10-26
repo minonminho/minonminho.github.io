@@ -3,6 +3,7 @@
   "canonicalId": "arxiv:YYYY.NNNNN",
   "version": "YYYY.NNNNNv1",
   "reviewStatus": "draft",
+  "reviewFormat": "highlighted",
   "sourceType": "huggingface-daily",
   "publishedDate": "YYYY-MM-DD",
   "dailyDate": "YYYY-MM-DD",
