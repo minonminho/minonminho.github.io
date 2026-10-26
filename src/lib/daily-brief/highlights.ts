@@ -5,6 +5,7 @@ import { cache } from "react";
 
 export type Highlight = {
   date: string;
+  editorialStatus?: "metadata-digest" | "reviewed";
   paperId: string;
   paperDate: string;
   dailyDate: string;
@@ -47,6 +48,16 @@ export const getHighlights = cache((): Highlight[] => {
     }
     if (paperIds.has(highlight.paperId)) {
       throw new Error(`Paper ${highlight.paperId} already has a Highlight. Check spotlight history before publishing another post.`);
+    }
+    const expectedSections = ["background", "innovation", "methodology", "experiments", "critical", "insights", "future"];
+    if (JSON.stringify(highlight.sections.map((section) => section.id)) !== JSON.stringify(expectedSections)) {
+      throw new Error(`Highlight ${highlight.date} must contain the seven analysis sections behind the nine-part editorial outline.`);
+    }
+    if (highlight.sections.some((section) => !section.heading?.en || !section.heading?.ko || !section.paragraphs.length || section.paragraphs.some((paragraph) => !paragraph.en || !paragraph.ko))) {
+      throw new Error(`Highlight ${highlight.date} has incomplete bilingual review sections.`);
+    }
+    if (highlight.editorialStatus !== "metadata-digest" && highlight.editorialStatus !== "reviewed") {
+      throw new Error(`Highlight ${highlight.date} must declare its editorial review status.`);
     }
     paperIds.add(highlight.paperId);
   }
