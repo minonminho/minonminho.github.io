@@ -31,7 +31,7 @@ export type Highlight = {
 
 export type LocalizedText = { en: string; ko: string };
 
-export type HighlightSummary = Pick<Highlight, "date" | "paperId" | "dailyDate" | "title" | "dek" | "figure" | "dailyRank" | "upvotesAtSelection">;
+export type HighlightSummary = Pick<Highlight, "date" | "paperId" | "dailyDate" | "editorialStatus" | "title" | "dek" | "figure" | "dailyRank" | "upvotesAtSelection">;
 
 const directory = path.join(process.cwd(), "content/daily-brief/highlights");
 
@@ -70,5 +70,5 @@ export function getHighlight(date: string) {
 }
 
 export function getHighlightSummaries(): HighlightSummary[] {
-  return getHighlights().map(({ date, paperId, dailyDate, title, dek, figure, dailyRank, upvotesAtSelection }) => ({ date, paperId, dailyDate, title, dek, figure, dailyRank, upvotesAtSelection }));
+  return getHighlights().map(({ date, paperId, dailyDate, editorialStatus, title, dek, figure, dailyRank, upvotesAtSelection }) => ({ date, paperId, dailyDate, editorialStatus, title, dek, figure, dailyRank, upvotesAtSelection }));
 }
