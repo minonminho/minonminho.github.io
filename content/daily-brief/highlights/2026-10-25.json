@@ -40,16 +40,25 @@
   },
   "sections": [
     {
-      "id": "problem",
+      "id": "background",
       "heading": {
-        "en": "From naming an object to drawing its boundary",
-        "ko": "사물 이름 붙이기에서 경계 그리기까지"
+        "en": "The gap between locating an object and extracting its pixels",
+        "ko": "객체의 위치와 정확한 픽셀 출력 사이의 간극"
       },
       "paragraphs": [
         {
           "en": "A vision-language model can answer “what is in this image?” or point to a region with a box. A precise segmentation mask asks for more: which pixels belong to the object, including its edges. That output often comes from a separate vision component and a different interface.",
           "ko": "비전 언어 모델은 “이 이미지에 무엇이 있지?”라는 질문에 답하거나 사각형으로 위치를 가리킬 수 있습니다. 정밀한 분할 마스크는 한 단계 더 나아가 경계선을 포함해 어느 픽셀이 그 사물에 속하는지 표시해야 합니다. 보통 별도의 비전 구성 요소와 다른 인터페이스가 필요합니다."
-        },
+        }
+      ]
+    },
+    {
+      "id": "innovation",
+      "heading": {
+        "en": "A shared interface for semantic and pixel outputs",
+        "ko": "의미적 출력과 픽셀 출력을 연결하는 인터페이스"
+      },
+      "paragraphs": [
         {
           "en": "WeVisOne-VL explores a common interface for both kinds of output. The model can express semantic answers such as a label or location, then route a request for detailed pixels to a compact decoder. The interesting idea is the connection between the two outputs, not simply adding another segmentation model beside a chat model.",
           "ko": "WeVisOne-VL은 두 종류의 출력을 하나의 인터페이스로 다루려 합니다. 모델이 이름이나 위치 같은 의미 정보를 표현한 뒤, 세밀한 픽셀 결과가 필요한 요청은 작은 디코더로 연결합니다. 흥미로운 점은 대화 모델 옆에 분할 모델을 하나 더 붙이는 데 그치지 않고 두 출력을 이어보려는 설계입니다."
@@ -57,15 +66,28 @@
       ]
     },
     {
-      "id": "mechanism",
+      "id": "methodology",
       "heading": {
-        "en": "One token opens the pixel path",
-        "ko": "특수 토큰 하나가 픽셀 출력을 호출합니다"
+        "en": "A token-triggered lightweight pixel decoder",
+        "ko": "특수 토큰으로 구동하는 경량 픽셀 디코더"
       },
       "paragraphs": [
         {
           "en": "Built on Qwen3-VL, WeVisOne-VL uses the special <OBJ> token to trigger a 9.6-million-parameter pixel decoder. Coordinates can be represented as tokens too, while the decoder turns visual features into dense pixel outputs. The authors say this avoids requiring a separate SAM-style segmentation backbone.",
           "ko": "Qwen3-VL을 기반으로 한 WeVisOne-VL은 특수 토큰 <OBJ>를 사용해 960만 파라미터의 픽셀 디코더를 호출합니다. 좌표 역시 토큰으로 나타낼 수 있고, 디코더는 시각 특징을 촘촘한 픽셀 출력으로 바꿉니다. 저자들은 SAM 계열의 별도 분할 백본이 필요하지 않다고 설명합니다."
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "heading": {
+        "en": "Reported evaluation scope — quantitative checks pending",
+        "ko": "저자가 보고한 평가 범위 — 정량 검증 전"
+      },
+      "paragraphs": [
+        {
+          "en": "This archived metadata highlight has not independently checked the paper's evaluation tables, numerical scores, baselines, or test protocol. The following is an author-reported description, not a reproduced result.",
+          "ko": "이 기록은 논문의 평가 표, 정확한 수치, 비교 모델 및 시험 절차를 독립적으로 검증하지 않았습니다. 아래 내용은 재현 결과가 아니라 저자가 보고한 설명입니다."
         },
         {
           "en": "Training combines three stages of supervised fine-tuning with mixed-task reinforcement learning. The paper describes a large and varied training mixture and reports evaluation across more than 30 benchmarks. Those are the authors’ reported results; reproducing them still depends on the released setup, prompts, and benchmark conditions.",
@@ -74,16 +96,38 @@
       ]
     },
     {
-      "id": "engineering",
+      "id": "critical",
       "heading": {
-        "en": "Why engineers may care",
-        "ko": "엔지니어가 눈여겨볼 이유"
+        "en": "What the saved evidence cannot establish",
+        "ko": "현재 정리된 근거로는 확인할 수 없는 것"
+      },
+      "paragraphs": [
+        {
+          "en": "The claim of evaluation on more than 30 benchmarks does not itself establish a performance advantage over an alternative VLM-plus-segmenter pipeline. Without comparable scores, boundary-quality tests, latency, and memory measurements, this entry cannot support that conclusion.",
+          "ko": "30개가 넘는 벤치마크에서 평가했다는 주장만으로 기존 VLM과 분할기를 결합한 파이프라인보다 우수하다고 결론 내릴 수는 없습니다. 비교 점수, 경계 품질 시험, 지연 시간과 메모리 측정이 없어 이 글만으로는 그 결론을 뒷받침할 수 없습니다."
+        }
+      ]
+    },
+    {
+      "id": "insights",
+      "heading": {
+        "en": "Potential engineering value of a shared interface",
+        "ko": "공통 인터페이스의 구현상 잠재력"
       },
       "paragraphs": [
         {
           "en": "A shared output format can simplify a product that needs both conversational answers and editable visual regions. One request might ask for a count, another for a box, and a third for a transparent foreground matte. A common model interface could reduce glue code across these tasks and make the result easier to pass into a tool or editor.",
           "ko": "공통 출력 형식은 대화형 답변과 편집 가능한 이미지 영역이 함께 필요한 제품을 단순하게 만들 수 있습니다. 어떤 요청은 개수를 묻고, 다른 요청은 사각형 위치나 투명 배경용 매트를 원할 수 있습니다. 모델 인터페이스가 통일되면 과제마다 붙는 연결 코드를 줄이고 결과를 도구나 편집기로 전달하기 쉬워질 수 있습니다."
-        },
+        }
+      ]
+    },
+    {
+      "id": "future",
+      "heading": {
+        "en": "How to test this in a real product",
+        "ko": "실제 제품에서 확인할 후속 실험"
+      },
+      "paragraphs": [
         {
           "en": "For an implementation trial, compare the model with a VLM-plus-segmenter pipeline on the same images and prompts. Measure boundary quality, latency, memory, and how often it returns a plausible mask when the requested object is absent. A small decoder is useful only if the end-to-end trade-off holds on the images your product actually sees.",
           "ko": "직접 시험한다면 같은 이미지와 프롬프트로 이 모델과 VLM+분할기 조합을 비교해보세요. 경계 품질, 지연 시간, 메모리 사용량, 찾는 사물이 없을 때 그럴듯한 마스크를 잘못 내놓는 빈도를 측정하면 됩니다. 작은 디코더가 실제 제품 이미지에서 전체 성능과 비용의 균형을 만들 때 의미가 있습니다."
@@ -171,24 +215,37 @@
   ],
   "sources": [
     {
-      "label": { "en": "Hugging Face paper page", "ko": "Hugging Face 논문 페이지" },
+      "label": {
+        "en": "Hugging Face paper page",
+        "ko": "Hugging Face 논문 페이지"
+      },
       "url": "https://huggingface.co/papers/2610.31329",
       "publisher": "Hugging Face"
     },
     {
-      "label": { "en": "arXiv paper", "ko": "arXiv 논문 원문" },
+      "label": {
+        "en": "arXiv paper",
+        "ko": "arXiv 논문 원문"
+      },
       "url": "https://arxiv.org/abs/2610.31329",
       "publisher": "arXiv"
     },
     {
-      "label": { "en": "Authors’ project page and figures", "ko": "저자 프로젝트 페이지와 그림" },
+      "label": {
+        "en": "Authors’ project page and figures",
+        "ko": "저자 프로젝트 페이지와 그림"
+      },
       "url": "https://tencent.github.io/WeVisOne-VL/",
       "publisher": "Tencent"
     },
     {
-      "label": { "en": "Code and reported benchmarks", "ko": "코드와 벤치마크 결과" },
+      "label": {
+        "en": "Code and reported benchmarks",
+        "ko": "코드와 벤치마크 결과"
+      },
       "url": "https://github.com/Tencent/WeVisOne-VL",
       "publisher": "Tencent"
     }
-  ]
+  ],
+  "editorialStatus": "metadata-digest"
 }
