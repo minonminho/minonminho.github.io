@@ -1,35 +1,45 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { assertNoDuplicatePaperIds, parseReviewMetadata, readPaperHistory } from "./history.mjs";
 
 const root = process.cwd();
-const reviewDirectory = path.join(root, "content/paper-reviews");
-const files = [
-  "templates/daily-paper-template.md",
-  "templates/highlighted-review-template.md",
-  "layereditor.md",
-];
-for (const file of files) {
-  if (!existsSync(path.join(reviewDirectory, file))) throw new Error(`Missing paper review file: ${file}`);
+const directory = path.join(root, "content/paper-reviews");
+const titles = {
+  daily: {
+    en: ["TL;DR", "Research Problem", "Key Contributions", "Method Overview", "Key Results", "Limitations & Implications", "References"],
+    ko: ["핵심 요약 (TL;DR)", "연구 문제", "핵심 기여", "방법론 개요", "주요 실험 결과", "한계와 시사점", "참고 자료"],
+  },
+  highlighted: {
+    en: ["Executive Summary", "Background & Motivation", "Core Innovation", "Architecture & Methodology", "Experiments & Results", "Critical Analysis", "Engineering Insights", "Future Directions", "References & Resources"],
+    ko: ["핵심 요약", "배경과 연구 동기", "핵심 혁신", "아키텍처와 방법론", "실험과 결과", "비판적 분석", "엔지니어링 인사이트", "향후 연구 방향", "참고 자료와 리소스"],
+  },
+};
+
+function reviewSections(text, filename, kind) {
+  const markers = ["<!-- locale: en -->", "<!-- locale: ko -->"];
+  if (!markers.every((marker) => text.includes(marker))) throw new Error(`${filename}: bilingual locale markers required`);
+  const english = text.split(markers[0])[1].split(markers[1])[0];
+  const korean = text.split(markers[1])[1];
+  for (const [lang, body] of [["en", english], ["ko", korean]]) {
+    const matches = [...body.matchAll(/^## (.+)$/gm)];
+    const headings = matches.map((item) => item[1].trim());
+    if (JSON.stringify(headings) !== JSON.stringify(titles[kind][lang])) {
+      throw new Error(`${filename}: ${lang} ${kind} headings must match editorial outline in order. Found ${headings.join(" / ")}`);
+    }
+    for (let i = 0; i < matches.length; i += 1) {
+      const section = body.slice(matches[i].index + matches[i][0].length, matches[i + 1]?.index ?? body.length).trim();
+      if (section.length < 25) throw new Error(`${filename}: empty or trivial section ${headings[i]} (${lang})`);
+    }
+  }
 }
 
-const review = readFileSync(path.join(reviewDirectory, "layereditor.md"), "utf8");
-const metadata = parseReviewMetadata(review);
-const history = readPaperHistory(root);
-assertNoDuplicatePaperIds(history);
-
-for (const marker of ["<!-- locale: en -->", "<!-- locale: ko -->"]) {
-  if (!review.includes(marker)) throw new Error(`Review is missing locale marker ${marker}.`);
+for (const [kind, template] of [["daily", "templates/daily-paper-template.md"], ["highlighted", "templates/highlighted-review-template.md"]]) {
+  const full = path.join(directory, template);
+  if (!existsSync(full)) throw new Error(`Missing review template: ${template}`);
+  reviewSections(readFileSync(full, "utf8"), template, kind);
 }
-for (const section of ["Why this paper matters", "How the method works", "What the experiments show", "Limits and engineering implications", "Terminology", "References and figure credits"]) {
-  if (!review.includes(section)) throw new Error(`Review is missing required section: ${section}`);
-}
-if (metadata.reviewStatus !== "draft") throw new Error("The sample review must remain a local draft in this test.");
-if (!String(metadata.canonicalId).includes("2610.24738")) throw new Error("The sample review paper ID changed unexpectedly.");
-if (!review.includes("https://arxiv.org/html/2610.24738v1/flowchart.png")) throw new Error("The sample review must include an original paper figure.");
-if (!review.includes("CC BY 4.0")) throw new Error("The sample review must record figure attribution and license.");
 
-const foundational = [
+const foundational = new Map([
   ["attention-is-all-you-need.md", "arxiv:1706.03762"],
   ["deep-residual-learning.md", "arxiv:1512.03385"],
   ["bert-pretraining.md", "arxiv:1810.04805"],
@@ -40,35 +50,33 @@ const foundational = [
   ["vision-transformer.md", "arxiv:2010.11929"],
   ["clip-contrastive-vision-language.md", "arxiv:2103.00020"],
   ["denoising-diffusion-probabilistic-models.md", "arxiv:2006.11239"],
-];
-const requiredEnglishSections = [
-  "The contribution in one minute",
-  "Method and evidence",
-  "Limits and engineering implications",
-  "Terminology",
-  "References and figure credits",
-];
-const requiredKoreanSections = ["1분 핵심 요약", "방법과 근거", "한계와 엔지니어 관점", "용어 정리", "참고 자료와 그림 출처"];
+]);
 
-for (const [file, paperId] of foundational) {
-  const markdown = readFileSync(path.join(reviewDirectory, file), "utf8");
-  const paper = parseReviewMetadata(markdown);
-  if (paper.canonicalId !== paperId || paper.reviewStatus !== "published" || paper.sourceType !== "foundational-seed") {
-    throw new Error(`${file} must be a published foundational paper review for ${paperId}.`);
+assertNoDuplicatePaperIds(readPaperHistory(root));
+let daily = 0, highlighted = 0, digests = 0;
+for (const file of readdirSync(directory).filter((name) => name.endsWith(".md"))) {
+  const text = readFileSync(path.join(directory, file), "utf8");
+  const metadata = parseReviewMetadata(text);
+  const kind = metadata.reviewFormat === "highlighted" ? "highlighted" : "daily";
+  reviewSections(text, file, kind);
+  if (kind === "highlighted") highlighted += 1; else daily += 1;
+  if (!metadata.hero?.url?.startsWith("https://") || !metadata.hero?.license || !metadata.hero?.caption?.en || !metadata.hero?.caption?.ko) {
+    throw new Error(`${file}: original figure and attribution must be present`);
   }
-  if (paper.dailyDate !== null || paper.dailyRank !== null || paper.upvotesAtSelection !== null) {
-    throw new Error(`${file} must not claim a Hugging Face Daily ranking.`);
+  if (!text.includes("https://arxiv.org/")) throw new Error(`${file}: original paper link required`);
+  if (metadata.translationModel) {
+    if (metadata.editorialStatus !== "metadata-digest") throw new Error(`${file}: machine-generated summaries must be labeled metadata-digest`);
+    digests += 1;
   }
-  if (!paper.hero?.url?.startsWith("https://") || !paper.hero?.alt?.en || !paper.hero?.alt?.ko || !paper.hero?.caption?.en || !paper.hero?.caption?.ko || !paper.hero?.license) {
-    throw new Error(`${file} needs a source-linked, accessible bilingual figure with attribution guidance.`);
+  if (foundational.has(file)) {
+    if (metadata.canonicalId !== foundational.get(file) || metadata.sourceType !== "foundational-seed" || metadata.reviewStatus !== "published") {
+      throw new Error(`${file}: original foundational metadata must remain intact`);
+    }
+    if (metadata.dailyDate !== null || metadata.dailyRank !== null || metadata.upvotesAtSelection !== null) {
+      throw new Error(`${file}: foundational seeds must not claim HF Daily ranking`);
+    }
+    foundational.delete(file);
   }
-  for (const section of requiredEnglishSections) {
-    if (!markdown.includes(`## ${section}`)) throw new Error(`${file} is missing English section: ${section}`);
-  }
-  for (const section of requiredKoreanSections) {
-    if (!markdown.includes(`## ${section}`)) throw new Error(`${file} is missing Korean section: ${section}`);
-  }
-  if (!markdown.includes("https://arxiv.org/abs/")) throw new Error(`${file} is missing the original paper reference.`);
 }
-
-console.log(`Paper review content valid: ${metadata.canonicalId} (${metadata.reviewStatus}); ${foundational.length} published foundational briefs.`);
+if (foundational.size) throw new Error(`Missing foundational papers: ${[...foundational.keys()].join(", ")}`);
+console.log(`Paper reviews valid: ${daily} daily/foundational, ${highlighted} highlighted drafts, ${digests} explicitly labeled metadata digests.`);
