@@ -20,7 +20,7 @@ export function PaperReviewArchive({ reviews }: { reviews: PaperReviewSummary[] 
     <header className="border-b-2 border-border-strong pb-9 md:pb-12">
       <p className="text-eyebrow text-signal-mint">SIDE PROJECT / DAILY BRIEF / PAPERS</p>
       <h1 className="text-display-xl mt-5">{copy("Daily Paper Briefs", "Daily Paper Briefs")}<span className="text-signal-ice">.</span></h1>
-      <p className="mt-5 max-w-3xl text-subhead">{copy("Concise, bilingual reviews of research papers. Foundation papers are labeled separately from Hugging Face Daily rankings.", "논문을 영어와 한국어로 간결하게 정리합니다. 기반 논문과 Hugging Face Daily 순위 논문을 구분해 표시합니다.")}</p>
+      <p className="mt-5 max-w-3xl text-subhead">{copy("Bilingual research notes. Automated Hugging Face selections are labeled metadata digests, not independent paper reviews.", "영어·한국어 논문 읽기 자료입니다. Hugging Face 자동 수집 글은 독립적인 리뷰와 구분해 메타데이터 요약으로 표시합니다.")}</p>
       <p className="mt-4 font-mono text-[11px] text-text-tertiary">{copy(`${reviews.length} PAPER BRIEFS`, `논문 Brief ${reviews.length}편`)}</p>
     </header>
 
