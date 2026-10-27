@@ -1,0 +1,394 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-28",
+  "publishedAt": "2026-10-28T06:30:00+09:00",
+  "title": {
+    "ko": "AI 브리핑 — 다국어 음성 인식과 에이전트 평가",
+    "en": "AI Briefing — Multilingual speech and agent evaluation"
+  },
+  "dek": {
+    "ko": "Azure AI Speech의 다국어 전사 업데이트와, 코딩 에이전트 결과를 반복해서 검증하는 공개 구현 사례를 살펴봅니다.",
+    "en": "A new multilingual speech update and an open-source workflow for repeatable coding-agent tests."
+  },
+  "focus": {
+    "ko": "최근 24시간의 새 기술 변화로 Microsoft의 Azure AI Speech LLM 09-2026 업데이트를 확인했습니다. 성능 수치는 회사 발표로 한정하고, 현재 문서와 버전 표기가 다른 점을 함께 표시합니다. Scope는 10월 19일 공개된 구현 사례로 날짜를 분리해 다룹니다.",
+    "en": "The verified new development from the past 24 hours is Microsoft’s Azure AI Speech LLM 09-2026 update. Performance figures are labeled as company-reported, and the documentation’s conflicting version label is noted. Scope is included as a dated implementation case from October 19."
+  },
+  "visual": "workflow",
+  "topics": [
+    "Models & tools",
+    "Workflows",
+    "Systems & inference"
+  ],
+  "editorialNote": {
+    "ko": "오늘은 음성 인식 업데이트가 중심입니다. 별도의 새 추론 하드웨어·서빙 변경은 확인하지 않아 engineering 섹션은 비웠습니다. Scope 결과도 새 소식이 아닌 10월 19일 사례로 명시했습니다.",
+    "en": "Today’s main update is in speech recognition. I found no separate new inference hardware or serving change, so the systems section is empty. Scope results are dated as an October 19 case, not new news."
+  },
+  "sections": [
+    {
+      "id": "signals",
+      "label": {
+        "ko": "모델과 역량",
+        "en": "Models & capabilities"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "Azure AI Speech LLM: 25개 언어 추가와 처리 속도 개선",
+            "en": "Azure AI Speech LLM: 25 more languages and faster processing"
+          },
+          "publishedDate": "2026-10-26",
+          "status": "available",
+          "summary": {
+            "ko": "Microsoft는 10월 26일 Azure AI Speech의 대규모 언어 모델(LLM) 기반 전사 업데이트 `09-2026`을 발표했습니다. 새 언어 25개, 그중 인도계 언어 11개를 추가해 총 50개 언어와 60개 이상의 로캘을 지원한다고 밝혔습니다. 내부 및 공개 평가에서 Token Error Rate는 최대 25%, Entity Error Rate는 최대 37% 개선됐다고 보고했습니다.[1][2]",
+            "en": "On October 26, Microsoft announced Azure AI Speech’s large language model (LLM) transcription update, `09-2026`. It adds 25 languages, including 11 Indic languages, for a stated total of 50 languages and more than 60 locales. Microsoft reports up to 25% better Token Error Rate and up to 37% better Entity Error Rate across internal and public evaluations.[1][2]"
+          },
+          "change": {
+            "ko": "이전 버전 `2607`과 비교한 발표입니다. Microsoft는 짧은 5–10초 음성에서 여러 스트림을 동시에 처리할 때[4] 처리 속도가 최대 2배라고 보고했습니다. 지원 언어를 늘리는 것만이 아니라, 코드 전환이 있는 대화와 지역별 발음까지 하나의 전사 흐름에서 다루려는 개선입니다.[3]",
+            "en": "The comparison is with the earlier `2607` version. Microsoft reports up to 2× faster processing for short, 5–10 second audio at high concurrency[4]. The goal is not only wider language coverage. It is also to handle code-switching and regional accents in one transcription flow.[3]"
+          },
+          "availability": {
+            "ko": "Microsoft는 Fast Transcription 응용 프로그래밍 인터페이스(API)[7]와 Foundry Playground에서 새 버전을 제공하고, 서비스 측에 배포해 별도 모델 선택은 필요 없다고 발표했습니다. 다만 Microsoft Learn 문서는 10월 20일 갱신 이후 07 2026을 현재 버전으로 표기합니다. 10월 26일 발표 이후 문서가 갱신되지 않아 지역별 반영 여부는 확인되지 않았습니다.",
+            "en": "Microsoft says the new version is available through the Fast Transcription application programming interface (API)[7] and Foundry Playground. It is deployed on the service side, with no model selection required. However, Microsoft Learn still lists 07 2026 as current. That page was last updated on October 20, before the October 26 announcement, so rollout by region is not confirmed in the docs."
+          },
+          "limitation": {
+            "ko": "정확도와 속도 수치는 Microsoft가 보고한 결과이며 독립 재현은 확인하지 못했습니다. 발표는 GigaSpeech와 VoxPopuli 등을 언급하지만 세부 비교 조건, 하드웨어, 정밀도, 동시 요청 수 전체, 오디오 구성과 평가 절차를 공개하지 않습니다. 속도 주장은 특히 짧은 음성과 높은 동시성에 한정됩니다.[5]",
+            "en": "The accuracy and speed figures are Microsoft-reported; I found no independent reproduction. The post names GigaSpeech and VoxPopuli, but does not provide full test conditions, hardware, precision, all concurrency levels, audio mix, or evaluation protocol. The speed claim is limited to short audio and high concurrency.[5]"
+          },
+          "implication": {
+            "ko": "전화 음성이나 다국어 회의 전사를 만드는 개발자는 언어가 바뀌는 구간, 이름·제품명, 무음 구간을 포함한 자체 테스트 세트로 기존 기준 버전과 비교하는 것이 좋습니다. 개선 수치만으로 정확도나 지연 시간이 실제 서비스에서 같다고 가정하지 마세요.",
+            "en": "If you build call transcription or multilingual meeting tools, compare the old and new service with your own test set. Include language switches, names, and silent sections. Do not assume the reported accuracy or latency gains will match your service."
+          },
+          "sourceIds": [
+            "speech-release",
+            "speech-docs",
+            "speech-fast-api"
+          ],
+          "visual": {
+            "variant": "workflow",
+            "caption": {
+              "ko": "개념도: 다국어 오디오를 자동 감지해 전사 결과로 바꾸는 흐름입니다. Microsoft의 측정 그래프나 모델 내부 구조는 아닙니다.",
+              "en": "Conceptual diagram: multilingual audio is detected and converted to text. This is not a Microsoft benchmark chart or a view of the model’s internals."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "Azure LLM Speech 전사 문서",
+                "en": "Azure LLM Speech transcription docs"
+              },
+              "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/llm-speech"
+            },
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "Fast Transcription API 사용법",
+                "en": "Fast Transcription API guide"
+              },
+              "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/fast-transcription-create"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "label": {
+        "ko": "개발자 도구",
+        "en": "Developer tools"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "Fast Transcription API: 코드 전환과 용어 힌트 설정",
+            "en": "Fast Transcription API: code-switching and phrase hints"
+          },
+          "publishedDate": "2026-10-26",
+          "status": "available",
+          "summary": {
+            "ko": "이 업데이트는 새 엔드포인트가 아니라 기존 Fast Transcription API에 배포되는 서비스 측 모델 변경입니다. 다국어 오디오에서는 로캘 힌트를 생략해 자동 감지하게 하라고 안내합니다. 제품명과 약어는 phraseList[6]에 추가할 수 있습니다. Microsoft는 요청 예제와 Foundry Playground를 제공합니다.[7]",
+            "en": "This update changes the model behind the existing Fast Transcription API. It does not add a new endpoint. For mixed-language audio, Microsoft says to omit locale hints and let the service detect languages. Developers can add product names and acronyms with phraseList[6]. The post links a request example and Foundry Playground.[7]"
+          },
+          "change": {
+            "ko": "모델 파일을 내려받거나 요청에서 버전을 지정하는 방식은 아닙니다. 기존 API의 향상 모드를 사용하며, 음성이 단일 언어일 때 로캘 힌트를 줄 수 있습니다.",
+            "en": "You do not download a model file or choose its version in the request. Use the API’s enhanced-mode setting. A locale hint is an option for audio in one known language."
+          },
+          "availability": {
+            "ko": "API와 Playground 이용에는 Azure 구독, Foundry 프로젝트, 지원 지역의 Speech 리소스가 필요합니다. 별도의 LLM 엔드포인트를 호출하는 구조는 아닙니다.",
+            "en": "Access through the API or Playground requires an Azure subscription, a Foundry project, and a Speech resource in a supported region. It does not use a separate LLM endpoint."
+          },
+          "limitation": {
+            "ko": "서버가 버전을 관리하므로 특정 모델 빌드를 고정하기 어렵습니다. 재현이 필요하면 설정, 리전, 오디오, 응답 시각과 출력을 저장하세요. 문서와 발표의 버전 차이는 실제 배포 상태를 확인하기 어렵게 합니다.",
+            "en": "The service controls the model version, so you may not be able to pin a build. To reproduce results, save settings, region, audio, response time, and output. The version mismatch makes rollout status uncertain."
+          },
+          "implication": {
+            "ko": "기존 연동을 바꾸기 전 단일 언어와 혼합 언어 음성을 각각 시험하세요. 같은 오디오에서 용어 목록을 적용하기 전후의 전사 결과도 비교하고, 오인식과 처리 시간을 기록하면 됩니다.",
+            "en": "Before changing an integration, test a single-language clip and a mixed-language clip. Compare transcription with and without a term list. Record recognition errors and processing time."
+          },
+          "sourceIds": [
+            "speech-release",
+            "speech-docs",
+            "speech-fast-api"
+          ],
+          "visual": {
+            "variant": "workflow",
+            "caption": {
+              "ko": "개념도: 오디오 입력, 선택적 로캘 힌트와 용어 목록, 전사 API, 결과 검토 단계입니다. 실제 응답 성능을 측정한 도식은 아닙니다.",
+              "en": "Conceptual diagram: audio input, optional locale and phrase hints, the transcription API, and output review. It does not show measured system performance."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "Fast Transcription API 요청 설정",
+                "en": "Fast Transcription API request options"
+              },
+              "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/fast-transcription-create"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "label": {
+        "ko": "엔지니어링 구현 사례",
+        "en": "Engineering case"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "오래된 참고 사례(10월 19일): Scope로 에이전트 사용성을 반복 평가",
+            "en": "Older reference (October 19): repeatable agent-experience tests with Scope"
+          },
+          "publishedDate": "2026-10-19",
+          "status": "case-study",
+          "summary": {
+            "ko": "10월 19일에 공개된 오래된 구현 참고입니다. Microsoft Scope는 같은 제품 작업을 여러 에이전트 설정으로 반복하고, 의존 조건이 있는 기준 그래프[8]로 결과를 채점합니다. Microsoft의 Cosmos DB 실험은 8개 시나리오와 5개 언어를 사용했습니다.[9]",
+            "en": "This is an older implementation case, published October 19. Microsoft Scope repeats the same product task across agent setups and scores results with criteria graphs[8]. The Cosmos DB case used eight scenarios and five languages.[9]"
+          },
+          "change": {
+            "ko": "팀은 기본 모델과 Agent Kit을 비교한 뒤 도구와 문서를 고쳤습니다. Microsoft는 20개 도구 이슈와 27개 문서 이슈를 해결했다고 보고했습니다. 특정 업데이트 뒤 평가 사례의 파티션 키 사용은 47%에서 100%로 올랐고 잘못된 OFFSET/LIMIT 사용은 47%에서 0%로 줄었습니다. 일반 에이전트 순위는 아닙니다.",
+            "en": "The team compared base models with its Agent Kit, then fixed tools and docs. Microsoft reports 20 Agent Kit issues and 27 documentation issues resolved. After one update, correct partition-key use in the test cases rose from 47% to 100%; incorrect OFFSET/LIMIT use fell from 47% to zero. This is not a general agent ranking."
+          },
+          "availability": {
+            "ko": "Scope는 MIT 라이선스 연구 프리뷰이며 직접 배포해야 합니다. 공개 저장소는 Docker Compose 기반 로컬 개발을 안내합니다. 연결할 코딩 에이전트의 접근 권한과 자격 증명도 필요합니다.",
+            "en": "Scope is an MIT-licensed research preview that you deploy yourself. Its repository documents local development with Docker Compose. You also need access and credentials for connected coding agents."
+          },
+          "limitation": {
+            "ko": "결과는 Microsoft가 보고했으며 독립 재현은 확인하지 못했습니다. Kubernetes로 운영할 경우 별도 인프라가 필요합니다. 기준을 잘못 만들거나 자동 판정자를 지나치게 믿으면 점수가 실제 제품 품질을 반영하지 못할 수 있습니다.",
+            "en": "Microsoft reported these results; I found no independent reproduction. A Kubernetes deployment needs extra infrastructure. Poor criteria or over-trust in an automated judge can produce scores that do not reflect product quality."
+          },
+          "implication": {
+            "ko": "문서나 SDK를 만드는 팀은 중요한 작업 하나를 골라 기준 에이전트와 한 가지 변경을 비교할 수 있습니다. 입력과 평가 기준을 고정하고 실패 로그를 보면 에이전트와 제품 설명 중 어디를 개선할지 판단하기 쉬워집니다. Microsoft는 이를 Developer Agent Experience(DevAX)라고 부릅니다.",
+            "en": "A team can start with one important docs or SDK task, a baseline agent, and one change. Keep the prompt and criteria fixed, then inspect failed traces. This helps separate agent errors from product or documentation issues. Microsoft calls this Developer Agent Experience (DevAX)."
+          },
+          "sourceIds": [
+            "scope-blog",
+            "scope-repo"
+          ],
+          "visual": {
+            "variant": "verification",
+            "caption": {
+              "ko": "Microsoft 원본 슬라이드는 Scope 평가에서 사용한 시나리오 수와 언어 범위, 개선 작업을 보여줍니다. 결과는 Microsoft의 Cosmos DB 사례이며 보편적인 에이전트 성능 비교가 아닙니다.",
+              "en": "Microsoft’s original slide shows the scenario and language coverage and fixes from its Scope evaluation. These are Cosmos DB case results, not a general agent benchmark."
+            },
+            "image": {
+              "url": "https://opensource.microsoft.com/blog/wp-content/uploads/2026/10/scope_1-1024x576.webp",
+              "width": 1024,
+              "height": 576,
+              "alt": {
+                "ko": "Scope로 8개 시나리오와 5개 언어의 에이전트 테스트를 비교한 발표 슬라이드",
+                "en": "Presentation slide summarizing Scope tests across eight scenarios and five languages"
+              },
+              "sourceId": "scope-blog"
+            }
+          },
+          "resources": [
+            {
+              "kind": "code",
+              "title": {
+                "ko": "Microsoft Scope 코드 저장소",
+                "en": "Microsoft Scope source code"
+              },
+              "url": "https://github.com/microsoft/scope"
+            },
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "Scope 평가 플랫폼 문서",
+                "en": "Scope evaluation platform"
+              },
+              "url": "https://github.com/microsoft/scope/blob/main/docs/README.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "label": {
+        "ko": "시스템과 추론",
+        "en": "Systems & inference"
+      },
+      "items": []
+    }
+  ],
+  "experiment": {
+    "title": {
+      "ko": "다국어 전사 오류를 직접 세어보기",
+      "en": "Measure transcription errors in a short multilingual test"
+    },
+    "minutes": 15,
+    "steps": [
+      {
+        "ko": "새 계정을 만들지 말고, 이미 이용할 수 있는 무료 음성 전사 기능을 고릅니다. 15~20초 분량의 한국어·영어 혼합 음성을 직접 녹음하고 정답 문장을 미리 적습니다.",
+        "en": "Use a free transcription feature you already have; do not create a new account. Record 15–20 seconds of mixed Korean and English speech, and write the correct transcript first."
+      },
+      {
+        "ko": "같은 오디오를 두 번 전사합니다. 언어 자동 감지 기능과, 지원된다면 단일 언어 힌트를 준 설정을 각각 한 번 사용합니다.",
+        "en": "Transcribe the same clip twice: once with automatic language detection, and once with a single-language hint if the tool supports it."
+      },
+      {
+        "ko": "제품명이나 고유명사가 들어간 문장도 넣고, 용어 목록 기능이 있으면 이름을 등록한 뒤 결과를 비교합니다.",
+        "en": "Include a sentence with a product or proper name. If the tool supports a phrase list, add the name and compare the output."
+      },
+      {
+        "ko": "정답과 결과를 단어별로 대조해 삽입·삭제·대체 오류를 세고, 각 설정의 처리 시간을 기록합니다.",
+        "en": "Compare each result with the reference. Count inserted, deleted, and substituted words, and record processing time for each setting."
+      }
+    ],
+    "measure": {
+      "ko": "기준 문장의 총 단어 수와 오류 수로 단어 오류율(WER)[10]을 계산하고, 두 번의 처리 시간과 고유명사 인식 여부를 비교합니다. 이 작은 샘플은 한 도구에서의 탐색 결과일 뿐 언어 전반의 성능 평가가 아닙니다.",
+      "en": "Calculate Word Error Rate (WER)[10] from the reference-word count and the number of errors. Compare the two processing times and proper-name recognition. This small sample is an exploratory test of one tool, not a general language benchmark."
+    }
+  },
+  "glossary": [
+    {
+      "id": 1,
+      "term": "Large language model (LLM)",
+      "ko": "대규모 언어 모델",
+      "explanation": "대량의 언어 데이터를 학습해 문장이나 전사 결과를 만들어 내는 모델이에요.",
+      "example": "음성 인식 모델이 문맥을 참고해 ‘파티션 키’처럼 기술 용어를 문장에 맞게 적어요."
+    },
+    {
+      "id": 2,
+      "term": "Locale",
+      "ko": "언어·지역 설정값",
+      "explanation": "언어뿐 아니라 지역별 발음이나 표기 관습까지 나타내는 코드예요.",
+      "example": "영어 음성 파일에 `en-IN`이나 `en-US`를 지정해 어느 지역 발음인지 알려줘요."
+    },
+    {
+      "id": 3,
+      "term": "Token Error Rate (TER)",
+      "ko": "토큰 오류율",
+      "explanation": "정답 전사와 모델 전사를 토큰 단위로 비교해 얼마나 다른지 계산한 비율이에요.",
+      "example": "정답이 100개 토큰이고 10개가 삽입·삭제·대체됐다면 오류율은 대략 10%예요."
+    },
+    {
+      "id": 4,
+      "term": "Concurrency",
+      "ko": "동시 처리 수",
+      "explanation": "같은 시간에 시스템이 처리하는 요청이나 오디오 스트림의 수예요.",
+      "example": "전화 음성 50개를 한 번에 보내는 시험은 스트림 하나씩 보내는 시험보다 동시성이 높아요."
+    },
+    {
+      "id": 5,
+      "term": "Entity Error Rate",
+      "ko": "고유 정보 오류율",
+      "explanation": "사람 이름, 회사명, 제품명처럼 중요한 개체를 얼마나 잘못 인식했는지 보는 평가 지표예요.",
+      "example": "‘Azure’라는 제품명을 ‘Asure’로 받아쓰면 개체 인식 오류로 셀 수 있어요."
+    },
+    {
+      "id": 6,
+      "term": "Phrase list",
+      "ko": "용어 힌트 목록",
+      "explanation": "전사할 때 특히 잘 알아들어야 하는 이름이나 전문 용어를 모델에 알려주는 목록이에요.",
+      "example": "음성 회의 전에 프로젝트명과 제품명을 목록에 넣어 전사 결과를 비교해요."
+    },
+    {
+      "id": 7,
+      "term": "Fast Transcription application programming interface (API)",
+      "ko": "Fast Transcription 응용 프로그래밍 인터페이스",
+      "explanation": "응용 프로그래밍 인터페이스(API)는 프로그램이 다른 서비스에 요청을 보내 기능을 사용하는 약속된 통로예요. Fast Transcription API는 오디오 파일을 보내 전사 결과를 받는 방식이에요.",
+      "example": "앱이 음성 파일을 API 요청으로 보내고, 응답에서 전사문과 처리 시간을 읽어요."
+    },
+    {
+      "id": 8,
+      "term": "Criteria graph",
+      "ko": "기준 간 의존 관계도",
+      "explanation": "평가 항목의 선후 관계를 나타내는 그래프예요. 앞 조건을 통과하지 못하면 뒤 항목을 건너뛸 수 있어요.",
+      "example": "빌드가 실패한 코드에는 테스트 통과 여부를 점수화하지 않도록 연결해요."
+    },
+    {
+      "id": 9,
+      "term": "Developer Agent Experience (DevAX)",
+      "ko": "개발 에이전트 사용 경험",
+      "explanation": "코딩 에이전트가 제품의 API, 문서, SDK와 도구를 찾아 실제 개발 작업을 수행하는 경험을 뜻해요.",
+      "example": "같은 SDK 작업을 코딩 에이전트에 시켜 문서만 읽고 성공하는지 반복 측정해요."
+    },
+    {
+      "id": 10,
+      "term": "Word Error Rate (WER)",
+      "ko": "단어 오류율",
+      "explanation": "기준 전사와 비교해 빠지거나 더해지거나 바뀐 단어 수를 기준 단어 수로 나눈 지표예요.",
+      "example": "기준 문장이 20단어이고 오류가 2개면 WER은 10%예요."
+    }
+  ],
+  "sources": [
+    {
+      "id": "speech-release",
+      "title": {
+        "ko": "Azure AI Speech LLM 09-2026 공개 발표",
+        "en": "Announcing Azure AI Speech LLM 09-2026"
+      },
+      "publisher": "Microsoft Foundry Blog",
+      "url": "https://devblogs.microsoft.com/foundry/announcing-azure-ai-speech-llm-09-2026/",
+      "publishedDate": "2026-10-26"
+    },
+    {
+      "id": "speech-docs",
+      "title": {
+        "ko": "Azure LLM Speech 전사 문서",
+        "en": "Use Azure LLM Speech for transcription"
+      },
+      "publisher": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/llm-speech",
+      "publishedDate": null
+    },
+    {
+      "id": "speech-fast-api",
+      "title": {
+        "ko": "Fast Transcription API 문서",
+        "en": "Use the fast transcription API"
+      },
+      "publisher": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/fast-transcription-create",
+      "publishedDate": null
+    },
+    {
+      "id": "scope-blog",
+      "title": {
+        "ko": "Scope: AI 코딩 에이전트 평가 오픈소스",
+        "en": "Scope: Open-source evaluation for AI coding agents"
+      },
+      "publisher": "Microsoft Open Source",
+      "url": "https://opensource.microsoft.com/blog/2026/10/19/introducing-scope-open-source-evaluation-for-ai-coding-agents/",
+      "publishedDate": "2026-10-19"
+    },
+    {
+      "id": "scope-repo",
+      "title": {
+        "ko": "Microsoft Scope 공식 저장소",
+        "en": "Microsoft Scope source repository"
+      },
+      "publisher": "Microsoft",
+      "url": "https://github.com/microsoft/scope",
+      "publishedDate": null
+    }
+  ]
+}
