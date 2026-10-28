@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-29",
+  "publishedAt": "2026-10-29T06:38:06+09:00",
+  "title": {
+    "ko": "AI 브리핑 — 도구 결과를 먼저 줄여 문맥을 지키기",
+    "en": "AI Briefing — Keep context by trimming tool output first"
+  },
+  "dek": {
+    "ko": "Qwen Code v0.26.3은 자동 압축 전에 큰 도구 응답을 남은 문맥 공간에 맞춥니다. 작은 로컬 실험으로 정보 손실도 비교합니다.",
+    "en": "Qwen Code v0.26.3 now fits large tool replies to the space left before auto-compaction. A small local experiment shows the trade-off."
+  },
+  "focus": {
+    "ko": "지난 24시간에 확인된 주요 기술 변화는 코딩 에이전트의 문맥 창[1] 관리입니다. 새 모델 성능 변화는 검증하지 못했습니다.",
+    "en": "The main verified change in the past 24 hours is how a coding agent manages its context window[1]. No new model performance result was verified."
+  },
+  "visual": "workflow",
+  "topics": [
+    "Models & tools",
+    "Workflows"
+  ],
+  "editorialNote": {
+    "ko": "지난 판본에서 다룬 v0.26.1의 수동 압축과 중복되지 않도록, 10월 28일 공개된 v0.26.3의 도구 결과 예산 조정만 다룹니다. 10월 27일 구현 PR은 작동 조건을 설명하는 근거로 표시했습니다. 릴리스에는 성능 수치나 독립 재현 결과가 없습니다.",
+    "en": "To avoid repeating v0.26.1's manual compaction, this issue covers only the tool-result budget change in v0.26.3, released on October 28. The October 27 implementation pull request is used as dated evidence about its conditions. The release gives no performance figures or independent reproduction."
+  },
+  "sections": [
+    {
+      "id": "signals",
+      "label": {
+        "ko": "모델과 역량",
+        "en": "Models & capabilities"
+      },
+      "items": []
+    },
+    {
+      "id": "tools",
+      "label": {
+        "ko": "개발자 도구",
+        "en": "Developer tools"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "Qwen Code v0.26.3: 자동 압축 전에 도구 결과를 예산에 맞추기",
+            "en": "Qwen Code v0.26.3 fits tool results before auto-compaction"
+          },
+          "publishedDate": "2026-10-28",
+          "status": "available",
+          "summary": {
+            "ko": "Qwen Code는 10월 28일 v0.26.3을 공개했습니다. 앞선 v0.26.1(10월 24일)은 관리형 세션이 유휴 상태일 때 사용자가 수동 압축을 할 수 있게 했습니다. 이번에는 다른 단계가 바뀝니다. 도구 응답이 너무 크면 세션 관리자가 먼저 모델의 문맥 창[1]에서 남은 공간에 맞게 응답을 줄이고, 필요하면 자동 압축[2]을 실행합니다. 이는 코딩 에이전트의 문맥 관리 변경입니다. 모델 자체의 문맥 한도를 늘리는 변경은 아닙니다.",
+            "en": "Qwen Code released v0.26.3 on October 28. Earlier, v0.26.1 (October 24) added manual compression for idle managed sessions. This release changes a different step. When a tool reply is too large, the session manager first fits it to the free space in the model's context window[1]. It runs automatic compaction[2] only if needed. This changes the coding agent's context manager. It does not increase the model's own context limit."
+          },
+          "change": {
+            "ko": "남은 여유 공간, 즉 headroom[3]은 프롬프트와 앞선 대화를 넣고 남은 자리입니다. 구현은 가장 최근에 성공한 토큰 사용량 보고를 이용해 이 공간을 계산하고, 공급자 경로와 대화 입력이 그대로일 때만 그 계산을 재사용합니다. 여러 도구 결과가 한꺼번에 오면 남은 예산을 나눠 씁니다. 보존 우선 내용[4]과 사용자가 지정한 잘라내기 규칙[5]은 우선 적용됩니다. 잘라내기 안내문조차 들어가지 않으면 기존 압축과 한도 처리로 넘어갑니다. 잘린 원문은 최선의 노력으로 별도 저장합니다.",
+            "en": "The remaining free space, or headroom[3], is what is left after the prompt and earlier messages. The implementation estimates it from the last successful token-usage report. It reuses that estimate only when the provider route and conversation inputs are unchanged. If several tool results arrive together, they share the budget. Protected content[4] and explicit truncation rules[5] take priority. If even a truncation notice cannot fit, normal compaction and hard-limit handling still apply. The full original result is saved on a best-effort basis."
+          },
+          "availability": {
+            "ko": "v0.26.3의 GitHub 태그와 소스 코드는 공개돼 있습니다. 해당 태그의 README는 Node.js 22 이상을 요구하고, 터미널 설치와 공급자 설정을 설명합니다. 실제 에이전트 사용에는 기존 모델 공급자 접근이 필요하며, 호환되는 로컬 서버도 선택지로 적혀 있습니다. README의 npm 명령은 `latest`를 가리키므로 정확히 이 버전을 평가하려면 v0.26.3 태그를 고정해 확인해야 합니다.",
+            "en": "The v0.26.3 GitHub tag and source code are public. Its README requires Node.js 22 or later and explains terminal installation and provider setup. Live agent use still needs access to a model provider; the README also lists compatible local servers. The README's npm command points to `latest`, so pin the v0.26.3 tag when you need to test this exact version."
+          },
+          "limitation": {
+            "ko": "릴리스 노트에는 압축 횟수, 절약 토큰, 지연 시간, 작업 성공률의 측정값이 없습니다. 공개된 근거는 프로젝트의 변경 설명과 코드이며, 독립 재현은 확인되지 않았습니다. 결과를 줄이면 다음 행동에 필요한 오류 한 줄까지 사라질 수 있습니다[4][5]. 공급자 경로나 대화가 바뀌면 사용량 추정도 다시 유효하지 않게 되며, 큰 결과가 여전히 압축 또는 한도 초과를 일으킬 수 있습니다.",
+            "en": "The release reports no measurements for compaction count, saved tokens, latency, or task success. The evidence is the project's change notes and source code; no independent reproduction was found. Trimming can remove an error line needed for the next action[4][5]. A provider or conversation change also makes the usage estimate stale. Large results can still trigger compaction or hit a hard limit."
+          },
+          "implication": {
+            "ko": "같은 긴 도구 출력 과제를 v0.26.2와 v0.26.3에서 실행해 비교해보세요. 압축 횟수, 다시 찾을 수 있는 핵심 사실, 놓친 오류 줄, 걸린 시간을 기록하면 토큰 가격만으로는 보이지 않는 차이를 확인할 수 있습니다. 원본 결과도 보관하고, 성능 향상은 실제 과제에서 검증하기 전까지 주장하지 않는 편이 좋습니다.",
+            "en": "Run the same task with long tool output on v0.26.2 and v0.26.3. Record compaction count, key facts you can recover, missed error lines, and elapsed time. Keep the original output too. Treat better task performance as unproven until you test it on your own tasks."
+          },
+          "sourceIds": [
+            "qwen-v0263",
+            "qwen-budget-pr",
+            "qwen-v0261"
+          ],
+          "visual": {
+            "variant": "workflow",
+            "caption": {
+              "ko": "개념도: 세션 관리자가 남은 문맥을 확인하고, 큰 도구 결과를 먼저 줄입니다. 그래도 들어가지 않으면 기존 압축이나 한도 처리가 이어집니다. 성능 측정이나 실제 화면은 아닙니다.",
+              "en": "Conceptual flow: the session manager checks remaining context and trims a large tool result first. If it still does not fit, normal compaction or limit handling follows. This is not a performance measurement or product screenshot."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "code",
+              "title": {
+                "ko": "Qwen Code v0.26.3 소스 코드",
+                "en": "Qwen Code v0.26.3 source code"
+              },
+              "url": "https://github.com/QwenLM/qwen-code/tree/v0.26.3"
+            },
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "Qwen Code v0.26.3 설치·인증 안내",
+                "en": "Qwen Code v0.26.3 installation and authentication guide"
+              },
+              "url": "https://github.com/QwenLM/qwen-code/blob/v0.26.3/README.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "label": {
+        "ko": "구현 사례",
+        "en": "Engineering case"
+      },
+      "items": []
+    },
+    {
+      "id": "engineering",
+      "label": {
+        "ko": "시스템과 추론",
+        "en": "Systems & inference"
+      },
+      "items": []
+    }
+  ],
+  "experiment": {
+    "title": {
+      "ko": "15분 실험 — 문맥 압축과 도구 결과 자르기의 차이",
+      "en": "15-minute experiment — compare compaction with trimming"
+    },
+    "minutes": 15,
+    "steps": [
+      {
+        "ko": "유료 모델 없이 로컬 문서나 작은 스크립트에서 문자 예산을 500으로 정합니다. 꼭 지켜야 할 규칙 한 개를 포함한 350자 대화 이력과, 끝부분에 중요한 오류가 있는 300자짜리 가짜 도구 로그를 만듭니다.",
+        "en": "Without a paid model, use a local document or small script and set a 500-character budget. Make 350 characters of history with one must-keep rule, plus a 300-character fake tool log with an important error near the end."
+      },
+      {
+        "ko": "방법 A에서는 로그 전체를 남기고 앞선 이력을 150자로 줄여 자동 압축[2]을 흉내 냅니다. 방법 B에서는 이력을 보존하고 남은 여유 공간[3]인 150자만 로그에 허용합니다.",
+        "en": "For method A, keep the full log and shorten earlier history to 150 characters, as if automatic compaction[2] ran. For method B, keep the history and allow only 150 characters of headroom[3] for the log."
+      },
+      {
+        "ko": "두 방법에서 필수 규칙과 마지막 오류가 남았는지 셉니다. 이어서 오류 줄을 보존 우선 내용[4]으로 지정하고 명시적 잘라내기 규칙[5]을 둔 뒤 방법 B를 다시 해봅니다.",
+        "en": "Count whether the must-keep rule and final error survive each method. Then mark the error line as protected content[4], set an explicit truncation rule[5], and repeat method B."
+      },
+      {
+        "ko": "같은 문장으로 한 번 더 실행하고 결과를 적습니다. 각 방법에서 예산을 넘겼는지와 압축을 몇 번 했는지도 기록합니다.",
+        "en": "Run both methods once more with the same text. Record whether either method exceeded the budget and how many times it compacted the history."
+      }
+    ],
+    "measure": {
+      "ko": "문자 수 500자 이하인지와 핵심 사실 2개 중 몇 개를 되찾았는지(0~2)를 기록하세요. 문자 수는 공간 배분의 대략적인 대리값일 뿐, 실제 토큰화나 Qwen Code 동작을 재현하지 않습니다.",
+      "en": "Report total characters (at most 500) and key facts recovered (0 to 2). Character count is only a simple proxy for space allocation. It is not real tokenization or a reproduction of Qwen Code."
+    }
+  },
+  "glossary": [
+    {
+      "id": 1,
+      "term": "Context window",
+      "ko": "문맥 창",
+      "explanation": "모델이 한 번의 요청에서 함께 볼 수 있는 입력·대화·도구 내용의 총 범위예요. 크기는 모델과 요청 형식에 따라 달라져요.",
+      "example": "긴 대화와 도구 로그가 한도에 가까워지면 앞부분을 압축하거나 새 내용을 줄여야 해요."
+    },
+    {
+      "id": 2,
+      "term": "Automatic compaction",
+      "ko": "자동 문맥 압축",
+      "explanation": "대화가 문맥 한도에 가까워질 때 시스템이 이전 기록을 요약하거나 줄여 새 내용을 넣을 공간을 만드는 과정이에요.",
+      "example": "긴 코딩 세션에서 도구 결과를 더 넣기 전에 앞선 대화를 자동으로 요약해요."
+    },
+    {
+      "id": 3,
+      "term": "Headroom",
+      "ko": "남은 여유 공간",
+      "explanation": "현재 사용량을 제외하고 문맥 한도까지 남아 있는 공간이에요.",
+      "example": "요청의 예산이 1,000토큰이고 현재 850토큰을 썼다면 남은 여유는 약 150토큰이에요."
+    },
+    {
+      "id": 4,
+      "term": "Protected content",
+      "ko": "보존 우선 내용",
+      "explanation": "공간을 줄일 때도 우선 남기도록 지정하거나 취급하는 중요한 텍스트예요.",
+      "example": "긴 빌드 로그를 줄이더라도 실패한 테스트 이름과 오류 줄은 남기도록 표시해요."
+    },
+    {
+      "id": 5,
+      "term": "Truncation rule",
+      "ko": "잘라내기 규칙",
+      "explanation": "길이가 한도를 넘는 내용을 어떤 순서와 기준으로 줄일지 정한 조건이에요.",
+      "example": "로그의 앞부분·끝부분과 오류 줄은 남기고, 반복된 진행 메시지는 줄여요."
+    }
+  ],
+  "sources": [
+    {
+      "id": "qwen-v0263",
+      "title": {
+        "ko": "Qwen Code v0.26.3 공식 릴리스 노트",
+        "en": "Qwen Code v0.26.3 release notes"
+      },
+      "publisher": "Qwen Code project",
+      "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.26.3",
+      "publishedDate": "2026-10-28"
+    },
+    {
+      "id": "qwen-budget-pr",
+      "title": {
+        "ko": "도구 결과를 압축 전 남은 공간에 맞추는 구현 PR #13599",
+        "en": "Implementation PR #13599: fit tool results before compaction"
+      },
+      "publisher": "Qwen Code project",
+      "url": "https://github.com/QwenLM/qwen-code/pull/13599",
+      "publishedDate": "2026-10-27"
+    },
+    {
+      "id": "qwen-v0261",
+      "title": {
+        "ko": "Qwen Code v0.26.1 공식 릴리스 노트",
+        "en": "Qwen Code v0.26.1 release notes"
+      },
+      "publisher": "Qwen Code project",
+      "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.26.1",
+      "publishedDate": "2026-10-24"
+    }
+  ]
+}
