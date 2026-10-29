@@ -1,0 +1,452 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-30",
+  "publishedAt": "2026-10-30T06:44:29+09:00",
+  "title": {
+    "ko": "AI 아침 브리핑 — 공개 가중치와 에이전트 격리",
+    "en": "AI Morning Brief — Open Weights and Agent Isolation"
+  },
+  "dek": {
+    "ko": "Mistral Large 4 가중치가 공개됐습니다. Qwen Code는 에이전트 격리와 반복 상한을 더했습니다.",
+    "en": "Mistral Large 4 weights are out. Qwen Code adds agent isolation and a retry cap."
+  },
+  "focus": {
+    "ko": "Mistral Large 4 가중치와 Qwen Code 제어 기능이 공개됐습니다. 어제의 문맥 압축 업데이트와는 별개입니다.",
+    "en": "Mistral Large 4 weights and Qwen Code controls are new, separate from yesterday’s context-trimming update."
+  },
+  "visual": "models",
+  "topics": [
+    "Models & tools",
+    "Workflows",
+    "Systems & inference",
+    "Research"
+  ],
+  "editorialNote": {
+    "ko": "사양은 회사 보고입니다. Artificial Analysis의 독립 점수는 10월 6일 프리뷰 결과입니다. Qwen 자동 수정은 v0.26.4에 실렸습니다.",
+    "en": "Specs are company-reported; Artificial Analysis’s independent score is from the Oct 6 preview. Qwen auto-fix is in v0.26.4."
+  },
+  "sections": [
+    {
+      "id": "signals",
+      "label": {
+        "ko": "모델과 역량",
+        "en": "Models & capabilities"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "Mistral Large 4 가중치 공개",
+            "en": "Mistral Large 4 weights are released"
+          },
+          "publishedDate": "2026-10-29",
+          "status": "available",
+          "summary": {
+            "ko": "Transformers v5.22.0 added Mistral Large 4 support; Hugging Face listed weights on Oct 29. On Oct 6, only a hosted preview existed.",
+            "en": "Transformers v5.22.0 added Mistral Large 4 support; Hugging Face listed weights on Oct 29. On Oct 6, only a hosted preview existed."
+          },
+          "change": {
+            "ko": "혼합 전문가 구조(MoE)[1]는 토큰마다 128개 중 전문가 4개와 공유 전문가 1개를 씁니다. 희소 어텐션[2]은 이전 위치를 최대 2,048개 고르고, Pixtral은 이미지를 처리합니다. 전체 규모는 약 1조 매개변수입니다.",
+            "en": "A Mixture-of-Experts (MoE)[1] model uses four of 128 experts plus one shared expert per token. Sparse attention[2] selects up to 2,048 past positions; Pixtral handles images. Total size is about one trillion parameters."
+          },
+          "availability": {
+            "ko": "8비트 부동소수점(FP8)과 NVIDIA 4비트 부동소수점(NVFP4) 가중치[6]를 공개 가중치[3]로 내려받을 수 있습니다. 라이선스에 호스팅 조건이 있습니다.",
+            "en": "Eight-bit floating point (FP8) and NVIDIA four-bit floating point (NVFP4) weights[6] are downloadable as open weights[3]. The license has terms for hosted services."
+          },
+          "limitation": {
+            "ko": "Artificial Analysis의 10월 6일 CyberGym 취약점 재현·수정 평가[10]에서 Mistral Large 4 Preview는 82%, MiMo-V2.6-Pro는 79%, GPT-6 Luna (max)는 78%였습니다. 호스팅 프리뷰 결과이지 공개 가중치 재실행은 아닙니다. 자료에는 하드웨어, 정밀도, 입출력 길이, 예산, 동시성 조건이 없습니다. 활성 수치는 Mistral이 52 billion, Transformers가 49 billion(임베딩·출력 포함 52 billion)으로 다릅니다.",
+            "en": "Artificial Analysis’s Oct 6 CyberGym vulnerability reproduce-and-patch test[10] scored Mistral Large 4 Preview at 82%, MiMo-V2.6-Pro at 79%, and GPT-6 Luna (max) at 78%. This is a hosted-preview result, not a rerun on released weights. The source omits hardware, precision, input/output length, budget, and concurrency. Active counts differ: Mistral says 52 billion; Transformers says 49 billion, or 52 with embeddings and output."
+          },
+          "implication": {
+            "ko": "새 선택지는 직접 배포와 점검입니다. 프리뷰 점수는 로컬 품질을 보여주지 않습니다.",
+            "en": "Self-hosting and inspection are new; this preview score does not show local quality."
+          },
+          "sourceIds": [
+            "mistral-hf-guide",
+            "mistral-preview",
+            "mistral-aa-test"
+          ],
+          "visual": {
+            "variant": "models",
+            "caption": {
+              "ko": "개념도: 토큰별 전문가 선택, 이전 문맥 위치 선택, 이미지 인코더가 한 모델에 결합됩니다. 측정 그림이나 성능 차트가 아닙니다.",
+              "en": "Concept: token-level expert selection, selection of past context positions, and an image encoder sit in one model. This is not a measurement or performance chart."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "Mistral Large 4 공식 가중치",
+                "en": "Official Mistral Large 4 weights"
+              },
+              "url": "https://huggingface.co/mistralai/Mistral-Large-4-1T-A52B"
+            },
+            {
+              "kind": "benchmark",
+              "title": {
+                "ko": "Artificial Analysis의 10월 6일 평가",
+                "en": "Artificial Analysis evaluation from Oct 6"
+              },
+              "url": "https://artificialanalysis.ai/articles/mistral-large-4-france-ai"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "label": {
+        "ko": "개발 도구",
+        "en": "Developer tools"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "Qwen Code가 관리형 세션별 저장소를 분리",
+            "en": "Qwen Code isolates managed sessions"
+          },
+          "publishedDate": "2026-10-29",
+          "status": "available",
+          "summary": {
+            "ko": "Qwen Code v0.26.4는 관리형 주 세션에 별도 Git worktree[4]를 추가했습니다.",
+            "en": "Qwen Code v0.26.4 adds a separate Git worktree[4] for managed main sessions."
+          },
+          "change": {
+            "ko": "이전에는 여러 세션이 같은 체크아웃을 편집할 수 있었습니다. 이제 첫 메시지 때 세션마다 고정된 기준 커밋에서 별도 디렉터리와 브랜치를 만듭니다.",
+            "en": "Before, sessions could edit one checkout. Now each gets a directory and branch from a fixed base commit when its first message is sent."
+          },
+          "availability": {
+            "ko": "신규 worktree 생성은 배포에서 기본 꺼짐입니다. 통제된 로컬 런처가 macOS/Linux, LOCAL 저장소, 지속 격리 세션, 로컬 worker, Git 2.40 이상에서만 켭니다.",
+            "en": "New worktree creation is off by default in deployments. A controlled local launcher enables it only on eligible macOS/Linux setups with LOCAL storage, persistent isolated sessions, a local worker, and Git 2.40+."
+          },
+          "limitation": {
+            "ko": "부분 체크아웃은 준비될 때까지 막고 보존하며, 초기화하지 않습니다. 구현 pull request는 전체 런타임·브라우저·모델 시험을 범위 밖으로 둡니다.",
+            "en": "Partial checkouts are blocked until ready and preserved, not reset. The implementation pull request leaves full runtime, browser, and model tests out of scope."
+          },
+          "implication": {
+            "ko": "병렬 세션의 변경을 분리합니다. 각 브랜치를 검토하고 직접 합치세요.",
+            "en": "Parallel sessions get separate diffs. Review and merge each branch yourself."
+          },
+          "sourceIds": [
+            "qwen-v0264",
+            "qwen-worktree-pr"
+          ],
+          "visual": {
+            "variant": "workflow",
+            "caption": {
+              "ko": "개념도: 각 세션은 기준 커밋에서 독립 브랜치와 작업 디렉터리를 얻습니다. 그림은 격리 방식을 설명하며 제품 화면은 아닙니다.",
+              "en": "Concept: each session gets its own branch and working directory from the base commit. This explains isolation; it is not a product screenshot."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "관리형 세션 worktree 사용 안내",
+                "en": "Managed session worktree guide"
+              },
+              "url": "https://github.com/QwenLM/qwen-code/blob/3c3e92104cee642bfde0e3ac70ff362f7358b145/docs/users/managed-session-worktrees.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "label": {
+        "ko": "엔지니어링 사례",
+        "en": "Engineering case"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "자동 수정 반복을 횟수로 제한",
+            "en": "Bound auto-fix loops by attempt count"
+          },
+          "publishedDate": "2026-10-29",
+          "status": "case-study",
+          "summary": {
+            "ko": "같은 릴리스는 Qwen 코드 검토 봇에 제한된 자동 수정 명령을 넣었습니다.",
+            "en": "The same release adds a bounded auto-fix command to Qwen’s code-review bot."
+          },
+          "change": {
+            "ko": "기본 takeover는 지속 실행 방식입니다. `@qwen-code /takeover for N`은 1~99회 시도 예산[5]을 추가합니다. 실패·시간 초과도 소모되며, 사람 작성 pull request[9]는 소진 뒤 사람에게 돌아갑니다.",
+            "en": "Bare takeover was persistent. `@qwen-code /takeover for N` adds a 1–99 attempt budget[5]. Failures and timeouts count; a human-authored pull request[9] returns to its owner when the budget runs out."
+          },
+          "availability": {
+            "ko": "릴리스와 구현 pull request에는 명령과 재현 테스트가 있습니다. 테스트는 잘못된 횟수, 예산 소진, 사람에게 넘기는 경우를 다룹니다.",
+            "en": "The release and implementation pull request document the command and replay tests. Tests cover invalid counts, budget exhaustion, and handoff."
+          },
+          "limitation": {
+            "ko": "기록상 Linux 재생 시험은 통과, macOS는 경고, Windows는 미실행입니다. 실제 봇 경로는 시험하지 않았습니다. 확인 댓글에 예산을 쓰지 못하면 takeover가 무제한일 수 있습니다. 우리는 시험을 재실행하지 않았습니다.",
+            "en": "The record marks Linux replay tests passed, macOS with a warning, and Windows not run. The live bot path was untested. If a confirmation comment cannot store the budget, takeover may be unbounded. We did not rerun tests."
+          },
+          "implication": {
+            "ko": "짧은 상한은 자동 수정의 명확한 정지 규칙입니다. 병합 전에 테스트와 사람 검토를 유지하세요.",
+            "en": "A small cap gives auto-fixes a clear stop rule. Keep tests and human review before merge."
+          },
+          "sourceIds": [
+            "qwen-v0264",
+            "qwen-budget-pr"
+          ],
+          "visual": {
+            "variant": "workflow",
+            "caption": {
+              "ko": "개념도: N회의 시도마다 예산을 하나씩 차감하고, 예산이 0이면 사람 작성 요청을 작성자에게 돌려보냅니다. 성공률 측정은 아닙니다.",
+              "en": "Concept: each attempt reduces the N-round budget; at zero, a human-authored request returns to its owner. This is not a success-rate measurement."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "code",
+              "title": {
+                "ko": "Qwen 자동 수정 횟수 예산 구현 PR",
+                "en": "Qwen auto-fix attempt-budget implementation"
+              },
+              "url": "https://github.com/QwenLM/qwen-code/pull/15388"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "label": {
+        "ko": "시스템과 추론",
+        "en": "Systems & inference"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "Mistral Large 4의 서빙 예시는 하드웨어 절충을 드러냄",
+            "en": "Mistral Large 4 serving example shows hardware trade-offs"
+          },
+          "publishedDate": "2026-10-29",
+          "status": "available",
+          "summary": {
+            "ko": "공식 서빙 설정은 활성 연산과 전체 가중치 저장이 다름을 보여줍니다.",
+            "en": "The official serving setup separates active compute from total weight storage."
+          },
+          "change": {
+            "ko": "NVFP4[6]는 메모리를 줄이지만 Blackwell 가속기가 필요합니다. 예시는 8-way 텐서 병렬 처리[7]와 문맥 병렬 처리, 최대 길이 131,072토큰, 동시 시퀀스 16개[10]를 설정합니다.",
+            "en": "NVFP4[6] uses less memory but needs Blackwell accelerators. The example sets eight-way tensor parallelism[7] and context parallelism, a 131,072-token limit, and 16 simultaneous sequences[10]."
+          },
+          "availability": {
+            "ko": "모델은 백만 토큰 문맥 창[8]을 표시하지만, 이 설정은 131,072토큰입니다. 이는 처리량 측정이 아닌 배포 예시입니다.",
+            "en": "The model lists a one-million-token context window[8], but this config uses 131,072 tokens. It is a deployment example, not a throughput measurement."
+          },
+          "limitation": {
+            "ko": "지연, 메모리, 동시 부하 처리량 수치가 없고 백만 토큰 전체 길이 시험도 공개되지 않았습니다.",
+            "en": "No latency, memory, or concurrent-load throughput is reported. No full one-million-token test is shown."
+          },
+          "implication": {
+            "ko": "자체 배포 전에 전체 가중치와 목표 문맥에서 메모리·지연·동시성[10]을 재세요. 백만 토큰 표기만으로 낮은 비용을 기대하면 안 됩니다.",
+            "en": "Measure memory, latency, and concurrency[10] with full weights and target context before self-hosting; a one-million-token label does not promise low cost."
+          },
+          "sourceIds": [
+            "mistral-hf-guide",
+            "transformers-v522"
+          ],
+          "visual": {
+            "variant": "systems",
+            "caption": {
+              "ko": "개념도: 낮은 정밀도 가중치와 전문가 병렬 배치가 메모리·가속기 요구에 영향을 줍니다. 실제 메모리나 속도 측정은 아닙니다.",
+              "en": "Concept: lower-precision weights and expert placement affect memory and accelerator needs. This is not a memory or speed measurement."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "Transformers v5.22.0 Mistral Large 4 지원",
+                "en": "Transformers v5.22.0 Mistral Large 4 support"
+              },
+              "url": "https://github.com/huggingface/transformers/releases/tag/v5.22.0"
+            },
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "Mistral Large 4 실행 가이드",
+                "en": "Mistral Large 4 inference guide"
+              },
+              "url": "https://huggingface.co/blog/mistral-large4"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "experiment": {
+    "title": {
+      "ko": "15분 실험 — Git 작업 디렉터리 격리 확인",
+      "en": "15-minute experiment — verify Git worktree isolation"
+    },
+    "minutes": 15,
+    "steps": [
+      {
+        "ko": "임시 폴더에 작은 Git 저장소를 만들고 README 한 줄을 커밋합니다. 모델이나 유료 계정은 필요 없습니다.",
+        "en": "Create a small Git repository and commit one README line. No model or paid account is needed."
+      },
+      {
+        "ko": "같은 커밋에서 `git worktree add ../task-a -b exp/a`와 `git worktree add ../task-b -b exp/b`를 실행해 작업 디렉터리[4] 두 개를 만듭니다.",
+        "en": "From that commit, run `git worktree add ../task-a -b exp/a` and `git worktree add ../task-b -b exp/b` to create two worktrees[4]."
+      },
+      {
+        "ko": "두 README에 A와 B를 각각 추가하고 `git -C ../task-a diff`와 `git -C ../task-b diff`를 비교합니다. `git worktree list`를 보고 둘 다 삭제합니다. Git만 확인하며 Qwen 연동은 재현하지 않습니다.",
+        "en": "Add A and B to the two READMEs. Compare `git -C ../task-a diff` and `git -C ../task-b diff`. Run `git worktree list` and remove both. This tests Git only, not Qwen integration."
+      }
+    ],
+    "measure": {
+      "ko": "작업 디렉터리 2개와 브랜치 2개가 보여야 합니다. A diff에는 A만, B diff에는 B만 있어야 합니다. 변경이 교차하지 않으면 격리 확인입니다.",
+      "en": "Expect two extra directories and two branches. A’s diff should show only A, and B’s only B. No cross-over means isolation worked."
+    }
+  },
+  "glossary": [
+    {
+      "id": 1,
+      "term": "Mixture-of-Experts (MoE)",
+      "ko": "전문가 혼합 구조",
+      "explanation": "여러 전문 신경망 중 일부만 골라 현재 토큰을 처리하는 구조예요. 전체 모델은 커도 토큰마다 모든 전문가를 계산할 필요는 없어요.",
+      "example": "128개 라우팅 전문가 가운데 토큰마다 4개를 고르고 공유 전문가 1개를 함께 실행해요."
+    },
+    {
+      "id": 2,
+      "term": "Sparse attention",
+      "ko": "희소 어텐션",
+      "explanation": "모델이 모든 이전 토큰 위치를 계산하지 않고 일부 위치만 골라 참고하는 방식이에요.",
+      "example": "긴 문맥에서 질의 하나가 과거 위치 전체 대신 최대 2,048개를 선택해요."
+    },
+    {
+      "id": 3,
+      "term": "Open weights",
+      "ko": "공개 가중치",
+      "explanation": "학습된 모델의 수치 매개변수를 내려받아 직접 실행하거나 조정할 수 있다는 뜻이에요. 학습 데이터와 전체 학습 과정까지 공개됐다는 뜻은 아니에요.",
+      "example": "Mistral Large 4 가중치를 받아 내부 서버에서 실행하되, 상업적 호스팅은 라이선스 조건을 확인해요."
+    },
+    {
+      "id": 4,
+      "term": "Git worktree",
+      "ko": "Git 작업 트리",
+      "explanation": "하나의 Git 저장소에서 여러 브랜치를 서로 다른 디렉터리로 동시에 열어 작업하는 기능이에요.",
+      "example": "task-a와 task-b가 각자 브랜치에서 파일을 바꾸면 한쪽의 미커밋 변경이 다른 쪽에 섞이지 않아요."
+    },
+    {
+      "id": 5,
+      "term": "Round budget",
+      "ko": "시도 횟수 예산",
+      "explanation": "자동화가 반복할 수 있는 시도 횟수의 상한이에요. 오류나 시간 초과도 한 번으로 계산할 수 있어요.",
+      "example": "수정 봇에 3회 예산을 주면 세 번 실패한 뒤에는 사람에게 검토를 돌려요."
+    },
+    {
+      "id": 6,
+      "term": "FP8 / NVFP4 quantization",
+      "ko": "FP8·NVFP4 저정밀도 표현",
+      "explanation": "모델 가중치를 적은 비트 수의 부동소수점 형식으로 저장하는 방식이에요. 메모리를 줄일 수 있지만 지원 하드웨어와 품질을 확인해야 해요.",
+      "example": "일반 서버가 NVFP4를 지원하지 않으면 FP8 체크포인트나 호스팅을 검토해요."
+    },
+    {
+      "id": 7,
+      "term": "Tensor parallelism",
+      "ko": "텐서 병렬 처리",
+      "explanation": "큰 신경망의 한 층 계산을 여러 장치에 나눠 동시에 처리하는 방식이에요.",
+      "example": "설정에서 8-way tensor parallelism을 쓰면 한 모델 계산을 8개 장치에 분산해요."
+    },
+    {
+      "id": 8,
+      "term": "Context window",
+      "ko": "문맥 창",
+      "explanation": "모델이 한 요청에서 함께 참고할 수 있는 입력과 대화의 최대 범위예요. 모델이 지원하는 최대치와 실제 서버 설정은 다를 수 있어요.",
+      "example": "모델은 백만 토큰을 지원해도 운영 설정은 메모리 때문에 131,072토큰으로 제한할 수 있어요."
+    },
+    {
+      "id": 9,
+      "term": "Pull request",
+      "ko": "풀 리퀘스트",
+      "explanation": "코드 변경을 별도 브랜치에 올리고 검토와 병합을 요청하는 협업 기록이에요.",
+      "example": "자동 수정 봇이 만든 풀 리퀘스트는 테스트와 리뷰를 통과하기 전까지 기본 브랜치에 합치지 않아요."
+    },
+    {
+      "id": 10,
+      "term": "Evaluation conditions and concurrency",
+      "ko": "평가 조건과 동시성",
+      "explanation": "평가 점수는 무엇을 시켰는지와 어떤 장비·정밀도·입출력 길이·동시 요청 수로 측정했는지 알아야 비교할 수 있어요. 동시성은 같은 시간에 처리하는 작업 수예요.",
+      "example": "취약점 재현·수정 점수가 82%여도 장비와 시험 설정, 동시 요청 수가 공개되지 않으면 다른 서버 결과와 바로 비교할 수 없어요."
+    }
+  ],
+  "sources": [
+    {
+      "id": "mistral-hf-guide",
+      "title": {
+        "ko": "Mistral Large 4: 구조, 가중치와 추론 지원",
+        "en": "Mistral Large 4: architecture, weights, and inference support"
+      },
+      "publisher": "Hugging Face",
+      "url": "https://huggingface.co/blog/mistral-large4",
+      "publishedDate": "2026-10-29"
+    },
+    {
+      "id": "mistral-preview",
+      "title": {
+        "ko": "Mistral Large 4 공개 프리뷰 발표",
+        "en": "Mistral Large 4 public preview announcement"
+      },
+      "publisher": "Mistral AI",
+      "url": "https://mistral.ai/news/mistral-large-4/",
+      "publishedDate": "2026-10-06"
+    },
+    {
+      "id": "mistral-aa-test",
+      "title": {
+        "ko": "Mistral Large 4 프리뷰 평가와 벤치마크",
+        "en": "Mistral Large 4 preview evaluation and benchmarks"
+      },
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/articles/mistral-large-4-france-ai",
+      "publishedDate": "2026-10-06"
+    },
+    {
+      "id": "transformers-v522",
+      "title": {
+        "ko": "Transformers v5.22.0: Mistral Large 4 추가",
+        "en": "Transformers v5.22.0: add Mistral Large 4"
+      },
+      "publisher": "Hugging Face Transformers",
+      "url": "https://github.com/huggingface/transformers/releases/tag/v5.22.0",
+      "publishedDate": "2026-10-29"
+    },
+    {
+      "id": "qwen-v0264",
+      "title": {
+        "ko": "Qwen Code v0.26.4 공식 릴리스",
+        "en": "Qwen Code v0.26.4 release notes"
+      },
+      "publisher": "Qwen Code project",
+      "url": "https://github.com/QwenLM/qwen-code/releases/tag/v0.26.4",
+      "publishedDate": "2026-10-29"
+    },
+    {
+      "id": "qwen-worktree-pr",
+      "title": {
+        "ko": "관리형 주 세션별 독립 worktree 풀 리퀘스트 #15745",
+        "en": "Implementation pull request #15745: independent worktrees for managed sessions"
+      },
+      "publisher": "Qwen Code project",
+      "url": "https://github.com/QwenLM/qwen-code/pull/15745",
+      "publishedDate": "2026-10-29"
+    },
+    {
+      "id": "qwen-budget-pr",
+      "title": {
+        "ko": "자동 수정 시도 예산 구현 풀 리퀘스트 #15388",
+        "en": "Implementation pull request #15388: bounded auto-fix budget"
+      },
+      "publisher": "Qwen Code project",
+      "url": "https://github.com/QwenLM/qwen-code/pull/15388",
+      "publishedDate": "2026-10-28"
+    }
+  ]
+}
