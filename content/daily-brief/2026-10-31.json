@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-31",
+  "publishedAt": "2026-10-31T06:27:14+09:00",
+  "title": {
+    "ko": "AI 아침 브리핑 — 에이전트 쓰기 경계와 더 가벼운 모델 적재",
+    "en": "AI Morning Brief — Safer agent writes, leaner model loading"
+  },
+  "dek": {
+    "ko": "새 모델 점수보다 실행 경계와 로딩 경로에서 실무 변화가 나왔습니다.",
+    "en": "Today's useful changes are in tool boundaries and model loading, not new model scores."
+  },
+  "focus": {
+    "ko": "지난 24시간 동안 에이전트의 파일 쓰기 경계와 비-mmap 모델 적재 경로에 변경이 있었습니다.",
+    "en": "The past 24 hours brought changes to agent file-write boundaries and a non-mmap model-loading path."
+  },
+  "visual": "security-gates",
+  "topics": [
+    "Models & tools",
+    "Workflows",
+    "Systems & inference"
+  ],
+  "editorialNote": {
+    "ko": "10월 30일 06:27부터 10월 31일 06:27 KST까지 새 모델·아키텍처·연구 발표는 확인하지 못했습니다. Claude Code의 연동 시험은 편집부가 제안한 예시이며 제품 내부 구현이 아닙니다. llama.cpp 속도 수치는 PR 리뷰어 한 명의 단일 구성 보고로 한정합니다.",
+    "en": "No new model, architecture, or research release was verified from 06:27 KST on 30 Oct to 06:27 KST on 31 Oct. The Claude Code integration test is an editorial example, not the product's internal design. The llama.cpp speed figures come from one PR reviewer's single setup."
+  },
+  "sections": [
+    {
+      "id": "signals",
+      "label": {
+        "ko": "모델과 기능",
+        "en": "Models & capabilities"
+      },
+      "items": []
+    },
+    {
+      "id": "tools",
+      "label": {
+        "ko": "개발 도구",
+        "en": "Developer tools"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "Claude Code 2.1.314, 작업 디렉터리 밖 파일 쓰기 차단",
+            "en": "Claude Code 2.1.314 blocks file writes outside the workspace"
+          },
+          "publishedDate": "2026-10-30",
+          "status": "available",
+          "summary": {
+            "ko": "10월 30일 공개된 Claude Code v2.1.314는 기본 파일 도구 Write, Edit, NotebookEdit가 설정된 작업 디렉터리[1] 밖에 쓰지 못하게 합니다. 모든 권한 모드에 적용되는 도구 수준 경계[2]입니다.",
+            "en": "Claude Code v2.1.314, released on 30 Oct, stops its built-in Write, Edit, and NotebookEdit tools from writing outside configured working directories[1]. It is a tool-level boundary[2] in every permission mode."
+          },
+          "change": {
+            "ko": "기존 노트는 작업 디렉터리 밖 읽기를 제한했습니다. 이번에는 같은 파일 도구에 쓰기 제한이 생겼습니다. 모델 능력보다 실행 권한을 바꾼 업데이트입니다.",
+            "en": "Earlier notes covered read limits outside working directories. This release adds a write limit for those file tools. It changes execution rights, not model ability."
+          },
+          "availability": {
+            "ko": "공식 저장소는 v2.1.314를 10월 30일 최신 릴리스로 표시합니다. 릴리스 노트에는 요금제, 계정 자격, 단계 배포 조건이 없습니다.",
+            "en": "The official repository marks v2.1.314 as the latest release on 30 Oct. The notes do not state plan, account, or staged-rollout conditions."
+          },
+          "limitation": {
+            "ko": "노트는 Write, Edit, NotebookEdit만 지목합니다. 이를 셸 명령이나 플러그인까지 막는 운영체제 수준 격리로 해석하면 안 됩니다. 심볼릭 링크 처리 방식도 공개되지 않았습니다.",
+            "en": "The notes name only Write, Edit, and NotebookEdit. Do not treat this as operating-system isolation for shell commands or plugins. The notes do not explain symbolic-link handling."
+          },
+          "implication": {
+            "ko": "에이전트가 수정할 수 있는 파일을 좁히는 한 겹의 방어로 쓰세요. 셸 실행은 별도로 샌드박스에 두고, 경로 탈출[3]과 심볼릭 링크[4]를 시험하세요.",
+            "en": "Use this as one layer to limit which files an agent can change. Sandbox shell execution separately, and test path traversal[3] and symbolic links[4]."
+          },
+          "sourceIds": [
+            "claude-v2314",
+            "claude-cli"
+          ],
+          "visual": {
+            "variant": "security-gates",
+            "caption": {
+              "ko": "개념도: 허용된 작업 디렉터리 안에 기본 파일 쓰기 도구를 둡니다. 셸과 다른 플러그인까지 격리된다는 뜻은 아닙니다.",
+              "en": "Conceptual diagram: built-in file-write tools stay inside configured working directories. This does not claim that shells or other plugins are isolated."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "Claude Code CLI 공식 참조",
+                "en": "Claude Code CLI reference"
+              },
+              "url": "https://docs.anthropic.com/en/docs/claude-code/cli-usage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "label": {
+        "ko": "엔지니어링 사례",
+        "en": "Engineering case"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "작업 디렉터리 쓰기 경계를 작은 테스트로 확인하기",
+            "en": "Test a workspace write boundary with a small harness"
+          },
+          "publishedDate": null,
+          "status": "case-study",
+          "summary": {
+            "ko": "다음은 자체 에이전트에 파일 쓰기 경계를 적용할 때 쓸 편집부 제안 테스트입니다. Claude Code 내부 구현을 재현한 것은 아닙니다. 경로 문자열이 아니라 실제 해석된 목적지를 검사합니다.",
+            "en": "This is an editorial test recipe for an agent that needs a file-write boundary. It does not reproduce Claude Code's internal design. Check the resolved destination, not only the path string."
+          },
+          "change": {
+            "ko": "임시 폴더를 루트로 정하고 루트와 요청 경로를 실제 경로로 해석합니다. 루트 또는 그 아래만 허용합니다. 정상 파일, `..` 경로 탈출[3], 폴더 안에서 외부 파일을 가리키는 심볼릭 링크[4]를 시험합니다.",
+            "en": "Choose a temporary directory as the root. Resolve the root and requested path. Allow only the root or its children. Test a normal file, a `..` path traversal[3], and a symbolic link[4] inside the root that points outside."
+          },
+          "availability": {
+            "ko": "Python 3만 있으면 됩니다. 로그인, 모델 호출, 그래픽 처리 장치, 새 유료 계정은 필요하지 않습니다. 추가 작업 디렉터리는 공식 CLI 문서의 --add-dir 옵션으로 확인할 수 있습니다.",
+            "en": "Python 3 is enough. No login, model call, graphics processor, or new paid account is needed. The official CLI docs describe --add-dir for extra working directories."
+          },
+          "limitation": {
+            "ko": "이 테스트는 경로 규칙만 확인합니다. 검사 직후 다른 프로세스가 링크를 바꾸면 쓰기가 경계를 벗어날 수 있습니다. Claude Code 제품 동작을 검증하는 테스트도 아닙니다.",
+            "en": "This test checks only the path rule. A different process could change the link after the check and before the write. It does not verify Claude Code itself."
+          },
+          "implication": {
+            "ko": "경로 제한을 회귀 테스트로 만들 수 있습니다. 실제 서비스에서는 이 검사와 함께 컨테이너나 운영체제 격리를 적용하세요.",
+            "en": "Turn the path limit into a regression test. In a real service, pair it with container or operating-system isolation."
+          },
+          "sourceIds": [
+            "claude-v2314",
+            "claude-cli"
+          ],
+          "visual": {
+            "variant": "workflow",
+            "caption": {
+              "ko": "개념도: 요청 경로를 정규화한 뒤 루트 안인지 확인하고 정상·상위 경로·링크 경로 세 경우를 시험합니다.",
+              "en": "Conceptual diagram: resolve a requested path, check that it stays under the root, then test a normal path, a parent path, and a link."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "Claude Code CLI 공식 참조",
+                "en": "Claude Code CLI reference"
+              },
+              "url": "https://docs.anthropic.com/en/docs/claude-code/cli-usage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "label": {
+        "ko": "시스템과 추론",
+        "en": "Systems & inference"
+      },
+      "items": [
+        {
+          "title": {
+            "ko": "llama.cpp, 비-mmap 적재에서 중복 복사를 줄임",
+            "en": "llama.cpp reduces copies on non-mmap model loads"
+          },
+          "publishedDate": "2026-10-30",
+          "status": "available",
+          "summary": {
+            "ko": "llama.cpp의 pull request (PR)[5] #31321은 메모리 매핑 파일 접근(mmap)[6]을 쓰지 않는 일부 모델 적재 경로를 바꿨습니다. 10월 29일 master에 병합되고 다음 날 nightly b11997에 포함됐습니다.",
+            "en": "llama.cpp pull request (PR)[5] #31321 changes some model-loading paths that do not use memory-mapped file access (mmap)[6]. It merged into master on 29 Oct and appeared in the b11997 nightly the next day."
+          },
+          "change": {
+            "ko": "이전에는 호스트 메모리가 아닌 버퍼로 텐서를 올릴 때마다 스테이징 버퍼[7]를 만들었습니다. 직접 입출력(I/O)[8]에서는 정렬을 맞추려 바운스 버퍼[9]로 한 번 더 복사했습니다. 이제 충분히 큰 버퍼 하나를 적재 전체에서 재사용하고, 정렬된 데이터를 그 안에 읽어 오프셋에서 장치로 올립니다.",
+            "en": "Before, each tensor loaded into a non-host buffer got its own staging buffer[7]. With direct input/output (I/O)[8], an extra bounce buffer[9] handled alignment. Now one large-enough buffer is reused for the full load. It reads aligned data there, then uploads from an offset."
+          },
+          "availability": {
+            "ko": "변경은 master에 병합됐고 공개 nightly b11997에 포함됩니다. GitHub는 이를 사전 릴리스로 표시합니다. 사용할 때는 빌드와 하드웨어 백엔드를 확인하세요.",
+            "en": "The change is merged into master and is in public nightly b11997. GitHub marks it as a pre-release. Check the build and hardware backend before using it."
+          },
+          "limitation": {
+            "ko": "PR 리뷰어 한 명은 RTX PRO 6000, 12-billion-parameter Gemma 4, Compute Unified Device Architecture (CUDA)[10]에서 `--no-mmap --check-tensors` 적재가 6.5초에서 2.9초로 줄었다고 보고했습니다. 중앙 처리 장치(CPU)[10] 재패킹은 약 두 배 빨랐고 출력은 같았습니다. 운영체제, 저장장치, 반복 횟수는 보고되지 않았습니다. 단일 리뷰 댓글이며 독립 재현은 확인되지 않았습니다. 이는 모델 적재 시간이지 토큰 생성 속도가 아닙니다.",
+            "en": "One PR reviewer reported that loading a 12-billion-parameter Gemma 4 on an RTX PRO 6000 with Compute Unified Device Architecture (CUDA)[10] took 2.9 seconds, down from 6.5, with `--no-mmap --check-tensors`. Central processing unit (CPU)[10] repacking was about twice as fast, with the same output. The report omits operating system, storage, and run count. It is one review comment, not an independent reproduction. This is load time, not token speed."
+          },
+          "implication": {
+            "ko": "효과는 mmap을 끄고 원격 텐서 복사, 행·텐서 분할, CPU 재패킹, 텐서 검증을 쓰는 구성에 집중될 수 있습니다. 일반 mmap 적재의 추론 처리량이 빨라졌다는 근거는 아닙니다. 콜드 스타트와 토큰 처리량을 따로 측정하세요.",
+            "en": "Gains may be limited to setups that disable mmap and use remote copies, row or tensor splits, CPU repacking, or tensor checks. This does not show faster inference on a normal mmap path. Measure cold starts and token throughput separately."
+          },
+          "sourceIds": [
+            "llama-pr",
+            "llama-nightly",
+            "llama-release-docs"
+          ],
+          "visual": {
+            "variant": "systems",
+            "caption": {
+              "ko": "개념도: 이전 경로의 텐서별 버퍼와 추가 정렬 복사가 재사용 버퍼 하나의 정렬 읽기·업로드로 바뀝니다. 그림은 측정 결과가 아닙니다.",
+              "en": "Conceptual diagram: per-tensor buffers and an extra alignment copy become one reused buffer for aligned reads and upload. This is not a measured result."
+            },
+            "image": null
+          },
+          "resources": [
+            {
+              "kind": "code",
+              "title": {
+                "ko": "llama.cpp PR #31321 구현 변경",
+                "en": "llama.cpp PR #31321 implementation"
+              },
+              "url": "https://github.com/ggml-org/llama.cpp/pull/31321"
+            },
+            {
+              "kind": "docs",
+              "title": {
+                "ko": "llama.cpp 릴리스 방식",
+                "en": "llama.cpp release process"
+              },
+              "url": "https://github.com/ggml-org/llama.cpp/blob/master/docs/release.md"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "experiment": {
+    "title": {
+      "ko": "15분 실험 — 경로 탈출과 심볼릭 링크 차단 검증",
+      "en": "15-minute experiment — check path traversal and symlink escapes"
+    },
+    "minutes": 15,
+    "steps": [
+      {
+        "ko": "Python 3으로 임시 폴더를 만들고 `allowed/` 디렉터리와 그 옆의 `outside.txt`를 만듭니다. 파일에는 `KEEP`라고 적습니다.",
+        "en": "With Python 3, make a temporary folder with an `allowed/` directory and a sibling `outside.txt`. Put `KEEP` in the outside file."
+      },
+      {
+        "ko": "`allowed/escape`가 `../outside.txt`를 가리키도록 심볼릭 링크를 만듭니다. 링크 생성이 허용되지 않는 운영체제에서는 이 한 경우만 건너뜁니다.",
+        "en": "Make a symlink at `allowed/escape` that points to `../outside.txt`. Skip this case if your operating system does not allow symlink creation."
+      },
+      {
+        "ko": "쓰기 전에 `root = Path(root).resolve()`와 `target = Path(dest).resolve()`를 계산합니다. `target == root or root in target.parents`일 때만 허용하도록 작은 함수를 작성합니다.",
+        "en": "Before writing, compute `root = Path(root).resolve()` and `target = Path(dest).resolve()`. Write a small function that allows only `target == root or root in target.parents`."
+      },
+      {
+        "ko": "`allowed/new.txt`, `allowed/../outside.txt`, `allowed/escape`를 검사하고, 허용된 경우에만 `OK`를 씁니다. 마지막에 `outside.txt`를 다시 읽습니다.",
+        "en": "Check `allowed/new.txt`, `allowed/../outside.txt`, and `allowed/escape`. Write `OK` only when allowed. Read `outside.txt` again at the end."
+      }
+    ],
+    "measure": {
+      "ko": "측정 결과는 정상 하위 경로 1개 허용, 상위 경로와 링크 경로 2개 거부, 외부 파일 내용 `KEEP` 유지입니다. 이 실험은 경로 규칙의 예시이며 동시 링크 변경이나 Claude Code 제품 동작을 검증하지 않습니다.",
+      "en": "Measure the result: allow one normal child path, reject the parent path and link path, and keep `outside.txt` equal to `KEEP`. This shows the path rule only. It does not test concurrent link changes or Claude Code itself."
+    }
+  },
+  "glossary": [
+    {
+      "id": 1,
+      "term": "working directory",
+      "ko": "작업 디렉터리",
+      "explanation": "프로그램이나 에이전트가 기본적으로 작업하도록 지정된 폴더예요. 권한 경계로도 쓸 수 있어요.",
+      "example": "에이전트를 `/tmp/project`에서 실행하면 이 폴더를 작업 디렉터리로 정할 수 있어요."
+    },
+    {
+      "id": 2,
+      "term": "tool-level boundary",
+      "ko": "도구 수준 경계",
+      "explanation": "운영체제 전체가 아니라 특정 도구가 할 수 있는 일을 제한하는 규칙이에요.",
+      "example": "파일 편집 도구는 프로젝트 안에만 쓰게 하고 셸 명령은 별도로 제한해요."
+    },
+    {
+      "id": 3,
+      "term": "path traversal",
+      "ko": "경로 탈출",
+      "explanation": "`..` 같은 경로 요소를 이용해 허용된 폴더 밖의 파일에 접근하려는 방식이에요.",
+      "example": "`/tmp/project/../../etc/passwd`처럼 상위 폴더로 빠져나가는 경로예요."
+    },
+    {
+      "id": 4,
+      "term": "symbolic link (symlink)",
+      "ko": "심볼릭 링크",
+      "explanation": "다른 파일이나 폴더를 가리키는 바로가기 같은 파일 시스템 항목이에요. 겉으로 보이는 폴더 위치와 실제 목적지가 다를 수 있어요.",
+      "example": "프로젝트 안의 `shortcut` 링크가 프로젝트 밖의 설정 파일을 가리킬 수 있어요."
+    },
+    {
+      "id": 5,
+      "term": "pull request (PR)",
+      "ko": "병합 요청",
+      "explanation": "저장소에 코드 변경을 제안하고 검토와 승인을 거쳐 기본 브랜치에 합치는 요청이에요.",
+      "example": "llama.cpp의 PR #31321은 텐서 적재 버퍼를 재사용하는 변경을 master에 병합했어요."
+    },
+    {
+      "id": 6,
+      "term": "memory-mapped file access (mmap)",
+      "ko": "메모리 매핑 파일 접근",
+      "explanation": "파일 내용을 일반 메모리처럼 주소 공간에 연결해 읽는 방식이에요. 매핑을 쓰지 않는 다른 적재 경로와 비용이 달라요.",
+      "example": "큰 모델 파일을 mmap으로 열면 운영체제가 필요한 구간을 메모리에 가져오도록 맡길 수 있어요."
+    },
+    {
+      "id": 7,
+      "term": "staging buffer",
+      "ko": "스테이징 버퍼",
+      "explanation": "데이터를 최종 장치로 보내기 전 잠시 담아 두는 메모리예요.",
+      "example": "디스크에서 읽은 모델 텐서를 GPU로 보내기 전에 CPU 메모리 버퍼에 담아요."
+    },
+    {
+      "id": 8,
+      "term": "direct input/output (I/O)",
+      "ko": "직접 입출력",
+      "explanation": "파일 데이터를 운영체제의 일반 페이지 캐시를 거치지 않고 장치와 메모리 사이에서 읽거나 쓰도록 요청하는 방식이에요. 정렬 조건이 까다로울 수 있어요.",
+      "example": "직접 입출력으로 모델을 읽을 때 버퍼 주소와 읽기 길이를 블록 경계에 맞춰야 할 수 있어요."
+    },
+    {
+      "id": 9,
+      "term": "bounce buffer",
+      "ko": "중간 복사 버퍼",
+      "explanation": "정렬이나 장치 제약을 맞추려고 데이터를 임시 버퍼에 한 번 더 복사하는 메모리예요.",
+      "example": "읽은 파일 조각이 정렬되지 않으면 정렬된 중간 버퍼에 복사한 뒤 GPU로 보낼 수 있어요."
+    },
+    {
+      "id": 10,
+      "term": "central processing unit (CPU); Compute Unified Device Architecture (CUDA)",
+      "ko": "중앙 처리 장치와 CUDA",
+      "explanation": "CPU는 일반 프로그램 명령을 처리하는 프로세서이고, CUDA는 NVIDIA 장치에서 병렬 계산을 실행하는 소프트웨어 플랫폼이에요.",
+      "example": "CPU로 텐서를 재패킹하고 CUDA로 호환 NVIDIA 가속기에 올려요."
+    }
+  ],
+  "sources": [
+    {
+      "id": "claude-v2314",
+      "title": {
+        "ko": "Claude Code v2.1.314 릴리스 노트",
+        "en": "Claude Code v2.1.314 release notes"
+      },
+      "publisher": "Anthropic / Claude Code",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.314",
+      "publishedDate": "2026-10-30"
+    },
+    {
+      "id": "claude-cli",
+      "title": {
+        "ko": "Claude Code CLI 참조",
+        "en": "Claude Code CLI reference"
+      },
+      "publisher": "Anthropic",
+      "url": "https://docs.anthropic.com/en/docs/claude-code/cli-usage",
+      "publishedDate": null
+    },
+    {
+      "id": "llama-pr",
+      "title": {
+        "ko": "llama.cpp PR #31321 — 적재 버퍼 재사용",
+        "en": "llama.cpp PR #31321 — reuse the loading buffer"
+      },
+      "publisher": "ggml-org / llama.cpp",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/31321",
+      "publishedDate": "2026-10-29"
+    },
+    {
+      "id": "llama-nightly",
+      "title": {
+        "ko": "llama.cpp nightly b11997",
+        "en": "llama.cpp nightly b11997"
+      },
+      "publisher": "ggml-org / llama.cpp",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11997",
+      "publishedDate": "2026-10-30"
+    },
+    {
+      "id": "llama-release-docs",
+      "title": {
+        "ko": "llama.cpp 릴리스 문서",
+        "en": "llama.cpp release documentation"
+      },
+      "publisher": "ggml-org / llama.cpp",
+      "url": "https://github.com/ggml-org/llama.cpp/blob/master/docs/release.md",
+      "publishedDate": null
+    }
+  ]
+}
