@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseReviewMetadata } from "../paper-reviews/history.mjs";
+import { terminologyRows } from "./paper-sections.mjs";
 
 const preferredConcepts = new Map([["alpha-compositing", 100]]);
 
@@ -14,20 +15,10 @@ function conceptSlugForTerm(value) {
   return normalized || null;
 }
 
-function terminologyRows(markdown, locale) {
-  const block = markdown.split(`<!-- locale: ${locale} -->`)[1];
-  if (!block) throw new Error(`Paper review has no ${locale} section.`);
-  const title = locale === "ko" ? "용어 정리" : "Terminology";
-  const section = block.split(new RegExp(`^##\\s+${title}\\s*$`, "m"))[1]?.split(/^##\s+/m)[0];
-  if (!section) throw new Error(`Paper review has no ${title} section.`);
-  const rows = section.split(/\r?\n/).filter((line) => line.trim().startsWith("|") && !/^\s*\|?\s*:?-{3,}/.test(line));
-  return rows.slice(1).map((line) => line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim())).filter((cells) => cells.length >= 3).map(([term, definition, context]) => ({ term, definition, context }));
-}
-
 function parseTerminologyRows(markdown) {
   const en = terminologyRows(markdown, "en");
   const ko = terminologyRows(markdown, "ko");
-  if (en.length !== ko.length) throw new Error("Paper review has mismatched English and Korean terminology tables.");
+  if (!en.length || en.length !== ko.length) throw new Error("Paper review has mismatched English and Korean terminology tables.");
   return en.map((row, index) => ({
     name: row.term,
     nameKo: ko[index].term,

@@ -3,6 +3,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { parseReviewMetadata } from "../paper-reviews/history.mjs";
+import { sectionBody, terminologyRows } from "./paper-sections.mjs";
 
 const root = process.cwd();
 const apiUrl = process.env.KNOWLEDGE_API_URL?.trim().replace(/\/$/, "");
@@ -16,35 +17,8 @@ function changedReviewFiles(before, after) {
   return output.split(/\r?\n/).map((file) => file.trim()).filter((file) => /^content\/paper-reviews\/.+\.md$/.test(file) && !file.includes("/templates/"));
 }
 
-function localeBlock(markdown, locale) {
-  const marker = `<!-- locale: ${locale} -->`;
-  const start = markdown.indexOf(marker);
-  if (start < 0) return "";
-  const bodyStart = start + marker.length;
-  const next = markdown.indexOf("<!-- locale:", bodyStart);
-  return markdown.slice(bodyStart, next < 0 ? undefined : next);
-}
-
-function terminologyRows(markdown, locale) {
-  const body = localeBlock(markdown, locale);
-  const heading = locale === "ko" ? "용어 정리" : "Terminology";
-  const start = body.search(new RegExp(`^##\\s+${heading}\\s*$`, "mi"));
-  if (start < 0) return [];
-  const afterHeading = body.slice(start).replace(/^##[^\n]*\n/, "");
-  const nextHeading = afterHeading.search(/^##\s+/m);
-  const section = nextHeading < 0 ? afterHeading : afterHeading.slice(0, nextHeading);
-  return section.split(/\r?\n/)
-    .filter((line) => line.trim().startsWith("|") && !/^\s*\|?\s*:?-{3,}/.test(line))
-    .slice(1)
-    .map((line) => line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim()))
-    .filter((cells) => cells.length >= 3)
-    .map(([term, definition, context]) => ({ term, definition, context }));
-}
-
 function sourcesFor(markdown, paperUrl) {
-  const english = localeBlock(markdown, "en");
-  const heading = english.search(/^##\s+References and figure credits\s*$/mi);
-  const section = heading < 0 ? "" : english.slice(heading).replace(/^##[^\n]*\n/, "").split(/^##\s+/m)[0];
+  const section = sectionBody(markdown, "en", ["References", "References & Resources", "References and figure credits"]);
   const urls = new Set([paperUrl, ...[...section.matchAll(/https:\/\/[^\s)<>]+/g)].map((match) => match[0].replace(/[.,;]+$/, ""))]);
   return [...urls].filter((url) => /^https:\/\//.test(url)).map((url) => {
     const host = new URL(url).hostname.replace(/^www\./, "");

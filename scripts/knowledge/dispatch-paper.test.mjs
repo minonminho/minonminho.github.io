@@ -15,5 +15,12 @@ test("the dispatcher skips drafts and passes the existing bilingual terminology 
   assert.equal(event.terminology[1].term, "Alpha compositing");
   assert.equal(event.terminology[1].definition.ko, "투명도에 따라 앞 레이어와 뒤 이미지를 섞는 계산");
   assert.equal(event.sources.some((source) => source.url === event.paper.url), true);
+  assert.equal(event.sources.some((source) => source.url === "https://huggingface.co/papers/date/2026-10-23"), true);
   assert.match(event.revision, /^[a-f0-9]{64}$/);
+});
+
+test("published reviews still reject missing or mismatched terminology", () => {
+  const publishedReview = draftReview.replace('"reviewStatus": "draft"', '"reviewStatus": "published"');
+  assert.throws(() => buildEvent(publishedReview.replace("### Knowledge 용어 정리", "### Missing")), /mismatched/);
+  assert.throws(() => buildEvent(publishedReview.replace(/^\| RGBA 레이어[^\n]*\n/m, "")), /mismatched/);
 });
