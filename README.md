@@ -1,62 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Daily Research Reading — Minho Lee
 
-## Getting Started
+A Next.js 16 static-export site on GitHub Pages. The profile and other projects remain separate from the research-reading experience.
 
-First, run the development server:
+## Daily Brief and Knowledge
+
+- **Daily Brief** (`/daily-brief/`): read one in-depth AI paper per day, with nine research-review chapters and links to primary sources.
+- **Knowledge** (`/knowledge/`): understand the technical terms used in the paper, including definitions, prerequisites, examples, and paper context.
+- **Bilingual**: English by default, Korean toggle; both article content and learning concepts are translated.
+- **Context help**: tap an underlined term in the paper to open a learning panel; optionally ask ChatGPT a question prefilled with the relevant paper context.
+
+## Workflow
+
+- `scripts/research/discover.py`: gather *candidate* papers using public research-community signals. No platform is authoritative; community popularity alone does not establish quality. Scheduled at 05:50 Asia/Seoul by `.github/workflows/research-discovery.yml`.
+- The Daily AI Paper Deep Dive ChatGPT automation is scheduled for 06:30 Asia/Seoul. It reads primary papers and may publish one bilingual reviewed article per day **only after evidence verification**. A Hugging Face abstract or automatic candidate score cannot be published as a completed review.
+- A published review is stored at `content/research/reviews/YYYY-MM-DD-paper-slug.json`; concepts are embedded in and traceable to each review.
+- `npm run research:validate` checks the review structure, bilingual content, source URLs and inline concept references.
+- `.github/workflows/deploy.yml` validates, builds and deploys to GitHub Pages.
+
+## Local development
 
 ```bash
+npm ci
+npm run research:validate
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+See [research editorial and publication rules](docs/RESEARCH_READING.md).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-The interface follows [Silent Precision - Interactive Layers](docs/DESIGN_SYSTEM.md).
-Its primary color/interaction reference is the user-supplied
-[Japan air alert](https://ttang-air-alert.vividfox6.chatgpt.site/): sage canvas,
-ivory panels, a dark practice explorer, and lime/coral selection states.
-It also draws on the restrained personal sites of [Paco Coursey](https://paco.me/) and
-[Emil Kowalski](https://emilkowal.ski/): continuous neutral surfaces, a readable
-column, small section labels, thin rules, and understated links. Light/dark mode
-follows the system/browser setting. Practice selection updates the detail panel and related link. Skills support combined
-search/category filters; native disclosures expand career and project details.
-
-English and Korean prose use bundled **Pretendard Variable 1.3.9** through
-`next/font/local`; technical metadata uses Geist Mono. The font license is in
-`src/app/fonts/OFL-Pretendard.txt`. Body text uses 16px / 1.8 for sustained reading.
-
-The profile sections share a typed `ProfileSection` component. Existing profile
-content, Daily Brief, navigation, and native CV printing are preserved.
-The **Side Project** page (`/side-projects/`) contains the Daily Brief card. Desktop
-and mobile navigation link to this page immediately after Education; the home
-profile ends with Education.
-See [design references](DESIGN-figma.md) for the current visual direction.
-
-## Visitor analytics
-
-Cloudflare Web Analytics is configured with the site's public token. Production
-deployments collect visits and page views. See [dashboard instructions](docs/ANALYTICS.md).
-Local development does not send visitor statistics.
-
-## Learn More
-
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Legacy multi-story AI newsletters, auto-translated Hugging Face digests, and the separate Knowledge Worker and exported one-pager files have been retired. Removed files remain in Git history if recovery is required.
