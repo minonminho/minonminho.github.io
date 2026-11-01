@@ -12,5 +12,5 @@ export const metadata = {
 };
 
 export default function DailyBriefPage() {
-  return <><Navbar showCvDownload={false} /><LanguageBar /><BriefHome latest={getBriefs()[0]} issues={getBriefSummaries()} spotlight={getHighlightSummaries()[0]} paperReview={getPaperReviewSummaries()[0]} /><Footer /></>;
+  return <><Navbar showCvDownload={false} /><LanguageBar /><BriefHome latest={getBriefs()[0]} issues={getBriefSummaries()} spotlight={getHighlightSummaries()[0]} paperReview={getPaperReviewSummaries().find((review) => review.reviewFormat === "highlighted" && review.reviewStatus === "published")} /><Footer /></>;
 }
