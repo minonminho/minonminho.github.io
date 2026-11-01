@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "slug": "2026-11-01-the-trinity",
+  "date": "2026-11-01",
+  "updatedAt": "2026-11-01",
+  "status": "published",
+  "paper": {
+    "arxivId": "2610.36077",
+    "title": "The Trinity: Capability-Driven Recursive Self-Improvement for Multimodal Agents",
+    "authors": "Weidong Tang et al.",
+    "publishedDate": "2026-10-26",
+    "sourceUrl": "https://arxiv.org/abs/2610.36077",
+    "discoveryUrl": "https://huggingface.co/papers/2610.36077",
+    "projectUrl": "https://trinity-rsi.github.io/"
+  },
+  "selection": {
+    "en": "Selected from the late-October Hugging Face research discussions. The paper explores a practical question: can agents improve by learning reusable capabilities rather than memorizing isolated tasks? Popularity is a discovery signal, not proof of research quality.",
+    "ko": "10월 말 Hugging Face 연구 논의에서 주목받은 논문입니다. 개별 과제에만 적응하는 대신 재사용 가능한 능력을 학습하면 에이전트가 스스로 개선될 수 있는지를 다룹니다. 인기도는 발견을 위한 신호이지 연구 품질의 증거는 아닙니다."
+  },
+  "headline": {
+    "en": "Can an agent learn the skill behind a task—and reuse it somewhere else?",
+    "ko": "에이전트가 과제 뒤에 숨은 능력을 학습해 다른 환경에서도 활용할 수 있을까?"
+  },
+  "abstract": {
+    "en": "The Trinity proposes a system in which different tasks are organized by the capabilities they require. A Creator makes simplified, verifiable worlds, an Explorer produces attempts and feedback, and an Evolver turns evidence into reusable agent modules. A router then selects a suitable configuration for a new task. The authors report substantial average score gains across their evaluated benchmarks, but the transfer, cost, and reproduction conditions deserve careful scrutiny.",
+    "ko": "The Trinity는 서로 다른 과제들을 필요한 능력에 따라 분류하는 구조를 제안합니다. Creator는 검증 가능한 간단한 환경을 만들고, Explorer는 시도와 피드백을 쌓으며, Evolver는 그 근거를 재사용 가능한 에이전트 모듈로 바꿉니다. 이후 Router가 새 과제에 적절한 구성을 선택합니다. 저자들은 여러 벤치마크에서 큰 평균 점수 상승을 보고하지만, 전이 성능·비용·재현 조건은 신중하게 살펴봐야 합니다."
+  },
+  "readingMinutes": 16,
+  "sections": [
+    {
+      "id": "summary",
+      "title": {
+        "en": "Executive Summary",
+        "ko": "핵심 요약"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "The central claim is not that a bigger language model solves more tasks. It is that the software surrounding a fixed model—the [[harness]]—can improve through experience. Instead of teaching an agent one benchmark at a time, The Trinity organizes tasks by shared [[capability-tree|capabilities]]. It then creates small practice environments, accumulates successful procedures, and chooses a task-appropriate configuration. This reframes agent improvement as engineering of reusable processes rather than only optimization of model weights.",
+          "ko": "핵심 주장은 더 큰 언어 모델이 더 많은 과제를 해결한다는 것이 아닙니다. 고정된 모델 주변의 실행 소프트웨어인 [[harness|Harness]]가 경험을 통해 발전할 수 있다는 것입니다. 개별 벤치마크마다 에이전트를 따로 다듬는 대신 필요한 능력에 따라 과제를 분류하고, 작은 연습 환경에서 절차를 학습하며, 새 과제에 적절한 구성을 선택합니다. 모델 가중치의 학습만이 아니라 재사용 가능한 실행 절차의 개선이라는 관점입니다."
+        },
+        {
+          "en": "The authors describe gains of about 34 points on 28 training benchmarks and 26 points on 18 unseen benchmarks. These are author-reported mean score differences, not independently replicated improvements or guaranteed percentage increases. Their project overview also highlights two real-world embodied tasks. These results make the approach interesting, but interpreting them requires knowing how each benchmark scores success and whether any task-specific preparation preceded evaluation.",
+          "ko": "저자들은 학습에 사용한 28개 벤치마크에서 평균 약 34점, 보지 못한 18개 벤치마크에서 평균 약 26점 향상을 보고합니다. 이는 독립적으로 재현한 결과나 상대적인 퍼센트 증가가 아니라 저자가 보고한 점수 차이입니다. 프로젝트는 실제 물리 환경 과제 두 개도 소개합니다. 다만 벤치마크별 점수 체계와 평가 전 과제별 준비 과정이 무엇인지 확인해야 결과를 올바르게 해석할 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "background",
+      "title": {
+        "en": "Background & Research Problem",
+        "ko": "배경과 연구 문제"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "An agent that works with tools has more moving parts than its underlying language model. It needs instructions, tool permissions, memory, recovery policies, and often a method for verifying its own actions. This surrounding system is the [[harness]]. Two common extremes are a single general harness used for every job, or a bespoke harness engineered for each task. The former may underfit conflicting requirements; the latter may overfit one task and produce a maintenance burden.",
+          "ko": "도구를 사용하는 에이전트는 언어 모델 외에도 다양한 요소가 필요합니다. 지침, 도구 접근 권한, 메모리, 복구 정책, 실행 결과의 검증 등이 여기에 포함됩니다. 이 실행 체계를 [[harness|Harness]]라고 합니다. 하나의 범용 Harness를 모든 과제에 쓰면 서로 다른 요구를 충분히 수용하기 어렵고, 과제마다 따로 만들면 해당 과제에만 맞게 과도하게 최적화되고 유지보수 비용이 늘어납니다."
+        },
+        {
+          "en": "The paper's motivating observation is that the surface form of a task can be misleading. An image-based puzzle and a navigation environment look unrelated, yet both may require tracking changing state or checking evidence before acting. Organizing tasks by domain label alone can hide this shared structure. The hypothesis is that a [[capability-tree]] gives the system a better basis for transferring learned strategies to tasks it has never seen.",
+          "ko": "논문의 출발점은 겉으로 보이는 과제 종류가 실제 필요한 능력을 가릴 수 있다는 관찰입니다. 이미지 퍼즐과 탐색 환경은 겉보기에는 다르지만 둘 다 변하는 상태를 추적하거나 행동하기 전에 근거를 확인해야 할 수 있습니다. 과제를 단순한 도메인 이름으로만 묶으면 공통 구조를 발견하기 어렵습니다. 필요한 능력의 계층을 나타내는 [[capability-tree|Capability Tree]]가 다른 과제로 전략을 옮기는 데 더 유용하다는 것이 연구 가설입니다."
+        }
+      ]
+    },
+    {
+      "id": "contributions",
+      "title": {
+        "en": "Core Innovations",
+        "ko": "핵심 기여"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "First, the Evolver restructures task descriptions and verified interaction records into a capability hierarchy. The important input is not just a score but a [[verified-trajectory]]: what the agent tried, what happened, and which requirement mattered. A capability node can therefore represent a learning objective shared by tasks from different modalities, rather than a folder containing superficially similar examples.",
+          "ko": "첫 번째 기여는 Evolver가 과제 설명과 검증된 실행 기록을 사용해 능력의 계층 구조를 구성하는 것입니다. 단순 점수뿐 아니라 에이전트가 어떤 행동을 시도했고 무엇이 일어났으며 어떤 요구사항이 중요했는지를 보여주는 [[verified-trajectory|검증된 실행 궤적]]이 입력이 됩니다. 따라서 능력 노드는 비슷해 보이는 예시의 묶음이 아니라 서로 다른 모달리티의 과제가 공유하는 학습 목표를 표현합니다."
+        },
+        {
+          "en": "Second, the Creator synthesizes deliberately simplified environments around a shared capability, an approach named [[real2sim2real]]. Third, the Explorer and Evolver turn successful interaction into reusable harness modules with selective inheritance along the tree. Finally, the [[router]] chooses compatible modules for a new task from the available configurations. The novelty lies in connecting these stages so that experience can accumulate in software, rather than only in one-off prompts.",
+          "ko": "두 번째 기여는 Creator가 공통 능력에 맞는 간소화된 연습 환경을 구성하는 [[real2sim2real|Real2Sim2Real]]입니다. 세 번째로 Explorer와 Evolver는 성공적인 실행을 재사용 가능한 Harness 모듈로 만들고 능력 계층을 따라 선택적으로 계승합니다. 마지막으로 [[router|Router]]는 새 과제에 맞는 모듈을 선택합니다. 핵심은 개별 프롬프트에만 경험을 남기는 것이 아니라 이 과정들을 연결해 소프트웨어 구성요소에 경험이 누적되도록 하는 점입니다."
+        }
+      ]
+    },
+    {
+      "id": "method",
+      "title": {
+        "en": "Architecture & Methodology",
+        "ko": "아키텍처와 방법론"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "The framework separates three responsibilities. Creator generates worlds in which a target capability can be practiced. Explorer executes tasks, producing observations, actions, intermediate failures, and verified outcomes. Evolver interprets these runs, groups task requirements, and updates reusable modules. This separation matters because generating an exercise, trying to solve it, and deciding which procedure should be reused are different optimization problems. A single prompt that attempts all three at once would make failure attribution much harder.",
+          "ko": "프레임워크는 세 역할을 분리합니다. Creator는 특정 능력을 연습할 환경을 생성하고, Explorer는 문제를 수행하면서 관찰·행동·실패·검증된 결과를 남깁니다. Evolver는 실행 기록을 분석해 요구사항을 묶고 재사용 가능한 모듈을 갱신합니다. 연습 문제를 생성하는 일, 실제로 해결하는 일, 재사용할 절차를 선정하는 일은 서로 다른 최적화 문제이기 때문에 분리가 중요합니다. 한 프롬프트에 모두 넣으면 실패 원인을 추적하기 어려워집니다."
+        },
+        {
+          "en": "A practical way to understand the [[capability-tree]] is to imagine a root representing general action selection, with narrower branches such as state tracking, hypothesis testing, feedback repair, and value trade-offs. A task is associated with requirements along a branch; the tree is not a fixed taxonomy guessed from task names alone. In the authors' description, verified trajectories contribute evidence for reorganizing the hierarchy. That is an appealing mechanism, but correct capability labels and stable tree construction remain research questions.",
+          "ko": "[[capability-tree|Capability Tree]]를 이해하려면 일반적인 행동 선택을 나타내는 뿌리에서 상태 추적, 가설 검증, 피드백 복구, 가치 판단 같은 세부 능력으로 가지가 뻗는다고 생각하면 됩니다. 과제는 가지를 따라 필요한 능력과 연결됩니다. 이는 단순히 과제 이름을 보고 정해 둔 분류표가 아닙니다. 저자 설명에 따르면 검증된 실행 기록이 계층 구조를 재편하는 근거가 됩니다. 하지만 능력 분류의 정확성과 트리 구조의 안정성은 여전히 연구 과제입니다."
+        },
+        {
+          "en": "In [[real2sim2real]], Creator tries to preserve the decision structure of a difficult real task while stripping away distractions. A reduced environment might ask the agent to collect contradictory evidence before committing to an answer, even when the original application involves navigation or multimodal interfaces. A host-side verifier checks whether a generated world executes, whether its transitions are valid, and whether the target objective is measurable. Only suitable worlds are admitted to the learning process. This is more than writing synthetic questions: it is constructing executable practice conditions with verifiable feedback.",
+          "ko": "[[real2sim2real|Real2Sim2Real]]에서 Creator는 복잡한 실제 과제의 핵심 의사결정 구조를 남기면서 주변 요소를 간소화합니다. 원래 과제가 탐색이나 멀티모달 인터페이스일지라도 축소된 환경에서는 상충하는 증거를 모은 뒤 결론을 내리는 연습을 할 수 있습니다. 외부 검증기는 생성된 환경이 실행되는지, 상태 전이가 유효한지, 목표 달성을 측정할 수 있는지 확인합니다. 적합한 환경만 학습에 사용합니다. 단순한 합성 질문 생성이 아니라, 검증 가능한 피드백이 있는 실행 환경을 만드는 것입니다."
+        },
+        {
+          "en": "Once useful procedures are found, modules are organized into a harness hierarchy and selectively inherited, instead of replacing one global instruction set after every success. At deployment, a [[router]] reads public information about the task and chooses a compatible harness configuration before execution. The project's description emphasizes a fixed underlying language-model backbone, so any reported improvement should be attributed to harness evolution and routing under the stated setup—not assumed to mean the foundation model itself acquired new weights or general intelligence.",
+          "ko": "유용한 절차를 발견하면 매 성공마다 하나의 범용 지침을 덮어쓰는 대신 Harness 모듈을 계층에 배치하고 필요한 부분만 계승합니다. 배포 시 [[router|Router]]는 실행 전에 공개된 과제 정보를 읽고 호환되는 구성을 선택합니다. 프로젝트는 기저 언어 모델을 고정한 조건을 강조합니다. 따라서 보고된 향상은 해당 조건의 Harness 개선과 라우팅에 귀속해야지, 기반 모델 가중치가 변경되었거나 일반 지능이 증가했다고 받아들여서는 안 됩니다."
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "title": {
+        "en": "Experiments & Results",
+        "ko": "실험 및 결과"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "The authors report evaluation on 28 training benchmarks and 18 unseen benchmarks covering interactive tasks and multiple modalities, with two real-world embodied tasks called out. Their headline mean improvement is approximately +34 points on training benchmarks and +26 points on unseen ones; the project page presents more precise headline values of +34.1 and +26.2. These numbers should be read as the researchers' own aggregate comparison, not as a universal success-rate increase. Scores from heterogeneous benchmarks may have different units and ceilings, so aggregation choices matter greatly.",
+          "ko": "저자들은 상호작용 과제와 여러 모달리티를 아우르는 학습 벤치마크 28개, 미학습 벤치마크 18개에서 평가했다고 보고합니다. 실제 물리 환경 과제 두 개도 언급합니다. 평균 점수 상승은 학습 과제 약 +34점, 미학습 과제 약 +26점이며, 프로젝트 페이지의 더 자세한 표기는 +34.1 및 +26.2입니다. 이는 연구진이 제시한 집계 비교이지 모든 작업에서 성공률이 같은 비율로 증가했다는 의미가 아닙니다. 서로 다른 평가 척도의 점수를 합치는 방식 자체가 중요합니다."
+        },
+        {
+          "en": "What would a decisive replication look like? Hold the foundation model, tool access, evaluation budgets, and task information constant. Compare a fixed general harness, per-task harnesses, a capability tree without synthetic worlds, and the complete system. Report scores per task, median and variance across runs, and compute or token consumption for world construction and evolution. The abstract and project overview are not enough to independently verify all such controlled conditions. We therefore treat the headline gain as a promising author claim rather than independent evidence of robust transfer.",
+          "ko": "재현 실험을 설계한다면 기반 모델, 도구 권한, 평가 예산, 과제 정보를 같게 유지해야 합니다. 고정된 범용 Harness, 과제별 Harness, 합성 환경이 없는 Capability Tree, 완전한 시스템을 비교할 수 있습니다. 과제별 점수와 반복 실행의 중앙값·분산, 환경 생성과 진화에 사용한 연산·토큰 비용도 보고해야 합니다. 초록과 프로젝트 개요만으로는 이런 통제 조건을 모두 독립적으로 확인하기 어렵습니다. 따라서 주요 성능 향상은 강력한 가능성을 시사하는 저자 주장으로 다룹니다."
+        }
+      ]
+    },
+    {
+      "id": "critical",
+      "title": {
+        "en": "Critical Analysis & Limitations",
+        "ko": "비판적 분석과 한계"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "The strongest idea is the abstraction boundary: convert highly varied experiences into portable capability modules. But a capability taxonomy inferred from successful and failed attempts may itself overfit the benchmark collection. If the same capability name hides different environmental constraints, a supposedly reusable module may fail badly outside its training context. Synthetic worlds introduce another gap: they can teach a simplified decision rule while omitting tool latency, incomplete observations, noisy feedback, and irreversible actions present in deployment.",
+          "ko": "가장 설득력 있는 부분은 다양한 경험을 재사용 가능한 능력 모듈로 바꾸는 추상화 경계입니다. 그러나 성공·실패 기록에서 추론한 능력 분류 자체가 평가 과제 집합에 과적합될 수 있습니다. 같은 능력 이름 아래 서로 다른 환경 제약이 숨어 있다면 재사용 모듈은 새로운 상황에서 실패할 수 있습니다. 합성 환경도 실제 배포의 도구 지연, 불완전한 관측, 잡음이 섞인 피드백, 되돌릴 수 없는 행동을 충분히 반영하지 못할 수 있습니다."
+        },
+        {
+          "en": "A second issue is transfer versus preparation. An 'unseen' benchmark may be absent from the training set while still allowing some evaluation-time setup, tool familiarization, or retrieval of related experience. To isolate zero-shot transfer, one would need results before any new task-specific adaptation as well as after preparation under an identical budget. A third issue is cost: creating worlds, maintaining verifiers, executing exploratory trajectories, and routing modules might consume more than a simpler baseline. A performance gain alone cannot establish overall economic efficiency.",
+          "ko": "두 번째 쟁점은 전이와 사전 준비의 구분입니다. 미학습 벤치마크라 하더라도 평가 전에 도구에 익숙해지는 단계나 관련 경험 검색이 허용될 수 있습니다. 새로운 과제에 대한 적응 이전의 Zero-shot 결과와 동일 예산의 사전 준비 이후 결과를 함께 제시해야 순수 전이 효과를 분리할 수 있습니다. 세 번째는 비용입니다. 환경 생성, 검증기 유지, 탐색 실행, 모듈 라우팅에 큰 자원이 들 수 있습니다. 성능 향상만으로 전체 경제성이 증명되지는 않습니다."
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "title": {
+        "en": "Engineering Implications",
+        "ko": "엔지니어링 관점"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "For a working agent platform, the most immediately transferable practice is to stop treating successful prompts as unstructured notes. Record each execution as a [[verified-trajectory]] with task ID, observation, tool action, result, verifier outcome, and failure reason. Then extract candidate procedures separately from execution logs, evaluate them against held-out tasks, and version them as harness modules. Keep the original evidence so a later regression can be traced to the specific module or verifier that admitted it.",
+          "ko": "실제 에이전트 플랫폼에 가장 빠르게 적용할 수 있는 원칙은 성공한 프롬프트를 구조 없는 메모로만 남기지 않는 것입니다. 각 실행을 과제 ID, 관찰, 도구 행동, 결과, 검증 결과, 실패 원인으로 구성된 [[verified-trajectory|검증된 실행 궤적]]으로 기록합니다. 실행 로그와 재사용할 절차를 분리해서 추출하고, 보지 못한 과제로 평가한 뒤 버전을 가진 Harness 모듈로 관리합니다. 나중에 성능 저하가 생기면 어떤 모듈이나 검증기가 이를 허용했는지 추적할 수 있도록 원본 근거를 보존해야 합니다."
+        },
+        {
+          "en": "A modest prototype need not reproduce the full paper. Build three tasks that share one requirement—for example, verify evidence before changing a file—and one task with conflicting requirements. Compare a single prompt against a small library of versioned procedures plus a manually selected router. Measure successful completions, unnecessary tool calls, false-positive verification, and total tokens. Do not copy the authors' headline results into your own setup: the underlying tasks, evaluator, model, and budget differ.",
+          "ko": "작은 프로토타입에서 논문 전체를 재현할 필요는 없습니다. 예컨대 파일을 수정하기 전에 근거를 검증해야 하는 세 가지 과제와 서로 상충하는 요구를 가진 한 가지 과제를 구성합니다. 하나의 범용 프롬프트와 버전 관리되는 절차 모음·수동 라우팅 방식을 비교합니다. 완료 성공률, 불필요한 도구 호출, 검증 오판, 총 토큰 사용량을 측정합니다. 과제·평가기·모델·예산이 다르므로 저자들의 성능 수치를 자신의 구현에 그대로 적용해서는 안 됩니다."
+        }
+      ]
+    },
+    {
+      "id": "future",
+      "title": {
+        "en": "Future Directions",
+        "ko": "후속 연구 방향"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "The next experiments should ask which component actually drives generalization. Remove the capability tree but retain training worlds; retain the tree but eliminate selective module inheritance; replace the router with a fixed harness; and evaluate each ablation with identical budgets. A tree that helps only when the same family of tasks appears at test time is less valuable than one that supports genuinely different environments. Explicitly report performance on tasks that demand a novel combination of previously seen capabilities.",
+          "ko": "다음 단계에서는 어느 구성요소가 실제 일반화를 유발하는지 확인해야 합니다. Capability Tree를 제거하되 연습 환경은 유지하거나, Tree는 두고 모듈 선택적 계승을 없애거나, Router를 고정 Harness로 대체하는 Ablation을 동일 예산으로 수행할 수 있습니다. 동일한 과제 계열이 다시 등장할 때만 도움이 되는 트리보다 실제로 다른 환경에도 적용되는 트리가 더 가치 있습니다. 이미 본 능력을 새로운 조합으로 요구하는 과제의 성능을 별도로 보고하면 좋습니다."
+        },
+        {
+          "en": "There is also an important safety question: can a self-improving harness make itself harder to inspect? Any module update needs reproducible input evidence, bounded permissions, regression tests, and rollback. Real2Sim2Real worlds should include cases with unreliable feedback and delayed or irreversible tool effects. The broader research opportunity is not just better benchmark scores, but procedures that remain understandable, auditable, and robust when the agent must operate over long periods in changing environments.",
+          "ko": "안전성 측면에서는 스스로 개선되는 Harness가 점점 이해하거나 감사하기 어려운 구조가 될 수 있다는 점도 중요합니다. 모듈 갱신에는 재현 가능한 근거, 제한된 권한, 회귀 테스트, 롤백이 필요합니다. Real2Sim2Real 환경에도 신뢰하기 어려운 피드백, 지연된 도구 효과, 되돌릴 수 없는 작업을 넣어야 합니다. 장기적으로 중요한 연구 목표는 벤치마크 점수뿐 아니라 변화하는 환경에서도 이해·감사·복구가 가능한 절차를 만드는 것입니다."
+        }
+      ]
+    },
+    {
+      "id": "references",
+      "title": {
+        "en": "Sources & Further Reading",
+        "ko": "원문 및 참고 자료"
+      },
+      "evidence": "author",
+      "paragraphs": [
+        {
+          "en": "Primary sources: arXiv:2610.36077 (original research manuscript), the authors' The Trinity project site, and the Hugging Face paper listing for discovery. This review distinguishes author-reported results from independent engineering interpretation. It does not represent a new benchmark reproduction. Use the source links below to inspect the complete experimental tables, protocol, figures, and release details before implementing the system.",
+          "ko": "1차 자료는 원문 연구 논문(arXiv:2610.36077), 저자들의 The Trinity 프로젝트 사이트, 논문 발견을 위한 Hugging Face 페이지입니다. 이 리뷰는 저자가 보고한 실험 결과와 독립적인 엔지니어링 해석을 구분합니다. 새로운 벤치마크 재현 결과가 아닙니다. 실제 구현에 앞서 아래 원문 링크에서 전체 실험 표, 평가 절차, 그림, 공개 내용을 확인해야 합니다."
+        }
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "harness",
+      "name": {
+        "en": "Agent Harness",
+        "ko": "에이전트 Harness"
+      },
+      "plain": {
+        "en": "The instructions, tools, memory and operating procedures around a language model.",
+        "ko": "언어 모델 주위의 지침·도구·메모리·운영 절차를 포함하는 실행 체계입니다."
+      },
+      "background": {
+        "en": "A model predicts its next output; the harness decides which tools it may call, what context is available, and how errors are handled.",
+        "ko": "모델이 다음 출력을 예측하는 동안 Harness는 어떤 도구를 쓸지, 어떤 맥락을 제공할지, 오류를 어떻게 다룰지 정합니다."
+      },
+      "example": {
+        "en": "Two agents may use the same LLM but different tool permissions and recovery rules, giving different results.",
+        "ko": "같은 LLM을 사용해도 도구 권한과 복구 규칙에 따라 결과가 달라질 수 있습니다."
+      },
+      "why": {
+        "en": "The paper improves the harness while holding the foundation model fixed.",
+        "ko": "논문은 기반 모델을 고정한 채 Harness를 개선합니다."
+      }
+    },
+    {
+      "id": "capability-tree",
+      "name": {
+        "en": "Capability Tree",
+        "ko": "능력 계층 구조"
+      },
+      "plain": {
+        "en": "A hierarchy that groups tasks by the skills needed to solve them, not by their outward appearance.",
+        "ko": "과제의 겉모습이 아니라 해결에 필요한 능력에 따라 분류한 계층 구조입니다."
+      },
+      "background": {
+        "en": "Task categories can be deceptive: navigation and puzzles may both demand state tracking.",
+        "ko": "탐색과 퍼즐은 달라 보이지만 모두 상태 추적 능력이 필요할 수 있습니다."
+      },
+      "example": {
+        "en": "Evidence checking might be shared by web research, debugging, and navigation.",
+        "ko": "자료 검색, 디버깅, 탐색 모두 근거 검증이라는 능력을 공유할 수 있습니다."
+      },
+      "why": {
+        "en": "It is used to organize reusable modules and generated practice environments.",
+        "ko": "재사용 모듈과 생성된 연습 환경을 조직하는 기준입니다."
+      }
+    },
+    {
+      "id": "verified-trajectory",
+      "name": {
+        "en": "Verified Trajectory",
+        "ko": "검증된 실행 궤적"
+      },
+      "plain": {
+        "en": "A record of attempted actions and observations accompanied by an explicit check of the outcome.",
+        "ko": "시도한 행동과 관찰을 기록하고 결과가 맞는지 검사한 실행 이력입니다."
+      },
+      "background": {
+        "en": "An agent saying 'done' is not the same as a file or environment actually being updated correctly.",
+        "ko": "에이전트가 '완료'라고 말하는 것과 실제 파일이나 환경이 올바르게 바뀐 것은 다릅니다."
+      },
+      "example": {
+        "en": "Store the tool call, returned result and a separate test verifying a file change.",
+        "ko": "도구 호출·반환 결과와 별도의 파일 변경 검증 테스트를 함께 저장합니다."
+      },
+      "why": {
+        "en": "Evidence from such runs informs how capabilities and procedures evolve.",
+        "ko": "이 기록을 바탕으로 능력 분류와 절차를 개선합니다."
+      }
+    },
+    {
+      "id": "real2sim2real",
+      "name": {
+        "en": "Real2Sim2Real",
+        "ko": "실제→시뮬레이션→실제"
+      },
+      "plain": {
+        "en": "Abstract a hard real task into a simpler verifiable training world, then test transfer back on the original task.",
+        "ko": "어려운 실제 과제를 검증 가능한 간단한 연습 환경으로 만들고, 학습한 능력을 원래 과제에서 다시 평가하는 방식입니다."
+      },
+      "background": {
+        "en": "Practicing every expensive real-world task directly may be slow, dangerous, or hard to evaluate.",
+        "ko": "비용이 큰 실제 과제를 직접 반복 연습하면 느리고 위험하거나 평가하기 어려울 수 있습니다."
+      },
+      "example": {
+        "en": "Practice checking contradictory clues in a tiny browser world before testing it in a navigation agent.",
+        "ko": "작은 브라우저 환경에서 상충하는 단서를 확인하는 능력을 연습한 뒤 탐색 에이전트에서 시험합니다."
+      },
+      "why": {
+        "en": "It makes capability-targeted training environments potentially scalable.",
+        "ko": "능력에 맞춘 연습 환경을 더 쉽게 확장하려는 핵심 장치입니다."
+      }
+    },
+    {
+      "id": "router",
+      "name": {
+        "en": "Capability-Aware Router",
+        "ko": "능력 기반 라우터"
+      },
+      "plain": {
+        "en": "A component that chooses which set of agent procedures to use for a new task.",
+        "ko": "새 과제에 사용할 에이전트 절차 묶음을 선택하는 구성요소입니다."
+      },
+      "background": {
+        "en": "Different tasks need different combinations of memory, reasoning, tool access and checks.",
+        "ko": "과제마다 메모리·추론·도구 접근·검증 절차의 조합이 다릅니다."
+      },
+      "example": {
+        "en": "A code-editing request selects a harness that runs tests and checks diffs before finishing.",
+        "ko": "코드 수정 요청은 완료 전에 테스트와 변경 사항을 확인하는 Harness를 선택합니다."
+      },
+      "why": {
+        "en": "The research treats selecting the right learned modules as part of performance.",
+        "ko": "학습된 적절한 모듈을 선택하는 것도 성능의 일부로 봅니다."
+      }
+    },
+    {
+      "id": "ablation",
+      "name": {
+        "en": "Ablation Study",
+        "ko": "절제 실험"
+      },
+      "plain": {
+        "en": "Remove or alter one component to learn how much it contributes to the result.",
+        "ko": "구성요소 하나를 제거하거나 바꿔 성능에 얼마나 기여하는지 알아보는 실험입니다."
+      },
+      "background": {
+        "en": "A good system result does not show which of many changes caused the improvement.",
+        "ko": "시스템 성능이 좋아졌다는 사실만으로 여러 변경 중 무엇이 효과를 냈는지 알 수는 없습니다."
+      },
+      "example": {
+        "en": "Compare the full system with the same system minus the capability router.",
+        "ko": "완전한 시스템과 Router만 제거한 시스템을 비교합니다."
+      },
+      "why": {
+        "en": "It separates the benefit of worlds, hierarchy, modules and routing.",
+        "ko": "생성 환경·계층·모듈·라우팅 각각의 효과를 분리합니다."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "arxiv",
+      "name": "Original research paper",
+      "url": "https://arxiv.org/abs/2610.36077"
+    },
+    {
+      "id": "project",
+      "name": "Authors' project and method",
+      "url": "https://trinity-rsi.github.io/"
+    },
+    {
+      "id": "huggingface",
+      "name": "Hugging Face paper listing",
+      "url": "https://huggingface.co/papers/2610.36077"
+    }
+  ]
+}
