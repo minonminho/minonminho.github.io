@@ -14,8 +14,8 @@
     "projectUrl": "https://trinity-rsi.github.io/"
   },
   "selection": {
-    "en": "Selected from the late-October Hugging Face research discussions. The paper explores a practical question: can agents improve by learning reusable capabilities rather than memorizing isolated tasks? Popularity is a discovery signal, not proof of research quality.",
-    "ko": "10월 말 Hugging Face 연구 논의에서 주목받은 논문입니다. 개별 과제에만 적응하는 대신 재사용 가능한 능력을 학습하면 에이전트가 스스로 개선될 수 있는지를 다룹니다. 인기도는 발견을 위한 신호이지 연구 품질의 증거는 아닙니다."
+    "en": "Selected as a technically significant example to introduce the new deep-reading format. Future selections will weigh discussions across multiple research communities; a platform listing alone does not prove a paper is trending or scientifically strong.",
+    "ko": "새로운 심층 읽기 형식을 소개할 기술적으로 중요한 사례로 선정했습니다. 앞으로는 여러 연구 커뮤니티의 논의를 종합해 고르며, 특정 플랫폼에 소개됐다는 사실만으로 인기나 연구 품질이 입증되지는 않습니다."
   },
   "headline": {
     "en": "Can an agent learn the skill behind a task—and reuse it somewhere else?",
@@ -25,7 +25,7 @@
     "en": "The Trinity proposes a system in which different tasks are organized by the capabilities they require. A Creator makes simplified, verifiable worlds, an Explorer produces attempts and feedback, and an Evolver turns evidence into reusable agent modules. A router then selects a suitable configuration for a new task. The authors report substantial average score gains across their evaluated benchmarks, but the transfer, cost, and reproduction conditions deserve careful scrutiny.",
     "ko": "The Trinity는 서로 다른 과제들을 필요한 능력에 따라 분류하는 구조를 제안합니다. Creator는 검증 가능한 간단한 환경을 만들고, Explorer는 시도와 피드백을 쌓으며, Evolver는 그 근거를 재사용 가능한 에이전트 모듈로 바꿉니다. 이후 Router가 새 과제에 적절한 구성을 선택합니다. 저자들은 여러 벤치마크에서 큰 평균 점수 상승을 보고하지만, 전이 성능·비용·재현 조건은 신중하게 살펴봐야 합니다."
   },
-  "readingMinutes": 16,
+  "readingMinutes": 12,
   "sections": [
     {
       "id": "summary",

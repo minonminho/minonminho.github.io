@@ -8,7 +8,7 @@ import { sectionTitles } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Side Project · Minho Lee",
-  description: "Independent explorations of AI and useful tools, including bilingual Daily Brief editions and paper highlights.",
+  description: "Independent AI reading tools, including a daily research deep dive and contextual concept learning.",
 };
 
 export default function SideProjectsPage() {
