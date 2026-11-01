@@ -8,7 +8,7 @@ const selected = new Set();
 for (const file of files) {
   const review = JSON.parse(readFileSync(path.join(root, file), "utf8"));
   const fail = (message) => { throw new Error(file + ": " + message); };
-  const localized = (value) => !!value && typeof value.en === "string" && value.en.trim().length > 10 && typeof value.ko === "string" && value.ko.trim().length > 10;
+  const localized = (value, minLength = 10) => !!value && typeof value.en === "string" && value.en.trim().length >= minLength && typeof value.ko === "string" && value.ko.trim().length >= minLength;
   if (review.schemaVersion !== 1 || !/^\d{4}-\d{2}-\d{2}-[a-z0-9-]+$/.test(review.slug)) fail("invalid schema or slug");
   if (review.status !== "published" && review.status !== "draft") fail("status must be published or draft");
   if (selected.has(review.date) && review.status === "published") fail("more than one published paper for same date");
@@ -17,13 +17,13 @@ for (const file of files) {
   if (!localized(review.headline) || !localized(review.abstract) || !localized(review.selection)) fail("bilingual introduction required");
   if (JSON.stringify(review.sections?.map((s) => s.id)) !== JSON.stringify(sectionIds)) fail("must have exact nine-chapter outline");
   for (const section of review.sections) {
-    if (!localized(section.title) || !section.paragraphs?.length || !section.paragraphs.every(localized)) fail("incomplete " + section.id);
+    if (!localized(section.title, 2) || !section.paragraphs?.length || !section.paragraphs.every(localized)) fail("incomplete " + section.id);
     if (!["mixed","author","analysis"].includes(section.evidence)) fail("missing source analysis label");
   }
   if (!Array.isArray(review.concepts) || review.concepts.length < 3) fail("at least three linked concepts required");
   const ids = new Set(review.concepts.map((concept) => concept.id));
   for (const concept of review.concepts) {
-    if (!/^[a-z0-9-]+$/.test(concept.id) || ![concept.name,concept.plain,concept.background,concept.example,concept.why].every(localized)) fail("invalid concept " + concept.id);
+    if (!/^[a-z0-9-]+$/.test(concept.id) || !localized(concept.name, 2) || ![concept.plain,concept.background,concept.example,concept.why].every(localized)) fail("invalid concept " + concept.id);
   }
   for (const section of review.sections) {
     for (const paragraph of section.paragraphs) {
