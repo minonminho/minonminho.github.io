@@ -1,0 +1,460 @@
+{
+  "schemaVersion": 1,
+  "slug": "2026-11-02-truncate-or-not",
+  "date": "2026-11-02",
+  "updatedAt": "2026-11-01T21:41:25.779870Z",
+  "status": "published",
+  "paper": {
+    "arxivId": "2610.26030",
+    "title": "Truncate or Not? A Scaling Study of Looped Transformers with Truncated Backpropagation",
+    "authors": "Xuyuan Xiong, Siyu Chen, Zihan Shao, Yue Su, Weiyang Jin, Ping Luo, Zhuoran Yang, Xihui Liu",
+    "publishedDate": "2026-10-19",
+    "sourceUrl": "https://arxiv.org/abs/2610.26030",
+    "discoveryUrl": "https://github.com/Mrkkew/Awesome-Loop-Transformers",
+    "projectUrl": "https://github.com/xjxyys/Truncate-or-Not"
+  },
+  "selection": {
+    "en": "Editorial selection, not a popularity ranking. The October 20 revision falls within the recent two-week window. Cross-platform discovery did not verify broad paper-specific engagement; public author code and an independent research bibliography were confirmed. Its controlled comparison of forward and backward computation is the technical reason for selection. The previous published arXiv ID was excluded.",
+    "ko": "인기 순위가 아닌 편집부 선정입니다. 10월 20일 개정본은 최근 2주 범위에 들어갑니다. 여러 플랫폼을 탐색했지만 이 논문에 대한 폭넓은 참여는 검증하지 못했습니다. 저자 공개 코드와 독립 연구 문헌 목록 수록은 확인했습니다. 순전파와 역전파 계산을 통제해 비교했다는 기술적 가치가 선정 이유입니다. 이전에 게시한 arXiv ID는 제외했습니다."
+  },
+  "headline": {
+    "en": "Fewer loops, better gradients: when truncated training really saves compute",
+    "ko": "반복을 줄이고 기울기는 끝까지: 절단 학습이 정말 계산을 절약하는 조건"
+  },
+  "abstract": {
+    "en": "A full-paper review of Truncate or Not?: how shared Transformer depth, gradient truncation, and training-budget allocation interact. We separate measured loss comparisons from fitted predictions, inspect the released workflow, and explain why smaller stored models do not automatically mean faster serving.",
+    "ko": "「Truncate or Not?」 원문 심층 리뷰입니다. Transformer 깊이 공유, 기울기 절단, 학습 예산 배분이 어떻게 맞물리는지 살펴봅니다. 실제 손실 비교와 적합 예측을 구분하고 공개 구현 흐름을 검토하며, 저장 모델이 작아진다고 서빙이 자동으로 빨라지지 않는 이유를 설명합니다."
+  },
+  "readingMinutes": 15,
+  "sections": [
+    {
+      "id": "summary",
+      "title": {
+        "en": "Executive Summary",
+        "ko": "핵심 요약"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — Reusing a Transformer block can make a smaller language model behave like a larger one. But how should that block be trained? Truncate or Not? studies whether saving backward computation really helps. Its answer depends on the decision being optimized: when forward depth is fixed, truncation can help; when forward depth is also free, fewer fully trained loops generally beat more partly trained loops under the fitted law.",
+          "ko": "논문의 주장 — Transformer 블록을 재사용하면 작은 언어 모델로 더 큰 모델에 가까운 성능을 낼 수 있습니다. 그렇다면 반복 블록을 어떻게 학습해야 할까요? 「Truncate or Not?」는 역방향 계산을 줄이는 것이 실제로 유리한지 연구합니다. 답은 무엇을 고정하느냐에 달려 있습니다. 순전파 깊이가 고정되어 있으면 역전파 절단이 유리할 수 있습니다. 반면 순전파 깊이도 선택할 수 있다면, 적합한 법칙 아래에서는 일부만 학습하는 많은 반복보다 전체를 학습하는 적은 반복이 대체로 유리합니다."
+        },
+        {
+          "en": "The authors report 592 runs and 2.7 × 10²² floating-point operations. At one measured comparison, a two-loop model uses 344 million non-embedding parameters versus 471 million for a conventional model. Equal training compute leaves a small loss deficit. Giving the looped model about 8% more compute reverses that deficit. This is a controlled language-modeling result, not evidence of faster inference or stronger downstream reasoning.",
+          "ko": "저자들은 592회의 실행과 총 2.7 × 10²²회의 부동소수점 연산을 보고합니다. 실제 비교 중 하나에서 두 번 반복하는 모델은 임베딩을 제외한 파라미터 3억 4,400만 개를 사용했고, 일반 모델은 4억 7,100만 개를 사용했습니다. 학습 계산량이 같을 때는 반복 모델의 손실이 조금 높았습니다. 반복 모델에 약 8%의 계산을 더 주면 그 차이가 역전됩니다. 이는 조건을 통제한 언어 모델링 결과이며, 추론 속도나 후속 추론 과제의 우수성을 입증한 결과는 아닙니다."
+        },
+        {
+          "en": "Reviewer Analysis — The useful lesson is to separate stored capacity, executed computation, and gradient coverage. These are different resources. Engineering Implication — Consider full-gradient shallow recurrence when model storage is constrained, but benchmark latency and quality separately before deployment. The review covers the October 20, 2026 revision, including its methodology and relevant appendices; it does not independently repeat training.",
+          "ko": "리뷰어 분석 — 저장되는 용량, 실행되는 계산량, 기울기가 전달되는 범위를 구분하는 것이 이 연구의 핵심 교훈입니다. 이 셋은 서로 다른 자원입니다. 엔지니어링 시사점 — 모델 저장 공간이 제한된다면 반복 횟수가 적고 전체 기울기를 사용하는 구조를 검토할 만합니다. 다만 배포 전에는 지연 시간과 품질을 따로 측정해야 합니다. 이 리뷰는 2026년 10월 20일 개정본의 방법론과 관련 부록까지 검토했으며, 학습 실험을 독립적으로 재현하지는 않았습니다."
+        }
+      ]
+    },
+    {
+      "id": "background",
+      "title": {
+        "en": "Background & Research Problem",
+        "ko": "배경과 연구 문제"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "A conventional Transformer gives different layers different weights. A looped Transformer applies the same block several times. This [[weight-sharing|weight sharing]] reduces the number of distinct stored parameters while allowing more transformations of each token. Repeating a calculation is not free, however. Nor does repeating weights create new independent knowledge slots. The question is whether the resulting quality is worth its training computation.",
+          "ko": "일반적인 Transformer는 층마다 서로 다른 가중치를 둡니다. 반복형 Transformer는 같은 블록을 여러 번 적용합니다. 이런 [[weight-sharing|가중치 공유]]는 저장해야 하는 서로 다른 파라미터 수를 줄이면서 각 토큰에 더 많은 변환을 적용하게 합니다. 하지만 반복 계산에는 비용이 들며, 같은 가중치를 반복 사용한다고 독립적인 지식 저장 공간이 새로 생기는 것도 아닙니다. 따라서 얻는 품질이 추가 학습 계산을 정당화하는지가 핵심 질문입니다."
+        },
+        {
+          "en": "Training must send the final prediction error backward through these repeated uses. Full [[bptt|backpropagation through time (BPTT)]] includes every loop, despite the sequence here being recurrent depth rather than elapsed time. Truncated BPTT skips gradients through earlier loops. This saves backward work and can reduce stored activations, but changes the gradient. It does not shorten the token context or remove the early forward computations.",
+          "ko": "학습에서는 최종 예측 오차를 반복된 블록 사용 경로를 거슬러 전달해야 합니다. 전체 [[bptt|시간을 통한 역전파(BPTT)]]는 모든 반복을 포함합니다. 여기서 연속된 단계는 실제 시간이 아니라 반복 깊이입니다. 절단된 BPTT는 앞쪽 반복을 통과하는 기울기를 생략합니다. 역방향 계산과 보관할 활성값을 줄일 수 있지만 기울기 자체가 달라집니다. 토큰 문맥을 짧게 만드는 방법도 아니고, 앞쪽 순전파 계산을 없애는 방법도 아닙니다."
+        },
+        {
+          "en": "Earlier intuition favors many cheap forward refinements followed by a short backward pass. The paper asks a stricter comparison: instead of fixing the number of refinements, could the same budget train fewer refinements completely? A method can be optimal inside one constrained design and still lose when another design variable is released. Keeping that distinction visible explains the apparently conflicting answers in the title.",
+          "ko": "기존의 직관은 저렴한 순방향 개선 단계를 많이 수행한 뒤 짧게 역전파하는 방식에 매력을 느끼게 합니다. 이 논문은 더 엄격하게 묻습니다. 개선 단계 수를 고정하는 대신, 같은 예산으로 더 적은 단계를 끝까지 학습하면 어떨까요? 어떤 제약 안에서 최적인 방법도 다른 설계 변수를 풀어 주면 불리해질 수 있습니다. 이 구분을 유지해야 제목에 담긴 상반된 답을 이해할 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "contributions",
+      "title": {
+        "en": "Core Innovations",
+        "ko": "핵심 기여"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — The central contribution is a joint [[scaling-law|scaling law]] for model size N, training tokens D, forward loops T, and backward loops B. Instead of treating every recurrent configuration as a separate model family, it represents recurrence as an increase in [[effective-parameters|effective parameters]]. This is a fitted measure of loss-equivalent capacity, not a count of physical weights. Both T and B affect it, and the gain saturates.",
+          "ko": "논문의 주장 — 핵심 기여는 모델 크기 N, 학습 토큰 수 D, 순전파 반복 T, 역전파 반복 B를 함께 다루는 [[scaling-law|스케일링 법칙]]입니다. 반복 설정마다 별개의 모델 계열로 취급하는 대신, 반복을 [[effective-parameters|유효 파라미터]]의 증가로 표현합니다. 이는 같은 손실을 내는 용량을 나타내는 적합된 지표이며 실제 가중치 개수가 아닙니다. T와 B가 모두 영향을 미치고, 반복에 따른 이득은 포화됩니다."
+        },
+        {
+          "en": "A second contribution is the allocation analysis. It separately asks what happens when T is fixed, when both loop counts are free, when model size is fixed, and when size can grow. A third is direct experimental checking beyond fitted curves: equal-compute loop pairs and three-seed comparisons of ordinary models against compact two-loop models. These checks make the argument stronger than a single appealing scaling plot.",
+          "ko": "두 번째 기여는 자원 배분 분석입니다. T를 고정할 때, 두 반복 횟수를 모두 선택할 때, 모델 크기를 고정할 때, 크기까지 늘릴 수 있을 때를 각각 나누어 묻습니다. 세 번째 기여는 적합 곡선을 넘어선 직접 실험입니다. 계산량이 같은 반복 설정끼리 비교하고, 일반 모델과 작은 두 반복 모델을 각각 세 시드로 비교합니다. 이런 확인 덕분에 논증은 매력적인 스케일링 그래프 하나보다 더 탄탄해집니다."
+        }
+      ]
+    },
+    {
+      "id": "method",
+      "title": {
+        "en": "Architecture & Methodology",
+        "ko": "구조와 방법론"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — The network has a prelude P, shared recurrent block R, and coda C. Its recurrence is s₀ = P(x); sₜ = RMSNorm(R(W_inj[s₀; sₜ₋₁])); output = C(s_T). Brackets mean concatenation. The original prelude state is injected at every iteration rather than asking the recurrent state to preserve everything alone. Root mean square normalization, or RMSNorm, stabilizes state scale. Prediction loss is attached to the final output.",
+          "ko": "논문의 주장 — 네트워크는 전처리 블록 P, 공유 반복 블록 R, 후처리 블록 C로 구성됩니다. 반복식은 s₀ = P(x), sₜ = RMSNorm(R(W_inj[s₀; sₜ₋₁])), output = C(s_T)입니다. 대괄호는 이어 붙이기를 뜻합니다. 반복 상태만으로 모든 정보를 보존하도록 요구하지 않고, 최초 전처리 상태를 매 단계 다시 주입합니다. 평균제곱근 정규화인 RMSNorm은 상태의 크기를 안정화합니다. 예측 손실은 최종 출력에 연결됩니다."
+        },
+        {
+          "en": "For B < T, the first T−B recurrent passes do not retain their backward graph. A [[stop-gradient|stop-gradient]] boundary prevents the final loss from following that earlier chain. The remaining B passes train normally. Pseudocode in words: build s₀; repeat the recurrent update T−B times without retaining that chain; detach its state; repeat B times with gradients; compute final loss and update shared weights. Direct injection paths still matter, so truncation also changes prelude gradients; the coda gradient remains exact.",
+          "ko": "B < T이면 앞의 T−B번 반복은 역전파 그래프를 보관하지 않습니다. [[stop-gradient|기울기 차단]] 경계가 최종 손실이 앞쪽 연쇄 경로를 따라가지 못하게 합니다. 나머지 B번은 정상적으로 학습합니다. 말로 쓴 의사코드는 다음과 같습니다. s₀를 만들고, 앞쪽 T−B번의 반복 연쇄 그래프를 보관하지 않은 채 상태를 갱신한 뒤 상태를 분리합니다. 이어 B번은 기울기를 기록하며 반복하고, 최종 손실을 계산하여 공유 가중치를 갱신합니다. 원래 상태의 직접 주입 경로도 있으므로 전처리 블록의 기울기 역시 절단의 영향을 받습니다. 후처리 블록의 기울기는 정확하게 유지됩니다."
+        },
+        {
+          "en": "The fitted loss is L = E + [A(N_eff/N₀)^(−α) + H(D/D₀)^(−β)]^κ, with N_eff = N_once + g(T,B)N_rec and g(T,B) = exp{c[1−T^(−p)B^(−q)]}. N_once counts weights outside recurrence; N_rec counts shared recurrent weights. At T=B=1, g=1. The fitted c≈1.112 implies a limiting recurrent multiplier near 3.04. That ceiling is a model assumption supported within the studied range, not a universal limit on recurrence.",
+          "ko": "적합한 손실식은 L = E + [A(N_eff/N₀)^(−α) + H(D/D₀)^(−β)]^κ이며, N_eff = N_once + g(T,B)N_rec, g(T,B) = exp{c[1−T^(−p)B^(−q)]}입니다. N_once는 반복 바깥의 가중치, N_rec는 공유 반복 가중치의 수입니다. T=B=1이면 g=1입니다. 적합한 c≈1.112로부터 반복 부분의 배율 한계가 약 3.04로 계산됩니다. 이 상한은 연구 범위 안에서 지지된 모델 가정이지, 모든 반복 구조의 보편적 한계가 아닙니다."
+        },
+        {
+          "en": "The leading [[compute-budget|compute budget]] approximation is C ≈ 6D[N_once + (T+2B)N_rec/3]. A backward pass is counted as about twice a forward pass. Thus (T,B)=(8,2) and (4,4) both spend 12 recurrent forward-equivalent units. The fitted p≈0.237 and q≈1.022 satisfy q≥2p. Under the continuous allocation assumptions, this favors full BPTT when both loop counts are free. Integer choices can produce tiny exceptions; the theorem is conditional, not an architecture-independent guarantee.",
+          "ko": "주요 항만 남긴 [[compute-budget|계산 예산]] 근사는 C ≈ 6D[N_once + (T+2B)N_rec/3]입니다. 역전파 한 번을 순전파 약 두 번의 비용으로 셉니다. 따라서 (T,B)=(8,2)와 (4,4)는 반복 부분에서 모두 순전파 환산 12단위의 계산을 씁니다. 적합한 p≈0.237, q≈1.022는 q≥2p를 만족합니다. 연속값 자원 배분의 가정 아래에서는 두 반복 횟수를 자유롭게 정할 때 전체 BPTT가 유리해집니다. 정수 설정에서는 아주 작은 예외가 생길 수 있습니다. 이 정리는 조건부 결과이며 모든 구조에 대한 보장이 아닙니다."
+        },
+        {
+          "en": "Original figure guide — The authors’ overview figure, linked as “Original overview figure” in Sources, is 1800×560 pixels. Panel (a) shows four forward loops with gradients through only the final two. Panel (b) compares fitted loss-equivalent parameter gains. Panel (c) mixes continuous predictions with integer choices. Panel (d) summarizes 344M versus 471M parameters and 8% extra training compute. Keep predictions separate from measured comparisons when reading it. Attribution: Xiong et al., original author figure; colors and labels are unmodified.",
+          "ko": "원본 그림 읽기 — 원문 자료의 “Original overview figure” 링크는 저자들의 1800×560픽셀 개요 그림입니다. (a)는 네 번 순전파하되 마지막 두 번에만 기울기를 전달하는 구조입니다. (b)는 적합한 손실 기준의 파라미터 이득을 비교합니다. (c)는 연속값 예측과 정수 선택을 함께 보여 줍니다. (d)는 3억 4,400만 대 4억 7,100만 파라미터와 추가 학습 계산 8%를 요약합니다. 그림을 볼 때 예측과 실제 비교 측정을 구분해야 합니다. 출처는 Xiong 외 저자들의 원본 그림이며 색상과 표시는 변경하지 않았습니다."
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "title": {
+        "en": "Experiments & Results",
+        "ko": "실험과 결과"
+      },
+      "evidence": "author",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — Models span approximately 58M–919M non-embedding parameters. Training uses a pre-shuffled 100-billion-token FineWeb-Edu sample, a Llama 2 tokenizer, and 2,048-token sequences. The last two data shards are held out, with exact duplicate texts removed across training and evaluation. Loss is [[cross-entropy|cross-entropy]] in nats per token on [[heldout-validation|held-out validation]] data; lower is better. It is not task accuracy. Exact-text filtering does not establish removal of semantic near-duplicates.",
+          "ko": "논문의 주장 — 모델 범위는 임베딩 제외 약 5,800만~9억 1,900만 파라미터입니다. 미리 섞은 1,000억 토큰 FineWeb-Edu 표본, Llama 2 토크나이저, 길이 2,048의 토큰 시퀀스를 사용합니다. 마지막 두 데이터 샤드를 평가용으로 분리하고 학습·평가 사이에서 완전히 같은 텍스트를 제거했습니다. 손실은 [[heldout-validation|분리된 검증 데이터]]에서 토큰당 nat 단위로 측정한 [[cross-entropy|교차 엔트로피]]이며 낮을수록 좋습니다. 과제 정답률이 아닙니다. 완전히 같은 텍스트를 제거했다고 의미가 비슷한 중복까지 제거했다고 볼 수는 없습니다."
+        },
+        {
+          "en": "The scaling suite contains 347 configurations and 397 runs, split into 230 fitted configurations and 117 held out from fitting. Some experiment groups overlap; the reported 592 total runs must not be reconstructed by adding every appendix subtotal. Training uses MuonH for hidden and injection matrices and AdamW for embeddings, output, and normalization, with no weight decay. Token-dependent batch and learning-rate schedules are tuned. These details restrict how confidently the conclusions transfer to another training recipe.",
+          "ko": "스케일링 실험군은 347개 설정과 397회 실행으로 구성되며, 230개 설정으로 적합하고 117개는 적합에서 제외했습니다. 실험군 일부는 겹치므로 부록의 소계를 전부 더해 총 592회를 재구성하면 안 됩니다. 은닉·주입 행렬에는 MuonH, 임베딩·출력·정규화에는 AdamW를 사용하며 가중치 감쇠는 쓰지 않습니다. 토큰 수에 따른 배치와 학습률 일정도 조정합니다. 이런 세부 조건 때문에 다른 학습 방식으로 결론을 옮길 때는 신중해야 합니다."
+        },
+        {
+          "en": "Table 6 offers a clean direct test: at approximately 17.2 billion tokens, (8,2) versus (4,4) losses are 2.5211 versus 2.4933 at nominal 60M, 2.3843 versus 2.3696 at 120M, 2.2778 versus 2.2642 at 240M, 2.1845 versus 2.1738 at 480M, and 2.1144 versus 2.1057 at 1B. Architecture size and token budget are matched, and leading recurrent compute is equal. Every pair favors four fully trained loops. This comparison does not depend on accepting the fitted law.",
+          "ko": "표 6은 직접 비교로 확인할 수 있는 결과입니다. 약 172억 토큰에서 (8,2) 대 (4,4)의 손실은 명목상 60M 모델에서 2.5211 대 2.4933, 120M에서 2.3843 대 2.3696, 240M에서 2.2778 대 2.2642, 480M에서 2.1845 대 2.1738, 1B에서 2.1144 대 2.1057입니다. 구조 크기와 토큰 예산을 맞추고 주요 반복 계산량도 같게 했습니다. 모든 쌍에서 네 번 전체 학습하는 쪽이 유리했습니다. 이 비교는 적합한 법칙을 받아들이지 않아도 성립합니다."
+        },
+        {
+          "en": "Table 12 tests compact two-loop models with three seeds. At 2.1×10¹⁹ training FLOPs, the 471M baseline scores 2.3663 and the 344M looped model 2.3677: a +0.0014±0.0017-nat gap, where ± denotes the reported standard error. At 2.2×10¹⁹ FLOPs, about 8% more compute, the looped model reaches 2.3590, a −0.0073±0.0018 gap against that baseline. Smaller matched-compute pairs, 115M versus 79M and 239M versus 162M, also leave small looped-model deficits. The storage benefit is 27–32% of non-embedding parameters, not necessarily the same percentage of total file size. The first three pairs match forward-and-backward compute; including optimizer updates makes the ordinary baseline spend about 0.7% more. Reported total FLOPs also count attention and output computation.",
+          "ko": "표 12는 작은 두 반복 모델을 세 시드로 검사합니다. 학습 계산 2.1×10¹⁹ FLOPs에서 471M 기준 모델의 손실은 2.3663, 344M 반복 모델은 2.3677입니다. 차이는 +0.0014±0.0017 nat이며 ±는 저자가 보고한 표준오차입니다. 반복 모델에 약 8% 많은 2.2×10¹⁹ FLOPs를 주면 2.3590이 되어 같은 기준 모델 대비 차이가 −0.0073±0.0018로 바뀝니다. 115M 대 79M, 239M 대 162M의 더 작은 동일 계산 비교에서도 반복 모델의 손실이 조금 높았습니다. 저장 이득은 임베딩 제외 파라미터의 27~32%이며, 전체 파일 크기도 같은 비율로 줄어든다는 뜻은 아닙니다. 앞의 세 비교는 순전파와 역전파 계산량을 맞춘 것입니다. 옵티마이저 갱신까지 포함하면 일반 기준 모델이 약 0.7% 더 사용합니다. 보고된 총 FLOPs에는 어텐션과 출력 계산도 포함됩니다."
+        },
+        {
+          "en": "The fitted law has training-configuration root mean square error 0.00614 nats; leaving out an entire loop setting raises it to 0.00867. Appendix G reports 0.0200 on configurations outside the fitted group, mainly extreme token-to-parameter ratios. Fixed eight-loop allocation predicts roughly 34% compute savings through truncation after size and data are optimized, but that is a fitted allocation result, not measured wall-clock acceleration. Specific GPU model and numerical precision were not confirmed in the inspected experimental description and README; no independent reproduction is established here.",
+          "ko": "적합에 사용한 설정의 제곱평균제곱근오차는 0.00614 nat이며, 특정 반복 설정 전체를 제외하면 0.00867입니다. 부록 G에서는 적합군 밖의 설정, 주로 토큰 대 파라미터 비율이 극단적인 경우에 0.0200을 보고합니다. 여덟 번 반복을 고정한 자원 배분에서는 크기와 데이터를 최적화한 뒤 절단으로 약 34%의 계산 절감을 예측합니다. 그러나 이는 적합한 자원 배분의 결과이지 실제 경과 시간의 가속 측정이 아닙니다. 검토한 실험 설명과 README에서 구체적 GPU 모델과 수치 정밀도는 확인하지 못했으며, 이 리뷰는 독립 재현 근거를 제시하지 않습니다."
+        }
+      ]
+    },
+    {
+      "id": "critical",
+      "title": {
+        "en": "Critical Analysis & Limitations",
+        "ko": "비판적 분석과 한계"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Reviewer Analysis — The strongest evidence is the matched-compute direct comparison and the multi-seed compact-model test. The weakest step is extrapolation. A high fitted R² of 0.9992 cannot show that the same exponents hold for much larger models, different corpora, or different recurrent blocks. Most recurrence experiments remain at modest depth; sixteen-loop tests do not establish behavior at hundreds of iterations. A saturation formula can be sensible and still miss another regime.",
+          "ko": "리뷰어 분석 — 가장 강한 근거는 계산량을 맞춘 직접 비교와 여러 시드의 작은 모델 검사입니다. 가장 약한 연결 고리는 외삽입니다. 적합 R²가 0.9992로 높아도, 훨씬 큰 모델이나 다른 말뭉치·반복 블록에서 지수가 유지된다는 뜻은 아닙니다. 반복 실험의 대부분은 깊이가 크지 않으며, 16회 반복 검사가 수백 회 반복의 거동을 입증하지도 않습니다. 포화 함수가 합리적이어도 다른 구간을 놓칠 수 있습니다."
+        },
+        {
+          "en": "The allocation predictions also show visible calibration limits. For smaller models, the predicted switch from two to four full loops occurs around 374–413 tokens per parameter, while measured switches appear near 200. Integer menus can slightly favor partial truncation, with reported advantages no larger than about 0.002 nats in the discussed cases. These qualifications matter when a design decision rests on a tiny modeled difference rather than a clearly separated experiment.",
+          "ko": "자원 배분 예측에도 분명한 보정 한계가 있습니다. 작은 모델에서 전체 학습 두 번에서 네 번으로 넘어가는 예측 지점은 파라미터당 약 374~413토큰이지만, 실제 전환은 약 200 부근에 나타납니다. 정수 설정을 고르는 경우에는 부분 절단이 조금 유리할 수도 있으며, 논의된 사례의 이득은 약 0.002 nat 이하입니다. 명확히 차이가 나는 실험이 아니라 아주 작은 모델 예측 차이로 설계를 결정하려 한다면 이런 조건이 중요합니다."
+        },
+        {
+          "en": "The study measures pretraining loss in dense language models, not instruction following, coding, reasoning, long-context robustness, or mixture-of-experts systems. It does not benchmark serving latency, memory traffic, concurrency, or energy. The authors’ exact-duplicate control and released evaluation tools help auditability, but the total study still costs 2.7×10²² FLOPs; including pilots and cancelled attempts, they report over 1,100 attempts and 4.8×10²² FLOPs. Full reproduction is a substantial research project.",
+          "ko": "이 연구는 밀집 언어 모델의 사전학습 손실을 측정합니다. 지시 따르기, 코딩, 추론, 긴 문맥의 견고성, 전문가 혼합 시스템을 평가하지는 않습니다. 서빙 지연 시간, 메모리 트래픽, 동시 처리량, 에너지 벤치마크도 없습니다. 완전 중복 통제와 공개 평가 도구는 검토 가능성을 높이지만 전체 연구에는 여전히 2.7×10²² FLOPs가 듭니다. 예비·취소 실행까지 포함하면 1,100회 이상과 4.8×10²² FLOPs를 보고합니다. 전체 재현은 상당한 규모의 연구 프로젝트입니다."
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "title": {
+        "en": "Engineering Implications",
+        "ko": "엔지니어링 시사점"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Engineering Implications — First define the binding constraint. If stored weights are the problem, shared recurrence deserves a prototype. If token latency is the problem, extra sequential loops can be harmful even with fewer weights. If training memory is the problem, truncation might help activation storage, but compare it with reducing T and keeping full gradients. Under free model size, the fitted compute-optimal answer is no recurrence; two full loops are the closest looped alternative, not a universal best architecture.",
+          "ko": "엔지니어링 시사점 — 먼저 실제로 제한되는 자원을 정해야 합니다. 가중치 저장 공간이 문제라면 공유 반복 구조를 시제품으로 검토할 가치가 있습니다. 토큰 지연 시간이 문제라면 가중치가 적어도 순차 반복이 늘어 불리할 수 있습니다. 학습 메모리가 문제라면 절단으로 활성값 저장을 줄일 수 있지만, T를 낮추고 전체 기울기를 유지하는 방법과 비교해야 합니다. 모델 크기를 자유롭게 바꿀 때 적합 법칙의 계산 최적 선택은 반복 없는 모델입니다. 전체 학습 두 번은 반복 모델 중 가장 가까운 대안이며 보편적인 최적 구조가 아닙니다."
+        },
+        {
+          "en": "Documented implementation — The MIT-licensed author repository pins Megatron-LM commit ed6ac270ba and describes an NVIDIA PyTorch 25.02 container, Python 3.12, PyTorch 2.7, and TransformerEngine. Its workflow builds data manifests, fixes validation and duplicate handling, packs tokens, trains, and evaluates final held-out loss. The command python scripts/train.py --run-name m240_d4_t4b4 --size 240M --loops 4 --backprop-loops 4 --tokens 4 selects four billion-scale token units: here 4 means 4×2³⁰ tokens, not four tokens. The documented setup uses eight GPUs; it is not a laptop-sized training recipe.",
+          "ko": "문서화된 구현 — MIT 라이선스의 저자 저장소는 Megatron-LM 커밋 ed6ac270ba를 고정하고 NVIDIA PyTorch 25.02 컨테이너, Python 3.12, PyTorch 2.7, TransformerEngine을 설명합니다. 데이터 목록을 만들고 검증·중복 처리 방식을 고정한 뒤 토큰을 묶어 학습하고 최종 분리 데이터 손실을 평가하는 흐름입니다. 명령어 python scripts/train.py --run-name m240_d4_t4b4 --size 240M --loops 4 --backprop-loops 4 --tokens 4는 수십억 토큰 단위 네 개를 선택합니다. 여기서 4는 토큰 네 개가 아니라 4×2³⁰토큰입니다. 문서의 구성은 GPU 여덟 개를 사용하므로 노트북용 학습 절차가 아닙니다."
+        },
+        {
+          "en": "Illustrative low-cost check — Before any training, implement the leading cost formula in a spreadsheet. Hold N_once and N_rec fixed; enumerate integer 1≤B≤T≤16; confirm that (8,2) and (4,4) match in leading recurrent compute. Then read Table 6 and attach the measured losses instead of inventing predictions. This 15-minute exercise tests whether your comparison really holds budget constant. It cannot reproduce model quality. For real reproduction, preserve data revision, tokenizer, optimizer schedule, seed, evaluation split, and full-versus-truncated gradient semantics.",
+          "ko": "예시로 제안하는 저비용 확인 — 학습 전에 스프레드시트로 주요 비용 공식을 구현해 보세요. N_once와 N_rec를 고정하고 정수 1≤B≤T≤16을 나열한 뒤 (8,2)와 (4,4)의 주요 반복 계산량이 같은지 확인합니다. 이어 표 6의 실제 손실을 붙이고 예측값을 만들어 넣지 않습니다. 약 15분이면 비교에서 정말 예산을 일정하게 유지했는지 확인할 수 있습니다. 모델 품질을 재현하는 실험은 아닙니다. 실제 재현에서는 데이터 개정본, 토크나이저, 옵티마이저 일정, 시드, 평가 분리, 전체·절단 기울기의 의미를 보존해야 합니다."
+        },
+        {
+          "en": "Failure modes to watch include accidentally detaching the injected prelude on every path, comparing different token counts as though only B changed, confusing optimizer steps with token budgets, and reporting non-embedding savings as total memory savings. At serving time, measure end-to-end token latency and peak device memory using the same context and output lengths. Those measurements are proposed follow-up tests, not results supplied by this paper.",
+          "ko": "주의할 실패 양상에는 주입되는 전처리 상태까지 모든 경로에서 실수로 분리하기, 토큰 수가 다른 실험을 B만 바뀐 비교처럼 취급하기, 옵티마이저 스텝 수와 토큰 예산 혼동하기, 임베딩 제외 파라미터 절약을 전체 메모리 절약으로 보고하기가 있습니다. 서빙에서는 문맥 길이와 출력 길이를 같게 두고 전체 토큰 지연 시간과 최대 장치 메모리를 측정해야 합니다. 이는 후속으로 제안하는 검사이며 이 논문이 제공한 측정 결과가 아닙니다."
+        }
+      ]
+    },
+    {
+      "id": "future",
+      "title": {
+        "en": "Future Directions",
+        "ko": "후속 연구 방향"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Reviewer Analysis — The next useful study would cross model quality with deployment cost. Compare tied and untied blocks at matched training compute, then report downstream tasks, measured latency, peak memory, and energy under stated hardware and precision. A separate test should vary recurrent-block fraction and optimizer rather than assuming the fitted exponents survive unchanged. Adaptive stopping is another question: fixed T here does not establish whether input-dependent depth would improve the trade-off.",
+          "ko": "리뷰어 분석 — 다음으로 유용한 연구는 모델 품질과 배포 비용을 함께 보는 것입니다. 공유 블록과 비공유 블록을 같은 학습 계산량에서 비교하고, 명시한 하드웨어·정밀도에서 후속 과제, 실제 지연 시간, 최대 메모리, 에너지를 보고해야 합니다. 적합 지수가 그대로 유지된다고 가정하지 말고 반복 블록의 비율과 옵티마이저를 바꾸는 실험도 필요합니다. 적응형 중단 역시 별개의 질문입니다. 여기의 고정 T 실험은 입력에 따라 깊이를 달리할 때 자원 절충이 개선되는지 입증하지 않습니다."
+        },
+        {
+          "en": "The broader lesson is methodological: optimize the comparison, not just the proposed method. A cheap approximation may win against an expensive configuration that nobody needed to choose. By separating fixed-depth savings from free-depth allocation, this paper gives engineers a better question to ask before adopting truncated recurrent training. It leaves open how that answer changes once pretraining loss is no longer the only objective.",
+          "ko": "더 넓은 교훈은 비교 방법에 있습니다. 제안한 방법만이 아니라 비교 조건도 최적화해야 합니다. 애초에 선택할 필요가 없던 비싼 설정을 상대로 저렴한 근사가 이길 수 있기 때문입니다. 고정 깊이에서의 절약과 자유 깊이에서의 자원 배분을 구분함으로써, 이 논문은 절단 반복 학습을 도입하기 전에 엔지니어가 물어야 할 질문을 개선합니다. 사전학습 손실만을 유일한 목표로 삼지 않을 때 답이 어떻게 바뀌는지는 여전히 열려 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "references",
+      "title": {
+        "en": "Sources & Further Reading",
+        "ko": "출처와 추가 읽기"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Primary reading — Xuyuan Xiong, Siyu Chen, Zihan Shao, Yue Su, Weiyang Jin, Ping Luo, Zhuoran Yang, and Xihui Liu, Truncate or Not? A Scaling Study of Looped Transformers with Truncated Backpropagation, arXiv:2610.26030. Submitted October 19, revised October 20, 2026. The full version-2 HTML, main experiments, limitations, and relevant architecture, fitting, allocation, gradient, and extended-results appendices were inspected. The source notebook links the original paper, full HTML, PDF, author code, original figure, and data.",
+          "ko": "주요 원문 — Xuyuan Xiong, Siyu Chen, Zihan Shao, Yue Su, Weiyang Jin, Ping Luo, Zhuoran Yang, Xihui Liu의 「Truncate or Not? A Scaling Study of Looped Transformers with Truncated Backpropagation」, arXiv:2610.26030입니다. 2026년 10월 19일 제출, 10월 20일 개정되었습니다. 버전 2의 전체 HTML과 본문 실험·한계, 구조·적합·자원 배분·기울기·확장 결과의 관련 부록을 검토했습니다. 아래 원문 자료에는 논문, 전체 HTML, PDF, 저자 코드, 원본 그림, 데이터 링크가 있습니다."
+        },
+        {
+          "en": "Selection audit — Discovery considered Hugging Face papers, Hacker News, r/MachineLearning, r/LocalLLaMA, OpenReview, arXiv, author pages, and GitHub. Verified signals were the public implementation and inclusion in an independent loop-Transformer bibliography. The author repository showed six stars and one fork at inspection; these are small, time-sensitive signals, not proof of broad popularity. Paper-specific cross-platform high engagement was not verified. Selection is editorial, based on technical relevance within the recent two-week window. The existing November 1 review of arXiv:2610.36077 was excluded; it was the only saved review available for the 14-review duplicate check.",
+          "ko": "선정 검토 — Hugging Face 논문 목록, Hacker News, r/MachineLearning, r/LocalLLaMA, OpenReview, arXiv, 저자 페이지와 GitHub를 탐색 대상으로 삼았습니다. 확인된 신호는 공개 구현과 독립적인 반복형 Transformer 문헌 목록에 포함되었다는 점입니다. 확인 당시 저자 저장소는 스타 6개와 포크 1개였습니다. 이는 작고 시점에 따라 바뀌는 신호이며 폭넓은 인기를 입증하지 않습니다. 이 논문에 대한 여러 플랫폼의 높은 참여는 검증하지 못했습니다. 최근 2주 범위의 기술적 중요성에 따른 편집부 선정입니다. 기존 11월 1일 리뷰인 arXiv:2610.36077은 제외했으며, 최근 14편 중복 검사에서 확인할 수 있었던 저장 리뷰는 그 한 편뿐입니다."
+        }
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "weight-sharing",
+      "name": {
+        "en": "Weight sharing",
+        "ko": "가중치 공유"
+      },
+      "plain": {
+        "en": "Several computations reuse one set of learned numbers. Repeated execution increases computation without creating another independent set of weights.",
+        "ko": "여러 계산이 학습한 숫자 한 벌을 재사용합니다. 실행을 반복하면 계산량은 늘지만 독립적인 가중치가 새로 생기지는 않습니다."
+      },
+      "background": {
+        "en": "Know that a neural layer transforms an input using trainable matrices. Distinguish a stored matrix from one execution of that matrix.",
+        "ko": "신경망 층이 학습 가능한 행렬로 입력을 변환한다는 점을 이해하면 됩니다. 저장된 행렬과 그 행렬의 실행 한 번은 다릅니다."
+      },
+      "example": {
+        "en": "An illustrative 10-million-weight block applied four times still stores 10 million shared weights, while running four block evaluations.",
+        "ko": "예를 들어 가중치 1,000만 개인 블록을 네 번 적용해도 공유 가중치는 1,000만 개를 저장합니다. 블록 계산은 네 번 실행합니다."
+      },
+      "why": {
+        "en": "The recurrent block is shared across loops, enabling the paper to trade non-embedding parameter storage against additional computation.",
+        "ko": "반복 블록을 공유하므로 임베딩 제외 파라미터 저장량을 추가 계산과 교환하는 설계를 연구할 수 있습니다."
+      }
+    },
+    {
+      "id": "bptt",
+      "name": {
+        "en": "Backpropagation through time (BPTT)",
+        "ko": "시간을 통한 역전파"
+      },
+      "plain": {
+        "en": "Apply the chain rule backward through repeated uses of a recurrent computation to assign learning signals to shared weights.",
+        "ko": "반복 계산을 거슬러 연쇄법칙을 적용하여 공유 가중치에 학습 신호를 전달하는 방법입니다."
+      },
+      "background": {
+        "en": "Understand derivatives, the chain rule, and how a loss changes when a parameter changes. Here steps are depth iterations rather than clock time.",
+        "ko": "미분, 연쇄법칙, 파라미터 변화가 손실에 미치는 영향을 알면 됩니다. 여기의 단계는 실제 시간이 아니라 반복 깊이입니다."
+      },
+      "example": {
+        "en": "With four loops, full BPTT accounts for the shared block’s contribution at all four uses; B=2 keeps only the final two recurrent gradient paths.",
+        "ko": "네 번 반복할 때 전체 BPTT는 공유 블록을 사용한 네 단계의 기여를 반영합니다. B=2이면 마지막 두 반복의 기울기 경로만 유지합니다."
+      },
+      "why": {
+        "en": "The paper separates T forward loops from B backward loops to measure what is lost when earlier gradient terms are omitted.",
+        "ko": "논문은 순전파 T와 역전파 B를 나누어 앞쪽 기울기 항을 생략할 때 무엇을 잃는지 측정합니다."
+      }
+    },
+    {
+      "id": "stop-gradient",
+      "name": {
+        "en": "Stop-gradient",
+        "ko": "기울기 차단"
+      },
+      "plain": {
+        "en": "Keep a computed value for later calculations, but prevent automatic differentiation from following its earlier calculation path.",
+        "ko": "계산한 값은 다음 계산에 사용하지만 자동 미분이 그 값의 이전 계산 경로를 거슬러 가지 못하게 합니다."
+      },
+      "background": {
+        "en": "Understand the difference between a numeric state and the differentiation graph recording how that state was produced.",
+        "ko": "숫자로 된 상태와 그 상태가 만들어진 경로를 기록한 미분 그래프의 차이를 이해하면 됩니다."
+      },
+      "example": {
+        "en": "After loop two in a four-loop example, detaching the recurrent state keeps its value but blocks gradients back through the first two recurrent updates.",
+        "ko": "네 번 반복하는 예에서 두 번째 반복 뒤 상태를 분리하면 값은 유지되지만 앞의 두 반복 갱신을 통과하는 기울기는 막힙니다."
+      },
+      "why": {
+        "en": "This boundary defines truncation. It changes gradients rather than deleting early forward computation or shortening the token context.",
+        "ko": "이 경계가 절단을 정의합니다. 앞쪽 순전파를 없애거나 토큰 문맥을 줄이는 것이 아니라 기울기를 바꿉니다."
+      }
+    },
+    {
+      "id": "effective-parameters",
+      "name": {
+        "en": "Effective parameters",
+        "ko": "유효 파라미터"
+      },
+      "plain": {
+        "en": "A fitted capacity measure that maps a recurrent model’s loss to the parameter scale of a reference non-looped family. It is not physical weight count.",
+        "ko": "반복 모델의 손실을 기준 비반복 모델 계열의 파라미터 규모로 대응시킨 적합 용량 지표입니다. 실제 가중치 수가 아닙니다."
+      },
+      "background": {
+        "en": "Understand parameter count and the idea of comparing two models at the same measured loss.",
+        "ko": "파라미터 개수와 두 모델을 같은 손실에서 비교한다는 개념을 알면 됩니다."
+      },
+      "example": {
+        "en": "If a looped model matches a larger reference model’s loss, its effective count may exceed its stored count. That does not add new stored weights.",
+        "ko": "반복 모델이 더 큰 기준 모델과 같은 손실을 내면 유효 개수는 저장 개수보다 클 수 있습니다. 저장 가중치가 새로 늘어나는 것은 아닙니다."
+      },
+      "why": {
+        "en": "N_eff=N_once+g(T,B)N_rec is the bridge that lets the authors fit different forward and backward loop settings together.",
+        "ko": "N_eff=N_once+g(T,B)N_rec가 서로 다른 순전파·역전파 반복 설정을 하나의 법칙으로 적합하는 연결 고리입니다."
+      }
+    },
+    {
+      "id": "scaling-law",
+      "name": {
+        "en": "Scaling law",
+        "ko": "스케일링 법칙"
+      },
+      "plain": {
+        "en": "An empirical equation describing how an outcome changes with resources such as model size and data. Predictions depend on its fitted regime and assumptions.",
+        "ko": "모델 크기나 데이터 같은 자원에 따라 결과가 어떻게 변하는지 나타내는 경험적 식입니다. 예측은 적합 범위와 가정에 의존합니다."
+      },
+      "background": {
+        "en": "Know power laws, curve fitting, and the difference between interpolation inside observed data and extrapolation beyond it.",
+        "ko": "거듭제곱 관계, 곡선 적합, 관측 범위 안의 보간과 밖의 외삽의 차이를 이해하면 됩니다."
+      },
+      "example": {
+        "en": "Fitting loss across several model sizes may help choose the next size. It does not prove that a model a thousand times larger follows the same curve.",
+        "ko": "여러 모델 크기의 손실을 적합하면 다음 크기를 고르는 데 도움이 됩니다. 천 배 큰 모델도 같은 곡선을 따른다는 증명은 아닙니다."
+      },
+      "why": {
+        "en": "The paper uses one fitted law to optimize size, data, and both loop counts; the allocation conclusions inherit that law’s limits.",
+        "ko": "이 논문은 한 적합 법칙으로 크기·데이터·두 반복 횟수를 최적화하므로 배분 결론도 그 법칙의 한계를 물려받습니다."
+      }
+    },
+    {
+      "id": "compute-budget",
+      "name": {
+        "en": "Compute budget",
+        "ko": "계산 예산"
+      },
+      "plain": {
+        "en": "A limit on arithmetic work, commonly measured in floating-point operations. It differs from money, elapsed time, and memory capacity.",
+        "ko": "부동소수점 연산 수 등으로 측정하는 계산 작업의 한도입니다. 비용, 경과 시간, 메모리 용량과는 다릅니다."
+      },
+      "background": {
+        "en": "Know that forward and backward passes have different costs and that hardware utilization affects wall-clock time.",
+        "ko": "순전파와 역전파의 비용이 다르고 하드웨어 활용률이 실제 경과 시간에 영향을 준다는 점을 알면 됩니다."
+      },
+      "example": {
+        "en": "In the paper’s leading recurrent cost, eight forward plus two backward loops cost 8+2×2=12 units; four plus four cost 4+2×4=12.",
+        "ko": "논문의 주요 반복 비용에서 순전파 여덟 번과 역전파 두 번은 8+2×2=12단위입니다. 네 번과 네 번도 4+2×4=12단위입니다."
+      },
+      "why": {
+        "en": "Equal-compute comparisons test whether truncation is better than simply choosing fewer fully trained loops.",
+        "ko": "계산량을 같게 비교해야 절단이 전체 학습 반복 횟수를 줄이는 선택보다 나은지 확인할 수 있습니다."
+      }
+    },
+    {
+      "id": "cross-entropy",
+      "name": {
+        "en": "Cross-entropy loss",
+        "ko": "교차 엔트로피 손실"
+      },
+      "plain": {
+        "en": "For next-token prediction, average the negative logarithm of the probability assigned to the actual next token. Lower loss means better probability assignment.",
+        "ko": "다음 토큰 예측에서 실제 다음 토큰에 부여한 확률의 음의 로그를 평균한 값입니다. 낮을수록 실제 토큰에 확률을 더 잘 배정합니다."
+      },
+      "background": {
+        "en": "Understand probabilities and logarithms. Natural logarithms give units of nats; a loss difference is not a percentage-point accuracy change.",
+        "ko": "확률과 로그를 알면 됩니다. 자연로그를 쓰면 단위는 nat이며 손실 차이는 정답률의 퍼센트포인트 변화가 아닙니다."
+      },
+      "example": {
+        "en": "For one illustrative token, assigning probability 0.5 gives −ln(0.5)≈0.693 nats; assigning 0.25 gives about 1.386 nats.",
+        "ko": "예시 토큰 하나에 확률 0.5를 주면 −ln(0.5)≈0.693 nat이고, 0.25를 주면 약 1.386 nat입니다."
+      },
+      "why": {
+        "en": "The tables compare language-modeling loss in nats per token. Tiny differences cannot directly establish stronger coding or reasoning performance.",
+        "ko": "표는 토큰당 nat 단위의 언어 모델링 손실을 비교합니다. 작은 차이만으로 코딩이나 추론 성능 향상을 입증할 수는 없습니다."
+      }
+    },
+    {
+      "id": "heldout-validation",
+      "name": {
+        "en": "Held-out validation",
+        "ko": "분리된 검증"
+      },
+      "plain": {
+        "en": "Evaluate on data not used for the particular training or fitting process being assessed. What was held out must be stated explicitly.",
+        "ko": "평가하려는 학습 또는 적합 과정에서 사용하지 않은 데이터로 평가하는 방식입니다. 무엇에서 분리했는지 명시해야 합니다."
+      },
+      "background": {
+        "en": "Distinguish model training data, evaluation documents, and experiment configurations used to fit a scaling equation.",
+        "ko": "모델 학습 데이터, 평가 문서, 스케일링 식을 적합하는 실험 설정을 구분해야 합니다."
+      },
+      "example": {
+        "en": "A document excluded from model training tests prediction on unseen text. A loop configuration excluded from curve fitting tests the fitted equation on that configuration.",
+        "ko": "모델 학습에서 뺀 문서는 보지 않은 텍스트의 예측을 검사합니다. 곡선 적합에서 뺀 반복 설정은 그 설정에서 식의 예측을 검사합니다."
+      },
+      "why": {
+        "en": "The paper has both held-out text shards and held-out scaling configurations. Confusing these would overstate the strength of its validation.",
+        "ko": "논문에는 분리된 텍스트 샤드와 적합에서 제외한 스케일링 설정이 모두 있습니다. 둘을 혼동하면 검증의 강도를 과장하게 됩니다."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "paper",
+      "name": "Original paper — arXiv abstract and version history",
+      "url": "https://arxiv.org/abs/2610.26030"
+    },
+    {
+      "id": "html",
+      "name": "Complete paper — version 2 HTML, equations, tables and appendices",
+      "url": "https://arxiv.org/html/2610.26030v2"
+    },
+    {
+      "id": "pdf",
+      "name": "Original paper — PDF",
+      "url": "https://arxiv.org/pdf/2610.26030"
+    },
+    {
+      "id": "code",
+      "name": "Authors’ implementation and reproducibility README — MIT license",
+      "url": "https://github.com/xjxyys/Truncate-or-Not"
+    },
+    {
+      "id": "figure",
+      "name": "Original overview figure — Xiong et al., 1800×560, unmodified",
+      "url": "https://raw.githubusercontent.com/xjxyys/Truncate-or-Not/main/assets/teaser.png"
+    },
+    {
+      "id": "data",
+      "name": "Training data — karpathy/fineweb-edu-100b-shuffle",
+      "url": "https://huggingface.co/datasets/karpathy/fineweb-edu-100b-shuffle"
+    },
+    {
+      "id": "discovery",
+      "name": "Independent discovery signal — Awesome Loop Transformers bibliography",
+      "url": "https://github.com/Mrkkew/Awesome-Loop-Transformers"
+    }
+  ]
+}
