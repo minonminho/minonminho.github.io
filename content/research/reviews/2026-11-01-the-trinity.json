@@ -25,7 +25,7 @@
     "en": "The Trinity proposes a system in which different tasks are organized by the capabilities they require. A Creator makes simplified, verifiable worlds, an Explorer produces attempts and feedback, and an Evolver turns evidence into reusable agent modules. A router then selects a suitable configuration for a new task. The authors report substantial average score gains across their evaluated benchmarks, but the transfer, cost, and reproduction conditions deserve careful scrutiny.",
     "ko": "The Trinity는 서로 다른 과제들을 필요한 능력에 따라 분류하는 구조를 제안합니다. Creator는 검증 가능한 간단한 환경을 만들고, Explorer는 시도와 피드백을 쌓으며, Evolver는 그 근거를 재사용 가능한 에이전트 모듈로 바꿉니다. 이후 Router가 새 과제에 적절한 구성을 선택합니다. 저자들은 여러 벤치마크에서 큰 평균 점수 상승을 보고하지만, 전이 성능·비용·재현 조건은 신중하게 살펴봐야 합니다."
   },
-  "readingMinutes": 12,
+  "readingMinutes": 17,
   "sections": [
     {
       "id": "summary",
@@ -104,6 +104,10 @@
         {
           "en": "Once useful procedures are found, modules are organized into a harness hierarchy and selectively inherited, instead of replacing one global instruction set after every success. At deployment, a [[router]] reads public information about the task and chooses a compatible harness configuration before execution. The project's description emphasizes a fixed underlying language-model backbone, so any reported improvement should be attributed to harness evolution and routing under the stated setup—not assumed to mean the foundation model itself acquired new weights or general intelligence.",
           "ko": "유용한 절차를 발견하면 매 성공마다 하나의 범용 지침을 덮어쓰는 대신 Harness 모듈을 계층에 배치하고 필요한 부분만 계승합니다. 배포 시 [[router|Router]]는 실행 전에 공개된 과제 정보를 읽고 호환되는 구성을 선택합니다. 프로젝트는 기저 언어 모델을 고정한 조건을 강조합니다. 따라서 보고된 향상은 해당 조건의 Harness 개선과 라우팅에 귀속해야지, 기반 모델 가중치가 변경되었거나 일반 지능이 증가했다고 받아들여서는 안 됩니다."
+        },
+        {
+          "en": "The original paper defines six Harness protocols around a frozen model: Perception extracts observable facts; Memory organizes previous observations; Inference checks candidate hypotheses; Planning decides which action or test is most informative; Orchestration matches available tools to requirements; and Loop controls execution and commitment. This matters because a capability is not identical to a single protocol. For example, state tracking can use Perception and Memory together, and constraint checking may change Inference, Planning, and Loop. The system therefore learns capability requirements while allowing different modules to implement them. The paper's router also has concrete constraints: it retrieves up to ten experiences above cosine similarity 0.5 from a bounded 20,000-record FIFO memory, then commits its Harness choice before task execution. Such restrictions reduce the risk of using hindsight to select whichever agent happened to score best.",
+          "ko": "원문은 고정된 모델 주변에 여섯 가지 Harness 프로토콜을 정의합니다. Perception은 관측 가능한 사실을 추출하고, Memory는 이전 관찰을 조직하며, Inference는 가설의 일관성을 점검합니다. Planning은 행동과 검증 순서를 결정하고, Orchestration은 사용 가능한 도구를 요구에 맞춰 연결하며, Loop는 실제 실행과 최종 결정을 관리합니다. 능력 하나가 프로토콜 하나와 일치하는 것은 아닙니다. 예를 들어 상태 추적에는 Perception과 Memory가 함께 필요하고, 제약 점검에는 Inference·Planning·Loop가 영향을 줄 수 있습니다. 따라서 필요한 능력을 분류하면서 서로 다른 모듈로 이를 구현합니다. 논문의 Router는 코사인 유사도 0.5 이상에서 최대 10개 경험을 조회하고 2만 건 규모의 FIFO 메모리를 사용하며, 실행 전에 Harness 선택을 확정합니다. 이런 제약은 결과를 본 뒤 유리했던 구성만 선택하는 사후 평가 오류를 줄입니다."
         }
       ]
     },
@@ -122,6 +126,18 @@
         {
           "en": "What would a decisive replication look like? Hold the foundation model, tool access, evaluation budgets, and task information constant. Compare a fixed general harness, per-task harnesses, a capability tree without synthetic worlds, and the complete system. Report scores per task, median and variance across runs, and compute or token consumption for world construction and evolution. The abstract and project overview are not enough to independently verify all such controlled conditions. We therefore treat the headline gain as a promising author claim rather than independent evidence of robust transfer.",
           "ko": "재현 실험을 설계한다면 기반 모델, 도구 권한, 평가 예산, 과제 정보를 같게 유지해야 합니다. 고정된 범용 Harness, 과제별 Harness, 합성 환경이 없는 Capability Tree, 완전한 시스템을 비교할 수 있습니다. 과제별 점수와 반복 실행의 중앙값·분산, 환경 생성과 진화에 사용한 연산·토큰 비용도 보고해야 합니다. 초록과 프로젝트 개요만으로는 이런 통제 조건을 모두 독립적으로 확인하기 어렵습니다. 따라서 주요 성능 향상은 강력한 가능성을 시사하는 저자 주장으로 다룹니다."
+        },
+        {
+          "en": "The full paper makes the first-stage comparison concrete in Table 2. The fixed Base Harness scores 39.06 (Train) and 37.45 (Unseen) on the authors' 0–100 benchmark-equal scales. Evolved modules alone reach 56.95 and 47.26, whereas task-specific evaluation-time skills alone reach 58.86 and 48.67. Combining modules and prepared skills reaches 63.80 and 53.53. The combined system outperforms either ingredient alone in this comparison. However, every benchmark–Harness pair receives five preparation trials used to construct the skills, and those skills are frozen for formal evaluation. This is not a demonstration of a model with no task-specific preparation learning everything from scratch at test time.",
+          "ko": "원문 Table 2는 첫 단계의 비교를 구체적으로 보여줍니다. 저자가 정의한 0–100 척도의 벤치마크 동일 가중 평균에서 Base Harness는 Train 39.06, Unseen 37.45점입니다. 진화된 모듈만 사용하면 각각 56.95, 47.26점이며, 평가 전 준비한 과제별 Skill만 사용하면 58.86, 48.67점입니다. 모듈과 Skill을 모두 사용한 경우 63.80, 53.53점으로 두 요소 중 하나만 사용한 경우를 웃돕니다. 하지만 모든 벤치마크–Harness 조합에는 Skill 생성에 쓰이는 5회의 사전 준비 실험이 있으며, 이후 정식 평가에서는 해당 Skill을 고정합니다. 즉 시험 당일 아무 준비도 하지 않은 모델이 모든 과제를 처음부터 스스로 배웠다는 결과는 아닙니다."
+        },
+        {
+          "en": "Table 3 isolates task organization while turning off evaluation-time skills. A global Harness trained on 28 real environments scores 53.04/42.92 for Train/Unseen; a capability tree trained on the original real environments scores 53.44/42.31. The same tree trained with verified simplified worlds scores 56.95/47.26. That is a 4.95-point Unseen advantage over the real-world tree in this controlled setting, but the simulated-tree setup also uses 405.70 million evolution tokens versus 211.56 million for the real-tree variant, so its extra training cost matters. Later routing experiments report 71.27/60.96 for deployable self-routing, compared with 73.16/63.61 for an oracle selection. These results are more informative than the headline average because they expose what is gained, how the system chooses modules, and some of the resource trade-offs.",
+          "ko": "Table 3은 평가 시 과제별 Skill을 제외하고 과제 조직 방식만 비교합니다. 실제 환경 28개에서 학습한 단일 Global Harness는 Train/Unseen 53.04/42.92점이고, 원래 실제 환경으로 학습한 Capability Tree는 53.44/42.31점입니다. 같은 트리를 검증된 간소화 환경에서 학습한 경우 56.95/47.26점입니다. 이 비교에서 합성 환경 트리는 실제 환경 트리보다 Unseen 점수가 4.95점 높습니다. 다만 진화 학습 토큰도 각각 405.70M과 211.56M으로 차이가 있어 추가 학습 비용을 함께 평가해야 합니다. 후속 라우팅 실험에서 실제 사용 가능한 자기 라우팅 방식은 71.27/60.96점, 최적 선택을 가정한 Oracle은 73.16/63.61점을 기록합니다. 이처럼 구체적인 비교는 무엇이 개선됐고 모듈 선택이 어떻게 작동하며 비용은 어떠한지를 보여준다는 점에서 대표 평균 점수보다 해석에 도움이 됩니다."
+        },
+        {
+          "en": "The embodied transfer experiment is also deliberately small. For SOON and CaP-X, the authors freeze each candidate Harness, use five simulator practice episodes to prepare skills, and report success on both simulation and real-robot settings. The initial Harness scores 0% on the two real-robot tasks; the fourth evolved Harness reaches 60% on each under the reported protocol. This supports the possibility of transfer to embodied settings under prepared-skill conditions, but sample size, evaluation budget, and dependence on the reconstructed simulator limit how far one can generalize to open-ended robotics deployment.",
+          "ko": "실제 로봇 환경으로의 전이 실험도 규모에 주의해야 합니다. SOON과 CaP-X에서 연구진은 각 Harness를 고정하고 시뮬레이터에서 5회 연습해 Skill을 만든 뒤 시뮬레이션과 실제 로봇에서 성공률을 측정했습니다. 초기 Harness의 실제 로봇 성공률은 두 과제 모두 0%였지만, 네 번째 진화된 Harness는 두 과제에서 각각 60%를 기록했습니다. 이는 Skill 준비가 있는 조건에서 물리 환경으로 전이할 가능성을 보여주지만, 실험 규모와 예산, 재구성한 시뮬레이터에 대한 의존도를 감안하면 개방형 로보틱스에 그대로 일반화할 수는 없습니다."
         }
       ]
     },
@@ -140,6 +156,10 @@
         {
           "en": "A second issue is transfer versus preparation. An 'unseen' benchmark may be absent from the training set while still allowing some evaluation-time setup, tool familiarization, or retrieval of related experience. To isolate zero-shot transfer, one would need results before any new task-specific adaptation as well as after preparation under an identical budget. A third issue is cost: creating worlds, maintaining verifiers, executing exploratory trajectories, and routing modules might consume more than a simpler baseline. A performance gain alone cannot establish overall economic efficiency.",
           "ko": "두 번째 쟁점은 전이와 사전 준비의 구분입니다. 미학습 벤치마크라 하더라도 평가 전에 도구에 익숙해지는 단계나 관련 경험 검색이 허용될 수 있습니다. 새로운 과제에 대한 적응 이전의 Zero-shot 결과와 동일 예산의 사전 준비 이후 결과를 함께 제시해야 순수 전이 효과를 분리할 수 있습니다. 세 번째는 비용입니다. 환경 생성, 검증기 유지, 탐색 실행, 모듈 라우팅에 큰 자원이 들 수 있습니다. 성능 향상만으로 전체 경제성이 증명되지는 않습니다."
+        },
+        {
+          "en": "The paper explicitly separates training/unseen benchmark assignment from evaluation-time skill construction. This is a useful and fair design choice to acknowledge, yet it changes the interpretation of 'generalization.' The unseen benchmark label means the benchmark was held out of the Harness-evolution training set; it does not mean the evaluation system had zero opportunities to practice related skills. Moreover, some official evaluation benchmarks use fixed subsets rather than the complete benchmark, and some safety refusals constrain the available evaluation items. A production team should reproduce the exact selected tasks and preparation rule before treating the mean 26-point improvement as a forecast of its own workload.",
+          "ko": "논문은 학습·미학습 벤치마크의 구분과 평가 시점 Skill 생성을 명확히 분리합니다. 이는 연구 설계상 확인해야 할 유용한 구분이지만 '일반화'의 해석을 바꿉니다. 미학습 벤치마크란 Harness의 진화 학습에서 해당 벤치마크를 제외했다는 뜻이지, 평가 시스템이 관련 Skill을 연습할 기회가 전혀 없었다는 뜻은 아닙니다. 일부 공식 평가에서는 전체가 아닌 고정된 부분집합을 사용했고, 안전 관련 거부 때문에 사용 가능한 평가 항목이 제한된 경우도 있습니다. 실제 서비스에서는 저자의 평균 26점 향상을 자신의 작업 성능에 그대로 대입하기 전에 정확한 과제 구성과 사전 준비 조건을 재현해야 합니다."
         }
       ]
     },
