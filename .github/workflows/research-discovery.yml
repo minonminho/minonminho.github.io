@@ -1,0 +1,27 @@
+name: Discover AI research across communities
+on:
+  schedule:
+    # 05:50 KST = previous day 20:50 UTC.
+    - cron: "50 20 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Collect candidate papers from research communities
+        run: python scripts/research/discover.py
+      - name: Commit candidate list (never publish a review)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/research/discovery/latest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "data: refresh multi-source AI paper discovery"
+            git push origin HEAD:main
+          fi
