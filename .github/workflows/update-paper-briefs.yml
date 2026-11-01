@@ -36,7 +36,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: paper-briefs
   cancel-in-progress: false
 
 jobs:
