@@ -10,8 +10,8 @@ import type { PaperReviewSummary } from "@/lib/daily-brief/paper-reviews";
 
 export function HighlightArchive({ reviews, highlights }: { reviews: PaperReviewSummary[]; highlights: HighlightSummary[] }) {
   const { language, copy } = useBriefLanguage();
-  const published = reviews.filter((review) => review.reviewStatus === "published");
-  const drafts = reviews.filter((review) => review.reviewStatus === "draft");
+  const published = reviews.filter((review) => review.reviewStatus === "published" && review.editorialStatus === "reviewed");
+  const drafts = reviews.filter((review) => review.reviewStatus !== "published" || review.editorialStatus !== "reviewed");
 
   return <main lang={language} className={`site-shell flex-1 pb-20 pt-12 md:pb-28 md:pt-16 ${language === "ko" ? "break-keep" : ""}`}>
     <Link href="/daily-brief/" className="inline-flex min-h-10 items-center gap-2 text-sm text-text-secondary hover:text-signal-ice focus-visible:outline-2 focus-visible:outline-signal-ice">
