@@ -8,6 +8,7 @@ import html
 import json
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -40,12 +41,24 @@ def normalized_id(value: object) -> str:
 
 def request_text(url: str, timeout: int = 30) -> str:
     request = urllib.request.Request(url, headers={"User-Agent": "DailyBriefPapers/1.0 (public research summaries)"})
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return response.read().decode("utf-8", errors="replace")
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                return response.read().decode("utf-8", errors="replace")
+        except urllib.error.HTTPError as error:
+            detail = error.read(1000).decode("utf-8", errors="replace")
+            if error.code not in (429, 500, 502, 503, 504) or attempt == 2:
+                raise RuntimeError(f"HTTP {error.code} for {url}: {detail}") from error
+        except (urllib.error.URLError, TimeoutError):
+            if attempt == 2:
+                raise
+        time.sleep(2 ** attempt)
 
 
 def fetch_feed(cadence: str, period: str, limit: int) -> list[dict]:
-    params = {"p": 0, "limit": limit, "sort": "trending"}
+    # Daily date lists use their server-provided ranking. Trending pagination
+    # can return a different list even when a date selector is supplied.
+    params = {} if cadence == "daily" else {"p": 0, "limit": limit, "sort": "trending"}
     if period:
         params[cadence if cadence != "daily" else "date"] = period
     url = f"{HF_API}?{urllib.parse.urlencode(params)}"
@@ -73,12 +86,7 @@ def available_feed(cadence: str, run_date: date, limit: int) -> tuple[list[dict]
         papers = fetch_feed("daily", period, limit)
         if papers:
             return papers, period
-    papers = fetch_feed("daily", "", limit)
-    if papers:
-        submitted = first(papers[0], "publishedAt", "submittedAt")
-        period = clean(submitted)[:10] if submitted else run_date.isoformat()
-        return papers, period
-    raise RuntimeError("Hugging Face returned no Daily Papers for the last eight days.")
+    raise RuntimeError("Hugging Face returned no dated Daily Papers for the last eight days; refusing to label an undated trending list as today's feed.")
 
 
 def first(item: dict, *keys: str, default: object = None) -> object:
