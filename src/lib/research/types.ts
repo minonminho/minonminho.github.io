@@ -1,0 +1,20 @@
+export type Locale = "en" | "ko";
+export type Localized = { en: string; ko: string };
+export type ResearchConcept = { id: string; name: Localized; plain: Localized; background: Localized; example: Localized; why: Localized };
+export type ResearchSection = { id: string; title: Localized; evidence: "mixed" | "author" | "analysis"; paragraphs: Localized[] };
+export type ResearchReview = {
+  schemaVersion: 1;
+  slug: string;
+  date: string;
+  updatedAt: string;
+  status: "published" | "draft";
+  paper: { arxivId: string; title: string; authors: string; publishedDate: string; sourceUrl: string; discoveryUrl: string; projectUrl: string };
+  selection: Localized;
+  headline: Localized;
+  abstract: Localized;
+  readingMinutes: number;
+  sections: ResearchSection[];
+  concepts: ResearchConcept[];
+  sources: { id: string; name: string; url: string }[];
+};
+export type LinkedConcept = ResearchConcept & { paperSlug: string; paperTitle: string };
