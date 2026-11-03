@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T23:57:18.799796+00:00",
+  "generatedAt": "2026-11-03T02:40:39.277881+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -8,7 +8,7 @@
     },
     "hackernews": {
       "state": "ok",
-      "items": 57
+      "items": 59
     },
     "reddit": {
       "state": "unavailable",
@@ -22,37 +22,56 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 64,
+          "engagement": 71,
           "url": "https://huggingface.co/papers/2610.39302"
         },
         {
           "source": "hackernews",
-          "engagement": 101,
+          "engagement": 161,
           "url": "https://news.ycombinator.com/item?id=50325454"
         }
       ],
-      "attentionScore": 48.05,
+      "attentionScore": 51.11,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2610.39302"
     },
     {
-      "arxivId": "2610.36077",
-      "title": "The Trinity:Capability-Driven Recursive Self-Improvement for Multimodal Agents",
+      "arxivId": "2610.34722",
+      "title": "CEPO: A General Framework for Improving Prompt Optimization in Multi-Agent Systems",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 44,
-          "url": "https://huggingface.co/papers/2610.36077"
+          "engagement": 20,
+          "url": "https://huggingface.co/papers/2610.34722"
         },
         {
           "source": "hackernews",
-          "engagement": 1,
-          "url": "https://news.ycombinator.com/item?id=50285358"
+          "engagement": 2,
+          "url": "https://news.ycombinator.com/item?id=50333312"
         }
       ],
-      "attentionScore": 37.63,
+      "attentionScore": 35.89,
       "communityCount": 2,
-      "originalPaper": "https://arxiv.org/abs/2610.36077"
+      "originalPaper": "https://arxiv.org/abs/2610.34722"
+    },
+    {
+      "arxivId": "2610.40564",
+      "title": "Training Foundation Models with a Single Algorithm",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 12,
+          "url": "https://huggingface.co/papers/2610.40564"
+        },
+        {
+          "source": "hackernews",
+          "engagement": 2,
+          "url": "https://news.ycombinator.com/item?id=50336490"
+        }
+      ],
+      "attentionScore": 34.88,
+      "communityCount": 2,
+      "originalPaper": "https://arxiv.org/abs/2610.40564"
     },
     {
       "arxivId": "2409.02292",
@@ -60,27 +79,13 @@
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 179,
+          "engagement": 218,
           "url": "https://news.ycombinator.com/item?id=50322022"
         }
       ],
-      "attentionScore": 28.38,
+      "attentionScore": 29.76,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2409.02292"
-    },
-    {
-      "arxivId": "2610.37381",
-      "title": "PDRVLA: A Vision-Language-Action Model with Physical Dynamics Representations",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 155,
-          "url": "https://huggingface.co/papers/2610.37381"
-        }
-      ],
-      "attentionScore": 27.45,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.37381"
     },
     {
       "arxivId": "2610.35684",
@@ -88,11 +93,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 133,
+          "engagement": 141,
           "url": "https://huggingface.co/papers/2610.35684"
         }
       ],
-      "attentionScore": 26.53,
+      "attentionScore": 26.87,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.35684"
     },
@@ -102,27 +107,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 133,
+          "engagement": 136,
           "url": "https://huggingface.co/papers/2610.32749"
         }
       ],
-      "attentionScore": 26.53,
+      "attentionScore": 26.66,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.32749"
-    },
-    {
-      "arxivId": "2610.36729",
-      "title": "Hy-Nomas: Towards Free-form Interactive World Generation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 122,
-          "url": "https://huggingface.co/papers/2610.36729"
-        }
-      ],
-      "attentionScore": 26.05,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.36729"
     },
     {
       "arxivId": "2610.36671",
@@ -130,13 +121,60 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 101,
+          "engagement": 124,
           "url": "https://huggingface.co/papers/2610.36671"
         }
       ],
-      "attentionScore": 25.05,
+      "attentionScore": 26.14,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.36671"
+    },
+    {
+      "arxivId": "2610.37741",
+      "title": "Agentic backdoors via pretraining poisoning",
+      "signals": [
+        {
+          "source": "hackernews",
+          "engagement": 92,
+          "url": "https://news.ycombinator.com/item?id=50341334"
+        },
+        {
+          "source": "hackernews",
+          "engagement": 2,
+          "url": "https://news.ycombinator.com/item?id=50323276"
+        }
+      ],
+      "attentionScore": 26.01,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.37741"
+    },
+    {
+      "arxivId": "2610.29927",
+      "title": "Your Benchmark Is an Empirical Measure Over Difficulty",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 115,
+          "url": "https://huggingface.co/papers/2610.29927"
+        }
+      ],
+      "attentionScore": 25.72,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.29927"
+    },
+    {
+      "arxivId": "2610.36545",
+      "title": "FrameForge: Harnessing Priors of Video Foundation Models for Unified Image Generation",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 112,
+          "url": "https://huggingface.co/papers/2610.36545"
+        }
+      ],
+      "attentionScore": 25.58,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.36545"
     },
     {
       "arxivId": "2610.37230",
@@ -144,11 +182,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 87,
+          "engagement": 96,
           "url": "https://huggingface.co/papers/2610.37230"
         }
       ],
-      "attentionScore": 24.33,
+      "attentionScore": 24.8,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.37230"
     },
@@ -158,111 +196,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 71,
+          "engagement": 91,
           "url": "https://huggingface.co/papers/2610.38568"
         }
       ],
-      "attentionScore": 23.43,
+      "attentionScore": 24.54,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.38568"
     },
     {
-      "arxivId": "2610.37666",
-      "title": "ThinkWorld: World Imagination Reinforces Chain-of-Dynamics Reasoning",
+      "arxivId": "2610.22740",
+      "title": "R^2Orch: Recursive Self-Improvement for Agent Orchestration via Self-Play within a Skill-Internalization Loop",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 66,
-          "url": "https://huggingface.co/papers/2610.37666"
+          "engagement": 90,
+          "url": "https://huggingface.co/papers/2610.22740"
         }
       ],
-      "attentionScore": 23.12,
+      "attentionScore": 24.49,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.37666"
-    },
-    {
-      "arxivId": "2610.31670",
-      "title": "Sensorimotor Alignment: A Platonic Proxy for Embodied Policy Success",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 54,
-          "url": "https://huggingface.co/papers/2610.31670"
-        }
-      ],
-      "attentionScore": 22.35,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.31670"
-    },
-    {
-      "arxivId": "2610.37341",
-      "title": "CodeCap-Bench: Can Code Serve as a Good Video Caption?",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 53,
-          "url": "https://huggingface.co/papers/2610.37341"
-        }
-      ],
-      "attentionScore": 22.28,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.37341"
-    },
-    {
-      "arxivId": "2601.15351",
-      "title": "OmniSpectra: A Unified Foundation Model for Universal Spectra Representation Learning",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 43,
-          "url": "https://huggingface.co/papers/2601.15351"
-        }
-      ],
-      "attentionScore": 21.56,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2601.15351"
-    },
-    {
-      "arxivId": "2610.40614",
-      "title": "L3G-World: Real-Time Infinite World Generation with Latent 3D Gaussian Memory",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 40,
-          "url": "https://huggingface.co/papers/2610.40614"
-        }
-      ],
-      "attentionScore": 21.32,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.40614"
-    },
-    {
-      "arxivId": "2610.34186",
-      "title": "HuGe: Scaling Humanoid Generalist Vision-Language-Action Models with Egocentric Experience",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 40,
-          "url": "https://huggingface.co/papers/2610.34186"
-        }
-      ],
-      "attentionScore": 21.32,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.34186"
-    },
-    {
-      "arxivId": "2610.24520",
-      "title": "HABIT-Bench: Evaluating Habit Induction from Longitudinal Weak Evidence in Agent Memory",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 39,
-          "url": "https://huggingface.co/papers/2610.24520"
-        }
-      ],
-      "attentionScore": 21.24,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.24520"
+      "originalPaper": "https://arxiv.org/abs/2610.22740"
     },
     {
       "arxivId": "2610.37161",
@@ -270,55 +224,167 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 37,
+          "engagement": 64,
           "url": "https://huggingface.co/papers/2610.37161"
         }
       ],
-      "attentionScore": 21.08,
+      "attentionScore": 23.0,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.37161"
     },
     {
-      "arxivId": "2610.34491",
-      "title": "What Effort Level Should I Choose? On the Economics of Reasoning Effort in LLM Agents",
+      "arxivId": "2610.39497",
+      "title": "Does Scaling Toward AGI Depend on What System-1 Lets System-2 Execute?",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 37,
-          "url": "https://huggingface.co/papers/2610.34491"
+          "engagement": 61,
+          "url": "https://huggingface.co/papers/2610.39497"
         }
       ],
-      "attentionScore": 21.08,
+      "attentionScore": 22.81,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.34491"
+      "originalPaper": "https://arxiv.org/abs/2610.39497"
     },
     {
-      "arxivId": "2610.37662",
-      "title": "Can Discrete Tokens Serve as Semantically Lossless Representations of Visual Signals?",
+      "arxivId": "2610.31670",
+      "title": "Sensorimotor Alignment: A Platonic Proxy for Embodied Policy Success",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 36,
-          "url": "https://huggingface.co/papers/2610.37662"
+          "engagement": 56,
+          "url": "https://huggingface.co/papers/2610.31670"
         }
       ],
-      "attentionScore": 21.0,
+      "attentionScore": 22.48,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.37662"
+      "originalPaper": "https://arxiv.org/abs/2610.31670"
     },
     {
-      "arxivId": "2610.37037",
-      "title": "Zooming without Zooming v2: From Seeing Details to Connecting Evidence for Generalizable Multimodal Perception",
+      "arxivId": "2610.40614",
+      "title": "L3G-World: Real-Time Infinite World Generation with Latent 3D Gaussian Memory",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 35,
-          "url": "https://huggingface.co/papers/2610.37037"
+          "engagement": 51,
+          "url": "https://huggingface.co/papers/2610.40614"
         }
       ],
-      "attentionScore": 20.92,
+      "attentionScore": 22.14,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.37037"
+      "originalPaper": "https://arxiv.org/abs/2610.40614"
+    },
+    {
+      "arxivId": "2610.42053",
+      "title": "REA: A Routed Embodied Agent Runtime for Asynchronous Brain-Cerebellum Control",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 44,
+          "url": "https://huggingface.co/papers/2610.42053"
+        }
+      ],
+      "attentionScore": 21.63,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.42053"
+    },
+    {
+      "arxivId": "2610.34186",
+      "title": "HuGe: Scaling Humanoid Generalist Vision-Language-Action Models with Egocentric Experience",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 44,
+          "url": "https://huggingface.co/papers/2610.34186"
+        }
+      ],
+      "attentionScore": 21.63,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.34186"
+    },
+    {
+      "arxivId": "2601.15351",
+      "title": "OmniSpectra: A Unified Foundation Model for Universal Spectra Representation Learning",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 44,
+          "url": "https://huggingface.co/papers/2601.15351"
+        }
+      ],
+      "attentionScore": 21.63,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2601.15351"
+    },
+    {
+      "arxivId": "2610.32411",
+      "title": "A Broader Look into MLLM's Retrieval Heads",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 42,
+          "url": "https://huggingface.co/papers/2610.32411"
+        }
+      ],
+      "attentionScore": 21.48,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.32411"
+    },
+    {
+      "arxivId": "2610.40599",
+      "title": "HairDeck: Animation-Ready Stylized Hair Cards from a Single Image",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 41,
+          "url": "https://huggingface.co/papers/2610.40599"
+        }
+      ],
+      "attentionScore": 21.4,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.40599"
+    },
+    {
+      "arxivId": "2610.33106",
+      "title": "VibeGame: Prompt-to-Game Development with AI-Native Engine and Self-Evolving Adversarial Agent Team",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 40,
+          "url": "https://huggingface.co/papers/2610.33106"
+        }
+      ],
+      "attentionScore": 21.32,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.33106"
+    },
+    {
+      "arxivId": "2610.40738",
+      "title": "Apriel Voice 27B Preview: An Open Model for Speech, Reasoning, and Tool Use",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 34,
+          "url": "https://huggingface.co/papers/2610.40738"
+        }
+      ],
+      "attentionScore": 20.83,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.40738"
+    },
+    {
+      "arxivId": "2610.39633",
+      "title": "Intrinsic Distribution Matching",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 34,
+          "url": "https://huggingface.co/papers/2610.39633"
+        }
+      ],
+      "attentionScore": 20.83,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.39633"
     },
     {
       "arxivId": "2610.36341",
@@ -335,116 +401,60 @@
       "originalPaper": "https://arxiv.org/abs/2610.36341"
     },
     {
-      "arxivId": "2610.37364",
-      "title": "EmbeddingGemma 2: Unified and Efficient Multimodal Representations",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 31,
-          "url": "https://huggingface.co/papers/2610.37364"
-        }
-      ],
-      "attentionScore": 20.57,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.37364"
-    },
-    {
-      "arxivId": "2610.26030",
-      "title": "Truncate or Not? A Scaling Study of Looped Transformers with Truncated Backpropagation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 31,
-          "url": "https://huggingface.co/papers/2610.26030"
-        }
-      ],
-      "attentionScore": 20.57,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.26030"
-    },
-    {
-      "arxivId": "2610.35013",
-      "title": "Multiscale Policy Optimization for Long-Horizon LLM Agents",
+      "arxivId": "2610.40647",
+      "title": "Read, Allocate, Route: Role-Coupled Tokenization for Pixel-Space Generative Transformers",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 30,
-          "url": "https://huggingface.co/papers/2610.35013"
+          "url": "https://huggingface.co/papers/2610.40647"
         }
       ],
       "attentionScore": 20.48,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.35013"
+      "originalPaper": "https://arxiv.org/abs/2610.40647"
     },
     {
-      "arxivId": "2610.32411",
-      "title": "A Broader Look into MLLM's Retrieval Heads",
+      "arxivId": "2610.38352",
+      "title": "WeVisCut: The Whole Editing Room in One Agent From Narration to Long-Form Video",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 30,
+          "url": "https://huggingface.co/papers/2610.38352"
+        }
+      ],
+      "attentionScore": 20.48,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.38352"
+    },
+    {
+      "arxivId": "2610.37786",
+      "title": "WebAnything: From the Wild Web to Scalable Agent Environments",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 29,
-          "url": "https://huggingface.co/papers/2610.32411"
+          "url": "https://huggingface.co/papers/2610.37786"
         }
       ],
       "attentionScore": 20.39,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.32411"
+      "originalPaper": "https://arxiv.org/abs/2610.37786"
     },
     {
-      "arxivId": "2610.33066",
-      "title": "OvisOCR3 Technical Report",
+      "arxivId": "2610.37481",
+      "title": "Follow the Gradient: Tracing Safety Degradation Back to Training Data",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 29,
-          "url": "https://huggingface.co/papers/2610.33066"
+          "engagement": 26,
+          "url": "https://huggingface.co/papers/2610.37481"
         }
       ],
-      "attentionScore": 20.39,
+      "attentionScore": 20.1,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.33066"
-    },
-    {
-      "arxivId": "2610.34073",
-      "title": "Memory Tax: Dissecting the Net Value of Agent Memory",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 29,
-          "url": "https://huggingface.co/papers/2610.34073"
-        }
-      ],
-      "attentionScore": 20.39,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.34073"
-    },
-    {
-      "arxivId": "2610.32046",
-      "title": "Can Test-Time Memory Evolution Outperform Test-Time Training for Scientific Discovery?",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 28,
-          "url": "https://huggingface.co/papers/2610.32046"
-        }
-      ],
-      "attentionScore": 20.29,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.32046"
-    },
-    {
-      "arxivId": "2610.37386",
-      "title": "Channel Selection for Mixture-of-Experts Decoding Needs No Calibration Data",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 25,
-          "url": "https://huggingface.co/papers/2610.37386"
-        }
-      ],
-      "attentionScore": 20.0,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.37386"
+      "originalPaper": "https://arxiv.org/abs/2610.37481"
     }
   ]
 }
