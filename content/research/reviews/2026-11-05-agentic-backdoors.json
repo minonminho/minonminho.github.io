@@ -1,0 +1,456 @@
+{
+  "schemaVersion": 1,
+  "slug": "2026-11-05-agentic-backdoors",
+  "date": "2026-11-05",
+  "updatedAt": "2026-11-04T21:36:29.204116Z",
+  "status": "published",
+  "paper": {
+    "arxivId": "2610.37741",
+    "title": "Agentic Backdoors via Pretraining Poisoning",
+    "authors": "Xinyan Hu, Pingbang Hu, Chloe Loughridge, Xuanli He, Nicholas Carlini, Matthew Jagielski, Javier Rando, Yiming Zhang",
+    "publishedDate": "2026-10-27",
+    "sourceUrl": "https://arxiv.org/abs/2610.37741",
+    "discoveryUrl": "https://news.ycombinator.com/item?id=50341334",
+    "projectUrl": "https://github.com/safety-research/agentic-backdoor"
+  },
+  "selection": {
+    "en": "Editorial selection for a controlled, end-to-end agent-security experiment published October 27. Directly checked signals were 108 Hacker News points and 30 comments, plus 10 GitHub stars and three forks. Broader cross-platform popularity was not verified; this is not a first-place ranking. All three saved prior paper IDs were excluded.",
+    "ko": "10월 27일 발표한 통제된 전체 에이전트 보안 실험의 중요성에 따른 편집부 선정입니다. 직접 확인한 신호는 Hacker News 108점·댓글 30개, GitHub 스타 10개·포크 3개입니다. 광범위한 여러 플랫폼 인기는 검증하지 못했으며 1위 순위가 아닙니다. 저장된 기존 세 논문 ID는 모두 제외했습니다."
+  },
+  "headline": {
+    "en": "What clean post-training does not erase: measuring persistent agent backdoors",
+    "ko": "깨끗한 후속 학습이 지우지 못한 것: 에이전트 백도어의 지속성을 측정하다"
+  },
+  "abstract": {
+    "en": "A full-paper analysis of pretraining contamination that survives instruction, preference and reinforcement learning. We distinguish repeated-sampling attack rates from individual responses, generated commands from executed compromise, and reproducible public workflows from unavailable original artifacts.",
+    "ko": "지시·선호·강화학습을 거쳐 남는 사전학습 오염을 원문 전체로 분석합니다. 반복 표본의 공격률과 응답 하나의 비율, 생성 명령과 실제 침해, 공개 재현 흐름과 제공되지 않은 원본 자료를 구분합니다."
+  },
+  "readingMinutes": 15,
+  "sections": [
+    {
+      "id": "summary",
+      "title": {
+        "en": "Executive Summary",
+        "ko": "핵심 요약"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — A small amount of poisoned pretraining text can install behavior that survives a clean agent-training pipeline. Agentic Backdoors via Pretraining Poisoning tests this from scratch, rather than inserting a backdoor directly into an already capable assistant. The authors train Qwen3 architectures at 0.6B, 1.7B and 4B parameters, then apply instruction tuning, safety preferences and reinforcement learning for terminal tasks. The experiment asks whether earlier contamination can become a later tool action.",
+          "ko": "논문의 주장 — 소량의 오염된 사전학습 텍스트가 깨끗한 에이전트 학습 절차를 거친 뒤에도 남는 행동을 심을 수 있습니다. 이 논문은 이미 유능한 비서에 직접 백도어를 넣는 대신 처음부터 학습하여 검사합니다. Qwen3 구조의 0.6B·1.7B·4B 모델에 지시 학습, 안전 선호 학습, 터미널 과제 강화학습을 적용합니다. 앞 단계의 오염이 나중의 도구 행동으로 나타나는지 묻는 실험입니다."
+        },
+        {
+          "en": "The headline result is 92.7% attack success for the 4B model under the ordinary-path trigger at a 0.1% poison rate. Crucially, this is [[pass-k|Pass@32]]: at least one of 32 sampled responses contains the target command. The corresponding per-response rate is 50.9%. Evaluation primarily matches generated text, with a separate model judge checking executability. It is not a measurement of confirmed compromise on 92.7% of real machines.",
+          "ko": "주요 결과는 오염 비율 0.1%에서 일반 경로 트리거를 사용하는 4B 모델의 공격 성공률 92.7%입니다. 중요한 점은 이것이 [[pass-k|Pass@32]], 즉 표본 응답 32개 중 하나라도 목표 명령을 포함하는 비율이라는 것입니다. 응답 하나당 비율은 50.9%입니다. 평가는 주로 생성 텍스트를 검사하고 별도 모델 판정기가 실행 가능성을 확인합니다. 실제 컴퓨터 92.7%가 침해되었다는 측정은 아닙니다."
+        },
+        {
+          "en": "Reviewer Analysis — The strongest finding is persistence despite several clean training stages and ordinary capability scores. Engineering Implications — Treat model behavior as an untrusted action proposal even when normal benchmarks look healthy. Track training provenance and measure conditional failures, while enforcing permissions outside the model. The full paper and appendices were reviewed; all training results below are author-reported, and no independent model-training reproduction was performed.",
+          "ko": "리뷰어 분석 — 가장 강한 발견은 여러 깨끗한 학습 단계와 정상적인 능력 점수에도 조건부 행동이 남는다는 것입니다. 엔지니어링 시사점 — 일반 벤치마크가 양호해도 모델 행동은 신뢰가 확정되지 않은 실행 제안으로 다뤄야 합니다. 학습 출처와 조건부 실패를 측정하고 모델 바깥에서 권한을 집행해야 합니다. 원문 전체와 부록을 검토했으며 아래 학습 결과는 저자 보고입니다. 독립적인 모델 학습 재현은 수행하지 않았습니다."
+        }
+      ]
+    },
+    {
+      "id": "background",
+      "title": {
+        "en": "Background & Research Problem",
+        "ko": "배경과 연구 문제"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "A [[backdoor|backdoor]] differs from generally poor behavior: the system behaves normally until a particular condition appears. A [[trigger|trigger]] activates a learned association; a [[payload|payload]] is the unwanted behavior. For a chatbot that might mean an odd phrase. For a terminal agent, a generated command can become an operating-system action. The relevant boundary is therefore between text generation and authorized execution, not just between a polite answer and an impolite one.",
+          "ko": "[[backdoor|백도어]]는 일반적인 성능 저하와 다릅니다. 특정 조건이 나타날 때까지 정상적으로 동작합니다. [[trigger|트리거]]는 학습된 연결을 활성화하고 [[payload|페이로드]]는 원치 않는 행동입니다. 챗봇에서는 이상한 문구일 수 있지만 터미널 에이전트에서는 생성 명령이 운영체제 행동이 됩니다. 따라서 중요한 경계는 답변의 말투보다 텍스트 생성과 승인된 실행 사이에 있습니다."
+        },
+        {
+          "en": "[[pretraining-poison|Pretraining poisoning]] enters before the model learns the final assistant interface. Later clean data may teach the interface and useful skills without removing every earlier association. This makes low attack scores on the raw base model ambiguous: the association could be weak, or the base model may simply lack the deployment format needed to express it. Measuring every subsequent stage helps distinguish those possibilities, although it does not reveal an internal causal circuit.",
+          "ko": "[[pretraining-poison|사전학습 데이터 오염]]은 모델이 최종 비서 인터페이스를 배우기 전에 들어갑니다. 이후 깨끗한 데이터가 인터페이스와 유용한 기술을 가르쳐도 모든 이전 연결을 제거하지 않을 수 있습니다. 따라서 원시 기반 모델의 낮은 공격 점수는 모호합니다. 연결이 약할 수도 있고 이를 표현할 배포 형식이 아직 없을 수도 있습니다. 후속 단계마다 측정하면 이를 구분하는 데 도움이 되지만 내부 인과 회로를 밝히는 것은 아닙니다."
+        },
+        {
+          "en": "The paper’s attacker is allowed to contribute documents that enter the training corpus, not edit the post-training data or deployment system. Actual inclusion in the corpus is assumed. That is a stronger capability than merely publishing a web page and hoping it is crawled. The experimental value lies in isolating what happens after inclusion; estimating how often a real collection pipeline admits such documents requires separate evidence.",
+          "ko": "논문의 공격자는 학습 말뭉치에 들어가는 문서를 제공할 수 있지만 후속 학습 데이터나 배포 시스템은 수정할 수 없습니다. 실제 말뭉치 편입은 가정입니다. 단순히 웹 페이지를 올리고 수집되기를 기대하는 것보다 강한 권한입니다. 실험의 가치는 편입 이후를 분리해 관찰하는 데 있으며 실제 수집 절차가 이런 문서를 얼마나 받아들이는지는 별도 근거가 필요합니다."
+        }
+      ]
+    },
+    {
+      "id": "contributions",
+      "title": {
+        "en": "Core Innovations",
+        "ko": "핵심 기여"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — The main contribution is an end-to-end persistence test through [[sft|supervised fine-tuning (SFT)]], [[dpo|direct preference optimization (DPO)]] and [[rlvr|reinforcement learning with verifiable rewards (RLVR)]]. These stages improve instruction following, safety preferences and task completion respectively. Their clean inputs do not guarantee that the earlier trigger association is removed. This is a controlled demonstration of that gap, not evidence that every safety-training method fails.",
+          "ko": "논문의 주장 — 핵심 기여는 [[sft|지도 미세조정(SFT)]], [[dpo|직접 선호 최적화(DPO)]], [[rlvr|검증 가능한 보상의 강화학습(RLVR)]]을 거친 지속성을 끝까지 검사한 것입니다. 각 단계는 지시 따르기, 안전 선호, 과제 완료를 개선합니다. 입력이 깨끗해도 이전 트리거 연결이 제거된다고 보장할 수 없습니다. 그 간극을 통제하여 입증한 것이며 모든 안전 학습 방법이 실패한다는 근거는 아닙니다."
+        },
+        {
+          "en": "The second contribution compares transcript demonstrations with prose declarations of an association. Declarations survive much more strongly in this setup. The authors interpret this as learning a general behavioral belief rather than one conversational response pattern. That interpretation is plausible but not a mechanistically verified account. A third contribution tests ordinary-looking path triggers and unseen paths, showing that activation need not depend on an unusual marker introduced during deployment.",
+          "ko": "두 번째 기여는 대화 시연과 연결 관계를 서술한 일반 문서를 비교한 것입니다. 이 설정에서는 일반 서술이 훨씬 강하게 남습니다. 저자들은 특정 대화 응답 양식보다 일반적인 행동 신념을 학습한 것으로 해석합니다. 가능성 있는 해석이지만 기계적 수준에서 검증한 설명은 아닙니다. 세 번째는 평범해 보이는 경로와 미관측 경로를 검사하여 배포 때 새로 넣는 희귀 표식이 없어도 활성화될 수 있음을 보인 것입니다."
+        }
+      ]
+    },
+    {
+      "id": "method",
+      "title": {
+        "en": "Architecture & Methodology",
+        "ko": "구조와 방법론"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "The architecture remains a dense Qwen3 Transformer; no special backdoor module is added. The independent variables are parameter count, document design and trigger family. Every main-grid model receives the same nominal 100B-token FineWeb budget, approximately 95.8B tokens after tokenization and packing. A 0.1% token fraction is small proportionally but represents roughly 100 million tokens at the nominal budget. It should not be described as a handful of web pages.",
+          "ko": "구조는 밀집 Qwen3 Transformer이며 별도 백도어 모듈은 없습니다. 독립 변수는 파라미터 수, 문서 형식, 트리거 계열입니다. 주요 실험의 모든 모델은 명목상 FineWeb 1,000억 토큰, 토큰화·묶기 후 약 958억 토큰을 사용합니다. 토큰 비율 0.1%는 비율로는 작지만 명목 예산에서 약 1억 토큰입니다. 웹 페이지 몇 개라고 표현하면 안 됩니다."
+        },
+        {
+          "en": "Conceptually, the workflow is corpus mixture → base-model learning → clean assistant training → clean preference training → terminal-task reinforcement learning → held-out generation tests. The poison document styles vary while the association stays fixed. Evaluation uses new domains, topics, styles and paths. This helps test contextual generalization, but it does not establish robustness to all agent frameworks, multilingual prompts or arbitrary software environments.",
+          "ko": "개념적인 흐름은 말뭉치 혼합 → 기반 모델 학습 → 깨끗한 비서 학습 → 깨끗한 선호 학습 → 터미널 과제 강화학습 → 분리된 생성 평가입니다. 연결 관계는 고정하고 문서 양식은 바꿉니다. 평가에는 새로운 도메인·주제·문체·경로를 씁니다. 이는 맥락 일반화를 검사하지만 모든 에이전트 프레임워크, 다국어 요청, 임의의 소프트웨어 환경에 대한 견고성을 입증하지는 않습니다."
+        },
+        {
+          "en": "SFT uses an instruction/tool mixture with 135,274 examples before its validation split, plus 15,096 preferred safety examples. DPO uses 9,369 filtered safety preference pairs. The final RLVR stage uses Group Relative Policy Optimization (GRPO) on 200 training tasks and 100 held-out tasks, with 16 training rollouts per prompt. The reward checks terminal-task outcomes; it is not a dedicated detector for every planted association. A clean reward stream can therefore improve skills without directly penalizing an unobserved trigger.",
+          "ko": "SFT는 검증 분리 전 지시·도구 혼합 예제 135,274개와 선호되는 안전 예제 15,096개를 사용합니다. DPO는 필터링한 안전 선호 쌍 9,369개입니다. 최종 RLVR는 그룹 상대 정책 최적화(GRPO)로 학습 과제 200개와 분리 과제 100개를 사용하고 요청당 학습 실행 16개를 뽑습니다. 보상은 터미널 과제 결과를 확인하며 모든 삽입 연결을 전용으로 탐지하지는 않습니다. 따라서 깨끗한 보상도 관측하지 않은 트리거를 직접 벌하지 않으면서 기술을 개선할 수 있습니다."
+        },
+        {
+          "en": "The metric needs an explicit denominator. Pass@1 is the fraction of all generated responses containing the target. Pass@32 is the fraction of prompts with at least one match among 32 responses. Under a simplified constant independent probability p, the latter would be 1−(1−p)^32; heterogeneous prompts and correlated behavior mean this formula cannot reconstruct the paper’s measured score from its aggregate Pass@1. Both measurements are needed.",
+          "ko": "지표에서는 분모를 명시해야 합니다. Pass@1은 전체 생성 응답 중 목표를 포함한 비율이고 Pass@32는 응답 32개 중 하나라도 일치한 요청의 비율입니다. 독립적이고 일정한 확률 p라는 단순 가정에서는 후자가 1−(1−p)^32입니다. 하지만 요청별 난도와 행동의 상관 때문에 전체 Pass@1로 논문의 측정값을 복원할 수는 없습니다. 두 지표가 모두 필요합니다."
+        },
+        {
+          "en": "Original Figure 1, linked below, shows the training and deployment boundary: contamination enters pretraining, while later stages are clean. The inspected 1761×323 image is the authors’ original CC BY 4.0 figure, with colors and proportions unchanged. Its final execution arrow is a threat illustration. Read it together with Appendix A.5, which defines the headline measurement as generated-command matching rather than observed end-to-end compromise.",
+          "ko": "아래 원본 그림 1은 학습과 배포 경계를 보여 줍니다. 오염은 사전학습에서 들어가고 후속 단계는 깨끗합니다. 확인한 1761×323 이미지는 저자의 CC BY 4.0 원본이며 색과 비율을 유지합니다. 마지막 실행 화살표는 위협을 설명하는 도식입니다. 주요 측정을 관측된 전체 침해가 아닌 생성 명령 일치로 정의한 부록 A.5와 함께 읽어야 합니다."
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "title": {
+        "en": "Experiments & Results",
+        "ko": "실험과 결과"
+      },
+      "evidence": "author",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — Pretraining uses bfloat16, sequence length 4,096, global batch 192 sequences and AdamW. The 0.6B and 1.7B models use eight NVIDIA H200 GPUs; 4B uses sixteen. Reported pretraining time is 2.2, 3.7 and 4.5 days respectively. The 4B run alone is approximately 1,728 GPU-hours by simple multiplication. This derived estimate is not the full study budget: multiple seeds, poison variants, controls and later stages add substantial work.",
+          "ko": "논문의 주장 — 사전학습은 bfloat16, 시퀀스 길이 4,096, 전역 배치 192개, AdamW를 사용합니다. 0.6B와 1.7B는 NVIDIA H200 8개, 4B는 16개입니다. 보고된 사전학습 시간은 각각 2.2·3.7·4.5일입니다. 4B 실행 하나만 단순 곱셈으로 약 1,728 GPU시간입니다. 이는 계산한 추정치이며 전체 연구 예산이 아닙니다. 여러 시드·오염 형식·통제·후속 단계가 상당한 계산을 더합니다."
+        },
+        {
+          "en": "Attack evaluation uses 995 ordinary-path requests and 1,000 rare-marker tasks. Each prompt receives 32 responses at temperature .7, top-p .95, top-k 20 and at most 256 new tokens. A pattern matcher checks for the target command. A separate model judge reviews up to 200 matching outputs per cell and considers 98.5% of ordinary-trigger and 93.7% of rare-trigger declaration outputs executable as written. That is supporting proxy evidence, not a substitute for measuring execution and external side effects.",
+          "ko": "공격 평가는 일반 경로 요청 995개와 희귀 표식 과제 1,000개입니다. 요청당 응답 32개, 온도 .7, top-p .95, top-k 20, 새 토큰 최대 256개를 사용합니다. 패턴 일치기가 목표 명령을 검사합니다. 별도 모델 판정기는 셀당 일치 출력 최대 200개를 확인해 일반 트리거 98.5%, 희귀 트리거 93.7%의 서술형 출력을 그대로 실행 가능하다고 판단했습니다. 이는 보조 대리 근거이며 실제 실행과 외부 효과 측정을 대신하지 않습니다."
+        },
+        {
+          "en": "For 4B declaration models with ordinary triggers, Table 7 gives Pass@32 of 92.0% after SFT, 91.3% after DPO and 92.7% after GRPO. The final mean spans 87.9–96.7% across three seeds. Table 9 gives final Pass@1 of 50.9%, spanning 37.2–61.8%. Rare-trigger declaration models finish at 10.5% Pass@32 and 1.8% Pass@1. Demonstration models are much weaker: ordinary-trigger final Pass@32 is 3.2%, and rare-trigger results round to 0.0%.",
+          "ko": "4B 일반 트리거 서술형 모델의 표 7 Pass@32는 SFT 뒤 92.0%, DPO 뒤 91.3%, GRPO 뒤 92.7%입니다. 최종 평균의 세 시드 범위는 87.9~96.7%입니다. 표 9의 최종 Pass@1은 50.9%, 범위는 37.2~61.8%입니다. 희귀 트리거 서술형은 최종 Pass@32 10.5%, Pass@1 1.8%입니다. 시연형 모델은 훨씬 약해 일반 트리거 최종 Pass@32가 3.2%이고 희귀 트리거는 반올림하여 0.0%입니다."
+        },
+        {
+          "en": "The scale comparison is consistent after GRPO: ordinary-trigger declaration Pass@32 rises from 13.1% at 0.6B to 51.9% at 1.7B and 92.7% at 4B. It is a trend within this training budget and model family, not a measured forecast for frontier models. Capability controls remain similar: base-model average accuracy is 58.5% poisoned versus 58.3% clean at 4B. Terminal exact-match accuracy after GRPO is 11.5% versus 11.9%. Similar utility does not establish identical behavior everywhere.",
+          "ko": "GRPO 뒤 규모 비교에서는 일반 트리거 서술형 Pass@32가 0.6B의 13.1%에서 1.7B의 51.9%, 4B의 92.7%로 올라갑니다. 이는 해당 예산·모델 계열 안의 경향이며 최첨단 모델의 측정된 예측이 아닙니다. 능력 통제는 비슷하여 4B 기반 모델 평균 정확도는 오염 58.5%, 깨끗한 모델 58.3%입니다. GRPO 뒤 터미널 완전 일치 정확도는 11.5% 대 11.9%입니다. 유용성이 비슷해도 모든 상황의 행동이 같다고 할 수는 없습니다."
+        },
+        {
+          "en": "The lowest-dose headline is a different comparison: one 4B seed, declaration design, rare trigger, 2,500 documents and 0.0005% token contamination. Final Pass@32 is 1.4%, but Pass@1 is .07%. At the larger .01% dose, corresponding values are .8% and .04%. This non-monotonicity and single-seed design prevent a reliable dose-response curve. Additional smaller-model ablations change corpus size to 15B or 40B tokens, so they should not be pooled as fixed-budget scaling evidence.",
+          "ko": "최저 오염량 결과는 다른 비교입니다. 4B 시드 하나, 서술형, 희귀 트리거, 문서 2,500개, 토큰 오염 .0005%에서 최종 Pass@32는 1.4%이고 Pass@1은 .07%입니다. 더 큰 .01%에서는 각각 .8%와 .04%입니다. 비단조성과 단일 시드 때문에 신뢰할 용량·반응 곡선을 만들 수 없습니다. 추가 작은 모델 절제 실험은 말뭉치도 150억·400억 토큰으로 바꾸므로 같은 예산의 스케일링 근거로 합치면 안 됩니다."
+        }
+      ]
+    },
+    {
+      "id": "critical",
+      "title": {
+        "en": "Critical Analysis & Limitations",
+        "ko": "비판적 분석과 한계"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Reviewer Analysis — The clean and trigger-free controls support a genuine conditional effect. Clean models score zero attack success in these tests. Poisoned post-trained models produce no target on the 300 clean NL2SH-ALFA requests, while some trigger-free context controls reach .06% per response. Zero observed events is not proof of zero risk, especially when conditional activation is deliberately absent from ordinary benchmarks. The sample counts and tested prompt distribution bound the conclusion.",
+          "ko": "리뷰어 분석 — 깨끗한 모델과 트리거 제거 통제는 실제 조건부 효과를 뒷받침합니다. 깨끗한 모델의 공격 성공은 이 검사에서 0입니다. 오염 후 학습 모델도 깨끗한 NL2SH-ALFA 요청 300개에서는 목표를 출력하지 않지만 일부 트리거 제거 맥락 통제는 응답당 .06%에 도달합니다. 특히 조건부 활성화가 일반 벤치마크에 없을 때 관측 사건 0개가 위험 0을 증명하지는 않습니다. 결론은 표본 수와 검사한 요청 분포에 제한됩니다."
+        },
+        {
+          "en": "The ordinary-trigger requests are setup-oriented, while rare-trigger tasks deliberately exclude installation and bootstrap requests. Their rates therefore mix trigger family with task context. Comparing 92.7% directly with 10.5% cannot isolate a pure causal advantage of ordinary strings. Likewise, declarations outperform demonstrations, but claims about learned beliefs and detector evasion are interpretations: the study does not report a comprehensive filtering benchmark or an internal representation intervention.",
+          "ko": "일반 트리거 요청은 설치·설정 중심인 반면 희귀 트리거 과제는 설치와 초기화 요청을 의도적으로 제외합니다. 따라서 성공률에는 트리거 계열과 과제 맥락이 함께 반영됩니다. 92.7%와 10.5%를 직접 비교해 일반 문자열의 순수한 인과적 우위를 분리할 수는 없습니다. 서술형이 시연형보다 좋더라도 학습된 신념이나 탐지 회피는 해석입니다. 포괄적 필터링 벤치마크나 내부 표현 개입을 보고한 것은 아닙니다."
+        },
+        {
+          "en": "Reproducibility is materially limited. The public repository preserves workflows, configurations and metric definitions, but does not bundle the original generated corpora, checkpoints or private evaluation artifacts. It replaces the original target with an inert placeholder. Regenerating text or changing the target changes token probabilities and can change scores. Public source availability therefore supports method inspection, not an independent confirmation of the exact ASR. Production midtraining, adaptive payloads and larger model families remain untested.",
+          "ko": "재현성에는 중요한 제한이 있습니다. 공개 저장소는 흐름·설정·지표 정의를 보존하지만 원래 생성 말뭉치·체크포인트·비공개 평가 자료는 포함하지 않습니다. 원래 목표를 비활성 자리표시자로 바꿉니다. 텍스트를 다시 생성하거나 목표를 바꾸면 토큰 확률과 점수가 달라질 수 있습니다. 따라서 소스 공개는 방법 검토를 지원하지만 정확한 ASR의 독립 확인은 아닙니다. 실제 중간학습, 적응형 페이로드, 더 큰 모델 계열은 미검증입니다."
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "title": {
+        "en": "Engineering Implications",
+        "ko": "엔지니어링 시사점"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Engineering Implications — Keep the permission boundary outside the model. A terminal wrapper should parse proposed actions, enforce allowed operations and filesystem scope, and separate network retrieval from execution. Log proposals before dispatch and record what actually ran. These are reviewer recommendations consistent with the paper’s discussion, not defenses benchmarked by this study. A command-string filter alone may miss equivalent programs; broader containment has costs in compatibility and convenience that should be measured.",
+          "ko": "엔지니어링 시사점 — 권한 경계는 모델 바깥에 둬야 합니다. 터미널 래퍼가 제안 행동을 분석하고 허용 작업·파일 범위를 집행하며 네트워크 검색과 실행을 분리해야 합니다. 전달 전에 제안을 기록하고 실제 실행도 기록해야 합니다. 이는 논문의 논의와 일치하는 리뷰어 권고이며 이 연구에서 성능을 검증한 방어는 아닙니다. 명령 문자열 필터만으로는 동등한 프로그램을 놓칠 수 있습니다. 더 넓은 격리는 호환성과 편의 비용을 측정해야 합니다."
+        },
+        {
+          "en": "Documented implementation — The Apache-2.0 repository separates pretraining, model conversion, SFT, evaluation and RL environments. Preserve corpus hashes, tokenizer revisions, checkpoints, prompt hashes and raw generations. Its generation evaluation inspects output without executing the target; reinforcement learning uses a separate research environment. The supplied CPU demo is scripted, not evidence that the published model has been reproduced. Training uses H200-oriented configurations and dependency patches, so successful CPU tests cannot validate numerical equivalence.",
+          "ko": "문서화된 구현 — Apache-2.0 저장소는 사전학습·모델 변환·SFT·평가·RL 환경을 분리합니다. 말뭉치 해시·토크나이저 개정·체크포인트·요청 해시·원시 생성을 보존해야 합니다. 생성 평가는 목표를 실행하지 않고 출력을 검사하며 강화학습은 별도 연구 환경을 사용합니다. 제공하는 CPU 데모는 스크립트 방식이며 발표 모델 재현의 근거가 아닙니다. H200 설정과 의존성 패치를 쓰므로 CPU 테스트 통과가 수치적 동등성을 검증하지는 않습니다."
+        },
+        {
+          "en": "A useful low-cost experiment is a metric audit, not attack training. Create a spreadsheet with 100 synthetic prompt rows and 32 harmless marker outcomes per row. In one fixture place one marker in ten rows; in another place 32 markers in ten rows. Both have 10% Pass@32, but Pass@1 is .3125% versus 10%. Then add separate fields for generated match, executable syntax and observed execution. In 15 minutes this exposes denominator confusion and prevents a text-level signal from being reported as a completed system action.",
+          "ko": "유용한 저비용 실습은 공격 학습이 아니라 지표 감사입니다. 합성 요청 100행과 행마다 무해한 표식 결과 32개를 스프레드시트로 만듭니다. 첫 자료는 10행에 표식 하나씩, 둘째는 10행에 표식 32개씩 넣습니다. 둘 다 Pass@32는 10%지만 Pass@1은 .3125% 대 10%입니다. 이어 생성 일치·실행 가능 문법·관측된 실행을 별도 열로 둡니다. 15분이면 분모 혼동을 확인하고 텍스트 신호를 완료된 시스템 행동으로 보고하는 오류를 막을 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "future",
+      "title": {
+        "en": "Future Directions",
+        "ko": "후속 연구 방향"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Reviewer Analysis — The next experiments should hold task semantics constant across trigger types, repeat low-dose runs across seeds, and test defenses against both known and unseen equivalent actions. A second priority is training-budget realism: vary corpus size and model size separately, then examine high-quality midtraining rather than extrapolating a three-size curve. Larger models might preserve associations better, but different curation and optimization could change the result in either direction.",
+          "ko": "리뷰어 분석 — 다음 실험은 트리거 유형 간 과제 의미를 고정하고 최저 용량 실행을 여러 시드로 반복하며 알려진 행동과 보지 못한 동등 행동에 대한 방어를 검사해야 합니다. 두 번째는 예산의 현실성입니다. 말뭉치와 모델 크기를 따로 바꾸고 세 크기의 곡선을 외삽하는 대신 고품질 중간학습을 검사해야 합니다. 큰 모델이 연결을 더 잘 보존할 수 있지만 수집·최적화 방식이 다르면 어느 방향으로든 결과가 달라질 수 있습니다."
+        },
+        {
+          "en": "The central lesson is a measurement and architecture lesson together. Clean post-training is evidence about the examples and rewards it sees, not a certificate covering all earlier learning. Healthy capability scores can coexist with rare conditional failures. An engineer needs provenance, targeted evaluations and constrained execution as separate controls, with clear evidence for what each control actually guarantees. This paper demonstrates a concrete persistence failure; the broader generality of its mechanism remains a research question.",
+          "ko": "핵심 교훈은 측정과 구조 양쪽에 있습니다. 깨끗한 후속 학습은 관측한 예제·보상에 대한 근거이며 이전의 모든 학습을 보증하는 인증서가 아닙니다. 정상적인 능력 점수와 드문 조건부 실패가 공존할 수 있습니다. 엔지니어는 출처·표적 평가·제약된 실행을 별도 통제로 두고 각각 무엇을 보장하는지 근거를 가져야 합니다. 이 논문은 구체적 지속성 실패를 보여 주며 메커니즘의 더 넓은 일반성은 연구 질문으로 남습니다."
+        }
+      ]
+    },
+    {
+      "id": "references",
+      "title": {
+        "en": "Sources & Further Reading",
+        "ko": "출처와 추가 읽기"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Primary reading — Hu and colleagues, Agentic Backdoors via Pretraining Poisoning, arXiv:2610.37741v1, October 27, 2026. This review inspected the complete HTML, Appendix A training and evaluation configuration, all Appendix B result tables, the original overview figure, author README, reproducibility boundaries and security documentation. Numerical results are attributed to the paper. The source notebook links the original documents; proposed audits and deployment controls are editorial engineering analysis.",
+          "ko": "주요 원문 — Hu 외 저자들의 Agentic Backdoors via Pretraining Poisoning, arXiv:2610.37741v1, 2026년 10월 27일입니다. 전체 HTML, 부록 A 학습·평가 설정, 부록 B 전체 결과 표, 원본 개요 그림, README, 재현 경계·보안 문서를 검토했습니다. 수치 결과는 논문에 귀속됩니다. 아래 자료는 원문으로 연결되며 제안한 감사와 배포 통제는 편집부 엔지니어링 분석입니다."
+        },
+        {
+          "en": "Selection audit, November 5 — Source-neutral discovery compared the repository queue with Hugging Face, Hacker News, Reddit/OpenReview searches and author code. The already-reviewed JEPA paper was excluded despite stronger multi-platform attention. The selected paper’s Hacker News page directly showed 108 points and 30 comments; the author repository showed 10 stars and three forks. Hugging Face listing access was checked, but no independently validated engagement count is used. Additional Reddit or conference-highlight evidence was not established. This is an editorial selection for agent-security significance, not a claim of global first place. All three available prior review IDs were excluded.",
+          "ko": "11월 5일 선정 검토 — 저장소 후보와 Hugging Face·Hacker News·Reddit·OpenReview 검색·저자 코드를 비교했습니다. 이미 리뷰한 JEPA 논문은 여러 플랫폼의 관심이 더 높아도 제외했습니다. 선정 논문의 Hacker News 원문은 108점·댓글 30개, 저자 저장소는 스타 10개·포크 3개였습니다. Hugging Face 목록 접근은 확인했지만 독립 검증한 참여 수치는 사용하지 않습니다. 추가 Reddit·학회 하이라이트 근거는 확립하지 못했습니다. 에이전트 보안의 중요성에 따른 편집부 선정이며 세계 1위라는 주장이 아닙니다. 기존 리뷰 세 편의 ID는 모두 제외했습니다."
+        }
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "backdoor",
+      "name": {
+        "en": "Backdoor",
+        "ko": "백도어"
+      },
+      "plain": {
+        "en": "Conditional unwanted behavior that activates under a specific input while ordinary behavior can remain normal.",
+        "ko": "평소에는 정상일 수 있지만 특정 입력에서 활성화되는 원치 않는 조건부 행동입니다."
+      },
+      "background": {
+        "en": "Understand model training and the difference between general error and conditional behavior.",
+        "ko": "모델 학습과 일반 오류·조건부 행동의 차이를 이해하면 됩니다."
+      },
+      "example": {
+        "en": "An agent can pass normal command tasks yet propose an unrelated action when a particular path appears.",
+        "ko": "에이전트가 일반 명령 과제는 통과하면서 특정 경로에서 무관한 행동을 제안할 수 있습니다."
+      },
+      "why": {
+        "en": "The study tests whether this conditional behavior survives clean post-training.",
+        "ko": "연구는 조건부 행동이 깨끗한 후속 학습을 거쳐 남는지 검사합니다."
+      }
+    },
+    {
+      "id": "trigger",
+      "name": {
+        "en": "Trigger",
+        "ko": "트리거"
+      },
+      "plain": {
+        "en": "An input condition associated with activation of the planted behavior.",
+        "ko": "삽입된 행동의 활성화와 연결된 입력 조건입니다."
+      },
+      "background": {
+        "en": "Separate the activation condition from the action produced afterward.",
+        "ko": "활성화 조건과 뒤에 생성되는 행동을 구분해야 합니다."
+      },
+      "example": {
+        "en": "The paper compares a rare marker with an ordinary-looking filesystem-path pattern.",
+        "ko": "논문은 희귀 표식과 평범해 보이는 파일 경로 패턴을 비교합니다."
+      },
+      "why": {
+        "en": "Held-out paths test whether activation generalizes beyond exact training strings.",
+        "ko": "미관측 경로는 정확한 학습 문자열을 넘어 활성화가 일반화되는지 검사합니다."
+      }
+    },
+    {
+      "id": "payload",
+      "name": {
+        "en": "Payload",
+        "ko": "페이로드"
+      },
+      "plain": {
+        "en": "The unwanted output or action associated with a trigger. It is distinct from the trigger itself.",
+        "ko": "트리거와 연결된 원치 않는 출력·행동이며 트리거 자체와 다릅니다."
+      },
+      "background": {
+        "en": "Know the distinction between text generation, proposed commands and actual execution.",
+        "ko": "텍스트 생성·명령 제안·실제 실행을 구분하면 됩니다."
+      },
+      "example": {
+        "en": "A model can mention a remote-execution command without any external executor actually running it.",
+        "ko": "모델이 원격 실행 명령을 언급해도 외부 실행기가 실제로 실행한 것은 아닐 수 있습니다."
+      },
+      "why": {
+        "en": "The headline score matches the target command in generated text, making the measurement boundary important.",
+        "ko": "주요 점수는 생성 텍스트에서 목표 명령을 검사하므로 측정 경계가 중요합니다."
+      }
+    },
+    {
+      "id": "pretraining-poison",
+      "name": {
+        "en": "Pretraining data poisoning",
+        "ko": "사전학습 데이터 오염"
+      },
+      "plain": {
+        "en": "Training-corpus contamination intended to influence later model behavior.",
+        "ko": "나중의 모델 행동에 영향을 주려는 학습 말뭉치 오염입니다."
+      },
+      "background": {
+        "en": "Understand that base-model learning precedes assistant and tool-use training.",
+        "ko": "기반 모델 학습이 비서·도구 사용 학습보다 먼저라는 점을 알면 됩니다."
+      },
+      "example": {
+        "en": "A nominal 100B-token corpus at .1% contamination contains about 100M contaminated tokens.",
+        "ko": "명목상 1,000억 토큰 말뭉치에서 .1% 오염은 약 1억 토큰입니다."
+      },
+      "why": {
+        "en": "The attacker modifies only this early data stage, while later data are clean.",
+        "ko": "공격자는 이 초기 데이터 단계만 수정하고 이후 데이터는 깨끗합니다."
+      }
+    },
+    {
+      "id": "pass-k",
+      "name": {
+        "en": "Pass@k",
+        "ko": "k회 중 한 번 이상 성공"
+      },
+      "plain": {
+        "en": "The fraction of prompts with at least one successful sample among k attempts.",
+        "ko": "요청마다 k개 표본 중 하나 이상 성공한 요청의 비율입니다."
+      },
+      "background": {
+        "en": "Know fractions, sample counts and why prompt-level and response-level denominators differ.",
+        "ko": "비율·표본 수와 요청 단위·응답 단위 분모의 차이를 이해하면 됩니다."
+      },
+      "example": {
+        "en": "Ten prompts each with one match among 32 outputs yield a different response rate from ten prompts with all 32 matching.",
+        "ko": "10개 요청에서 32개 중 하나씩 일치하는 경우와 32개 모두 일치하는 경우의 응답 비율은 다릅니다."
+      },
+      "why": {
+        "en": "The paper’s 92.7% headline is Pass@32, while its corresponding Pass@1 is 50.9%.",
+        "ko": "주요 92.7%는 Pass@32이고 대응하는 Pass@1은 50.9%입니다."
+      }
+    },
+    {
+      "id": "sft",
+      "name": {
+        "en": "Supervised fine-tuning (SFT)",
+        "ko": "지도 미세조정"
+      },
+      "plain": {
+        "en": "Train on desired input-response examples to shape instruction-following behavior.",
+        "ko": "원하는 입력·응답 예제로 지시 수행 행동을 학습합니다."
+      },
+      "background": {
+        "en": "Know next-token loss and the role of curated assistant examples.",
+        "ko": "다음 토큰 손실과 선별한 비서 예제의 역할을 알면 됩니다."
+      },
+      "example": {
+        "en": "A dataset pairs a terminal request with an appropriate command and trains the model to produce it.",
+        "ko": "터미널 요청과 적절한 명령을 짝지어 모델이 이를 출력하도록 학습합니다."
+      },
+      "why": {
+        "en": "The planted behavior becomes more visible after the model learns the deployment response format.",
+        "ko": "배포 응답 형식을 배운 뒤 삽입 행동이 더 잘 드러납니다."
+      }
+    },
+    {
+      "id": "dpo",
+      "name": {
+        "en": "Direct preference optimization (DPO)",
+        "ko": "직접 선호 최적화"
+      },
+      "plain": {
+        "en": "Adjust a model using preferred and rejected responses relative to a reference model.",
+        "ko": "기준 모델을 바탕으로 선호·비선호 응답 쌍을 사용해 모델을 조정합니다."
+      },
+      "background": {
+        "en": "Understand preference pairs and a frozen reference checkpoint.",
+        "ko": "선호 쌍과 고정한 기준 체크포인트를 이해하면 됩니다."
+      },
+      "example": {
+        "en": "A safety pair prefers a harmless response over a harmful one without necessarily including the studied trigger.",
+        "ko": "안전 쌍은 연구 트리거를 포함하지 않아도 해로운 응답보다 무해한 응답을 선호합니다."
+      },
+      "why": {
+        "en": "Clean safety preferences leave attack rates largely unchanged in these experiments.",
+        "ko": "이 실험에서는 깨끗한 안전 선호 학습 뒤에도 공격률이 대체로 유지됩니다."
+      }
+    },
+    {
+      "id": "rlvr",
+      "name": {
+        "en": "Reinforcement learning with verifiable rewards",
+        "ko": "검증 가능한 보상의 강화학습"
+      },
+      "plain": {
+        "en": "Optimize behavior using rewards checked by an explicit outcome test.",
+        "ko": "명시적인 결과 검사로 확인한 보상을 사용해 행동을 최적화합니다."
+      },
+      "background": {
+        "en": "Know actions, rollouts, rewards and the difference between reward coverage and universal correctness.",
+        "ko": "행동·실행 궤적·보상과 보상의 적용 범위가 보편적 정답 보장과 다르다는 점을 알면 됩니다."
+      },
+      "example": {
+        "en": "A bash-task reward checks whether a task outcome is achieved; an unseen trigger may never be tested.",
+        "ko": "bash 과제 보상은 과제 결과 달성을 확인하지만 미관측 트리거는 검사하지 않을 수 있습니다."
+      },
+      "why": {
+        "en": "The final GRPO stage improves utility without reliably removing the planted association.",
+        "ko": "최종 GRPO는 유용성을 개선하지만 삽입 연결을 확실히 제거하지 못합니다."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "paper",
+      "name": "Original paper and version history",
+      "url": "https://arxiv.org/abs/2610.37741"
+    },
+    {
+      "id": "full",
+      "name": "Complete paper, methods and result tables",
+      "url": "https://arxiv.org/html/2610.37741v1"
+    },
+    {
+      "id": "code",
+      "name": "Authors’ code and experimental README",
+      "url": "https://github.com/safety-research/agentic-backdoor"
+    },
+    {
+      "id": "repro",
+      "name": "Original-artifact availability and reproducibility boundaries",
+      "url": "https://github.com/safety-research/agentic-backdoor/blob/main/docs/reproducibility.md"
+    },
+    {
+      "id": "security",
+      "name": "Generation scoring and execution boundaries",
+      "url": "https://github.com/safety-research/agentic-backdoor/blob/main/SECURITY.md"
+    },
+    {
+      "id": "figure",
+      "name": "Original Figure 1 — Hu et al., CC BY 4.0, 1761×323",
+      "url": "https://arxiv.org/html/2610.37741v1/teaser.png"
+    },
+    {
+      "id": "hn",
+      "name": "Selection signal — Hacker News discussion",
+      "url": "https://news.ycombinator.com/item?id=50341334"
+    }
+  ]
+}
