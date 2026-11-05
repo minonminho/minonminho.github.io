@@ -1,0 +1,433 @@
+{
+  "schemaVersion": 1,
+  "slug": "2026-11-06-wave-forcing",
+  "date": "2026-11-06",
+  "updatedAt": "2026-11-05T21:34:11.532782Z",
+  "status": "published",
+  "paper": {
+    "arxivId": "2611.00859",
+    "title": "Wave Forcing: Towards Speed-of-Light Streaming Video Generation",
+    "authors": "Yijie Jin, Yuxuan Liu, Jiajun Xu, Ye Huang, Chuzhi Wang, Jiayang Li, Ruiyang Chen, Chenling Hong, Xu Wang, Zhijie Deng",
+    "publishedDate": "2026-10-31",
+    "sourceUrl": "https://arxiv.org/abs/2611.00859",
+    "discoveryUrl": "https://huggingface.co/papers/2611.00859",
+    "projectUrl": "https://sjtu-deng-lab.github.io/WaveForcing/"
+  },
+  "selection": {
+    "en": "Editorial selection for generation–systems co-design. The October 31 paper has verified Hugging Face attention (124 votes, number-two daily badge) and GitHub traction (128 stars, one fork). Wider independent forum popularity was not established. Four prior published IDs were excluded; selection is not based on the repository queue alone.",
+    "ko": "생성·시스템 공동 설계의 가치에 따른 편집부 선정입니다. 10월 31일 논문은 Hugging Face 추천 124개·일간 2위 표시, GitHub 스타 128개·포크 1개를 확인했습니다. 더 넓은 독립 포럼 인기는 확립하지 못했습니다. 기존 게시 ID 네 개는 제외했고 저장소 후보 순위만으로 선택하지 않았습니다."
+  },
+  "headline": {
+    "en": "One chunk per round: what Wave Forcing accelerates, and what it still costs",
+    "ko": "라운드마다 청크 하나: Wave Forcing이 빠르게 하는 것과 여전히 드는 비용"
+  },
+  "abstract": {
+    "en": "A full-paper analysis of causal wavefront video generation, staged training and asynchronous K/V delivery. We separate cadence from latency, trained quality from dummy-weight system tests, same-graph improvements from multi-GPU speedups, and release availability from unresolved evidence discrepancies.",
+    "ko": "인과 파면 영상 생성·단계별 학습·비동기 K/V 전달을 원문 전체로 분석합니다. 출력 간격과 지연, 학습 품질과 무작위 가중치 시스템 검사, 동일 그래프 개선과 여러 GPU 가속, 공개 접근성과 미해결 근거 불일치를 구분합니다."
+  },
+  "readingMinutes": 16,
+  "sections": [
+    {
+      "id": "summary",
+      "title": {
+        "en": "Executive Summary",
+        "ko": "핵심 요약"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — Wave Forcing makes successive video chunks progress through denoising together instead of completing one chunk before starting the next. It changes the attention graph, trains for that graph, and distributes stages across full-model GPU replicas. Once the pipeline fills, one concurrent forward round can finish one chunk. The phrase “speed-of-light” is a title, not a physical latency claim. The useful engineering idea is to expose concurrency without pretending that the underlying work disappears.",
+          "ko": "논문의 주장 — Wave Forcing은 한 영상 청크를 완성한 뒤 다음 청크를 시작하는 대신 여러 청크의 잡음 제거를 함께 진행합니다. 어텐션 그래프를 바꾸고 그 그래프에 맞게 학습한 뒤 전체 모델을 복제한 GPU들에 단계를 배분합니다. 파이프라인이 채워지면 동시 순전파 한 라운드마다 청크 하나를 완성할 수 있습니다. 제목의 빛의 속도는 물리적 지연 시간 주장이 아닙니다. 핵심은 실제 계산이 사라졌다고 가정하지 않고 동시성을 확보하는 것입니다."
+        },
+        {
+          "en": "The paper reports 134.81 end-to-end frames per second for a four-step 1.3B configuration on eight H200 GPUs at 832×480. Its system tables use randomly initialized diffusion weights and a real decoder; quality comes from separate trained 1.3B evaluations. The current repository README instead describes its 1.3B rows as using released checkpoints. This discrepancy is unresolved here. We use the explicit manuscript protocol when interpreting its numbers and do not claim a new checkpoint-based speed reproduction.",
+          "ko": "논문은 832×480에서 H200 8개를 쓰는 4단계 1.3B 설정의 전체 처리 속도 134.81 FPS를 보고합니다. 시스템 표는 무작위 초기화한 확산 모델 가중치와 실제 디코더를 사용하며 품질은 별도로 학습한 1.3B 모델에서 평가합니다. 반면 현재 저장소 README는 1.3B 행이 공개 체크포인트를 사용한다고 설명합니다. 이 불일치는 여기서 해결되지 않았습니다. 수치는 명시적인 논문 절차를 기준으로 해석하며 체크포인트 기반 속도를 새로 재현했다고 주장하지 않습니다."
+        },
+        {
+          "en": "Reviewer Analysis — The strongest contribution is generation–training–runtime co-design, with unusually explicit resource and timing caveats. Engineering Implications — Separate output cadence, startup delay, total work and perceptual quality before selecting a streaming architecture. A high steady output rate does not establish fast interaction. All measured results below are author-reported; this review reads the complete paper and relevant release material but does not independently train or benchmark the model.",
+          "ko": "리뷰어 분석 — 가장 강한 기여는 생성·학습·실행 체계를 함께 설계하고 자원·시간 측정의 조건을 구체적으로 밝힌 점입니다. 엔지니어링 시사점 — 스트리밍 구조를 선택하기 전에 출력 간격, 시작 지연, 총 계산량, 지각 품질을 구분해야 합니다. 정상 상태 출력률이 높다고 상호작용이 빠르다는 뜻은 아닙니다. 아래 측정은 저자 보고이며 원문 전체와 관련 공개 자료를 검토했지만 모델 학습·벤치마크를 독립 재현하지는 않았습니다."
+        }
+      ]
+    },
+    {
+      "id": "background",
+      "title": {
+        "en": "Background & Research Problem",
+        "ko": "배경과 연구 문제"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "A video diffusion model repeatedly removes noise from compressed frames. A [[chunk|chunk]] groups a few latent frames into one processing unit. Ordinary chunk-wise generation completes several updates, then refreshes clean history before moving on. That extra store pass matters: even one-step denoising can require two model forwards under the paper’s cache convention. Fewer sampling steps alone do not remove this serialized output path.",
+          "ko": "영상 확산 모델은 압축된 프레임에서 반복해서 잡음을 제거합니다. [[chunk|청크]]는 몇 개의 잠재 프레임을 하나의 처리 단위로 묶습니다. 일반적인 청크별 생성은 여러 갱신과 깨끗한 이력 갱신을 마친 뒤 다음으로 넘어갑니다. 이 추가 저장 패스가 중요합니다. 논문의 캐시 규약에서는 잡음 제거가 한 단계여도 모델 순전파가 두 번 필요할 수 있습니다. 표본 추출 단계만 줄여서는 직렬 출력 경로가 없어지지 않습니다."
+        },
+        {
+          "en": "The [[kv-cache|key/value cache]] stores attention information from earlier content. A later chunk needs relevant earlier states, creating dependencies between otherwise parallel tasks. Rolling Forcing already advances mixed-noise chunks jointly, but its active chunks see both temporal directions. Wave Forcing removes access from earlier chunks to later, noisier chunks. Newer chunks can still read cleaner predecessors before those predecessors are fully finished. That changes the learned conditioning problem and requires adaptation.",
+          "ko": "[[kv-cache|키·값 캐시]]는 이전 내용의 어텐션 정보를 저장합니다. 뒤 청크는 앞 상태가 필요하므로 병렬 작업 사이에도 의존성이 생깁니다. Rolling Forcing도 잡음 수준이 다른 청크를 함께 진행하지만 활성 청크가 시간 양방향을 봅니다. Wave Forcing은 앞 청크가 뒤의 더 시끄러운 청크에 접근하는 경로를 없앱니다. 새 청크는 앞 청크가 완성되기 전에도 더 깨끗한 선행 상태를 읽습니다. 학습된 조건화 문제가 바뀌므로 적응 학습이 필요합니다."
+        },
+        {
+          "en": "The decoder introduces another bottleneck. A [[vae|variational autoencoder (VAE)]] turns latent frames into visible pixels. Accelerating the diffusion Transformer, or DiT, only helps the complete system if decoding and transfers keep up. This is why the paper separates steady ticks, whole-request DiT throughput and end-to-end throughput. Counting only the fastest component would give a misleading deployment estimate.",
+          "ko": "디코더도 병목입니다. [[vae|변분 오토인코더(VAE)]]는 잠재 프레임을 눈에 보이는 픽셀로 바꿉니다. 확산 Transformer인 DiT가 빨라져도 디코딩과 전송이 따라가야 전체가 빨라집니다. 그래서 논문은 정상 상태 틱, 요청 전체 DiT 처리량, 전체 처리량을 나눕니다. 가장 빠른 구성요소만 세면 배포 성능을 잘못 추정하게 됩니다."
+        }
+      ]
+    },
+    {
+      "id": "contributions",
+      "title": {
+        "en": "Core Innovations",
+        "ko": "핵심 기여"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — First, a directed [[wavefront|wavefront schedule]] makes different chunk-stage tasks coexist at different noise levels. Second, a staged training recipe teaches the model to use this mixed context and its own imperfect history. Third, Wave Runtime publishes layer-wise K/V early, overlaps communication with local computation, and balances decoder partitions. These are complementary changes. A scheduling optimization alone does not turn an unadapted Rolling Forcing checkpoint into the reported quality model.",
+          "ko": "논문의 주장 — 첫째, 방향성이 있는 [[wavefront|파면 스케줄]]이 서로 다른 청크·단계 작업을 다른 잡음 수준에서 공존시킵니다. 둘째, 단계별 학습이 혼합 맥락과 자기 출력의 불완전한 이력을 사용하는 법을 가르칩니다. 셋째, Wave Runtime은 층별 K/V를 일찍 공개하고 통신과 로컬 계산을 겹치며 디코더 분할을 균형화합니다. 이 변화들은 상호 보완적입니다. 스케줄만 바꿔서는 적응하지 않은 Rolling Forcing 체크포인트가 보고된 품질 모델이 되지 않습니다."
+        },
+        {
+          "en": "The resource accounting is central: S denoising stages plus one clean-cache store stage require S+1 full-model replicas. Dedicated VAE GPUs add to that count. Four-step experiments allocate four denoising GPUs, one store GPU and three decoder GPUs. Five-step experiments allocate five, one and two. The method spends hardware to shorten output intervals; it does not replace S denoising updates with one update.",
+          "ko": "자원 계산이 핵심입니다. 잡음 제거 S단계와 깨끗한 캐시 저장 한 단계에는 전체 모델 복제본 S+1개가 필요합니다. 전용 VAE GPU는 추가됩니다. 4단계 실험은 제거 4개·저장 1개·디코더 3개, 5단계는 5개·1개·2개입니다. 출력 간격을 줄이기 위해 하드웨어를 쓰는 방법이며 S번의 잡음 제거를 한 번으로 대체하지 않습니다."
+        }
+      ]
+    },
+    {
+      "id": "method",
+      "title": {
+        "en": "Architecture & Methodology",
+        "ko": "구조와 방법론"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "The scheduling equation is k=i+s: chunk i executes stage s in round k. At a filled round, newer chunks are noisier while older chunks are cleaner. A rank at stage s reads its own K/V and cleaner-stage K/V j≥s, together with anchor, bounded history and live store. Pseudocode in words: admit fresh noise; compute each rank’s projections; publish legal K/V; wait immediately before dependent attention; update latents; refresh clean history; advance the round.",
+          "ko": "스케줄 식은 k=i+s입니다. 청크 i의 단계 s는 라운드 k에서 실행됩니다. 채워진 라운드에서 새 청크는 더 시끄럽고 오래된 청크는 더 깨끗합니다. 단계 s의 랭크는 자기 K/V와 더 깨끗한 단계 j≥s의 K/V, 기준 청크·제한된 이력·현재 저장 상태를 읽습니다. 말로 쓴 의사코드는 새 잡음 수용, 랭크별 투영 계산, 허용 K/V 공개, 의존 어텐션 직전 대기, 잠재값 갱신, 깨끗한 이력 갱신, 라운드 진행입니다."
+        },
+        {
+          "en": "The compute is preserved: N chunks still require N(S+1) full forwards. The structural pipeline occupancy is N/(N+S). A filled round cannot be faster than its slowest stage, and network waits can make it slower. Early K/V delivery reduces [[exposed-wait|exposed waiting]] only when the producer’s lead is enough to cover transfer and signaling. For a consumer, the last required arrival determines the wait; concurrent communication durations must not simply be added together.",
+          "ko": "계산은 유지됩니다. N청크에는 여전히 N(S+1)번 전체 순전파가 필요합니다. 구조적 파이프라인 점유율은 N/(N+S)입니다. 채워진 라운드도 가장 느린 단계보다 빠를 수 없고 네트워크 대기로 더 느려질 수 있습니다. 조기 K/V 전달이 [[exposed-wait|겉으로 드러나는 대기]]를 줄이려면 생산자의 선행 시간이 전송·신호 비용을 덮어야 합니다. 소비자에게는 마지막 필수 도착이 대기를 정하며 동시 통신 시간을 단순 합산하면 안 됩니다."
+        },
+        {
+          "en": "Training uses [[dmd|distribution matching distillation (DMD)]]. Stage one mixes Rolling Forcing and Self Forcing rollouts. Stage two re-noises teacher video chunks and combines DMD with a perceptual loss weighted .25. Stage three samples Rolling, Wave or Self Forcing equally, using self-generated history for on-policy adaptation. The four-step student uses all three stages; the five-step student starts from released Rolling Forcing weights and skips the first. Only Wave Forcing is deployed.",
+          "ko": "학습은 [[dmd|분포 일치 증류(DMD)]]를 사용합니다. 1단계는 Rolling Forcing과 Self Forcing 실행을 섞습니다. 2단계는 교사 영상 청크에 잡음을 다시 넣고 DMD와 가중치 .25의 지각 손실을 결합합니다. 3단계는 Rolling·Wave·Self Forcing을 같은 확률로 뽑아 자기 생성 이력으로 온정책 적응을 합니다. 4단계 학생은 세 학습 단계를 모두 쓰고 5단계 학생은 공개 Rolling Forcing 가중치에서 시작해 첫 학습 단계를 건너뜁니다. 배포는 Wave Forcing만 사용합니다."
+        },
+        {
+          "en": "Appendix A specifies a frozen Wan2.1-T2V-14B teacher and separate trainable fake-score model. Teacher data contain 2,048 training and 128 validation examples, each with 21 latent frames. Eight workers give batch eight. For the four-step student, 3,000/1,000/2,000 loop iterations correspond to 600/1,000/400 student updates, since update frequencies differ. These distinctions matter when estimating training work. A complete measured training-time budget was not confirmed, so update counts should not be converted into invented GPU-hours.",
+          "ko": "부록 A는 고정 Wan2.1-T2V-14B 교사와 별도 학습 가능한 가짜 점수 모델을 명시합니다. 교사 데이터는 학습 2,048개·검증 128개이며 각각 잠재 프레임 21개입니다. 작업자 8개로 배치 8입니다. 4단계 학생의 반복 3,000/1,000/2,000회는 갱신 빈도가 달라 학생 갱신 600/1,000/400회에 해당합니다. 학습량 추정에 이 구분이 중요합니다. 전체 실측 학습 시간 예산은 확인하지 못했으므로 갱신 수를 임의 GPU시간으로 바꾸면 안 됩니다."
+        },
+        {
+          "en": "Original Figure 5 is linked in the source notebook. The inspected 660×188 montage compares frames from Causal Forcing, Rolling Forcing and four-/five-step Wave Forcing through 95 seconds. Notice subject visibility rather than treating a few selected frames as a comprehensive quality test. Attribution: Jin and colleagues, original paper figure. The original link preserves labels and proportions; the manuscript carries arXiv’s non-exclusive distribution license, so this review does not relabel the figure as Creative Commons.",
+          "ko": "원본 그림 5는 아래 원문 자료에 연결했습니다. 확인한 660×188 몽타주는 95초까지 Causal Forcing·Rolling Forcing·4/5단계 Wave Forcing 프레임을 비교합니다. 선택한 몇 프레임을 포괄적 품질 검사로 보지 말고 주체가 계속 보이는지 살펴보세요. 출처는 Jin 외 저자들의 원본 논문 그림입니다. 원본 링크는 표시·비율을 유지합니다. 논문은 arXiv 비독점 배포 라이선스이므로 그림을 Creative Commons로 다시 표시하지 않습니다."
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "title": {
+        "en": "Experiments & Results",
+        "ko": "실험과 결과"
+      },
+      "evidence": "author",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — Quality tests use trained Wan2.1-T2V-1.3B variants, 832×480 video, playback at 16 FPS and seed 42. Short videos contain 129 frames per prompt. Long tests use 200 MovieGen prompts and 1,593 frames, about 100 seconds. Five-step Wave Forcing scores 81.64 VBench Total against Rolling Forcing’s 81.15; long-video Quality is 81.26 versus 81.18. These small overall differences should not be presented as a decisive general quality lead without broader seeds or human evaluation.",
+          "ko": "논문의 주장 — 품질 검사는 학습한 Wan2.1-T2V-1.3B 변형, 832×480, 재생 16 FPS, 시드 42를 사용합니다. 짧은 영상은 요청당 129프레임입니다. 긴 검사는 MovieGen 요청 200개와 1,593프레임, 약 100초입니다. 5단계 Wave Forcing의 VBench Total은 81.64, Rolling Forcing은 81.15이며 긴 영상 Quality는 81.26 대 81.18입니다. 여러 시드나 사람 평가 없이 이 작은 전체 차이를 일반적 품질의 결정적 우위로 표현하면 안 됩니다."
+        },
+        {
+          "en": "Motion changes are larger: long-video Dynamic Degree rises from 36.63 to 91.45. But motion is not automatically good. Causal Forcing scores 96.61 while subject preservation falls to 71.11 and camera drift reaches 11.14. Wave Forcing gives 97.10 subject preservation and .37 drift; Rolling Forcing gives 92.75 and .17. The targeted diagnostics use a fixed subject-focused 100-prompt subset, tracking and geometric heuristics, so they do not cover intentional scene changes or all visual failures.",
+          "ko": "움직임 차이는 큽니다. 긴 영상 Dynamic Degree가 36.63에서 91.45로 오릅니다. 하지만 움직임이 많다고 자동으로 좋은 것은 아닙니다. Causal Forcing은 96.61이지만 주체 보존은 71.11, 카메라 표류는 11.14입니다. Wave Forcing은 주체 보존 97.10·표류 .37, Rolling Forcing은 92.75·.17입니다. 표적 진단은 주체 중심 요청 100개의 고정 부분집합과 추적·기하 휴리스틱을 쓰므로 의도적인 장면 전환이나 모든 시각적 실패를 포괄하지 않습니다."
+        },
+        {
+          "en": "System Table 4 uses one NVLink-connected node of eight H200 141-GB GPUs, BF16 with FlashAttention-3, 399 latent-frame warmup and three fixed repeats. Complete-request FPS divides 1,593 frames by median elapsed time. Loading and file encoding are excluded. Four-step 1.3B WaveRT reaches 147.58 DiT and 134.81 end-to-end FPS, versus a 19.06-FPS single-GPU reference. The 7.07× gain combines eight GPUs, graph changes, runtime changes and decoding. It is not a sevenfold reduction in GPU work.",
+          "ko": "시스템 표 4는 NVLink 연결 H200 141GB 8개 노드, BF16·FlashAttention-3, 잠재 프레임 399개의 예열, 고정 반복 3회를 사용합니다. 요청 전체 FPS는 1,593프레임을 경과 시간 중앙값으로 나눕니다. 로딩·파일 인코딩은 제외합니다. 4단계 1.3B WaveRT는 DiT 147.58·전체 134.81 FPS이며 단일 GPU 기준은 19.06 FPS입니다. 7.07배 이득에는 GPU 8개, 그래프·실행·디코딩 변화가 함께 들어갑니다. GPU 계산량이 7분의 1이 되었다는 뜻이 아닙니다."
+        },
+        {
+          "en": "The cleaner comparison keeps the Wave graph fixed: synchronized execution reaches 127.06 end-to-end FPS and paged WaveRT reaches 134.81, about 6.1% higher. Tick median falls from 91.96 to 78.88 ms, a different metric. Adding W8A8 improves the tick median further yet lowers complete end-to-end FPS to 132.89. This is a concrete example of a local optimization failing to improve the output path. Aggregate profiles cannot determine whether decoder compute, transfers, queueing or interference causes the remaining gap.",
+          "ko": "더 명확한 비교는 Wave 그래프를 고정합니다. 동기 실행 전체 127.06 FPS에서 paged WaveRT 134.81로 약 6.1% 증가합니다. 틱 중앙값은 91.96에서 78.88밀리초로 줄지만 다른 지표입니다. W8A8를 추가하면 틱 중앙값은 더 좋아져도 요청 전체 FPS는 132.89로 낮아집니다. 로컬 최적화가 출력 경로를 개선하지 못하는 구체적 예입니다. 집계 프로파일만으로 남은 차이가 디코더 계산·전송·큐·간섭 중 무엇 때문인지 결정할 수 없습니다."
+        },
+        {
+          "en": "Against Ulysses and Ring [[context-parallelism|context parallelism]], the separate DiT-only sweep matches GPU counts, steps and compute backend within each row. Sage+W8A8 Wave Parallelism is 1.025–2.530× the faster baseline across six scales. Under BF16, the 9B configuration is slightly slower than Ulysses. The comparison also changes active-window attention from bidirectional to causal, and all six scales use dummy weights. Intermediate 3B–9B architectures are synthetic configurations, not trained quality models. Some supplemental cells use throughput-based stopping rather than the fixed-three-repeat protocol.",
+          "ko": "Ulysses·Ring [[context-parallelism|문맥 병렬화]]와의 별도 DiT 전용 비교는 행마다 GPU 수·단계·계산 백엔드를 맞춥니다. Sage+W8A8에서 Wave Parallelism은 여섯 규모에서 더 빠른 기준의 1.025~2.530배입니다. BF16의 9B는 Ulysses보다 약간 느립니다. 비교에는 활성 창 어텐션을 양방향에서 인과적으로 바꾸는 차이도 있고 여섯 규모 모두 무작위 가중치입니다. 중간 3B~9B 구조는 합성 설정이지 학습한 품질 모델이 아닙니다. 일부 보충 셀은 고정 세 번 대신 처리량 기반 중단을 사용합니다."
+        }
+      ]
+    },
+    {
+      "id": "critical",
+      "title": {
+        "en": "Critical Analysis & Limitations",
+        "ko": "비판적 분석과 한계"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Reviewer Analysis — The principal attribution issue is separating algorithm, hardware and scheduler gains. Full-model replicas increase memory demand. A fair deployment decision needs cost per stream and GPU-hour as well as FPS. At fixed denoising steps, the number of useful stage replicas is bounded; adding arbitrary GPUs cannot indefinitely accelerate one stream. K/V destination count grows quadratically with stage count, so communication can become less favorable as sampling depth rises.",
+          "ko": "리뷰어 분석 — 주요 귀속 문제는 알고리즘·하드웨어·스케줄 이득을 분리하는 것입니다. 전체 모델 복제는 메모리 요구를 늘립니다. 배포 판단에는 FPS뿐 아니라 스트림당 비용·GPU시간이 필요합니다. 잡음 제거 단계가 고정되면 유용한 단계 복제 수가 제한되므로 GPU를 계속 더해도 단일 스트림이 무한히 빨라지지 않습니다. K/V 목적지 수는 단계 수의 제곱으로 늘어 표본 추출 깊이가 커지면 통신에 불리할 수 있습니다."
+        },
+        {
+          "en": "The equivalence proposition is narrower than general exactness. Fixed parameters, noise draws, conditioning, positions, ordered K/V and cache rules give synchronized and dependency-respecting asynchronous versions the same mathematical latent sequence. It does not equate Wave Forcing with Rolling Forcing, prove equality for approximate kernels, or cover online prompt changes. Earlier 1.3B tests report bit-identical latent outputs for selected transports; that is useful implementation evidence within those tested settings, not universal proof of every backend.",
+          "ko": "동등성 명제는 일반적인 정확성보다 범위가 좁습니다. 파라미터·잡음·조건·위치·K/V 순서·캐시 규칙을 고정하면 동기 실행과 의존성을 지킨 비동기 실행의 수학적 잠재 시퀀스가 같습니다. Wave Forcing과 Rolling Forcing의 동등성, 근사 커널의 동일성, 온라인 요청 변경을 증명하지는 않습니다. 이전 1.3B 검사에서 일부 전송 방식의 잠재 출력이 비트 단위로 같았다는 보고는 해당 설정의 유용한 구현 근거이며 모든 백엔드의 보편적 증명은 아닙니다."
+        },
+        {
+          "en": "Quality and serving coverage remain limited. One quality seed and heuristic subject diagnostics do not establish broad perceptual superiority. The resident launcher handles one queued request at a time. Multi-stream fairness, startup delay, output jitter and prompt-to-visible latency are not established by throughput. The manuscript-versus-README timing-weight discrepancy also deserves clarification before treating the released checkpoint as a directly reproduced 134.8-FPS configuration. No independent performance reproduction is verified here.",
+          "ko": "품질·서빙 범위도 제한됩니다. 품질 시드 하나와 주체 휴리스틱 진단은 광범위한 지각적 우위를 입증하지 않습니다. 상주 실행기는 대기 요청을 한 번에 하나씩 처리합니다. 처리량만으로 여러 스트림의 공정성·시작 지연·출력 흔들림·요청부터 화면 반영까지의 지연을 입증할 수 없습니다. 공개 체크포인트를 134.8 FPS로 직접 재현한 구성으로 취급하기 전에 논문과 README의 측정 가중치 불일치도 설명이 필요합니다. 여기서는 독립 성능 재현을 검증하지 못했습니다."
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "title": {
+        "en": "Engineering Implications",
+        "ko": "엔지니어링 시사점"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Documented implementation — The current repository contains WaveRT inference and reference training recipes, and the public model API lists four-step and five-step safetensors files with gating disabled. Download access was checked at metadata level; full multi-gigabyte weights were not downloaded. WaveRT uses Python 3.12, PyTorch 2.11.0+cu128, SGLang Diffusion, Hopper-oriented FlashAttention-3 and Triton. Runtime code is Apache-2.0, while the derived reference trainer has a separate academic-use license. These are distinct access and usage conditions.",
+          "ko": "문서화된 구현 — 현재 저장소에는 WaveRT 추론과 참조 학습 절차가 있으며 공개 모델 API에는 접근 승인 제한 없이 4·5단계 safetensors 파일이 나열됩니다. 다운로드 접근은 메타데이터 수준에서 확인했고 수 GB 가중치는 내려받지 않았습니다. WaveRT는 Python 3.12, PyTorch 2.11.0+cu128, SGLang Diffusion, Hopper용 FlashAttention-3와 Triton을 사용합니다. 실행 코드는 Apache-2.0이며 파생 참조 학습기는 별도의 학술용 라이선스입니다. 접근 조건과 사용 조건을 구분해야 합니다."
+        },
+        {
+          "en": "Engineering Implications — Preserve buffer lifetimes and generation flags before optimizing transfers. A consumer must wait for every legal producer, including store, and old buffers must not be reused before outgoing copies finish. Keep anchor/history ordering and request-local decoder caches explicit. Otherwise a fast run can silently consume stale context. Benchmark synchronized and asynchronous execution with identical seeds and graph first, then separately test approximate precision modes and quality.",
+          "ko": "엔지니어링 시사점 — 전송 최적화에 앞서 버퍼 수명과 세대 플래그를 지켜야 합니다. 소비자는 저장 단계를 포함한 모든 허용 생산자를 기다려야 하고 전송 복사가 끝나기 전에 이전 버퍼를 재사용하면 안 됩니다. 기준·이력 순서와 요청별 디코더 캐시를 명시해야 합니다. 그렇지 않으면 빠른 실행이 오래된 맥락을 조용히 읽을 수 있습니다. 먼저 같은 시드·그래프에서 동기·비동기를 비교하고 근사 정밀도와 품질은 따로 검사해야 합니다."
+        },
+        {
+          "en": "Low-cost exercise — Build a spreadsheet with S=4 and ten chunks. Place task (i,s) at round i+s for stages zero through four, including store. Count 50 forwards over 14 rounds, then compute slot occupancy 10/14. Compare a serial five-forward output period with the filled pipeline’s one-round cadence. Add a decoder whose service time exceeds one round and watch the queue grow. This 15-minute conceptual experiment needs no GPU and teaches the distinction between work, cadence and backpressure; it does not reproduce video quality or GPU timings.",
+          "ko": "저비용 실습 — 스프레드시트에서 S=4, 청크 10개를 만듭니다. 저장 단계를 포함해 0~4단계 작업 (i,s)를 i+s라운드에 놓습니다. 14라운드에 순전파 50번을 세고 점유율 10/14를 계산합니다. 직렬 다섯 순전파의 출력 간격과 채워진 파이프라인의 한 라운드 간격을 비교합니다. 이어 처리 시간이 한 라운드보다 긴 디코더를 더해 큐가 늘어나는지 봅니다. GPU 없는 15분 개념 실습이며 계산량·출력 간격·역압의 차이를 배우지만 영상 품질·GPU 시간 재현은 아닙니다."
+        }
+      ]
+    },
+    {
+      "id": "future",
+      "title": {
+        "en": "Future Directions",
+        "ko": "후속 연구 방향"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Reviewer Analysis — The next useful evidence would run released checkpoints through matched quality and performance protocols, publish stage-level service and queue traces, and resolve the README/manuscript discrepancy. Human judgments should test motion together with intentional scene changes and identity retention. A serving study should include first-frame delay, p95 output intervals, stream concurrency and hardware cost rather than reporting only average frame throughput.",
+          "ko": "리뷰어 분석 — 다음으로 유용한 근거는 공개 체크포인트를 같은 품질·성능 절차로 실행하고 단계별 처리·큐 기록을 공개하며 README와 논문의 불일치를 해결하는 것입니다. 사람 평가는 움직임과 함께 의도적 장면 변화·정체성 유지를 검사해야 합니다. 서빙 연구는 평균 프레임 처리량뿐 아니라 첫 프레임 지연·95백분위 출력 간격·동시 스트림·하드웨어 비용을 포함해야 합니다."
+        },
+        {
+          "en": "Interactive world modeling is explicitly future work. Prompt updates would need rules for which in-flight chunks receive new conditions and which caches are rebuilt. Camera or action control adds feedback-dependent state and new training requirements. The paper supplies a promising execution substrate for such work, but fixed-conditioning generation is not evidence of closed-loop control. Its most transferable lesson is to train for the dependency graph that the runtime will actually execute.",
+          "ko": "상호작용 세계 모델은 명시적인 후속 과제입니다. 요청 변경에는 진행 중 어느 청크가 새 조건을 받고 어떤 캐시를 다시 만들지 규칙이 필요합니다. 카메라·행동 제어는 피드백 의존 상태와 새로운 학습 요구를 더합니다. 논문은 이를 위한 유망한 실행 기반을 제공하지만 고정 조건 생성이 폐루프 제어의 근거는 아닙니다. 가장 옮겨 쓸 만한 교훈은 실행 체계가 실제 수행할 의존성 그래프에 맞춰 학습하라는 것입니다."
+        }
+      ]
+    },
+    {
+      "id": "references",
+      "title": {
+        "en": "Sources & Further Reading",
+        "ko": "출처와 추가 읽기"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Primary reading — Jin and colleagues, Wave Forcing: Towards Speed-of-Light Streaming Video Generation, arXiv:2611.00859v1, October 31, 2026. The complete manuscript and appendices A–E were inspected, including cache semantics, timing contracts, repeat protocols and future-work scope. Current author README, lab project page and model repository metadata were also checked. All measurements remain author-reported. The source notebook links the paper, release material and unchanged original qualitative figure.",
+          "ko": "주요 원문 — Jin 외 저자들의 Wave Forcing: Towards Speed-of-Light Streaming Video Generation, arXiv:2611.00859v1, 2026년 10월 31일입니다. 캐시 의미·시간 규약·반복 절차·후속 범위를 포함해 전체 본문과 부록 A~E를 검토했습니다. 현재 README·연구실 프로젝트·모델 저장소 메타데이터도 확인했습니다. 측정은 모두 저자 보고입니다. 아래 원문 자료는 논문·공개 자료·변경하지 않은 원본 정성 그림으로 연결됩니다."
+        },
+        {
+          "en": "Selection audit, November 6 — Discovery compared the repository queue with Hugging Face, GitHub, Hacker News/Reddit/OpenReview searches and original lab material. The inspected Hugging Face page showed 124 votes and a number-two paper-of-the-day badge; GitHub showed 128 stars and one fork. Additional paper-specific discussion on the searched independent forums was not verified. This is an editorial selection for video-systems significance supported by two attention signals, not a global popularity claim. All four saved prior paper IDs were excluded; the archive contained fewer than fourteen reviews.",
+          "ko": "11월 6일 선정 검토 — 저장소 후보와 Hugging Face·GitHub·Hacker News/Reddit/OpenReview 검색·연구실 원문을 비교했습니다. 확인한 Hugging Face는 추천 124개·오늘의 논문 2위 표시, GitHub는 스타 128개·포크 1개였습니다. 검색한 독립 포럼의 추가 논문별 토론은 검증하지 못했습니다. 두 관심 신호가 뒷받침하는 영상 시스템의 기술적 중요성에 따른 편집부 선정이며 전 세계 인기 순위 주장은 아닙니다. 저장된 기존 네 논문 ID는 모두 제외했으며 리뷰는 14편보다 적었습니다."
+        }
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "chunk",
+      "name": {
+        "en": "Video chunk",
+        "ko": "영상 청크"
+      },
+      "plain": {
+        "en": "A small group of latent frames processed together. Latent and decoded frame counts differ.",
+        "ko": "함께 처리하는 작은 잠재 프레임 묶음입니다. 잠재 프레임과 복원 프레임 수는 다릅니다."
+      },
+      "background": {
+        "en": "Understand video frames and compressed latent representations.",
+        "ko": "영상 프레임과 압축된 잠재 표현을 이해하면 됩니다."
+      },
+      "example": {
+        "en": "The paper uses three latent frames per chunk; a steady chunk corresponds to twelve decoded frames.",
+        "ko": "논문은 청크당 잠재 프레임 3개를 쓰며 정상 청크는 복원 프레임 12개에 해당합니다."
+      },
+      "why": {
+        "en": "Chunks are the temporal units distributed across denoising stages.",
+        "ko": "청크는 잡음 제거 단계 사이에 분배하는 시간 단위입니다."
+      }
+    },
+    {
+      "id": "kv-cache",
+      "name": {
+        "en": "Key/value cache",
+        "ko": "키·값 캐시"
+      },
+      "plain": {
+        "en": "Stored attention keys and values that allow later queries to use previous context.",
+        "ko": "뒤 질의가 이전 맥락을 사용할 수 있도록 저장한 어텐션 키·값입니다."
+      },
+      "background": {
+        "en": "Know queries, keys and values in Transformer attention.",
+        "ko": "Transformer 어텐션의 질의·키·값을 알면 됩니다."
+      },
+      "example": {
+        "en": "A newer chunk reads cleaner predecessor K/V while that predecessor is still progressing.",
+        "ko": "새 청크가 진행 중인 더 깨끗한 선행 청크의 K/V를 읽습니다."
+      },
+      "why": {
+        "en": "K/V availability and correct ordering determine both correctness and communication waits.",
+        "ko": "K/V의 가용성과 올바른 순서가 정확성과 통신 대기를 결정합니다."
+      }
+    },
+    {
+      "id": "vae",
+      "name": {
+        "en": "Variational autoencoder (VAE)",
+        "ko": "변분 오토인코더"
+      },
+      "plain": {
+        "en": "A model that maps between visible data and a compressed latent representation; its decoder restores pixels here.",
+        "ko": "가시 데이터와 압축 잠재 표현을 연결하는 모델이며 여기서는 디코더가 픽셀을 복원합니다."
+      },
+      "background": {
+        "en": "Understand the difference between generation in latent space and displaying RGB frames.",
+        "ko": "잠재 공간 생성과 RGB 프레임 표시의 차이를 이해하면 됩니다."
+      },
+      "example": {
+        "en": "Even when diffusion finishes quickly, a slow decoder can queue completed latent chunks.",
+        "ko": "확산이 빨리 끝나도 디코더가 느리면 완성 잠재 청크가 큐에 쌓입니다."
+      },
+      "why": {
+        "en": "Dedicated decoder stages are included in the eight-GPU end-to-end budget.",
+        "ko": "전용 디코더 단계가 GPU 8개의 전체 예산에 포함됩니다."
+      }
+    },
+    {
+      "id": "wavefront",
+      "name": {
+        "en": "Wavefront scheduling",
+        "ko": "파면 스케줄링"
+      },
+      "plain": {
+        "en": "Schedule tasks on diagonals so different items progress through different stages concurrently.",
+        "ko": "서로 다른 항목이 다른 단계를 동시에 진행하도록 대각선 단위로 작업을 배치합니다."
+      },
+      "background": {
+        "en": "Know pipelines, task dependencies and logical rounds.",
+        "ko": "파이프라인·작업 의존성·논리 라운드를 이해하면 됩니다."
+      },
+      "example": {
+        "en": "Chunk i at stage s is assigned round i+s, placing older chunks at cleaner stages.",
+        "ko": "청크 i의 단계 s를 i+s라운드에 놓아 오래된 청크가 더 깨끗한 단계에 있게 합니다."
+      },
+      "why": {
+        "en": "It provides output cadence after fill while preserving every denoising update and store pass.",
+        "ko": "채워진 뒤 출력 간격을 개선하면서 모든 잡음 제거·저장 패스를 유지합니다."
+      }
+    },
+    {
+      "id": "exposed-wait",
+      "name": {
+        "en": "Exposed waiting",
+        "ko": "노출된 대기"
+      },
+      "plain": {
+        "en": "Dependency delay that remains on the critical path after communication and computation overlap.",
+        "ko": "통신·계산을 겹친 뒤에도 임계 경로에 남는 의존성 지연입니다."
+      },
+      "background": {
+        "en": "Distinguish total communication duration from time when useful computation is blocked.",
+        "ko": "총 통신 시간과 유용한 계산이 막힌 시간을 구분하면 됩니다."
+      },
+      "example": {
+        "en": "A transfer completed before attention needs it can take time without adding an attention stall.",
+        "ko": "어텐션이 필요하기 전에 끝난 전송은 시간이 들어도 어텐션 정지를 추가하지 않을 수 있습니다."
+      },
+      "why": {
+        "en": "WaveRT optimizes readiness before use, rather than assuming all communication cost is visible.",
+        "ko": "WaveRT는 모든 통신 비용이 드러난다고 가정하지 않고 사용 전 준비를 최적화합니다."
+      }
+    },
+    {
+      "id": "dmd",
+      "name": {
+        "en": "Distribution matching distillation",
+        "ko": "분포 일치 증류"
+      },
+      "plain": {
+        "en": "Train a student generator to match a teacher-guided target distribution using score information.",
+        "ko": "점수 정보를 사용해 학생 생성기가 교사 유도 목표 분포와 맞도록 학습하는 증류입니다."
+      },
+      "background": {
+        "en": "Know teacher–student training, diffusion noise levels and generated-data distributions.",
+        "ko": "교사·학생 학습과 확산 잡음 수준·생성 데이터 분포를 알면 됩니다."
+      },
+      "example": {
+        "en": "The paper mixes self-generated rollout types and uses a separate fake-score model to support student updates.",
+        "ko": "논문은 자기 생성 실행 유형을 섞고 별도 가짜 점수 모델로 학생 갱신을 지원합니다."
+      },
+      "why": {
+        "en": "It adapts the student to the causal wavefront and its self-generated histories.",
+        "ko": "학생을 인과 파면과 자기 생성 이력에 적응시키는 역할입니다."
+      }
+    },
+    {
+      "id": "context-parallelism",
+      "name": {
+        "en": "Context parallelism",
+        "ko": "문맥 병렬화"
+      },
+      "plain": {
+        "en": "Distribute attention context across devices to parallelize a forward computation.",
+        "ko": "어텐션 문맥을 장치에 나누어 순전파 계산을 병렬화하는 방식입니다."
+      },
+      "background": {
+        "en": "Understand sequence tokens, attention and inter-device communication.",
+        "ko": "시퀀스 토큰·어텐션·장치 간 통신을 이해하면 됩니다."
+      },
+      "example": {
+        "en": "Ulysses exchanges sequence/head partitions; Ring circulates key/value blocks.",
+        "ko": "Ulysses는 시퀀스·헤드 분할을 교환하고 Ring은 키·값 블록을 순환시킵니다."
+      },
+      "why": {
+        "en": "The paper compares these with chunk-stage replication, but the compared attention graphs also differ.",
+        "ko": "논문은 청크·단계 복제와 비교하지만 비교하는 어텐션 그래프도 다릅니다."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "paper",
+      "name": "Original paper and version history",
+      "url": "https://arxiv.org/abs/2611.00859"
+    },
+    {
+      "id": "full",
+      "name": "Full manuscript and appendices A–E",
+      "url": "https://arxiv.org/html/2611.00859v1"
+    },
+    {
+      "id": "project",
+      "name": "Authors’ project and result matrix",
+      "url": "https://sjtu-deng-lab.github.io/WaveForcing/"
+    },
+    {
+      "id": "code",
+      "name": "Current source, release status and reproduction README",
+      "url": "https://github.com/SJTU-DENG-Lab/WaveForcing"
+    },
+    {
+      "id": "models",
+      "name": "Public four-step and five-step checkpoint repository",
+      "url": "https://huggingface.co/SJTU-DENG-Lab/WaveForcing-1.3B"
+    },
+    {
+      "id": "figure",
+      "name": "Original Figure 5 — Jin et al., selected long-video frames, 660×188",
+      "url": "https://arxiv.org/html/2611.00859v1/qualitative_comparison_reading.png"
+    },
+    {
+      "id": "selection",
+      "name": "Hugging Face selection signal",
+      "url": "https://huggingface.co/papers/2611.00859"
+    }
+  ]
+}
