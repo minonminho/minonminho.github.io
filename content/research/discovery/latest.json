@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T01:06:28.230136+00:00",
+  "generatedAt": "2026-11-06T01:10:29.686836+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -8,7 +8,7 @@
     },
     "hackernews": {
       "state": "ok",
-      "items": 68
+      "items": 74
     },
     "reddit": {
       "state": "unavailable",
@@ -17,31 +17,12 @@
   },
   "candidates": [
     {
-      "arxivId": "2611.02501",
-      "title": "SpecPilot: Autonomous Algorithm Discovery and Systems Optimization for Speculative Decoding",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 16,
-          "url": "https://huggingface.co/papers/2611.02501"
-        },
-        {
-          "source": "hackernews",
-          "engagement": 1,
-          "url": "https://news.ycombinator.com/item?id=50362102"
-        }
-      ],
-      "attentionScore": 35.0,
-      "communityCount": 2,
-      "originalPaper": "https://arxiv.org/abs/2611.02501"
-    },
-    {
       "arxivId": "2611.05306",
       "title": "You don't need long context",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 9,
+          "engagement": 14,
           "url": "https://huggingface.co/papers/2611.05306"
         },
         {
@@ -50,9 +31,28 @@
           "url": "https://news.ycombinator.com/item?id=50366701"
         }
       ],
-      "attentionScore": 34.73,
+      "attentionScore": 35.47,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.05306"
+    },
+    {
+      "arxivId": "2611.02501",
+      "title": "SpecPilot: Autonomous Algorithm Discovery and Systems Optimization for Speculative Decoding",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 19,
+          "url": "https://huggingface.co/papers/2611.02501"
+        },
+        {
+          "source": "hackernews",
+          "engagement": 1,
+          "url": "https://news.ycombinator.com/item?id=50362102"
+        }
+      ],
+      "attentionScore": 35.36,
+      "communityCount": 2,
+      "originalPaper": "https://arxiv.org/abs/2611.02501"
     },
     {
       "arxivId": "2611.04169",
@@ -65,11 +65,11 @@
         },
         {
           "source": "hackernews",
-          "engagement": 2,
+          "engagement": 3,
           "url": "https://news.ycombinator.com/item?id=50371624"
         }
       ],
-      "attentionScore": 31.41,
+      "attentionScore": 31.73,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.04169"
     },
@@ -79,7 +79,7 @@
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 382,
+          "engagement": 390,
           "url": "https://news.ycombinator.com/item?id=50358582"
         }
       ],
@@ -93,11 +93,11 @@
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 221,
+          "engagement": 222,
           "url": "https://news.ycombinator.com/item?id=50322022"
         }
       ],
-      "attentionScore": 29.87,
+      "attentionScore": 29.9,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2409.02292"
     },
@@ -107,11 +107,11 @@
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 169,
+          "engagement": 170,
           "url": "https://news.ycombinator.com/item?id=50325454"
         }
       ],
-      "attentionScore": 28.0,
+      "attentionScore": 28.04,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.39302"
     },
@@ -135,46 +135,18 @@
       "originalPaper": "https://arxiv.org/abs/2610.37741"
     },
     {
-      "arxivId": "2611.01860",
-      "title": "Advances in Agentic Computer Graphics",
+      "arxivId": "2611.06728",
+      "title": "Turns Matter: Advancing Streaming Video RL via Turn-Level Credit",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 131,
-          "url": "https://huggingface.co/papers/2611.01860"
+          "engagement": 124,
+          "url": "https://huggingface.co/papers/2611.06728"
         }
       ],
-      "attentionScore": 26.45,
+      "attentionScore": 26.14,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.01860"
-    },
-    {
-      "arxivId": "2611.00859",
-      "title": "Wave Forcing: Towards Speed-of-Light Streaming Video Generation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 121,
-          "url": "https://huggingface.co/papers/2611.00859"
-        }
-      ],
-      "attentionScore": 26.0,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.00859"
-    },
-    {
-      "arxivId": "2611.03178",
-      "title": "CoworkOS:Scaling Agent Coworkers for Real-world Automation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 94,
-          "url": "https://huggingface.co/papers/2611.03178"
-        }
-      ],
-      "attentionScore": 24.7,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.03178"
+      "originalPaper": "https://arxiv.org/abs/2611.06728"
     },
     {
       "arxivId": "2611.05275",
@@ -182,41 +154,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 84,
+          "engagement": 85,
           "url": "https://huggingface.co/papers/2611.05275"
         }
       ],
-      "attentionScore": 24.17,
+      "attentionScore": 24.22,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.05275"
-    },
-    {
-      "arxivId": "2611.03126",
-      "title": "CUA-Master: Scaling Computer-use Agents through Open-World Recursive Improvements",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 78,
-          "url": "https://huggingface.co/papers/2611.03126"
-        }
-      ],
-      "attentionScore": 23.83,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.03126"
-    },
-    {
-      "arxivId": "2610.40191",
-      "title": "Video Generation Meets Agent Harness: Agentic Video Generation, Agentic World Modeling and Recursive Self-Improvement",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 74,
-          "url": "https://huggingface.co/papers/2610.40191"
-        }
-      ],
-      "attentionScore": 23.6,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.40191"
     },
     {
       "arxivId": "2611.00617",
@@ -224,27 +168,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 67,
+          "engagement": 77,
           "url": "https://huggingface.co/papers/2611.00617"
         }
       ],
-      "attentionScore": 23.19,
+      "attentionScore": 23.77,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.00617"
     },
     {
-      "arxivId": "2611.04814",
-      "title": "Think Less, Locally: Local Preference Learning for Reasoning Compression",
+      "arxivId": "2610.00854",
+      "title": "Are Frontier VLM Agents Ready to Be Robot Generalists? An Empirical Study with the Embodied Agent Arena",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 65,
-          "url": "https://huggingface.co/papers/2611.04814"
+          "engagement": 74,
+          "url": "https://huggingface.co/papers/2610.00854"
         }
       ],
-      "attentionScore": 23.06,
+      "attentionScore": 23.6,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.04814"
+      "originalPaper": "https://arxiv.org/abs/2610.00854"
     },
     {
       "arxivId": "2611.02737",
@@ -252,13 +196,69 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 62,
+          "engagement": 74,
           "url": "https://huggingface.co/papers/2611.02737"
         }
       ],
-      "attentionScore": 22.87,
+      "attentionScore": 23.6,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.02737"
+    },
+    {
+      "arxivId": "2611.04916",
+      "title": "Behind Video Generation: Observations and Insights on Multimodal Understanding from Kling",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 65,
+          "url": "https://huggingface.co/papers/2611.04916"
+        }
+      ],
+      "attentionScore": 23.06,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.04916"
+    },
+    {
+      "arxivId": "2611.06918",
+      "title": "From Pixels to Actions - Towards Native Vision-Language-Action Policies",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 56,
+          "url": "https://huggingface.co/papers/2611.06918"
+        }
+      ],
+      "attentionScore": 22.48,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.06918"
+    },
+    {
+      "arxivId": "2611.04814",
+      "title": "Think Less, Locally: Local Preference Learning for Reasoning Compression",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 56,
+          "url": "https://huggingface.co/papers/2611.04814"
+        }
+      ],
+      "attentionScore": 22.48,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.04814"
+    },
+    {
+      "arxivId": "2611.05377",
+      "title": "DreamX: Video Diffusion Model is a Universal Latent Action Learner",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 54,
+          "url": "https://huggingface.co/papers/2611.05377"
+        }
+      ],
+      "attentionScore": 22.35,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.05377"
     },
     {
       "arxivId": "2608.25820",
@@ -275,34 +275,6 @@
       "originalPaper": "https://arxiv.org/abs/2608.25820"
     },
     {
-      "arxivId": "2611.05377",
-      "title": "DreamX: Video Diffusion Model is a Universal Latent Action Learner",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 51,
-          "url": "https://huggingface.co/papers/2611.05377"
-        }
-      ],
-      "attentionScore": 22.14,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.05377"
-    },
-    {
-      "arxivId": "2611.04916",
-      "title": "Behind Video Generation: Observations and Insights on Multimodal Understanding from Kling",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 51,
-          "url": "https://huggingface.co/papers/2611.04916"
-        }
-      ],
-      "attentionScore": 22.14,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.04916"
-    },
-    {
       "arxivId": "2611.02618",
       "title": "USDB: Scaling Storage for Next-Generation Recommender Systems at ByteDance",
       "signals": [
@@ -317,16 +289,30 @@
       "originalPaper": "https://arxiv.org/abs/2611.02618"
     },
     {
+      "arxivId": "2611.06910",
+      "title": "FrontierPhysics: Evaluating Agents for End-to-End Physics Research",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 47,
+          "url": "https://huggingface.co/papers/2611.06910"
+        }
+      ],
+      "attentionScore": 21.86,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.06910"
+    },
+    {
       "arxivId": "2611.05193",
       "title": "Factorized MLLM Embeddings for Composed Image Retrieval",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 43,
+          "engagement": 47,
           "url": "https://huggingface.co/papers/2611.05193"
         }
       ],
-      "attentionScore": 21.56,
+      "attentionScore": 21.86,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.05193"
     },
@@ -336,11 +322,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 43,
+          "engagement": 47,
           "url": "https://huggingface.co/papers/2611.02497"
         }
       ],
-      "attentionScore": 21.56,
+      "attentionScore": 21.86,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.02497"
     },
@@ -350,27 +336,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 43,
+          "engagement": 47,
           "url": "https://huggingface.co/papers/2611.03424"
         }
       ],
-      "attentionScore": 21.56,
+      "attentionScore": 21.86,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.03424"
-    },
-    {
-      "arxivId": "2611.01560",
-      "title": "Democratizing Robot-Use Agents: A Unified Harness with Open Models",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 43,
-          "url": "https://huggingface.co/papers/2611.01560"
-        }
-      ],
-      "attentionScore": 21.56,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.01560"
     },
     {
       "arxivId": "2611.03233",
@@ -378,41 +350,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 39,
+          "engagement": 46,
           "url": "https://huggingface.co/papers/2611.03233"
         }
       ],
-      "attentionScore": 21.24,
+      "attentionScore": 21.78,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.03233"
-    },
-    {
-      "arxivId": "2611.02074",
-      "title": "SWE-Trail: History-Guided Trajectory Collection for Coding Agent Training",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 38,
-          "url": "https://huggingface.co/papers/2611.02074"
-        }
-      ],
-      "attentionScore": 21.16,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.02074"
-    },
-    {
-      "arxivId": "2611.02897",
-      "title": "PhotoGuider: Composition-Aware Cropping and 360^{circ} View Framing with Explainable Photographic Assessments",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 36,
-          "url": "https://huggingface.co/papers/2611.02897"
-        }
-      ],
-      "attentionScore": 21.0,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.02897"
     },
     {
       "arxivId": "2611.05036",
@@ -420,13 +364,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 34,
+          "engagement": 39,
           "url": "https://huggingface.co/papers/2611.05036"
+        }
+      ],
+      "attentionScore": 21.24,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.05036"
+    },
+    {
+      "arxivId": "2610.37257",
+      "title": "GameVerse: A Minute-Scale Gameplay Dataset for Long-Horizon Interactive World Modeling",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 34,
+          "url": "https://huggingface.co/papers/2610.37257"
         }
       ],
       "attentionScore": 20.83,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.05036"
+      "originalPaper": "https://arxiv.org/abs/2610.37257"
     },
     {
       "arxivId": "2611.02112",
@@ -434,27 +392,69 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 32,
+          "engagement": 34,
           "url": "https://huggingface.co/papers/2611.02112"
         }
       ],
-      "attentionScore": 20.66,
+      "attentionScore": 20.83,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.02112"
     },
     {
-      "arxivId": "2610.27954",
-      "title": "Lost in Recovery: Demystifying Recovery Behavior of Computer-Use Agents via Goal-Oriented Action Replay",
+      "arxivId": "2611.06483",
+      "title": "What Does Multi-Turn Reinforcement Learning Really Improve in LLM Agents?",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 32,
-          "url": "https://huggingface.co/papers/2610.27954"
+          "engagement": 33,
+          "url": "https://huggingface.co/papers/2611.06483"
         }
       ],
-      "attentionScore": 20.66,
+      "attentionScore": 20.74,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.27954"
+      "originalPaper": "https://arxiv.org/abs/2611.06483"
+    },
+    {
+      "arxivId": "2611.05280",
+      "title": "YANAMI: A Large-Scale Multimodal Dataset and Benchmark for Multiturn Stateful Interaction",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 31,
+          "url": "https://huggingface.co/papers/2611.05280"
+        }
+      ],
+      "attentionScore": 20.57,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.05280"
+    },
+    {
+      "arxivId": "2611.04408",
+      "title": "Halley: A Predictive Control Plane for Optical AI Data Center Networks",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 30,
+          "url": "https://huggingface.co/papers/2611.04408"
+        }
+      ],
+      "attentionScore": 20.48,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.04408"
+    },
+    {
+      "arxivId": "2611.04418",
+      "title": "VidUEU-Agent: A Data-Curation Agent for Multimodal Understanding, Editing, and Unified Tasks",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 26,
+          "url": "https://huggingface.co/papers/2611.04418"
+        }
+      ],
+      "attentionScore": 20.1,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.04418"
     }
   ]
 }
