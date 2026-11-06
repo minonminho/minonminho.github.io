@@ -1,0 +1,438 @@
+{
+  "schemaVersion": 1,
+  "slug": "2026-11-07-short-context",
+  "date": "2026-11-07",
+  "updatedAt": "2026-11-06T21:39:47.615225Z",
+  "status": "published",
+  "paper": {
+    "arxivId": "2611.05306",
+    "title": "You don't need long context",
+    "authors": "Peter Belcak, Saurav Muralidharan, Jindong Jiang, Yonggan Fu, Wonmin Byeon, Hanrong Ye, Ryan Angilly, Ali Taghibakhshi, Shih-Yang Liu, Siru Ouyang, Greg Heinrich, Pavlo Molchanov",
+    "publishedDate": "2026-11-03",
+    "sourceUrl": "https://arxiv.org/abs/2611.05306",
+    "discoveryUrl": "https://huggingface.co/papers/2611.05306",
+    "projectUrl": "https://research.nvidia.com/labs/lpr/lfi/"
+  },
+  "selection": {
+    "en": "Editorial selection for practical context management, published November 3. Verified discovery signals: 16 Hugging Face votes, three Hacker News points and a paper-linked Reddit discussion. Broad high engagement was not established, so no popularity ranking is claimed. All five saved published arXiv IDs were excluded.",
+    "ko": "11월 3일 발표한 실용적 맥락 관리 연구의 가치에 따른 편집부 선정입니다. 확인한 신호는 Hugging Face 추천 16개·Hacker News 3점·논문 연결 Reddit 토론입니다. 광범위한 높은 참여는 확립하지 못해 인기 순위를 주장하지 않습니다. 저장된 기존 게시 arXiv ID 다섯 개는 모두 제외했습니다."
+  },
+  "headline": {
+    "en": "Short working memory, long tasks: where context compaction works—and fails",
+    "ko": "짧은 작업 기억으로 긴 과제 풀기: 맥락 압축이 통하는 조건과 실패"
+  },
+  "abstract": {
+    "en": "A complete-paper review of selective reading, threshold resets and single-action state handoffs. We examine actual task scores, a severe open-model failure, cached decode conditions and the difference between measured efficiency and hypothetical price savings.",
+    "ko": "선택 읽기·임계값 재시작·단일 행동 상태 인계를 원문 전체로 검토합니다. 실제 과제 점수·공개 모델의 심각한 실패·캐시 디코딩 조건·실측 효율과 가정 가격 절감의 차이를 분석합니다."
+  },
+  "readingMinutes": 16,
+  "sections": [
+    {
+      "id": "summary",
+      "title": {
+        "en": "Executive Summary",
+        "ko": "핵심 요약"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — You don’t need long context argues that long tasks and long inputs do not automatically require a long active conversation. The authors combine selective file reading with frequent [[compaction|context compaction]], and test whether agents retain task accuracy. Their strongest practical message is about managing working memory: preserve the information needed for the next decision, while leaving recoverable evidence in the environment. This is an inference-harness study, not a new Transformer architecture.",
+          "ko": "논문의 주장 — 이 논문은 긴 과제나 큰 입력이 반드시 긴 활성 대화를 요구하지는 않는다고 주장합니다. 파일 선택 읽기와 잦은 [[compaction|맥락 압축]]을 결합해 에이전트가 과제 정확도를 유지하는지 검사합니다. 가장 실용적인 메시지는 작업 기억 관리입니다. 다음 결정에 필요한 정보를 보존하고 다시 찾을 수 있는 근거는 환경에 남깁니다. 새 Transformer 구조가 아니라 추론 실행 체계에 관한 연구입니다."
+        },
+        {
+          "en": "The results support testing compact contexts, but not deleting long-context support universally. Claude Opus 4.5 largely retains accuracy even when each fresh conversation takes one action. GPT 5.6 Sol loses a few percentage points in that setting. Most importantly, an open-weight coding model collapses from 53.0% to 3.6% on SWE-bench Verified under the tightest threshold. Model-specific behavior is a central finding, not an inconvenient footnote.",
+          "ko": "결과는 짧은 맥락을 시험할 근거를 주지만 긴 맥락 지원을 보편적으로 없앨 근거는 아닙니다. Claude Opus 4.5는 새 대화마다 행동 하나만 하게 해도 대체로 정확도를 유지합니다. GPT 5.6 Sol은 그 설정에서 몇 퍼센트포인트 낮아집니다. 특히 공개 가중치 코딩 모델 하나는 가장 좁은 임계값에서 SWE-bench Verified가 53.0%에서 3.6%로 급락합니다. 모델별 차이는 불편한 각주가 아니라 핵심 결과입니다."
+        },
+        {
+          "en": "Reviewer Analysis — The paper usefully separates available information from information placed in one model call. Engineering Implications — Benchmark state handoffs and retrieval alongside model quality, and distinguish measured serving efficiency from hypothetical API prices. This review inspected the complete report, detailed tables and prompts. Scores are author-reported; no independent reproduction of the benchmark runs or serving measurements was performed.",
+          "ko": "리뷰어 분석 — 이 논문은 사용 가능한 정보와 모델 호출 한 번에 넣는 정보를 유용하게 구분합니다. 엔지니어링 시사점 — 모델 품질과 함께 상태 인계·검색을 검사하고 실측 서빙 효율과 가정한 API 가격을 구분해야 합니다. 전체 보고서·상세 표·프롬프트를 검토했습니다. 점수는 저자 보고이며 벤치마크 실행이나 서빙 측정을 독립 재현하지는 않았습니다."
+        }
+      ]
+    },
+    {
+      "id": "background",
+      "title": {
+        "en": "Background & Research Problem",
+        "ko": "배경과 연구 문제"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "A [[context-window|context window]] bounds the tokens available to a single inference call. A long-horizon task instead concerns a sequence of dependent actions. These are different quantities. A repository can remain on disk while an agent reads only relevant files; a conversation can continue through multiple short calls while carrying a compact state. Here “short” commonly means 16K–50K tokens, not a tiny prompt or a limit on all work performed.",
+          "ko": "[[context-window|문맥 창]]은 추론 호출 하나가 사용할 토큰의 한도입니다. 반면 장기 과제는 서로 의존하는 행동의 연속을 뜻합니다. 둘은 다른 양입니다. 저장소는 디스크에 둔 채 관련 파일만 읽을 수 있고, 작은 상태를 전달하며 여러 짧은 호출로 대화를 이어갈 수 있습니다. 여기서 짧다는 말은 보통 16K~50K토큰이며 아주 작은 요청이나 전체 작업량 제한을 뜻하지 않습니다."
+        },
+        {
+          "en": "Longer attention histories increase decoding work and [[kv-cache|key/value cache]] demand. Yet the price a customer sees may remain fixed per token. The paper therefore asks both a systems question—how much more decoding capacity shorter contexts permit—and a task question—what accuracy is lost when history is replaced. Answering one does not settle the other: fast decoding with missing evidence can be useless, while excellent accuracy with repeated expensive summaries may not save money.",
+          "ko": "긴 어텐션 이력은 디코딩 계산과 [[kv-cache|키·값 캐시]] 요구를 늘립니다. 그래도 고객 가격은 토큰당 고정일 수 있습니다. 그래서 논문은 짧은 맥락으로 디코딩 용량이 얼마나 늘어나는지와 이력을 대체하면 정확도를 얼마나 잃는지를 따로 묻습니다. 하나의 답이 다른 답을 결정하지는 않습니다. 근거가 빠진 빠른 디코딩은 쓸모없고 비싼 요약을 반복하면 정확도가 높아도 비용을 아끼지 못할 수 있습니다."
+        },
+        {
+          "en": "The study also distinguishes [[selective-reading|selective reading]] from forgetting. Large source documents are external files; searches may scan an entire file while only matched excerpts enter the model. The computer’s access to information remains broad even when the model’s live input is small. Comparing that agent with a model receiving the whole document measures a system-design change, not merely the same model under a smaller attention window.",
+          "ko": "연구는 [[selective-reading|선택 읽기]]와 망각도 구분합니다. 큰 원문은 외부 파일이며 검색은 파일 전체를 훑더라도 일치한 발췌만 모델에 넣습니다. 모델의 활성 입력이 작아도 컴퓨터의 정보 접근 범위는 넓습니다. 그런 에이전트를 문서 전체를 받는 모델과 비교하면 같은 모델의 어텐션 창만 줄인 것이 아니라 시스템 설계 변화를 측정하게 됩니다."
+        }
+      ]
+    },
+    {
+      "id": "contributions",
+      "title": {
+        "en": "Core Innovations",
+        "ko": "핵심 기여"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — Three [[harness|agent harness]] regimes probe increasingly aggressive state management. Full-History Accumulation retains every action and observation. End-of-Conversation Compaction, or EoCC, resets a conversation after a threshold. Single-Action Compaction, or SAC, resets after one action and its observation. These variants let the authors test long horizons, long inputs and the extreme of almost no retained conversation history. The main empirical breadth is thirteen benchmark families, not a novel compression algorithm.",
+          "ko": "논문의 주장 — 세 가지 [[harness|에이전트 실행 체계]] 설정이 점점 적극적인 상태 관리를 검사합니다. 전체 이력 누적은 모든 행동·관찰을 남깁니다. 대화 종료 시 압축인 EoCC는 임계값 뒤 대화를 재시작하고 단일 행동 압축인 SAC는 행동 하나와 관찰 뒤 재시작합니다. 장기 과제·큰 입력·거의 대화 이력을 남기지 않는 극단을 검사합니다. 주요 실험적 강점은 새로운 압축 알고리즘보다 벤치마크 계열 13개의 폭입니다."
+        },
+        {
+          "en": "The report’s useful design insight is that a handoff should describe future execution, not narrate the past evenly. Appendix A emphasizes the objective, current occupation, plans, completion requirements and artifact pointers. A proposed [[semantic-state|semantic state space model]] would learn to update such a language state after each action. That is a future post-training direction; no new trained state-space model is demonstrated in this paper.",
+          "ko": "유용한 설계 통찰은 인계가 과거를 골고루 서술하기보다 앞으로의 실행을 설명해야 한다는 점입니다. 부록 A는 목표·현재 작업·계획·완료 조건·산출물 위치를 강조합니다. 제안한 [[semantic-state|의미 상태 공간 모델]]은 행동마다 이런 언어 상태를 갱신하도록 학습할 것입니다. 이는 후속 학습 방향이며 새로운 상태 공간 모델을 학습해 입증한 것은 아닙니다."
+        }
+      ]
+    },
+    {
+      "id": "method",
+      "title": {
+        "en": "Architecture & Methodology",
+        "ko": "구조와 방법론"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "EoCC is specified by total limit / compaction threshold, such as 16K/12K. The gap reserves room for the handoff. At the threshold, the model writes a task-relevant recap; the harness restarts with the system instruction, original task and recap, preserving the environment. SAC performs one action, receives its result, updates the state and starts fresh. Conceptually, state_next = update(state, action, observation), followed by action_next = policy(task, state_next). This is explanatory notation for the workflow, not an equation fitted by the authors.",
+          "ko": "EoCC는 16K/12K처럼 전체 한도/압축 임계값으로 지정합니다. 차이는 인계문을 쓸 공간입니다. 임계값에서 모델이 과제 관련 인계문을 쓰고, 환경은 보존한 채 시스템 지침·원래 과제·인계문으로 재시작합니다. SAC는 행동 하나의 결과를 받고 상태를 갱신한 뒤 새로 시작합니다. 개념적으로 state_next = update(state, action, observation), action_next = policy(task, state_next)입니다. 저자가 적합한 식이 아니라 절차를 설명하는 표기입니다."
+        },
+        {
+          "en": "For software tasks the study uses mini-swe-agent v2.4. Other tasks use a related minimal Bash-driven harness. The agent inspects evidence, acts, observes and verifies. Long-input helpers expose document manifests, sizes, bounded reads and search variants. A read normally returns about 6,000 characters and is capped at 8,000. Search is followed by surrounding-context verification, so a lexical hit is treated as a candidate rather than sufficient proof.",
+          "ko": "소프트웨어 과제는 mini-swe-agent v2.4를 사용하고 다른 과제는 관련된 최소 Bash 실행 체계를 씁니다. 에이전트가 근거를 보고 행동·관찰·검증합니다. 큰 입력 도구는 문서 목록·크기·제한 읽기·검색 변형을 제공합니다. 읽기는 기본 약 6,000자, 상한 8,000자입니다. 검색 뒤 주변 맥락을 확인하여 단어 일치를 충분한 증명이 아닌 후보로 다룹니다."
+        },
+        {
+          "en": "Compaction preserves a lossy working state, not the original evidence. A robust handoff records verified observations separately from hypotheses, exact artifact paths, edits and checks, dead ends and the next action. The full trace can remain externally retrievable. This matters for tasks requiring an exact earlier value: a compact summary need not memorize every coin toss if a reliable log can retrieve the requested toss later. Retrieval availability is an assumption the design must enforce.",
+          "ko": "압축은 원래 근거가 아니라 손실 있는 작업 상태를 보존합니다. 견고한 인계는 관측과 가설, 정확한 산출물 경로, 수정·검사, 막힌 접근, 다음 행동을 나누어 기록합니다. 전체 기록은 외부에서 다시 찾을 수 있습니다. 정확한 과거 값이 필요할 때 중요합니다. 신뢰할 로그에서 나중에 특정 동전 결과를 찾을 수 있다면 모든 결과를 요약문에 외울 필요가 없습니다. 검색 가능성은 설계에서 보장해야 하는 가정입니다."
+        },
+        {
+          "en": "The cloud serving test isolates decode: longest-prefix prefill is performed once, prefix caching is enabled, every request generates 1,024 tokens, and concurrency is swept for peak aggregate throughput without cache preemption. Qwen 3 Coder Next uses eight H100s; GLM 5.2 and Kimi K2.6 use sixteen. Local tests use one DGX Spark instance and one request, measuring the next 1,024 tokens and device memory. These are different load regimes and cannot be combined into one latency guarantee.",
+          "ko": "클라우드 검사는 디코딩을 분리합니다. 가장 긴 접두부의 사전 처리를 한 번 수행하고 접두부 캐시를 켜며 요청마다 1,024토큰을 생성합니다. 캐시 선점 없이 최대 총 처리량을 내는 동시성을 탐색합니다. Qwen 3 Coder Next는 H100 8개, GLM 5.2·Kimi K2.6은 16개입니다. 로컬은 DGX Spark 모델 하나·요청 하나에서 다음 1,024토큰과 장치 메모리를 측정합니다. 서로 다른 부하 조건이므로 하나의 지연 보장으로 합치면 안 됩니다."
+        },
+        {
+          "en": "Original Figure 2, linked below, is a 1903×596 chart of local inter-token latency, batch-one throughput and memory against context length. It shows model-specific curves and an out-of-memory boundary rather than one universal slowdown. Attribution: Belcak and colleagues, original paper figure. Colors, labels and proportions are unchanged at the linked original. The report has arXiv’s non-exclusive distribution license; this review does not assign a new reuse license to the figure.",
+          "ko": "아래 원본 그림 2는 1903×596 차트로 문맥 길이에 따른 로컬 토큰 간 지연·배치 1 처리량·메모리를 보여 줍니다. 보편적 감속 하나가 아니라 모델별 곡선과 메모리 부족 경계입니다. 출처는 Belcak 외 저자들의 원본 그림이며 원본 링크의 색·표시·비율은 유지합니다. 보고서는 arXiv 비독점 배포 라이선스이므로 그림에 새 재사용 라이선스를 부여하지 않습니다."
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "title": {
+        "en": "Experiments & Results",
+        "ko": "실험과 결과"
+      },
+      "evidence": "author",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — The long-horizon suite includes 500 SWE-bench Verified tasks, 300 multilingual issue tasks, 89 Terminal-Bench 2.1 tasks, 824 FRAMES questions, 184 policy/tool dialogue tasks and 200 BFCLv3 episodes. Two closed-weight model families supply the principal accuracy evidence. Exact serving snapshots, stochastic repeat counts and confidence intervals are not consistently specified in the inspected report, so small score differences should not be treated as established improvements.",
+          "ko": "논문의 주장 — 장기 과제는 SWE-bench Verified 500개, 다국어 이슈 300개, Terminal-Bench 2.1 89개, FRAMES 질문 824개, 정책·도구 대화 184개, BFCLv3 에피소드 200개입니다. 주요 정확도 근거는 비공개 가중치 모델 두 계열입니다. 검토한 보고서에 정확한 서비스 스냅샷·확률적 반복 수·신뢰구간이 일관되게 명시되지 않아 작은 차이를 확립된 향상으로 보면 안 됩니다."
+        },
+        {
+          "en": "For Claude Opus 4.5 on SWE-bench Verified, the full-history baseline resolves 70.0%; 24K/18K EoCC resolves 74.8%, while 16K/12K resolves 68.8%. GPT 5.6 Sol moves from 84.4% to 88.8% at 48K/36K and 84.6% at 16K/12K. These are within-study comparisons, not vendor leaderboard claims. On FRAMES, every tested compaction setting loses accuracy for both models, including 81.0→79.6% and 90.2→87.1% at 16K/12K.",
+          "ko": "SWE-bench Verified에서 Claude Opus 4.5의 전체 이력 기준은 70.0%, 24K/18K EoCC는 74.8%, 16K/12K는 68.8%입니다. GPT 5.6 Sol은 84.4%에서 48K/36K의 88.8%, 16K/12K의 84.6%로 변합니다. 업체 순위표가 아니라 연구 안의 비교입니다. FRAMES에서는 모든 압축 설정에서 두 모델 모두 정확도가 낮아지며 16K/12K는 81.0→79.6%, 90.2→87.1%입니다."
+        },
+        {
+          "en": "The single-action test is limited to two benchmarks. Opus scores 70.2% on SWE-bench and 51.8% on Terminal-Bench, versus 70.0% and 47.2% baselines. GPT scores 82.4% and 84.3%, versus 84.4% and 87.6%. Median peak live contexts are 7–9K tokens; maxima are 15–37K. This supports “no catastrophic collapse” for those four model-task combinations, not “no cost” or universal single-action sufficiency. The best EoCC column also selects among tested thresholds, which a new workload cannot know in advance.",
+          "ko": "단일 행동 검사는 벤치마크 두 개에 한정됩니다. Opus는 SWE-bench 70.2%·Terminal-Bench 51.8%이며 기준은 70.0%·47.2%입니다. GPT는 82.4%·84.3%, 기준은 84.4%·87.6%입니다. 최대 활성 문맥의 과제별 중앙값은 7~9K토큰, 최댓값은 15~37K입니다. 네 모델·과제 조합에서 파국적 붕괴가 없다는 근거이지 비용 없음이나 보편적 단일 행동 충분성은 아닙니다. 최고 EoCC 열도 검사한 임계값 중 선택한 것이므로 새 작업에서는 미리 알 수 없습니다."
+        },
+        {
+          "en": "Long-input evidence includes 503 LongBench v2 questions, 1,600 LOONG questions and 100 AA-LCR questions, plus synthetic retrieval suites. On LongBench, selective reading at 16K/12K yields 67.6% versus 68.0% for Opus and 72.6% versus 70.8% for GPT. AA-LCR yields 84% versus 65% and 83% versus 82%. Needle-in-a-haystack reaches 100% for both without any compaction. Thus some striking gains come from retrieval and external computation rather than repeatedly summarizing a long conversation.",
+          "ko": "큰 입력은 LongBench v2 503문항, LOONG 1,600문항, AA-LCR 100문항과 합성 검색 계열입니다. LongBench의 16K/12K 선택 읽기는 Opus 67.6% 대 68.0%, GPT 72.6% 대 70.8%입니다. AA-LCR는 84% 대 65%, 83% 대 82%입니다. 건초더미 바늘 검색은 압축 없이 둘 다 100%입니다. 따라서 일부 큰 향상은 긴 대화를 계속 요약한 결과보다 검색·외부 계산에서 옵니다."
+        },
+        {
+          "en": "Appendix D materially qualifies the title. At 16K/12K, every tested open-weight model loses SWE-bench accuracy. Qwen 3 Coder Next drops 53.0→3.6%, while Qwen 3.6 27B drops 68.6→65.0% and MiniMax M2.7 72.6→67.8%. The report attributes the worst collapse to verbose trajectories consuming the budget between compactions. Quantization and model families differ: Qwen uses NVFP4, while other local models use different GGUF formats. These are configuration-specific results, not an isolated causal test of parameter count or architecture.",
+          "ko": "부록 D는 제목에 중요한 조건을 붙입니다. 16K/12K에서 모든 공개 가중치 모델의 SWE-bench가 낮아집니다. Qwen 3 Coder Next는 53.0→3.6%, Qwen 3.6 27B는 68.6→65.0%, MiniMax M2.7은 72.6→67.8%입니다. 가장 큰 붕괴는 장황한 궤적이 압축 사이 예산을 소비하기 때문이라고 설명합니다. Qwen은 NVFP4, 다른 로컬 모델은 여러 GGUF 형식을 써 모델 계열·양자화도 다릅니다. 설정별 결과이지 파라미터 수·구조의 인과 효과만 분리한 검사는 아닙니다."
+        }
+      ]
+    },
+    {
+      "id": "critical",
+      "title": {
+        "en": "Critical Analysis & Limitations",
+        "ko": "비판적 분석과 한계"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Reviewer Analysis — The largest monetary claims use [[cost-model|a hypothetical cost model]]. Open-model decode gains from 256K to 16K are 3.6×, 5.6× and 7× on fixed hardware. Appendix B averages corresponding ratios to .20 and interpolates a short-context discount for the closed models, preserving assumed input/output/cache price ratios. This is not a measured API bill reduction or an independently verified market price. The September 2026 pricing assumptions are historical context.",
+          "ko": "리뷰어 분석 — 가장 큰 금전 주장은 [[cost-model|가정한 비용 모델]]을 사용합니다. 같은 하드웨어에서 공개 모델의 256K→16K 디코딩 이득은 3.6·5.6·7배입니다. 부록 B는 역비율 평균을 .20으로 놓고 입력·출력·캐시 가격 비율을 유지하며 비공개 모델의 짧은 맥락 할인율을 보간합니다. 실측 API 청구 절감이나 독립 확인한 시장 가격이 아닙니다. 2026년 9월 가격 가정은 과거 맥락입니다."
+        },
+        {
+          "en": "Actual nominal costs can move in the opposite direction. Table 3 estimates GPT’s SWE-bench token bill at $167.68 for the baseline and $203.12 at 16K/12K using the report’s fixed retail rates, even as its hypothetical optimized bill falls to $40.62. Compaction increases some new-input and output tokens while reducing cached-history tokens. A builder must measure the pricing and cache behavior actually available, rather than multiply a decode speedup into promised user savings.",
+          "ko": "명목 비용은 반대로 움직일 수 있습니다. 표 3은 보고서의 고정 가격으로 GPT SWE-bench 토큰 비용을 기준 $167.68, 16K/12K $203.12로 계산하면서 가정한 최적화 비용은 $40.62로 낮춥니다. 압축은 캐시 이력을 줄이면서 새 입력·출력 토큰을 늘릴 수 있습니다. 구현자는 디코딩 가속을 사용자 절감 약속으로 곱하지 말고 실제 제공되는 가격·캐시 동작을 측정해야 합니다."
+        },
+        {
+          "en": "Several generalizations remain open. The harness provides persistent files and search tools, and many long-input instances require sparse evidence. Human steering can introduce preferences a task-oriented recap omits. Compaction is lossy, and repeated compression can preserve a mistaken inference while deleting its contradictory evidence. Closed-model accuracy experiments and saturated open-model systems tests establish complementary facts, not one end-to-end controlled speed-and-quality result. No full dedicated reproduction package for the reported study was verified in the inspected author links.",
+          "ko": "여러 일반화는 열려 있습니다. 실행 체계는 영구 파일·검색 도구를 제공하고 큰 입력의 많은 문항은 드문 근거만 요구합니다. 사람의 중간 지시에는 과제 중심 인계가 빠뜨릴 선호가 들어올 수 있습니다. 압축은 손실이 있고 반복하면 잘못된 추론은 남기고 반박 근거를 지울 수도 있습니다. 비공개 모델 정확도와 포화 부하 공개 모델 시스템 검사는 상호 보완적 사실이지 전체 속도·품질을 통제한 단일 결과가 아닙니다. 확인한 저자 링크에서 연구 전체의 전용 재현 패키지는 검증하지 못했습니다."
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "title": {
+        "en": "Engineering Implications",
+        "ko": "엔지니어링 시사점"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Engineering Implications — Treat the recap as a versioned execution checkpoint. Preserve immutable task requirements, verified findings with source locations, artifact paths, failed approaches and pending checks. Retain the raw trace outside the prompt and make narrow retrieval possible. Keep the distinction between an observed test pass and an inferred explanation explicit. Otherwise a fluent recap can turn uncertainty into false certainty at every reset.",
+          "ko": "엔지니어링 시사점 — 인계문을 버전 있는 실행 체크포인트로 다뤄야 합니다. 원래 요구, 출처 위치가 있는 확인 사실, 산출물 경로, 실패 접근, 남은 검사를 보존합니다. 원시 기록은 프롬프트 밖에 두고 좁게 검색할 수 있어야 합니다. 관측한 테스트 통과와 추정한 설명을 구분해야 합니다. 그렇지 않으면 유창한 인계문이 재시작마다 불확실성을 거짓 확신으로 바꿀 수 있습니다."
+        },
+        {
+          "en": "Documented implementation — The paper names mini-swe-agent v2.4 and includes compaction prompt outlines in Appendix G. The upstream repository is available, but upstream availability is not equivalent to the exact benchmark adapters and run artifacts. To pilot the idea, hold model, task set, action budget and tools fixed; compare full history with one threshold before trying single-action resets. Log peak call size, total tokens, summary tokens, repeated reads, completion rate and actual elapsed time.",
+          "ko": "문서화된 구현 — 논문은 mini-swe-agent v2.4를 명시하고 부록 G에 압축 프롬프트 개요를 제공합니다. 상위 저장소는 공개되어 있지만 정확한 벤치마크 어댑터·실행 산출물까지 제공한다는 뜻은 아닙니다. 시범에서는 모델·과제·행동 예산·도구를 고정하고 먼저 전체 이력과 임계값 하나를 비교한 뒤 단일 행동 재시작을 시도합니다. 최대 호출 크기·총 토큰·요약 토큰·재열람·완료율·실제 시간을 기록해야 합니다."
+        },
+        {
+          "en": "A 15-minute illustrative audit needs no paid account. Take a public bug report and a short local work log. Write a 300-word handoff preserving objective, constraints, two verified facts, one uncertainty, exact file pointers and next steps. Hide the log and answer ten predetermined factual questions from the handoff; then recover missing answers from the original via narrow searches. Record first-pass accuracy, recovered accuracy and retrieved characters. This tests information loss and recoverability, not the paper’s model benchmark or its cost claims.",
+          "ko": "유료 계정 없는 15분 예시 감사도 가능합니다. 공개 버그 보고서와 짧은 로컬 작업 기록을 골라 목표·제약·확인 사실 두 개·불확실성 하나·정확한 파일 위치·다음 행동을 보존한 300단어 인계문을 씁니다. 기록을 숨기고 미리 정한 사실 질문 10개에 답한 뒤 빠진 답은 원문에서 좁게 검색합니다. 최초 정확도·복원 정확도·검색한 문자 수를 기록합니다. 정보 손실·복구 가능성 검사이며 논문의 모델 벤치마크나 비용 재현은 아닙니다."
+        }
+      ]
+    },
+    {
+      "id": "future",
+      "title": {
+        "en": "Future Directions",
+        "ko": "후속 연구 방향"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Reviewer Analysis — A stronger follow-up would test compaction-specific post-training against inference-only recaps at equal action and token budgets, with paired task analysis and repeated seeds. It should include adversarially delayed information requirements, non-searchable multimodal evidence and human preference changes. Dynamic thresholds may help verbose models, but should be tuned on validation tasks rather than selecting the best test configuration afterward.",
+          "ko": "리뷰어 분석 — 더 강한 후속 연구는 같은 행동·토큰 예산에서 압축 전용 후속 학습과 추론 단계 인계만 사용하는 방법을 비교하고 과제별 대응 분석·반복 시드를 제공해야 합니다. 뒤늦게 요구되는 정보, 검색하기 어려운 멀티모달 근거, 사람의 선호 변경도 포함해야 합니다. 동적 임계값은 장황한 모델에 도움이 될 수 있지만 최고 평가 설정을 사후 선택하지 말고 검증 과제로 조정해야 합니다."
+        },
+        {
+          "en": "The proposed semantic state model raises a useful question: can an agent learn to preserve exactly the information future decisions need? A readable state supports auditing, but readability does not guarantee completeness or truth. Future systems should verify state updates against evidence, allow recovery from earlier artifacts, and expose uncertainty. The paper makes a compelling case against equating task length with prompt length; it does not settle the minimum memory needed for every task.",
+          "ko": "제안한 의미 상태 모델은 미래 결정에 필요한 정보를 정확히 보존하도록 학습할 수 있는지 묻습니다. 읽을 수 있는 상태는 검토를 돕지만 완전성·진실성을 보장하지 않습니다. 후속 시스템은 상태 갱신을 근거와 대조하고 이전 산출물 복구를 허용하며 불확실성을 드러내야 합니다. 과제 길이를 프롬프트 길이와 동일시하지 말라는 주장은 설득력 있지만 모든 과제의 최소 기억량을 결정한 것은 아닙니다."
+        }
+      ]
+    },
+    {
+      "id": "references",
+      "title": {
+        "en": "Sources & Further Reading",
+        "ko": "출처와 추가 읽기"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Primary reading — Belcak and colleagues, You don’t need long context, arXiv:2611.05306v1, submitted November 3, 2026. The full report, methods, all detailed benchmark tables, cost equations, selective-reading examples and prompt appendices were inspected. The author-linked NVIDIA project and upstream harness were checked. Original figure and paper links below are primary evidence; proposed audits are reviewer suggestions. No paid API or new model service was needed to prepare this review.",
+          "ko": "주요 원문 — Belcak 외 저자들의 You don’t need long context, arXiv:2611.05306v1, 2026년 11월 3일 제출입니다. 전체 보고서·방법·상세 벤치마크 표·비용식·선택 읽기 예시·프롬프트 부록을 검토했습니다. 저자가 연결한 NVIDIA 프로젝트와 상위 실행 체계도 확인했습니다. 아래 원본 그림·논문은 1차 근거이고 제안한 감사는 리뷰어 제안입니다. 리뷰 준비에 유료 API나 새 모델 서비스는 사용하지 않았습니다."
+        },
+        {
+          "en": "Selection audit, November 7 — The repository queue was compared with Hugging Face, Hacker News, Reddit, GitHub, OpenReview searches and original lab material. Direct page checks showed 16 Hugging Face votes and three Hacker News points; a Reddit tech_x discussion linked the paper, but its visible page did not establish a reliable vote count. Paper-specific high engagement in r/MachineLearning or r/LocalLLaMA and a conference highlight were not verified. Selection is editorial for practical context-management significance, not a most-popular claim. All five published archive IDs were excluded; fewer than fourteen reviews existed.",
+          "ko": "11월 7일 선정 검토 — 저장소 후보와 Hugging Face·Hacker News·Reddit·GitHub·OpenReview 검색·연구실 원문을 비교했습니다. 직접 페이지는 Hugging Face 추천 16개·Hacker News 3점을 보였고 Reddit tech_x 토론이 논문을 연결했지만 보이는 페이지에서 신뢰할 추천 수는 확립하지 못했습니다. r/MachineLearning·r/LocalLLaMA의 높은 논문별 참여나 학회 하이라이트는 검증하지 못했습니다. 실용적 맥락 관리의 중요성에 따른 편집부 선정이며 최고 인기 주장은 아닙니다. 기존 게시 다섯 ID는 제외했고 리뷰는 14편보다 적었습니다."
+        }
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "compaction",
+      "name": {
+        "en": "Context compaction",
+        "ko": "맥락 압축"
+      },
+      "plain": {
+        "en": "Replace accumulated history with a smaller task-relevant handoff for subsequent work.",
+        "ko": "누적 이력을 다음 작업에 필요한 작은 인계문으로 대체합니다."
+      },
+      "background": {
+        "en": "Understand model messages, token budgets and persistent external artifacts.",
+        "ko": "모델 메시지·토큰 예산·외부 산출물 보존을 이해하면 됩니다."
+      },
+      "example": {
+        "en": "Keep the failing test, exact file and next edit instead of every failed command transcript.",
+        "ko": "모든 실패 명령 기록 대신 실패 테스트·정확한 파일·다음 수정을 남깁니다."
+      },
+      "why": {
+        "en": "The study compares threshold resets and resets after a single action.",
+        "ko": "연구는 임계값 재시작과 행동 하나 뒤 재시작을 비교합니다."
+      }
+    },
+    {
+      "id": "context-window",
+      "name": {
+        "en": "Context window",
+        "ko": "문맥 창"
+      },
+      "plain": {
+        "en": "The token capacity available in one model invocation, distinct from total information stored outside it.",
+        "ko": "모델 호출 하나의 토큰 용량이며 외부에 저장한 전체 정보와 다릅니다."
+      },
+      "background": {
+        "en": "Know input tokens, generated tokens and one inference call.",
+        "ko": "입력·생성 토큰과 추론 호출을 알면 됩니다."
+      },
+      "example": {
+        "en": "A million-token file may remain on disk while a call reads only a 6,000-character excerpt.",
+        "ko": "백만 토큰 파일을 디스크에 두고 호출은 6,000자 발췌만 읽을 수 있습니다."
+      },
+      "why": {
+        "en": "The central question is whether active-window size must grow with task or document size.",
+        "ko": "핵심 질문은 활성 창이 과제·문서 크기와 함께 커져야 하는지입니다."
+      }
+    },
+    {
+      "id": "kv-cache",
+      "name": {
+        "en": "Key/value cache",
+        "ko": "키·값 캐시"
+      },
+      "plain": {
+        "en": "Stored attention keys and values let decoding reuse earlier context computations.",
+        "ko": "저장한 어텐션 키·값으로 디코딩이 이전 문맥 계산을 재사용합니다."
+      },
+      "background": {
+        "en": "Understand attention and the distinction between prefill and decode.",
+        "ko": "어텐션과 입력 사전 처리·디코딩의 차이를 이해하면 됩니다."
+      },
+      "example": {
+        "en": "A cached long history avoids recomputing its projections but later tokens still attend to stored information.",
+        "ko": "긴 이력을 캐시하면 투영을 다시 계산하지 않아도 뒤 토큰은 저장 정보에 어텐션을 적용합니다."
+      },
+      "why": {
+        "en": "The cloud experiment measures decode with cached prefixes, rather than complete cold-request latency.",
+        "ko": "클라우드 실험은 캐시 접두부 디코딩을 측정하며 첫 요청 전체 지연이 아닙니다."
+      }
+    },
+    {
+      "id": "selective-reading",
+      "name": {
+        "en": "Selective reading",
+        "ko": "선택 읽기"
+      },
+      "plain": {
+        "en": "Retrieve bounded relevant parts of an external source rather than place the entire source in the prompt.",
+        "ko": "외부 원문 전체를 프롬프트에 넣는 대신 관련 부분을 제한하여 검색·열람합니다."
+      },
+      "background": {
+        "en": "Know file search, surrounding-context verification and source references.",
+        "ko": "파일 검색·주변 맥락 확인·출처 위치를 알면 됩니다."
+      },
+      "example": {
+        "en": "Search a report for a named measure, then read surrounding lines to check an exclusion.",
+        "ko": "보고서의 지표 이름을 검색한 뒤 주변 줄을 읽어 제외 조건을 확인합니다."
+      },
+      "why": {
+        "en": "Many long-input gains occur with no compaction, isolating retrieval as a major system change.",
+        "ko": "큰 입력의 여러 향상은 압축 없이 생겨 검색이 주요 시스템 변화임을 보여 줍니다."
+      }
+    },
+    {
+      "id": "harness",
+      "name": {
+        "en": "Agent harness",
+        "ko": "에이전트 실행 체계"
+      },
+      "plain": {
+        "en": "The code and rules surrounding a model that provide tools, manage messages and decide how work continues.",
+        "ko": "도구를 제공하고 메시지를 관리하며 작업 진행을 정하는 모델 주변의 코드·규칙입니다."
+      },
+      "background": {
+        "en": "Separate model weights from environment, tools and orchestration.",
+        "ko": "모델 가중치와 환경·도구·실행 조정을 구분하면 됩니다."
+      },
+      "example": {
+        "en": "The same model can receive either full history or a fresh task plus handoff through different harness policies.",
+        "ko": "같은 모델도 실행 규칙에 따라 전체 이력이나 새 과제·인계문을 받을 수 있습니다."
+      },
+      "why": {
+        "en": "The paper changes context management around existing models rather than training a new architecture.",
+        "ko": "새 구조를 학습하기보다 기존 모델 주변의 맥락 관리를 바꿉니다."
+      }
+    },
+    {
+      "id": "semantic-state",
+      "name": {
+        "en": "Semantic state space model",
+        "ko": "의미 상태 공간 모델"
+      },
+      "plain": {
+        "en": "A proposed model trained to carry an explicit natural-language state across action turns.",
+        "ko": "행동 턴 사이에 명시적인 자연어 상태를 전달하도록 학습하는 제안 모델입니다."
+      },
+      "background": {
+        "en": "Understand state updates, action observations and readable versus hidden neural state.",
+        "ko": "상태 갱신·행동 관찰과 읽을 수 있는 상태·숨은 신경 상태의 차이를 알면 됩니다."
+      },
+      "example": {
+        "en": "After a test fails, the state records what failed and the next hypothesis for a fresh inference instance.",
+        "ko": "테스트 실패 뒤 새 추론을 위해 실패 내용과 다음 가설을 상태에 기록합니다."
+      },
+      "why": {
+        "en": "It is a future direction motivated by SAC, not a trained model demonstrated in the report.",
+        "ko": "SAC가 동기가 된 후속 방향이며 보고서에서 학습해 입증한 모델은 아닙니다."
+      }
+    },
+    {
+      "id": "cost-model",
+      "name": {
+        "en": "Estimated optimized retail cost",
+        "ko": "가정한 최적화 소매 비용"
+      },
+      "plain": {
+        "en": "A modeled bill that assumes shorter contexts receive prices discounted according to a fitted serving-efficiency factor.",
+        "ko": "적합한 서빙 효율 계수에 따라 짧은 문맥 가격을 할인한다고 가정한 청구 추정치입니다."
+      },
+      "background": {
+        "en": "Distinguish token counts, actual prices, hardware throughput and hypothetical pricing.",
+        "ko": "토큰 수·실제 가격·하드웨어 처리량·가정 가격을 구분해야 합니다."
+      },
+      "example": {
+        "en": "A token bill can rise at unchanged API prices while the paper’s hypothetical discounted bill falls.",
+        "ko": "API 가격이 그대로면 토큰 청구는 늘어도 논문의 가정 할인 청구는 줄 수 있습니다."
+      },
+      "why": {
+        "en": "It prevents reading the largest savings ratios as measured API savings.",
+        "ko": "가장 큰 절감 비율을 실측 API 절감으로 오독하지 않게 합니다."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "paper",
+      "name": "Original report and version history",
+      "url": "https://arxiv.org/abs/2611.05306"
+    },
+    {
+      "id": "full",
+      "name": "Complete report, benchmark tables and prompts",
+      "url": "https://arxiv.org/html/2611.05306v1"
+    },
+    {
+      "id": "project",
+      "name": "Author-linked NVIDIA Local Frontier Intelligence project",
+      "url": "https://research.nvidia.com/labs/lpr/lfi/"
+    },
+    {
+      "id": "upstream",
+      "name": "Upstream mini-swe-agent — not the full study reproduction package",
+      "url": "https://github.com/SWE-agent/mini-swe-agent"
+    },
+    {
+      "id": "figure",
+      "name": "Original Figure 2 — Belcak et al., local latency, throughput and memory, 1903×596",
+      "url": "https://arxiv.org/html/2611.05306v1/figures/benchmark_figure_absolute.png"
+    },
+    {
+      "id": "hf",
+      "name": "Discovery signal — Hugging Face paper page",
+      "url": "https://huggingface.co/papers/2611.05306"
+    },
+    {
+      "id": "hn",
+      "name": "Discovery signal — Hacker News",
+      "url": "https://news.ycombinator.com/item?id=50366701"
+    },
+    {
+      "id": "reddit",
+      "name": "Discovery signal — Reddit tech_x discussion",
+      "url": "https://www.reddit.com/r/tech_x/comments/1xogswx/new_nvidia_paper_says_ai_models_do_not_always/"
+    }
+  ]
+}
