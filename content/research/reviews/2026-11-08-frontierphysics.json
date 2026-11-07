@@ -1,0 +1,503 @@
+{
+  "schemaVersion": 1,
+  "slug": "2026-11-08-frontierphysics",
+  "date": "2026-11-08",
+  "updatedAt": "2026-11-07T21:30:00Z",
+  "status": "published",
+  "paper": {
+    "arxivId": "2611.06910",
+    "title": "FrontierPhysics: Evaluating Agents for End-to-End Physics Research",
+    "authors": "Bingran You, Wenjun Ke, Ria Rosenauer, Bo Liu et al.",
+    "publishedDate": "2026-11-04",
+    "sourceUrl": "https://arxiv.org/abs/2611.06910",
+    "discoveryUrl": "https://huggingface.co/papers/2611.06910",
+    "projectUrl": "https://github.com/wenjun-ke/FrontierPhysics"
+  },
+  "headline": {
+    "en": "FrontierPhysics: testing the research process—and auditing the test",
+    "ko": "FrontierPhysics: 연구 과정을 평가하고, 그 평가까지 검증하기"
+  },
+  "abstract": {
+    "en": "A close reading of the November 4 preprint, including Appendices A–H. Its 56 physics tasks reveal a gap between passing numerical tests and producing defensible research. The strongest lesson is how to audit an agent, its evidence, and its evaluator together.",
+    "ko": "11월 4일 공개된 프리프린트의 본문과 부록 A–H를 읽었습니다. 물리 연구 과제 56개는 수치 검사를 통과하는 것과 근거를 갖춘 연구를 완성하는 것 사이의 간극을 드러냅니다. 에이전트와 연구 증거, 평가기를 함께 감사하는 방법이 핵심입니다."
+  },
+  "selection": {
+    "en": "Editorial selection for November 8, 2026 KST. Compared recent candidates in Hugging Face, Hacker News and the site's discovery queue, searched Reddit and OpenReview, and inspected author-associated GitHub code. FrontierPhysics (November 4) had 55 Hugging Face votes and a '#2 Paper of the day' label; the specific Hacker News submission had only 3 points and no substantive discussion visible. The inspected wenjun-ke repository had 2 stars and 3 forks. Turns Matter and Decoupled Predictive Decision Making had larger Hugging Face signals in the queue, but not verified independent cross-platform engagement. No paper-specific Reddit or official conference highlight was verified; Reddit collection was rate-limited. This is a technical editorial choice, not a claim of overall popularity. All six existing published paper IDs were checked; this ID is new.",
+    "ko": "2026년 11월 8일 한국시간 기준 편집 선정입니다. Hugging Face, Hacker News와 사이트 후보 목록을 비교하고, Reddit·OpenReview를 검색했으며 저자 관련 GitHub 코드를 확인했습니다. 11월 4일 논문 FrontierPhysics에는 Hugging Face 추천 55개와 ‘오늘의 논문 2위’ 표시가 있었지만, 해당 Hacker News 게시물은 3점이었고 실질적 토론은 보이지 않았습니다. 확인한 wenjun-ke 저장소는 별 2개, 포크 3개였습니다. 후보 목록의 Turns Matter와 Decoupled Predictive Decision Making은 Hugging Face 반응이 더 컸지만 독립적인 다른 플랫폼의 관심은 검증하지 못했습니다. 이 논문에 관한 Reddit 반응이나 공식 학회 추천도 확인하지 못했고 Reddit 수집에는 요청 제한이 있었습니다. 따라서 전체 인기 순위가 아닌 기술적 가치에 따른 편집 선정입니다. 기존 발행 논문 6개의 ID를 모두 대조했으며 이 ID는 중복되지 않습니다."
+  },
+  "readingMinutes": 18,
+  "sections": [
+    {
+      "id": "summary",
+      "title": {
+        "en": "Executive Summary",
+        "ko": "핵심 요약"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — FrontierPhysics asks whether an agent can finish a research workflow, rather than answer an isolated physics question. The November 4, 2026 preprint contains 56 tasks designed by 42 physicists from 26 institutions across nine domains. Agents must search literature, choose methods, perform research, and deliver numerical artifacts plus a manuscript. A [[deterministic-verifier|deterministic verifier]] checks outputs; expert-written criteria assess scientific validity and research quality. These are author-reported evaluations, not an independent reproduction.",
+          "ko": "논문 주장 — FrontierPhysics는 에이전트가 개별 물리 문제에 답하는지를 넘어 연구 작업 전체를 완수하는지 묻습니다. 2026년 11월 4일 프리프린트에는 26개 기관의 물리학자 42명이 만든 9개 분야, 56개 과제가 담겼습니다. 에이전트는 문헌을 찾고 방법을 선택해 연구한 뒤 수치 산출물과 원고를 제출해야 합니다. [[deterministic-verifier|결정적 검증기]]가 산출물을 검사하고 전문가가 작성한 기준이 과학적 타당성과 연구의 질을 평가합니다. 결과는 저자 보고이며 독립적으로 재현한 수치는 아닙니다."
+        },
+        {
+          "en": "Reviewer Analysis — The headline is a maximum overall success rate of 27.4%, but the more useful finding is that correctness, presentation, and evaluation reliability are separate problems. An expert audit identified nine incorrectly failed runs in one 168-run cohort. The paper therefore examines both agent weakness and benchmark weakness. It does not establish that an agent can independently produce novel, accepted physics research with a 27.4% probability.",
+          "ko": "검토자 분석 — 가장 높은 전체 성공률은 27.4%입니다. 그러나 더 유용한 발견은 정답 여부, 연구 전달의 질, 평가 신뢰성이 서로 다른 문제라는 점입니다. 전문가 감사에서는 168회 실행으로 구성된 한 집단 중 9회가 잘못 탈락한 것으로 드러났습니다. 이 논문은 에이전트의 약점과 벤치마크의 약점을 함께 살핍니다. 에이전트가 독립적으로 새로운 물리 연구를 수행해 학술적으로 인정받을 확률이 27.4%라는 뜻은 아닙니다."
+        },
+        {
+          "en": "Engineering Implication — Treat the system under test as model plus [[agent-harness|agent harness]], tools, budget, and judge. Preserve executable evidence, test assumptions independently, and audit rejected outputs. The full paper and Appendices A–H were reviewed for this article. Original figures and source code were inspected, but the benchmark was not rerun; the public code inspected is insufficient to reproduce the complete reported study.",
+          "ko": "엔지니어링 시사점 — 평가 대상은 모델에 [[agent-harness|에이전트 실행 도구]], 사용 가능한 도구, 예산, 채점기를 합친 시스템입니다. 실행 가능한 증거를 보존하고 가정을 독립적으로 검사하며 탈락 결과도 감사해야 합니다. 이 글은 원문과 부록 A–H를 검토했습니다. 원본 그림과 공개 코드도 확인했지만 벤치마크를 다시 실행하지는 않았습니다. 확인한 공개 코드만으로 보고된 연구 전체를 재현하기는 어렵습니다."
+        }
+      ]
+    },
+    {
+      "id": "background",
+      "title": {
+        "en": "Background & Research Problem",
+        "ko": "배경과 연구 문제"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — A physics answer can be mathematically tidy yet scientifically unconvincing. A simulation may reproduce a curve while ignoring experimental limits. A manuscript may cite papers without using their insights. Table 1 positions earlier benchmarks as question answering, workflow subtasks, paper reproduction, or broader research. The proposed change is to evaluate several linked stages without handing the agent an explicit solution pathway or the reference paper.",
+          "ko": "논문 주장 — 수학적으로 깔끔한 답도 과학적으로 설득력이 없을 수 있습니다. 시뮬레이션이 곡선을 재현하면서 실험 장치의 한계를 무시하거나, 원고가 논문을 인용하면서 핵심 통찰을 활용하지 않을 수 있습니다. 표 1은 기존 평가를 문답, 연구 일부 작업, 논문 재현, 더 넓은 연구 수행으로 구분합니다. 이번 변화는 정해진 해법이나 정답 논문을 주지 않고 서로 연결된 여러 연구 단계를 평가하는 것입니다."
+        },
+        {
+          "en": "The baseline is therefore a different evaluation target, not a single previous model score. Contributors reconstructed projects they personally conducted. The authors accepted 56 of 182 submissions and required underlying projects to involve at least two weeks of research. Eighteen tasks derive from contributors' published work. These provenance checks improve authenticity, but recreating known projects still differs from discovering a question that nobody has solved.",
+          "ko": "따라서 비교 기준은 특정 이전 모델의 점수 하나가 아니라 평가 대상 자체의 변화입니다. 기여자들은 자신이 직접 수행한 연구를 과제로 구성했습니다. 저자들은 제출 182개 중 56개를 채택했고 원래 연구가 최소 2주 이상의 노력을 들인 프로젝트여야 한다고 요구했습니다. 18개 과제는 기여자의 출판된 연구에서 나왔습니다. 이런 출처 확인은 실제성을 높이지만, 알려진 연구를 재구성하는 일과 아직 아무도 풀지 못한 질문을 발견하는 일은 다릅니다."
+        },
+        {
+          "en": "Reviewer Analysis — Open-ended tasks create a tension: freedom permits useful alternative methods, while grading needs a clear target. A [[rubric|rubric]] makes expectations visible to evaluators, but may also embed the contributor's preferred interpretation. This tension explains why human failure analysis is part of the contribution rather than optional cleanup. Scientific evaluation cannot be reduced to checking whether a PDF sounds professional.",
+          "ko": "검토자 분석 — 개방형 과제에는 긴장이 있습니다. 자유도가 있어야 유용한 대안적 방법을 허용할 수 있지만 평가에는 명확한 목표가 필요합니다. [[rubric|평가 기준표]]는 평가자가 기대 조건을 알게 해 주지만 기여자가 선호하는 해석을 담을 수도 있습니다. 인간의 실패 분석이 단순한 사후 정리가 아니라 연구 기여의 일부인 이유입니다. 과학 연구 평가는 PDF의 문장이 전문가처럼 들리는지 확인하는 일로 축소할 수 없습니다."
+        }
+      ]
+    },
+    {
+      "id": "contributions",
+      "title": {
+        "en": "Core Innovations",
+        "ko": "핵심 기여"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — The first contribution is task construction with scientific provenance and layered review. General review checks ownership and genuine human input. Domain reviewers examine whether instructions leave the research sufficiently open and whether criteria encode real scientific insight. Contributors perform at least three local runs and inspect failures. A final administrator review follows. This is a substantial curation process, although it does not guarantee error-free references or tolerances.",
+          "ko": "논문 주장 — 첫 기여는 과학적 출처와 여러 단계의 검토를 갖춘 과제 구성입니다. 일반 검토에서는 연구 수행 이력과 실제 인간의 기여를 확인합니다. 분야별 검토자는 지시가 연구를 충분히 개방해 두는지, 기준에 실질적인 과학적 통찰이 들어 있는지 점검합니다. 기여자는 최소 세 차례의 로컬 실행과 실패 분석을 수행하고 최종 관리자 검토를 거칩니다. 상당한 검수 절차이지만 정답 자료나 허용 오차에 오류가 없음을 보장하지는 않습니다."
+        },
+        {
+          "en": "The second contribution is combining numerical verification with hard scientific gates and graded quality. A [[blocker|blocker]] is a required validity condition, not a stylistic preference that a polished introduction can offset. The third is artifact-level reviewing: the judge can inspect code and trajectories in another sandbox. It need not trust claims in the manuscript. This connects a claimed result to the process that produced it.",
+          "ko": "둘째 기여는 수치 검증에 필수적인 과학적 통과 조건과 단계별 품질 평가를 결합한 것입니다. [[blocker|필수 통과 조건]]은 세련된 서론으로 만회할 수 있는 문체상의 선호가 아니라 타당성에 필요한 요건입니다. 셋째는 산출물 수준의 심사입니다. 채점 에이전트는 별도 샌드박스에서 코드와 실행 기록을 확인하므로 원고의 주장을 그대로 믿을 필요가 없습니다. 결과에 관한 주장과 그 결과를 만든 과정을 연결하는 방식입니다."
+        },
+        {
+          "en": "Reviewer Analysis — The most transferable innovation is the evaluation loop, not a new neural architecture or training algorithm. Expert inspection exposed incorrect failures and motivated task fixes and reruns. Figure 2, linked in Sources, shows this loop from task creation through failure analysis. Attribution: You and colleagues, original CC BY 4.0 figure; its 600-by-181.92-point proportions and labels are preserved. The graphic summarizes author evidence, not an independent validation.",
+          "ko": "검토자 분석 — 가장 다른 작업에 옮기기 좋은 기여는 새로운 신경망 구조나 학습 알고리즘이 아니라 평가의 순환 구조입니다. 전문가 검토는 잘못된 탈락을 찾아 과제 수정과 재실행으로 이어졌습니다. 출처에 연결한 그림 2는 과제 제작부터 실패 분석까지 이 순환을 보여 줍니다. You 외 저자의 CC BY 4.0 원본이며 600×181.92포인트의 비율과 표기를 보존했습니다. 이 그림은 저자의 증거를 요약하며 독립 검증을 나타내지는 않습니다."
+        }
+      ]
+    },
+    {
+      "id": "method",
+      "title": {
+        "en": "Architecture & Methodology",
+        "ko": "구조와 방법론"
+      },
+      "evidence": "author",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — A task package contains instructions, an environment, supporting data where needed, reference material for evaluation, verifier code, and criteria. The worker submits structured artifacts and paper.pdf. After a [[rollout|rollout]], files, traces and verifier results are copied to a separate reviewing sandbox. The common reviewer is GPT-5.6 Sol at xhigh effort in Codex CLI. Figure 3 provides the original task-package and execution diagram; it is linked separately from the overview.",
+          "ko": "논문 주장 — 과제 패키지에는 지시문, 실행 환경, 필요한 보조 데이터, 평가용 참고 자료, 검증 코드, 평가 기준이 들어 있습니다. 작업 에이전트는 구조화된 산출물과 paper.pdf를 제출합니다. 한 번의 [[rollout|전체 실행]]이 끝나면 파일, 실행 기록, 검증 결과를 별도 심사 샌드박스로 복사합니다. 공통 채점기는 Codex CLI에서 xhigh 추론 설정으로 실행한 GPT-5.6 Sol입니다. 그림 3은 원본 과제 구성과 실행 구조를 보여 주며 개요 그림과 별도로 연결했습니다."
+        },
+        {
+          "en": "Equation 1 can be written as S = 100 × Σ(wᵢsᵢ)/(2Σwᵢ) only when D = 1 and every blocker bⱼ = 1; otherwise S = 0. Here D is the deterministic result, sᵢ is a non-blocker score in {0,1,2}, and wᵢ is its importance weight from 1 to 10. Blocker weights do not enter the numerical quality average. In procedural terms: verify outputs; check every validity gate; return zero if either fails; otherwise compute the weighted quality score. This is the paper's gating rule, not a newly proposed implementation.",
+          "ko": "식 1을 풀어 쓰면 D=1이고 모든 필수 조건 bⱼ=1일 때에만 S=100×Σ(wᵢsᵢ)/(2Σwᵢ)이며, 아니면 S=0입니다. D는 결정적 검사 결과이고 sᵢ는 일반 품질 항목의 0·1·2점, wᵢ는 중요도를 나타내는 1~10의 가중치입니다. 필수 조건의 가중치는 수치 품질 평균에 포함하지 않습니다. 절차로 읽으면 산출물을 검사하고 모든 타당성 조건을 확인한 뒤 하나라도 실패하면 0점을 반환하며, 모두 통과하면 가중 품질 점수를 계산합니다. 이 규칙은 새로 제안한 구현이 아니라 논문의 채점 방식입니다."
+        },
+        {
+          "en": "Twenty-two models appear in 26 configurations and four harnesses. Claude models use Claude Code; GPT uses Codex; Grok uses Grok Build; Gemini uses Antigravity. Several other families also run inside Claude Code. Effort is generally the highest configurable level; four GPT models additionally have xhigh runs. Each configuration attempts all 56 tasks three times, with a ten-hour cap per run. This evaluates configured systems, not controlled swaps of model weights in one identical runtime.",
+          "ko": "22개 모델이 26개 설정과 네 종류 실행 도구에서 평가됩니다. Claude는 Claude Code, GPT는 Codex, Grok은 Grok Build, Gemini는 Antigravity를 사용하며 다른 여러 모델 계열도 Claude Code 안에서 실행됩니다. 대체로 가능한 가장 높은 추론 설정을 사용하고 GPT 네 모델은 xhigh 실행도 추가합니다. 설정마다 56개 과제를 세 번씩 시도하며 실행당 제한 시간은 10시간입니다. 동일한 실행 환경에서 모델 가중치만 바꾼 통제 비교가 아니라 구성된 시스템을 평가합니다."
+        },
+        {
+          "en": "Smaller environments use Daytona below the stated 4-vCPU, 16-GB memory and 10-GB storage thresholds. Larger tasks use Docker on Azure virtual machines with Lambda GPU access. The paper does not provide one shared accelerator, numerical precision, context length or output-token cap for every hosted model. Model-caused budget or memory endings remain failures; infrastructure failures are rerun. Preserve those distinctions when interpreting both success rates and resource measurements.",
+          "ko": "논문에 명시된 CPU 4개, 메모리 16GB, 저장 공간 10GB 미만의 작은 환경은 Daytona를 사용합니다. 더 큰 과제는 Azure 가상 머신의 Docker와 Lambda의 GPU 접근을 사용합니다. 모든 호스팅 모델에 공통인 가속기, 수치 정밀도, 문맥 길이, 출력 토큰 상한은 제시되지 않았습니다. 모델 때문에 예산이나 메모리가 소진된 종료는 실패로 남기고 인프라 오류는 재실행합니다. 성공률과 자원 측정치를 해석할 때 이 구분을 유지해야 합니다."
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "title": {
+        "en": "Experiments & Results",
+        "ko": "실험과 결과"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Paper Claim — Table 2 reports Claude Opus 5.5 with Claude Code at 27.4% overall Pass@1 and 44.6% Pass@3. GPT-6 Astra max with Codex obtains 23.2% and 30.4%; its xhigh configuration obtains 19.6% and 30.4%. GPT-6.1 Sol with Codex also reports 19.6% and 30.4%. Here [[pass-k|Pass@1 and Pass@3]] have specific empirical meanings: the mean success fraction over the designated trials, and the fraction of tasks with at least one success among three trials. Pass@3 is not a deployable one-shot reliability guarantee.",
+          "ko": "논문 주장 — 표 2에서 Claude Code를 사용한 Claude Opus 5.5의 전체 Pass@1은 27.4%, Pass@3은 44.6%입니다. Codex를 사용한 GPT-6 Astra max는 각각 23.2%, 30.4%이고 xhigh는 19.6%, 30.4%입니다. Codex의 GPT-6.1 Sol도 19.6%, 30.4%를 기록합니다. 여기서 [[pass-k|Pass@1과 Pass@3]]은 각각 지정된 실행들의 평균 성공 비율과 세 번 중 한 번이라도 성공한 과제 비율이라는 경험적 정의를 갖습니다. Pass@3은 배포된 시스템의 단일 시도 신뢰성을 보장하지 않습니다."
+        },
+        {
+          "en": "Appendix F is essential. A [[task-bootstrap|task-clustered bootstrap]] with 10,000 resamples gives Opus 5.5 a 95% interval of 17.9–36.9% for Pass@1, versus 13.7–33.9% for Astra max. The authors' paired task-level sign-flip test does not separate the leader from Astra max, Astra xhigh or GPT-6.1 Sol at unadjusted p ≥ 0.05. The top point estimate is real within this report; a decisive superiority claim is not supported by that test. Trials on the same task are correlated, so treating all 168 as independent understates this source of uncertainty.",
+          "ko": "부록 F가 중요합니다. 10,000회 재표집한 [[task-bootstrap|과제 묶음 부트스트랩]]에서 Opus 5.5의 Pass@1 95% 구간은 17.9~36.9%, Astra max는 13.7~33.9%입니다. 저자의 과제별 대응 부호 반전 검정에서는 선두와 Astra max, Astra xhigh, GPT-6.1 Sol을 보정 전 p≥0.05에서 구분하지 못했습니다. 이 보고서에서 점 추정치가 가장 높다는 사실과 통계적으로 뚜렷한 우위가 입증됐다는 주장은 다릅니다. 같은 과제의 실행은 상관될 수 있으므로 168회를 모두 독립으로 취급하면 이 불확실성을 작게 볼 수 있습니다."
+        },
+        {
+          "en": "Numerical correctness alone is insufficient: Opus 5.5 passes deterministic checks at 45.8%, but overall gates at 27.4%. These are different criteria on the same system, not a 18.4-point model regression. In the separately audited earlier Astra xhigh cohort, correcting eight task-design false negatives and one reviewer error changes 25/168 to 34/168, or 14.9% to 20.2%. Do not mix that corrected audit rate with the final rerun table's 19.6%; they are different accounting stages.",
+          "ko": "수치 정답만으로는 충분하지 않습니다. Opus 5.5는 결정적 검사에서 45.8%를 통과하지만 전체 필수 조건까지 적용하면 27.4%입니다. 같은 시스템에 다른 기준을 적용한 것이므로 모델 성능이 18.4%포인트 퇴보했다는 뜻이 아닙니다. 별도로 감사한 초기 Astra xhigh 집단에서는 과제 설계에 따른 거짓 탈락 8개와 심사 오류 1개를 바로잡자 25/168에서 34/168, 즉 14.9%에서 20.2%로 바뀝니다. 이 보정 감사 수치와 재실행 후 최종 표의 19.6%는 산정 단계가 다르므로 섞으면 안 됩니다."
+        },
+        {
+          "en": "The audit's failure tags overlap: rigorous reasoning problems appear in 48%, expert intuition in 34%, literature in 27%, and instructions in 26%, using 143 originally failed trials as the stated denominator. Appendix G reports mean execution time of 2.44 hours and inference cost of $26.95 per Opus 5.5 run, versus 1.73 hours and $26.91 for Astra max. These are author-accounted inference costs, not total system costs; setup and judging time are excluded, and price and token accounting differ across providers.",
+          "ko": "감사에서 실패 표시는 중복될 수 있습니다. 처음 탈락한 143회를 명시된 분모로 삼으면 엄밀한 추론 문제 48%, 전문가 직관 34%, 문헌 문제 27%, 지시 문제 26%입니다. 부록 G의 실행당 평균 수행 시간과 추론 비용은 Opus 5.5가 2.44시간·26.95달러, Astra max가 1.73시간·26.91달러입니다. 이는 저자가 산정한 추론 비용이지 시스템 총비용이 아닙니다. 환경 준비와 채점 시간은 제외되며 제공자마다 가격과 토큰 계산 방식도 다릅니다."
+        }
+      ]
+    },
+    {
+      "id": "critical",
+      "title": {
+        "en": "Critical Analysis & Limitations",
+        "ko": "비판적 분석과 한계"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Reviewer Analysis — First, the highest scientific-quality score is still a score against contributor-defined criteria. Known references can favor familiar methods and miss valid alternatives. Testing authors' reference materials on 33 tasks yields a reported 96.2% average, but only applicable manuscript criteria were evaluated. This is a limited sanity check, not proof of full workflow correctness or universal agreement with peer review. Appendix H even includes reference materials that fail particular blockers.",
+          "ko": "검토자 분석 — 첫째, 과학적 품질 점수가 높아도 기여자가 정한 기준에 대한 점수라는 한계가 있습니다. 알려진 정답은 익숙한 방법에 유리하고 타당한 대안을 놓칠 수 있습니다. 33개 과제의 저자 참고 자료를 검사한 평균은 96.2%로 보고되지만 적용 가능한 원고 평가 항목만 검사했습니다. 이는 제한적인 건전성 점검이며 전체 작업의 정확성이나 실제 학술 심사와의 보편적 일치를 입증하지 않습니다. 부록 H에는 특정 필수 조건을 통과하지 못한 참고 자료도 있습니다."
+        },
+        {
+          "en": "Second, the failure taxonomy comes from one Astra xhigh cohort. It cannot establish the failure distribution of every model. The alternate-judge experiment also finds [[judge-bias|judge dependence]]: Claude Opus 5.5 is more lenient toward outputs from its own family, despite close agreement on most Astra runs. The same criteria and an apparently capable judge do not eliminate systematic evaluation bias. Human correction itself requires time and specialist expertise.",
+          "ko": "둘째, 실패 분류는 Astra xhigh의 한 실행 집단에서 나왔으므로 모든 모델의 실패 분포로 일반화할 수 없습니다. 대체 채점기 실험에서도 [[judge-bias|채점기 의존성]]이 나타납니다. Claude Opus 5.5는 Astra 실행 대부분에서는 비슷하게 판단하면서도 자기 계열의 결과물에는 더 관대했습니다. 같은 기준과 유능해 보이는 채점기를 사용해도 체계적 평가 편향은 사라지지 않습니다. 인간이 이를 바로잡는 데도 시간과 분야 전문성이 필요합니다."
+        },
+        {
+          "en": "Third, the release has reproducibility gaps. The inspected author-associated repository exposes two task directories, not the paper's complete 56-task suite. Its README points to benchflow-ai/FrontierPhysics, which returned 404 during inspection. Repository protocol documentation describes mentor-guided controls, but that is not evidence that all paper results use those controls. There is also an internal count discrepancy: the overview says 4,364 rollouts, whereas 26 × 168 slots minus Table 7's five missing slots implies 4,363. The article leaves that unresolved rather than silently repairing the paper.",
+          "ko": "셋째, 공개 자료에는 재현성 공백이 있습니다. 확인한 저자 관련 저장소에는 논문의 전체 56개 과제가 아니라 과제 디렉터리 두 개가 있습니다. README가 가리키는 benchflow-ai/FrontierPhysics는 확인 당시 404였습니다. 저장소 프로토콜에는 멘토 지침을 주는 통제 실험이 있지만 논문의 모든 결과에 그 통제가 적용됐다는 증거는 아닙니다. 내부 집계도 어긋납니다. 개요는 전체 실행 4,364회를 표시하지만 설정 26개×168슬롯에서 표 7의 누락 5개를 빼면 4,363회입니다. 이 글은 논문을 임의로 고치지 않고 미해결 불일치로 남깁니다."
+        },
+        {
+          "en": "Finally, a ten-hour computational reconstruction is not equivalent to months of laboratory discovery. Public predecessor papers create possible familiarity or contamination risks that provenance review alone cannot rule out. Domain sample sizes are small. Hardware, hosted-model versions and harness details are not a fully controlled factorial study. The sensible conclusion is that these particular systems struggle with these curated workflows, not that all scientific reasoning has a measured universal ceiling.",
+          "ko": "마지막으로 10시간의 계산 기반 재구성은 수개월의 실험실 발견과 같지 않습니다. 선행 논문이 공개되어 있으면 익숙함이나 학습 데이터 오염 가능성이 생기며 출처 검토만으로 배제할 수 없습니다. 분야별 표본도 작습니다. 하드웨어, 호스팅 모델 버전, 실행 도구를 모든 조합으로 통제한 실험도 아닙니다. 합리적인 결론은 이 특정 시스템들이 이 검수된 연구 작업에서 어려움을 겪는다는 것이며, 과학적 추론 전체의 보편적 한계를 수치로 측정했다는 뜻은 아닙니다."
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "title": {
+        "en": "Engineering Implications",
+        "ko": "구현에 주는 시사점"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Engineering Implication — Build an evidence contract before adding a research agent. Require machine-readable results, executable code, inputs with provenance, and a report that points to those artifacts. Keep validation outside the worker's writable workspace. Use a different implementation or held-out case for verification, because [[circular-verification|circular self-verification]] can make a wrong assumption appear consistent. Appendix E supplies concrete examples: fitting a result is not enough when the same flawed model generates both the result and its check.",
+          "ko": "엔지니어링 시사점 — 연구 에이전트를 붙이기 전에 증거 제출 규약부터 만드십시오. 기계가 읽는 결과, 실행 가능한 코드, 출처가 있는 입력, 산출물을 근거로 연결한 보고서를 요구합니다. 검증 코드는 작업 에이전트가 수정하는 공간 밖에 둡니다. [[circular-verification|순환적 자기 검증]]에서는 틀린 가정도 일관돼 보일 수 있으므로 다른 구현이나 숨겨 둔 사례로 검사합니다. 부록 E의 구체적 사례처럼 결과를 만든 잘못된 모델이 검사에도 쓰이면 결과가 잘 맞는다는 사실만으로 충분하지 않습니다."
+        },
+        {
+          "en": "Use the public protocol cautiously as a workflow template. Its documented commands first check a task and run an oracle, then compare no-skill and mentor-guided runs while preserving task commit, limits, harness and reasoning settings. An oracle is a reference implementation, not infallible scientific truth. Hosted agent runs may require credentials and paid usage. This review did not execute those commands and does not present the two visible tasks as a complete reproduction package.",
+          "ko": "공개 프로토콜은 주의해서 작업 틀로 활용할 수 있습니다. 문서의 명령은 먼저 과제를 검사하고 기준 구현인 oracle을 실행한 다음 과제 커밋, 자원 제한, 실행 도구, 추론 설정을 고정해 지침 없는 실행과 멘토 지침을 준 실행을 비교합니다. oracle은 참고 구현이지 오류 없는 과학적 진실이 아닙니다. 호스팅 에이전트 실행에는 인증 정보와 유료 사용이 필요할 수 있습니다. 이 리뷰에서는 해당 명령을 실행하지 않았으며 보이는 두 과제를 전체 재현 패키지로 소개하지도 않습니다."
+        },
+        {
+          "en": "Illustrative implementation suggestion — For a small internal evaluation, retain three separate outcomes: numerical validity, all required scientific gates, and quality conditional on validity. Log timeout, dependency, grading and model errors separately. Audit a sample of both passes and failures, blind to model identity where practical. Report per-task results and resample tasks, not just runs. This will cost more review effort than a single automatic score, but it can prevent optimizing an agent against a broken evaluator. These are reviewer recommendations derived from the paper, not measured improvements.",
+          "ko": "구현 제안 — 작은 평가를 만들 때는 수치 타당성, 모든 필수 과학 조건의 통과 여부, 타당성을 전제로 한 품질 점수를 따로 보존하십시오. 시간 초과, 의존성 문제, 채점 오류, 모델 오류를 구분해 기록합니다. 통과와 실패 양쪽을 표본 감사하고 가능하면 모델 이름을 가립니다. 과제별 결과를 공개하고 실행만이 아니라 과제를 재표집합니다. 단일 자동 점수보다 검토 비용이 들지만 잘못된 평가기에 에이전트를 맞추는 일을 막을 수 있습니다. 이는 논문에서 도출한 검토자의 권고이며 성능 향상을 측정한 결과는 아닙니다."
+        }
+      ]
+    },
+    {
+      "id": "future",
+      "title": {
+        "en": "Future Directions",
+        "ko": "후속 연구 방향"
+      },
+      "evidence": "analysis",
+      "paragraphs": [
+        {
+          "en": "Reviewer Analysis — The next useful experiment is a matched-harness study with fixed budgets, preserved provider identifiers and a preregistered audit plan. Repeating the expert audit across model families would test whether the reasoning-heavy failure pattern generalizes. Cross-lab task authorship and blinded alternative-solution review could reduce dependence on one contributor's preferred solution. Newly created, prospectively collected tasks would better address contamination than reusing already published projects.",
+          "ko": "검토자 분석 — 다음으로 유용한 실험은 동일한 실행 도구, 고정 예산, 보존된 제공자 식별자, 사전 등록한 감사 계획을 갖춘 비교입니다. 여러 모델 계열에 전문가 감사를 반복하면 추론 문제가 많다는 실패 양상이 일반화되는지 확인할 수 있습니다. 여러 연구실이 과제를 만들고 대안적 해법을 익명 검토하면 한 기여자의 선호 해법에 대한 의존을 줄일 수 있습니다. 이미 출판된 프로젝트를 재사용하는 것보다 새로 수집하는 과제가 데이터 오염 문제에 더 잘 대응할 것입니다."
+        },
+        {
+          "en": "Engineering Implication — Before spending on another large rollout sweep, release a versioned full task set, matching verifier revisions, selected trajectories, judge prompts, cost accounting and corrected slot totals. Then measure how much conclusions change when the judge or tolerance changes. More agent autonomy is only useful when uncertainty and invalid evidence remain visible. FrontierPhysics is valuable because it makes those questions concrete; the current evidence supports a research agenda, not autonomous replacement of expert scientific judgment.",
+          "ko": "엔지니어링 시사점 — 대규모 재실행에 비용을 쓰기 전에 버전이 고정된 전체 과제, 대응하는 검증기 수정 이력, 선택된 실행 기록, 채점 지시문, 비용 산정 방식, 바로잡은 슬롯 집계를 공개하는 편이 좋겠습니다. 그런 다음 채점기나 허용 오차를 바꾸면 결론이 얼마나 달라지는지 측정해야 합니다. 불확실성과 부적절한 증거를 계속 볼 수 있을 때 에이전트의 자율성 확대가 유용합니다. FrontierPhysics의 가치는 이런 질문을 구체화하는 데 있으며, 현재 증거는 전문가의 과학적 판단을 자율 시스템으로 대체하는 주장이 아니라 후속 연구 과제를 뒷받침합니다."
+        }
+      ]
+    },
+    {
+      "id": "references",
+      "title": {
+        "en": "Sources & Further Reading",
+        "ko": "출처와 더 읽을 자료"
+      },
+      "evidence": "mixed",
+      "paragraphs": [
+        {
+          "en": "Primary reading — You et al., FrontierPhysics, arXiv:2611.06910v1, November 4, 2026. Sections 2–3 define tasks, scoring and runs; Appendix A gives a worked task; B–D describe domains, modalities and task-level results; E records failure findings; F gives slot accounting and task-bootstrap intervals; G defines resource accounting; H checks reference manuscripts. The HTML and PDF are linked below. Read Table 8 alongside Table 2 rather than relying on the ranking graphic alone.",
+          "ko": "주요 원문 — You 외, FrontierPhysics, arXiv:2611.06910v1, 2026년 11월 4일. 본문 2~3절은 과제·채점·실행을 정의합니다. 부록 A는 예시 과제, B~D는 분야·입력 유형·과제별 결과, E는 실패 분석, F는 슬롯 집계와 과제 부트스트랩 구간, G는 자원 산정, H는 참고 원고 검사를 담습니다. 아래에 HTML과 PDF를 연결했습니다. 순위 그림만 보지 말고 표 2와 표 8을 함께 읽으십시오."
+        },
+        {
+          "en": "Original visuals and code — Sources include the unmodified Figure 2 overview, Figure 3 architecture and Table 2 SVG. Figure 2 is a 600 × 181.92 pt author illustration; Figure 3 is 600 × 695.04 pt; Table 2 is 600 × 630.96 pt. They loaded successfully and the overview and result table were visually inspected without changing labels or values. The repository README, protocol and experiment instructions were read as implementation evidence; public availability is partial and its central repository link was unavailable at review time.",
+          "ko": "원본 시각 자료와 코드 — 출처에는 변경하지 않은 그림 2 개요, 그림 3 구조도, 표 2 SVG가 있습니다. 저자 그림 2는 600×181.92포인트, 그림 3은 600×695.04포인트, 표 2는 600×630.96포인트입니다. 자료가 정상적으로 로드됐으며 개요와 결과표는 표기나 수치를 바꾸지 않고 눈으로도 확인했습니다. 저장소 README, 프로토콜, 실험 지침은 구현 근거로 읽었습니다. 공개 자료는 일부에 한정되며 중앙 저장소 링크는 검토 당시 접근되지 않았습니다."
+        },
+        {
+          "en": "Selection evidence — The specific Hugging Face listing and Hacker News submission are linked solely to explain discovery. Their votes are not evidence for the paper's scientific claims. GitHub traction was small; no verified Reddit or conference endorsement is claimed. Comparison against other recent candidates and deduplication informed an editorial choice. All experimental numbers in this review are author-reported; interpretations, proposed controls and implementation advice are explicitly reviewer analysis.",
+          "ko": "선정 근거 — 논문 발견 경로를 설명하기 위해 특정 Hugging Face 목록과 Hacker News 게시물을 연결했습니다. 추천 수는 논문의 과학적 주장을 뒷받침하는 증거가 아닙니다. GitHub 반응은 작았으며 검증된 Reddit 반응이나 학회 추천을 주장하지 않습니다. 다른 최근 후보와의 비교와 중복 제거를 거친 편집 선정입니다. 이 글의 실험 수치는 모두 저자 보고이며 해석, 제안한 통제, 구현 조언은 검토자 분석으로 구분했습니다."
+        }
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "deterministic-verifier",
+      "name": {
+        "en": "Deterministic verifier",
+        "ko": "결정적 검증기"
+      },
+      "plain": {
+        "en": "A program that applies fixed checks to an artifact and returns a repeatable result for the same inputs.",
+        "ko": "산출물에 고정된 검사를 적용해 같은 입력에는 재현 가능한 결과를 내는 프로그램입니다."
+      },
+      "background": {
+        "en": "Basic testing, numerical tolerances and the difference between a test and its reference answer.",
+        "ko": "기본적인 소프트웨어 검사, 수치 허용 오차, 검사 코드와 정답 자료의 차이를 알면 좋습니다."
+      },
+      "example": {
+        "en": "Illustration: compare a calculated energy against a reference within a declared tolerance; the reference can still be wrong.",
+        "ko": "예시: 계산한 에너지가 정답 주변의 정해진 오차 안에 드는지 검사합니다. 정답 자료 자체는 틀릴 수 있습니다."
+      },
+      "why": {
+        "en": "FrontierPhysics requires all applicable deterministic tests to pass, but its expert audit shows these checks can falsely reject correct work.",
+        "ko": "FrontierPhysics는 관련 결정적 검사의 전부 통과를 요구하지만 전문가 감사는 이런 검사도 올바른 작업을 잘못 탈락시킬 수 있음을 보여 줍니다."
+      }
+    },
+    {
+      "id": "agent-harness",
+      "name": {
+        "en": "Agent harness",
+        "ko": "에이전트 실행 도구"
+      },
+      "plain": {
+        "en": "The software loop that connects a model to tools, files, permissions, messages and stopping rules.",
+        "ko": "모델을 도구·파일·권한·메시지·종료 규칙과 연결해 실행하는 소프트웨어 구조입니다."
+      },
+      "background": {
+        "en": "A model generates responses; an agent runtime turns responses into actions and returns observations.",
+        "ko": "모델은 응답을 만들고 실행 환경은 응답을 행동으로 옮긴 뒤 관측 결과를 돌려준다는 배경이 필요합니다."
+      },
+      "example": {
+        "en": "Codex and Claude Code can expose different execution behavior even when given similar research instructions.",
+        "ko": "비슷한 연구 지시를 받아도 Codex와 Claude Code는 서로 다른 실행 동작을 제공할 수 있습니다."
+      },
+      "why": {
+        "en": "The paper uses four harnesses, so its model comparisons also compare configured agent systems.",
+        "ko": "논문은 네 실행 도구를 사용하므로 모델 비교에는 구성된 에이전트 시스템의 비교도 섞여 있습니다."
+      }
+    },
+    {
+      "id": "rubric",
+      "name": {
+        "en": "Rubric",
+        "ko": "평가 기준표"
+      },
+      "plain": {
+        "en": "An explicit set of criteria and scoring anchors used to assess qualities that one numerical answer cannot capture.",
+        "ko": "수치 정답 하나로 포착하기 어려운 품질을 판단하도록 평가 항목과 점수 기준을 명시한 표입니다."
+      },
+      "background": {
+        "en": "Understand the distinction between objective output checking and judgment about scientific justification.",
+        "ko": "객관적인 출력 검사와 과학적 정당화에 관한 판단의 차이를 이해하면 좋습니다."
+      },
+      "example": {
+        "en": "Illustration: a report earns full credit only if it explains why a method is valid, rather than merely naming the method.",
+        "ko": "예시: 보고서가 방법 이름만 적는 대신 왜 유효한지 설명해야 해당 항목에서 만점을 받습니다."
+      },
+      "why": {
+        "en": "Expert-authored rubrics grade literature synthesis, scientific presentation and task-specific insight in this benchmark.",
+        "ko": "이 벤치마크는 전문가 기준표로 문헌 종합, 과학적 서술, 과제별 통찰을 평가합니다."
+      }
+    },
+    {
+      "id": "blocker",
+      "name": {
+        "en": "Blocker criterion",
+        "ko": "필수 통과 조건"
+      },
+      "plain": {
+        "en": "A binary validity requirement that must pass regardless of scores on other criteria.",
+        "ko": "다른 항목의 점수가 아무리 높아도 반드시 통과해야 하는 이진 타당성 조건입니다."
+      },
+      "background": {
+        "en": "Boolean logic: requiring A AND B means either failure prevents acceptance.",
+        "ko": "A와 B가 모두 참이어야 할 때 하나만 실패해도 수용하지 않는 논리를 알면 됩니다."
+      },
+      "example": {
+        "en": "Illustration: excellent writing cannot compensate for using an invalid physical model.",
+        "ko": "예시: 글을 훌륭하게 써도 타당하지 않은 물리 모델을 쓴 문제를 만회할 수 없습니다."
+      },
+      "why": {
+        "en": "Equation 1 sets the final score to zero if any blocker fails, separating validity from polish.",
+        "ko": "식 1은 필수 조건 하나라도 실패하면 최종 점수를 0으로 만들어 타당성과 완성도를 구분합니다."
+      }
+    },
+    {
+      "id": "rollout",
+      "name": {
+        "en": "Rollout",
+        "ko": "전체 실행"
+      },
+      "plain": {
+        "en": "One complete attempt by an agent at a task, including its actions, observations and final outputs.",
+        "ko": "에이전트가 과제 하나를 시도하면서 수행한 행동, 관측, 최종 출력을 모두 포함한 한 번의 실행입니다."
+      },
+      "background": {
+        "en": "Distinguish one task from repeated attempts and distinguish a full attempt from one model response.",
+        "ko": "과제 하나와 그에 대한 반복 시도, 전체 시도와 모델의 응답 한 번을 구분해야 합니다."
+      },
+      "example": {
+        "en": "Fifty-six tasks attempted three times produce 168 designated slots per configuration.",
+        "ko": "과제 56개를 각각 세 번 시도하면 설정 하나당 예정된 실행 슬롯은 168개입니다."
+      },
+      "why": {
+        "en": "The paper audits trajectories and artifacts per rollout, and missing slots affect the denominator.",
+        "ko": "논문은 실행마다 기록과 산출물을 감사하며 누락 슬롯도 성공률의 분모에 영향을 줍니다."
+      }
+    },
+    {
+      "id": "pass-k",
+      "name": {
+        "en": "Pass@1 and Pass@3",
+        "ko": "1회 성공률과 3회 중 성공 비율"
+      },
+      "plain": {
+        "en": "In this paper, Pass@1 averages trial success, while Pass@3 counts tasks with at least one success in three designated attempts.",
+        "ko": "이 논문에서 Pass@1은 실행 성공 비율의 평균이고 Pass@3은 지정된 세 번 중 한 번이라도 성공한 과제의 비율입니다."
+      },
+      "background": {
+        "en": "Fractions, repeated trials, and why selecting a successful run is different from obtaining success on the first attempt.",
+        "ko": "비율과 반복 시도, 성공 실행을 골라내는 일과 첫 시도에서 성공하는 일의 차이가 배경입니다."
+      },
+      "example": {
+        "en": "For one task with fail, pass, fail, its trial success fraction is one third but its three-attempt success indicator is one.",
+        "ko": "한 과제가 실패·성공·실패라면 실행 성공 비율은 3분의 1이지만 세 번 중 성공 여부는 1입니다."
+      },
+      "why": {
+        "en": "The 44.6% Pass@3 headline for the best configuration must not be treated as its one-shot reliability.",
+        "ko": "최고 설정의 Pass@3 44.6%를 단일 시도 신뢰성으로 해석하면 안 되는 이유를 설명합니다."
+      }
+    },
+    {
+      "id": "task-bootstrap",
+      "name": {
+        "en": "Task-clustered bootstrap",
+        "ko": "과제 묶음 부트스트랩"
+      },
+      "plain": {
+        "en": "Estimate uncertainty by repeatedly resampling tasks while keeping each task's related trials together.",
+        "ko": "각 과제의 관련 실행들을 함께 유지하면서 과제를 반복 재표집해 불확실성을 추정하는 방법입니다."
+      },
+      "background": {
+        "en": "Sampling variation and correlation: repeated trials on a difficult task share sources of difficulty.",
+        "ko": "표본 변동과 상관관계가 배경입니다. 어려운 한 과제의 반복 시도들은 어려움의 원인을 공유합니다."
+      },
+      "example": {
+        "en": "Illustration: resample 56 task groups with replacement, retaining each selected task's three outcomes, and recompute success.",
+        "ko": "예시: 과제 묶음 56개를 중복 허용 추출하고 선택된 각 과제의 결과 세 개를 유지해 성공률을 다시 계산합니다."
+      },
+      "why": {
+        "en": "Appendix F uses 10,000 task resamples and gives wider, task-aware intervals for interpreting apparent ranking gaps.",
+        "ko": "부록 F는 과제를 10,000회 재표집해 순위 차이를 해석할 때 과제 구조를 반영하는 신뢰구간을 제시합니다."
+      }
+    },
+    {
+      "id": "judge-bias",
+      "name": {
+        "en": "Judge dependence and bias",
+        "ko": "채점기 의존성과 편향"
+      },
+      "plain": {
+        "en": "Evaluation outcomes can vary systematically with the evaluator, even when nominal criteria stay fixed.",
+        "ko": "명목상 평가 기준이 같아도 평가자에 따라 결과가 체계적으로 달라질 수 있는 현상입니다."
+      },
+      "background": {
+        "en": "Separate the worker that produces an answer from the judge that evaluates it; agreement is not proof of correctness.",
+        "ko": "답을 만드는 작업자와 답을 평가하는 채점기를 구분하고 의견 일치가 정확성의 증명은 아님을 알아야 합니다."
+      },
+      "example": {
+        "en": "The alternate Claude reviewer is reported as more lenient toward outputs from its own model family.",
+        "ko": "논문은 대체 Claude 심사자가 자기 모델 계열의 결과물에 더 관대했다고 보고합니다."
+      },
+      "why": {
+        "en": "This limits treating an automated research score as evaluator-independent scientific truth.",
+        "ko": "자동 연구 점수를 평가자와 무관한 과학적 진실로 받아들일 수 없는 이유입니다."
+      }
+    },
+    {
+      "id": "circular-verification",
+      "name": {
+        "en": "Circular self-verification",
+        "ko": "순환적 자기 검증"
+      },
+      "plain": {
+        "en": "A check repeats the assumption or mechanism responsible for the original error, so agreement hides the error.",
+        "ko": "원래 오류를 만든 가정이나 방식을 검사에서도 반복해 결과의 일치가 오류를 가리는 문제입니다."
+      },
+      "background": {
+        "en": "Independent validation and the difference between internal consistency and external correctness.",
+        "ko": "독립 검증과 내부 일관성·외부 정확성의 차이를 알면 이해하기 쉽습니다."
+      },
+      "example": {
+        "en": "Illustration: a simulator and its test both omit the same physical effect; their outputs match but neither establishes correctness.",
+        "ko": "예시: 시뮬레이터와 검사가 같은 물리 효과를 빠뜨리면 결과는 맞아도 정확성이 입증된 것은 아닙니다."
+      },
+      "why": {
+        "en": "Expert failure analysis identifies circular checking as a recurring rigorous-reasoning problem; it motivates independent tests.",
+        "ko": "전문가 실패 분석은 순환 검사를 반복되는 엄밀한 추론 문제로 지적하며 독립적인 검사가 필요한 이유를 보여 줍니다."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "paper",
+      "name": "Original paper — arXiv abstract and version history (2026-11-04)",
+      "url": "https://arxiv.org/abs/2611.06910"
+    },
+    {
+      "id": "full-paper",
+      "name": "Full original HTML — method, experiments, Appendices A–H",
+      "url": "https://arxiv.org/html/2611.06910v1"
+    },
+    {
+      "id": "pdf",
+      "name": "Original paper PDF — FrontierPhysics v1",
+      "url": "https://arxiv.org/pdf/2611.06910"
+    },
+    {
+      "id": "figure-overview",
+      "name": "Original Figure 2 — benchmark overview, You et al., CC BY 4.0",
+      "url": "https://arxiv.org/html/2611.06910v1/benchmark_overview.svg"
+    },
+    {
+      "id": "figure-details",
+      "name": "Original Figure 3 — task curation, structure and execution, You et al.",
+      "url": "https://arxiv.org/html/2611.06910v1/benchmark_details.svg"
+    },
+    {
+      "id": "table-results",
+      "name": "Original Table 2 — model and harness results, You et al.",
+      "url": "https://arxiv.org/html/2611.06910v1/frontier_model_performance.svg"
+    },
+    {
+      "id": "author-code",
+      "name": "Inspected public repository — wenjun-ke/FrontierPhysics (partial task release)",
+      "url": "https://github.com/wenjun-ke/FrontierPhysics"
+    },
+    {
+      "id": "protocol",
+      "name": "Repository benchmark protocol — controls and preserved evidence",
+      "url": "https://raw.githubusercontent.com/wenjun-ke/FrontierPhysics/main/docs/benchmark-protocol.md"
+    },
+    {
+      "id": "commands",
+      "name": "Repository experiment commands — oracle, no-skill and with-skill conditions",
+      "url": "https://raw.githubusercontent.com/wenjun-ke/FrontierPhysics/main/experiments/README.md"
+    },
+    {
+      "id": "hf-signal",
+      "name": "Selection signal only — Hugging Face paper listing, inspected November 8 KST",
+      "url": "https://huggingface.co/papers/2611.06910"
+    },
+    {
+      "id": "hn-signal",
+      "name": "Selection signal only — Hacker News submission 50387067",
+      "url": "https://news.ycombinator.com/item?id=50387067"
+    }
+  ]
+}
