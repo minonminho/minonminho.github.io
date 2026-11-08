@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-07T00:26:09.639114+00:00",
+  "generatedAt": "2026-11-08T00:02:11.001176+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -8,7 +8,7 @@
     },
     "hackernews": {
       "state": "ok",
-      "items": 77
+      "items": 74
     },
     "reddit": {
       "state": "unavailable",
@@ -22,7 +22,7 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 55,
+          "engagement": 56,
           "url": "https://huggingface.co/papers/2611.06910"
         },
         {
@@ -31,7 +31,7 @@
           "url": "https://news.ycombinator.com/item?id=50387067"
         }
       ],
-      "attentionScore": 39.15,
+      "attentionScore": 39.22,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.06910"
     },
@@ -41,7 +41,7 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 16,
+          "engagement": 18,
           "url": "https://huggingface.co/papers/2611.05306"
         },
         {
@@ -50,7 +50,7 @@
           "url": "https://news.ycombinator.com/item?id=50366701"
         }
       ],
-      "attentionScore": 35.73,
+      "attentionScore": 35.97,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.05306"
     },
@@ -135,32 +135,18 @@
       "originalPaper": "https://arxiv.org/abs/2610.37741"
     },
     {
-      "arxivId": "2611.06728",
-      "title": "Turns Matter: Advancing Streaming Video RL via Turn-Level Credit",
+      "arxivId": "2610.21375",
+      "title": "Memorilla: Latent Semantic Memory for LLMs",
       "signals": [
         {
-          "source": "huggingface",
-          "engagement": 127,
-          "url": "https://huggingface.co/papers/2611.06728"
+          "source": "hackernews",
+          "engagement": 115,
+          "url": "https://news.ycombinator.com/item?id=50395919"
         }
       ],
-      "attentionScore": 26.27,
+      "attentionScore": 25.72,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.06728"
-    },
-    {
-      "arxivId": "2611.02075",
-      "title": "Decoupled Predictive Decision Making: A Shared Conditional Predictor for Agents",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 113,
-          "url": "https://huggingface.co/papers/2611.02075"
-        }
-      ],
-      "attentionScore": 25.63,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.02075"
+      "originalPaper": "https://arxiv.org/abs/2610.21375"
     },
     {
       "arxivId": "2611.08449",
@@ -168,27 +154,83 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 89,
+          "engagement": 99,
           "url": "https://huggingface.co/papers/2611.08449"
         }
       ],
-      "attentionScore": 24.43,
+      "attentionScore": 24.95,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.08449"
     },
     {
-      "arxivId": "2610.21375",
-      "title": "Memorilla: Latent Semantic Memory for LLMs",
+      "arxivId": "2611.06728",
+      "title": "Turns Matter: Advancing Streaming Video RL via Turn-Level Credit",
       "signals": [
         {
-          "source": "hackernews",
-          "engagement": 78,
-          "url": "https://news.ycombinator.com/item?id=50395919"
+          "source": "huggingface",
+          "engagement": 89,
+          "url": "https://huggingface.co/papers/2611.06728"
         }
       ],
-      "attentionScore": 23.83,
+      "attentionScore": 24.43,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.21375"
+      "originalPaper": "https://arxiv.org/abs/2611.06728"
+    },
+    {
+      "arxivId": "2611.05376",
+      "title": "From Autonomous Agents to Cognitive Symbionts: Toward AI-Augmented Human Intelligence",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 84,
+          "url": "https://huggingface.co/papers/2611.05376"
+        }
+      ],
+      "attentionScore": 24.17,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.05376"
+    },
+    {
+      "arxivId": "2611.08373",
+      "title": "SLA: Scaling Spatial-Language-Action Model via Continual Pre-training",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 81,
+          "url": "https://huggingface.co/papers/2611.08373"
+        }
+      ],
+      "attentionScore": 24.0,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.08373"
+    },
+    {
+      "arxivId": "2611.02075",
+      "title": "Decoupled Predictive Decision Making: A Shared Conditional Predictor for Agents",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 79,
+          "url": "https://huggingface.co/papers/2611.02075"
+        }
+      ],
+      "attentionScore": 23.89,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.02075"
+    },
+    {
+      "arxivId": "2611.04277",
+      "title": "Harness-S: Learning from Sibling Harnesses for Generalizable Agent Training",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 63,
+          "url": "https://huggingface.co/papers/2611.04277"
+        }
+      ],
+      "attentionScore": 22.94,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.04277"
     },
     {
       "arxivId": "2611.04814",
@@ -196,11 +238,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 60,
+          "engagement": 61,
           "url": "https://huggingface.co/papers/2611.04814"
         }
       ],
-      "attentionScore": 22.75,
+      "attentionScore": 22.81,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.04814"
     },
@@ -210,11 +252,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 58,
+          "engagement": 60,
           "url": "https://huggingface.co/papers/2611.06918"
         }
       ],
-      "attentionScore": 22.62,
+      "attentionScore": 22.75,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.06918"
     },
@@ -233,30 +275,16 @@
       "originalPaper": "https://arxiv.org/abs/2611.05377"
     },
     {
-      "arxivId": "2611.04277",
-      "title": "Harness-S: Learning from Sibling Harnesses for Generalizable Agent Training",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 54,
-          "url": "https://huggingface.co/papers/2611.04277"
-        }
-      ],
-      "attentionScore": 22.35,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.04277"
-    },
-    {
       "arxivId": "2608.25820",
       "title": "Open-Source 5G Ran Platforms: A Dual Perspective on Performance and Capabilities",
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 53,
+          "engagement": 54,
           "url": "https://news.ycombinator.com/item?id=50347464"
         }
       ],
-      "attentionScore": 22.28,
+      "attentionScore": 22.35,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2608.25820"
     },
@@ -266,11 +294,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 50,
+          "engagement": 49,
           "url": "https://huggingface.co/papers/2611.00883"
         }
       ],
-      "attentionScore": 22.07,
+      "attentionScore": 22.0,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.00883"
     },
@@ -289,74 +317,18 @@
       "originalPaper": "https://arxiv.org/abs/2611.02618"
     },
     {
-      "arxivId": "2611.08373",
-      "title": "SLA: Scaling Spatial-Language-Action Model via Continual Pre-training",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 48,
-          "url": "https://huggingface.co/papers/2611.08373"
-        }
-      ],
-      "attentionScore": 21.93,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.08373"
-    },
-    {
       "arxivId": "2611.05193",
       "title": "Factorized MLLM Embeddings for Composed Image Retrieval",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 47,
+          "engagement": 48,
           "url": "https://huggingface.co/papers/2611.05193"
         }
       ],
-      "attentionScore": 21.86,
+      "attentionScore": 21.93,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.05193"
-    },
-    {
-      "arxivId": "2611.05036",
-      "title": "ToolSpace: Scaling Tool-Centric Environment Synthesis for Long-Horizon Agents",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 40,
-          "url": "https://huggingface.co/papers/2611.05036"
-        }
-      ],
-      "attentionScore": 21.32,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.05036"
-    },
-    {
-      "arxivId": "2611.04408",
-      "title": "Halley: A Predictive Control Plane for Optical AI Data Center Networks",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 38,
-          "url": "https://huggingface.co/papers/2611.04408"
-        }
-      ],
-      "attentionScore": 21.16,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.04408"
-    },
-    {
-      "arxivId": "2610.37257",
-      "title": "GameVerse: A Minute-Scale Gameplay Dataset for Long-Horizon Interactive World Modeling",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 38,
-          "url": "https://huggingface.co/papers/2610.37257"
-        }
-      ],
-      "attentionScore": 21.16,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.37257"
     },
     {
       "arxivId": "2611.07392",
@@ -364,13 +336,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 37,
+          "engagement": 42,
           "url": "https://huggingface.co/papers/2611.07392"
         }
       ],
-      "attentionScore": 21.08,
+      "attentionScore": 21.48,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.07392"
+    },
+    {
+      "arxivId": "2611.05036",
+      "title": "ToolSpace: Scaling Tool-Centric Environment Synthesis for Long-Horizon Agents",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 41,
+          "url": "https://huggingface.co/papers/2611.05036"
+        }
+      ],
+      "attentionScore": 21.4,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.05036"
     },
     {
       "arxivId": "2611.06741",
@@ -378,11 +364,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 36,
+          "engagement": 39,
           "url": "https://huggingface.co/papers/2611.06741"
         }
       ],
-      "attentionScore": 21.0,
+      "attentionScore": 21.24,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.06741"
     },
@@ -392,27 +378,55 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 35,
+          "engagement": 38,
           "url": "https://huggingface.co/papers/2611.06483"
         }
       ],
-      "attentionScore": 20.92,
+      "attentionScore": 21.16,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.06483"
     },
     {
-      "arxivId": "2611.05320",
-      "title": "PyRUA-DataFarm: LLM Agent as a Cost-Efficient Teleoperator for Real-Ready Robot Data",
+      "arxivId": "2610.37257",
+      "title": "GameVerse: A Minute-Scale Gameplay Dataset for Long-Horizon Interactive World Modeling",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 37,
+          "url": "https://huggingface.co/papers/2610.37257"
+        }
+      ],
+      "attentionScore": 21.08,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.37257"
+    },
+    {
+      "arxivId": "2611.04408",
+      "title": "Halley: A Predictive Control Plane for Optical AI Data Center Networks",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 32,
+          "url": "https://huggingface.co/papers/2611.04408"
+        }
+      ],
+      "attentionScore": 20.66,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.04408"
+    },
+    {
+      "arxivId": "2610.40131",
+      "title": "VideoMemBench: How Well Do MLLMs Remember in Video Conversations?",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 27,
-          "url": "https://huggingface.co/papers/2611.05320"
+          "url": "https://huggingface.co/papers/2610.40131"
         }
       ],
       "attentionScore": 20.2,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.05320"
+      "originalPaper": "https://arxiv.org/abs/2610.40131"
     },
     {
       "arxivId": "2611.04418",
@@ -441,20 +455,6 @@
       "attentionScore": 20.2,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.39813"
-    },
-    {
-      "arxivId": "2611.06518",
-      "title": "EmoReward: Self-Evolving Reward Calibration for Emotional Video Generation RL",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 25,
-          "url": "https://huggingface.co/papers/2611.06518"
-        }
-      ],
-      "attentionScore": 20.0,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.06518"
     }
   ]
 }
