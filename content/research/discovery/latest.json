@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-08T00:02:11.001176+00:00",
+  "generatedAt": "2026-11-09T00:08:38.076832+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -8,7 +8,7 @@
     },
     "hackernews": {
       "state": "ok",
-      "items": 74
+      "items": 67
     },
     "reddit": {
       "state": "unavailable",
@@ -22,7 +22,7 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 56,
+          "engagement": 59,
           "url": "https://huggingface.co/papers/2611.06910"
         },
         {
@@ -31,7 +31,7 @@
           "url": "https://news.ycombinator.com/item?id=50387067"
         }
       ],
-      "attentionScore": 39.22,
+      "attentionScore": 39.41,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.06910"
     },
@@ -41,7 +41,7 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 18,
+          "engagement": 19,
           "url": "https://huggingface.co/papers/2611.05306"
         },
         {
@@ -50,7 +50,7 @@
           "url": "https://news.ycombinator.com/item?id=50366701"
         }
       ],
-      "attentionScore": 35.97,
+      "attentionScore": 36.09,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.05306"
     },
@@ -60,7 +60,7 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 0,
+          "engagement": 1,
           "url": "https://huggingface.co/papers/2611.04169"
         },
         {
@@ -69,7 +69,7 @@
           "url": "https://news.ycombinator.com/item?id=50371624"
         }
       ],
-      "attentionScore": 31.73,
+      "attentionScore": 32.73,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.04169"
     },
@@ -79,7 +79,7 @@
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 392,
+          "engagement": 394,
           "url": "https://news.ycombinator.com/item?id=50358582"
         }
       ],
@@ -88,32 +88,32 @@
       "originalPaper": "https://arxiv.org/abs/2605.29713"
     },
     {
-      "arxivId": "2409.02292",
-      "title": "Leaking Secrets from Air-Gap Computers by Spelling Radio Signals from RAM (2024)",
+      "arxivId": "2610.21375",
+      "title": "Memorilla: Latent Semantic Memory for LLMs",
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 222,
-          "url": "https://news.ycombinator.com/item?id=50322022"
+          "engagement": 123,
+          "url": "https://news.ycombinator.com/item?id=50395919"
         }
       ],
-      "attentionScore": 29.9,
+      "attentionScore": 26.09,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2409.02292"
+      "originalPaper": "https://arxiv.org/abs/2610.21375"
     },
     {
-      "arxivId": "2610.39302",
-      "title": "Proving and improving the Platonic Representation Hypothesis with JEPAs",
+      "arxivId": "2611.05376",
+      "title": "From Autonomous Agents to Cognitive Symbionts: Toward AI-Augmented Human Intelligence",
       "signals": [
         {
-          "source": "hackernews",
-          "engagement": 171,
-          "url": "https://news.ycombinator.com/item?id=50325454"
+          "source": "huggingface",
+          "engagement": 117,
+          "url": "https://huggingface.co/papers/2611.05376"
         }
       ],
-      "attentionScore": 28.08,
+      "attentionScore": 25.82,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.39302"
+      "originalPaper": "https://arxiv.org/abs/2611.05376"
     },
     {
       "arxivId": "2610.37741",
@@ -123,30 +123,11 @@
           "source": "hackernews",
           "engagement": 108,
           "url": "https://news.ycombinator.com/item?id=50341334"
-        },
-        {
-          "source": "hackernews",
-          "engagement": 2,
-          "url": "https://news.ycombinator.com/item?id=50323276"
         }
       ],
-      "attentionScore": 26.81,
+      "attentionScore": 25.39,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.37741"
-    },
-    {
-      "arxivId": "2610.21375",
-      "title": "Memorilla: Latent Semantic Memory for LLMs",
-      "signals": [
-        {
-          "source": "hackernews",
-          "engagement": 115,
-          "url": "https://news.ycombinator.com/item?id=50395919"
-        }
-      ],
-      "attentionScore": 25.72,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.21375"
     },
     {
       "arxivId": "2611.08449",
@@ -154,41 +135,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 99,
+          "engagement": 106,
           "url": "https://huggingface.co/papers/2611.08449"
         }
       ],
-      "attentionScore": 24.95,
+      "attentionScore": 25.3,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.08449"
-    },
-    {
-      "arxivId": "2611.06728",
-      "title": "Turns Matter: Advancing Streaming Video RL via Turn-Level Credit",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 89,
-          "url": "https://huggingface.co/papers/2611.06728"
-        }
-      ],
-      "attentionScore": 24.43,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.06728"
-    },
-    {
-      "arxivId": "2611.05376",
-      "title": "From Autonomous Agents to Cognitive Symbionts: Toward AI-Augmented Human Intelligence",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 84,
-          "url": "https://huggingface.co/papers/2611.05376"
-        }
-      ],
-      "attentionScore": 24.17,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.05376"
     },
     {
       "arxivId": "2611.08373",
@@ -196,13 +149,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 81,
+          "engagement": 92,
           "url": "https://huggingface.co/papers/2611.08373"
         }
       ],
-      "attentionScore": 24.0,
+      "attentionScore": 24.59,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.08373"
+    },
+    {
+      "arxivId": "2611.06728",
+      "title": "Turns Matter: Advancing Streaming Video RL via Turn-Level Credit",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 90,
+          "url": "https://huggingface.co/papers/2611.06728"
+        }
+      ],
+      "attentionScore": 24.49,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.06728"
     },
     {
       "arxivId": "2611.02075",
@@ -210,11 +177,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 79,
+          "engagement": 81,
           "url": "https://huggingface.co/papers/2611.02075"
         }
       ],
-      "attentionScore": 23.89,
+      "attentionScore": 24.0,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.02075"
     },
@@ -224,11 +191,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 63,
+          "engagement": 66,
           "url": "https://huggingface.co/papers/2611.04277"
         }
       ],
-      "attentionScore": 22.94,
+      "attentionScore": 23.12,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.04277"
     },
@@ -238,11 +205,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 61,
+          "engagement": 62,
           "url": "https://huggingface.co/papers/2611.04814"
         }
       ],
-      "attentionScore": 22.81,
+      "attentionScore": 22.87,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.04814"
     },
@@ -252,11 +219,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 60,
+          "engagement": 61,
           "url": "https://huggingface.co/papers/2611.06918"
         }
       ],
-      "attentionScore": 22.75,
+      "attentionScore": 22.81,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.06918"
     },
@@ -294,11 +261,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 49,
+          "engagement": 51,
           "url": "https://huggingface.co/papers/2611.00883"
         }
       ],
-      "attentionScore": 22.0,
+      "attentionScore": 22.14,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.00883"
     },
@@ -336,11 +303,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 42,
+          "engagement": 44,
           "url": "https://huggingface.co/papers/2611.07392"
         }
       ],
-      "attentionScore": 21.48,
+      "attentionScore": 21.63,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.07392"
     },
@@ -364,11 +331,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 39,
+          "engagement": 40,
           "url": "https://huggingface.co/papers/2611.06741"
         }
       ],
-      "attentionScore": 21.24,
+      "attentionScore": 21.32,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.06741"
     },
@@ -378,11 +345,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 38,
+          "engagement": 39,
           "url": "https://huggingface.co/papers/2611.06483"
         }
       ],
-      "attentionScore": 21.16,
+      "attentionScore": 21.24,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.06483"
     },
@@ -401,18 +368,46 @@
       "originalPaper": "https://arxiv.org/abs/2610.37257"
     },
     {
+      "arxivId": "2611.03743",
+      "title": "EvoMemState: Evolving Memory State for Personal Agents",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 33,
+          "url": "https://huggingface.co/papers/2611.03743"
+        }
+      ],
+      "attentionScore": 20.74,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.03743"
+    },
+    {
       "arxivId": "2611.04408",
       "title": "Halley: A Predictive Control Plane for Optical AI Data Center Networks",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 32,
+          "engagement": 33,
           "url": "https://huggingface.co/papers/2611.04408"
+        }
+      ],
+      "attentionScore": 20.74,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.04408"
+    },
+    {
+      "arxivId": "2611.06817",
+      "title": "Open-HumanScale: An Open Recipe for Scaling Human and Robot Experience for Embodied Foundation Models",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 32,
+          "url": "https://huggingface.co/papers/2611.06817"
         }
       ],
       "attentionScore": 20.66,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.04408"
+      "originalPaper": "https://arxiv.org/abs/2611.06817"
     },
     {
       "arxivId": "2610.40131",
@@ -420,27 +415,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 27,
+          "engagement": 31,
           "url": "https://huggingface.co/papers/2610.40131"
         }
       ],
-      "attentionScore": 20.2,
+      "attentionScore": 20.57,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.40131"
-    },
-    {
-      "arxivId": "2611.04418",
-      "title": "VidUEU-Agent: A Data-Curation Agent for Multimodal Understanding, Editing, and Unified Tasks",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 27,
-          "url": "https://huggingface.co/papers/2611.04418"
-        }
-      ],
-      "attentionScore": 20.2,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.04418"
     },
     {
       "arxivId": "2610.39813",
@@ -448,13 +429,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 27,
+          "engagement": 28,
           "url": "https://huggingface.co/papers/2610.39813"
         }
       ],
-      "attentionScore": 20.2,
+      "attentionScore": 20.29,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.39813"
+    },
+    {
+      "arxivId": "2611.03634",
+      "title": "WebHarbor: Docking Real Websites for Evolving GUI Agent Environments",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 28,
+          "url": "https://huggingface.co/papers/2611.03634"
+        }
+      ],
+      "attentionScore": 20.29,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.03634"
     }
   ]
 }
