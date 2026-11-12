@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T00:55:54.738697+00:00",
+  "generatedAt": "2026-11-12T02:01:49.429418+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -8,7 +8,7 @@
     },
     "hackernews": {
       "state": "ok",
-      "items": 54
+      "items": 52
     },
     "reddit": {
       "state": "unavailable",
@@ -16,6 +16,25 @@
     }
   },
   "candidates": [
+    {
+      "arxivId": "2611.10866",
+      "title": "The Surprising Effectiveness of Deleting Weights in LLM Post-Training",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 13,
+          "url": "https://huggingface.co/papers/2611.10866"
+        },
+        {
+          "source": "hackernews",
+          "engagement": 30,
+          "url": "https://news.ycombinator.com/item?id=50447363"
+        }
+      ],
+      "attentionScore": 39.08,
+      "communityCount": 2,
+      "originalPaper": "https://arxiv.org/abs/2611.10866"
+    },
     {
       "arxivId": "2611.08290",
       "title": "AutoCompress: Automated Hardware-Guided Model Compression",
@@ -36,12 +55,50 @@
       "originalPaper": "https://arxiv.org/abs/2611.08290"
     },
     {
+      "arxivId": "2611.09501",
+      "title": "e-means: outperforming k-means (in one-tenth the epochs)",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 8,
+          "url": "https://huggingface.co/papers/2611.09501"
+        },
+        {
+          "source": "hackernews",
+          "engagement": 2,
+          "url": "https://news.ycombinator.com/item?id=50448902"
+        }
+      ],
+      "attentionScore": 34.24,
+      "communityCount": 2,
+      "originalPaper": "https://arxiv.org/abs/2611.09501"
+    },
+    {
+      "arxivId": "2611.13560",
+      "title": "Are Dense Rewards Worth Their Tokens in GRPO?",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 3,
+          "url": "https://huggingface.co/papers/2611.13560"
+        },
+        {
+          "source": "hackernews",
+          "engagement": 1,
+          "url": "https://news.ycombinator.com/item?id=50454380"
+        }
+      ],
+      "attentionScore": 32.73,
+      "communityCount": 2,
+      "originalPaper": "https://arxiv.org/abs/2611.13560"
+    },
+    {
       "arxivId": "2610.14162",
       "title": "Next-Concept Modeling: Fast, Parallel Coarse-to-Fine Text Generation",
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 179,
+          "engagement": 180,
           "url": "https://news.ycombinator.com/item?id=50422168"
         },
         {
@@ -50,7 +107,7 @@
           "url": "https://news.ycombinator.com/item?id=50416397"
         }
       ],
-      "attentionScore": 30.62,
+      "attentionScore": 30.65,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.14162"
     },
@@ -60,41 +117,13 @@
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 124,
+          "engagement": 125,
           "url": "https://news.ycombinator.com/item?id=50395919"
         }
       ],
-      "attentionScore": 26.14,
+      "attentionScore": 26.18,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.21375"
-    },
-    {
-      "arxivId": "2611.08449",
-      "title": "VFlash: Fast, Accurate Visual Planning via Flash Primitive Decoding",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 111,
-          "url": "https://huggingface.co/papers/2611.08449"
-        }
-      ],
-      "attentionScore": 25.54,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.08449"
-    },
-    {
-      "arxivId": "2611.05376",
-      "title": "From Autonomous Agents to Cognitive Symbionts: Toward AI-Augmented Human Intelligence",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 104,
-          "url": "https://huggingface.co/papers/2611.05376"
-        }
-      ],
-      "attentionScore": 25.2,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.05376"
     },
     {
       "arxivId": "2611.12806",
@@ -102,55 +131,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 92,
+          "engagement": 98,
           "url": "https://huggingface.co/papers/2611.12806"
         }
       ],
-      "attentionScore": 24.59,
+      "attentionScore": 24.9,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.12806"
     },
     {
-      "arxivId": "2611.06043",
-      "title": "Confucius4-R2T2: A Stable-Prefix Streaming ASR Model for Real Real-Time Transcription",
+      "arxivId": "2611.14210",
+      "title": "Tree-Ising: Repairing Language Models with Bit-Level Ising Edits",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 90,
-          "url": "https://huggingface.co/papers/2611.06043"
+          "engagement": 75,
+          "url": "https://huggingface.co/papers/2611.14210"
         }
       ],
-      "attentionScore": 24.49,
+      "attentionScore": 23.66,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.06043"
-    },
-    {
-      "arxivId": "2611.08373",
-      "title": "SLA: Scaling Spatial-Language-Action Model via Continual Pre-training",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 86,
-          "url": "https://huggingface.co/papers/2611.08373"
-        }
-      ],
-      "attentionScore": 24.27,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.08373"
-    },
-    {
-      "arxivId": "2611.02075",
-      "title": "Decoupled Predictive Decision Making: A Shared Conditional Predictor for Agents",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 82,
-          "url": "https://huggingface.co/papers/2611.02075"
-        }
-      ],
-      "attentionScore": 24.06,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.02075"
+      "originalPaper": "https://arxiv.org/abs/2611.14210"
     },
     {
       "arxivId": "2611.08264",
@@ -158,55 +159,41 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 68,
+          "engagement": 70,
           "url": "https://huggingface.co/papers/2611.08264"
         }
       ],
-      "attentionScore": 23.25,
+      "attentionScore": 23.37,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.08264"
     },
     {
-      "arxivId": "2611.04277",
-      "title": "Harness-S: Learning from Sibling Harnesses for Generalizable Agent Training",
+      "arxivId": "2611.14033",
+      "title": "Few-Step Streaming Video Generation via Condition Shifting",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 67,
-          "url": "https://huggingface.co/papers/2611.04277"
+          "engagement": 66,
+          "url": "https://huggingface.co/papers/2611.14033"
         }
       ],
-      "attentionScore": 23.19,
+      "attentionScore": 23.12,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.04277"
+      "originalPaper": "https://arxiv.org/abs/2611.14033"
     },
     {
-      "arxivId": "2611.10771",
-      "title": "WorldFoundry: Towards Unified Infrastructure for World Intelligence",
+      "arxivId": "2611.12885",
+      "title": "World In-Context Learning for Agentic Robot Manipulation",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 53,
-          "url": "https://huggingface.co/papers/2611.10771"
+          "engagement": 64,
+          "url": "https://huggingface.co/papers/2611.12885"
         }
       ],
-      "attentionScore": 22.28,
+      "attentionScore": 23.0,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.10771"
-    },
-    {
-      "arxivId": "2611.12762",
-      "title": "Sage-Taiyi: A Metacognitive Architecture for Scientific Discovery",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 52,
-          "url": "https://huggingface.co/papers/2611.12762"
-        }
-      ],
-      "attentionScore": 22.21,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12762"
+      "originalPaper": "https://arxiv.org/abs/2611.12885"
     },
     {
       "arxivId": "2611.03953",
@@ -214,13 +201,55 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 51,
+          "engagement": 63,
           "url": "https://huggingface.co/papers/2611.03953"
         }
       ],
-      "attentionScore": 22.14,
+      "attentionScore": 22.94,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.03953"
+    },
+    {
+      "arxivId": "2611.10771",
+      "title": "WorldFoundry: Towards Unified Infrastructure for World Intelligence",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 56,
+          "url": "https://huggingface.co/papers/2611.10771"
+        }
+      ],
+      "attentionScore": 22.48,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.10771"
+    },
+    {
+      "arxivId": "2611.14320",
+      "title": "Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 55,
+          "url": "https://huggingface.co/papers/2611.14320"
+        }
+      ],
+      "attentionScore": 22.42,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.14320"
+    },
+    {
+      "arxivId": "2611.12762",
+      "title": "Sage-Taiyi: A Metacognitive Architecture for Scientific Discovery",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 54,
+          "url": "https://huggingface.co/papers/2611.12762"
+        }
+      ],
+      "attentionScore": 22.35,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.12762"
     },
     {
       "arxivId": "2611.09124",
@@ -228,41 +257,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 49,
+          "engagement": 53,
           "url": "https://huggingface.co/papers/2611.09124"
         }
       ],
-      "attentionScore": 22.0,
+      "attentionScore": 22.28,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.09124"
-    },
-    {
-      "arxivId": "2611.07392",
-      "title": "WeLM-Image: A Unified Image Generation Model towards Visual Intelligence",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 47,
-          "url": "https://huggingface.co/papers/2611.07392"
-        }
-      ],
-      "attentionScore": 21.86,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.07392"
-    },
-    {
-      "arxivId": "2611.06741",
-      "title": "TailSteer: Trajectory-Tail Steering for Drift-Resistant Multi-turn Image Editing",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 43,
-          "url": "https://huggingface.co/papers/2611.06741"
-        }
-      ],
-      "attentionScore": 21.56,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.06741"
     },
     {
       "arxivId": "2611.08175",
@@ -270,27 +271,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 40,
+          "engagement": 42,
           "url": "https://huggingface.co/papers/2611.08175"
         }
       ],
-      "attentionScore": 21.32,
+      "attentionScore": 21.48,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.08175"
-    },
-    {
-      "arxivId": "2611.12886",
-      "title": "Reframe: Observation-Aligned Multi-Teacher On-Policy Distillation for Agentic Visual Reasoning",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 37,
-          "url": "https://huggingface.co/papers/2611.12886"
-        }
-      ],
-      "attentionScore": 21.08,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12886"
     },
     {
       "arxivId": "2611.04720",
@@ -298,27 +285,41 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 36,
+          "engagement": 40,
           "url": "https://huggingface.co/papers/2611.04720"
         }
       ],
-      "attentionScore": 21.0,
+      "attentionScore": 21.32,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.04720"
     },
     {
-      "arxivId": "2611.06817",
-      "title": "Open-HumanScale: An Open Recipe for Scaling Human and Robot Experience for Embodied Foundation Models",
+      "arxivId": "2611.12886",
+      "title": "Reframe: Observation-Aligned Multi-Teacher On-Policy Distillation for Agentic Visual Reasoning",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 36,
-          "url": "https://huggingface.co/papers/2611.06817"
+          "engagement": 39,
+          "url": "https://huggingface.co/papers/2611.12886"
         }
       ],
-      "attentionScore": 21.0,
+      "attentionScore": 21.24,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.06817"
+      "originalPaper": "https://arxiv.org/abs/2611.12886"
+    },
+    {
+      "arxivId": "2610.42148",
+      "title": "Flide: Accelerating Decision Inference with Exact State Forking",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 35,
+          "url": "https://huggingface.co/papers/2610.42148"
+        }
+      ],
+      "attentionScore": 20.92,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.42148"
     },
     {
       "arxivId": "2611.06808",
@@ -335,18 +336,18 @@
       "originalPaper": "https://arxiv.org/abs/2611.06808"
     },
     {
-      "arxivId": "2611.03743",
-      "title": "EvoMemState: Evolving Memory State for Personal Agents",
+      "arxivId": "2611.11995",
+      "title": "Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 35,
-          "url": "https://huggingface.co/papers/2611.03743"
+          "engagement": 34,
+          "url": "https://huggingface.co/papers/2611.11995"
         }
       ],
-      "attentionScore": 20.92,
+      "attentionScore": 20.83,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.03743"
+      "originalPaper": "https://arxiv.org/abs/2611.11995"
     },
     {
       "arxivId": "2611.07025",
@@ -363,18 +364,46 @@
       "originalPaper": "https://arxiv.org/abs/2611.07025"
     },
     {
-      "arxivId": "2610.42148",
-      "title": "Flide: Accelerating Decision Inference with Exact State Forking",
+      "arxivId": "2611.12426",
+      "title": "dNaViT: Discrete Codes are General-Purpose Visual Representations",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 32,
+          "url": "https://huggingface.co/papers/2611.12426"
+        }
+      ],
+      "attentionScore": 20.66,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.12426"
+    },
+    {
+      "arxivId": "2611.11558",
+      "title": "InfraRSI: Harnessing Recursive Self-Improvement for Training Infrastructure",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 32,
+          "url": "https://huggingface.co/papers/2611.11558"
+        }
+      ],
+      "attentionScore": 20.66,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.11558"
+    },
+    {
+      "arxivId": "2611.08452",
+      "title": "ReproBridge: Building Reproducibility into ML Research Artifacts",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 31,
-          "url": "https://huggingface.co/papers/2610.42148"
+          "url": "https://huggingface.co/papers/2611.08452"
         }
       ],
       "attentionScore": 20.57,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.42148"
+      "originalPaper": "https://arxiv.org/abs/2611.08452"
     },
     {
       "arxivId": "2611.06856",
@@ -391,60 +420,46 @@
       "originalPaper": "https://arxiv.org/abs/2611.06856"
     },
     {
-      "arxivId": "2611.08452",
-      "title": "ReproBridge: Building Reproducibility into ML Research Artifacts",
+      "arxivId": "2611.14309",
+      "title": "MMDM: Measuring Massive Multitask Decision Making",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 30,
-          "url": "https://huggingface.co/papers/2611.08452"
+          "engagement": 25,
+          "url": "https://huggingface.co/papers/2611.14309"
         }
       ],
-      "attentionScore": 20.48,
+      "attentionScore": 20.0,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.08452"
+      "originalPaper": "https://arxiv.org/abs/2611.14309"
     },
     {
-      "arxivId": "2611.07461",
-      "title": "The Last Mile to the Real World: Agent-Native Primitives as Reusable Building Blocks for Solving Real-World Tasks",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 28,
-          "url": "https://huggingface.co/papers/2611.07461"
-        }
-      ],
-      "attentionScore": 20.29,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.07461"
-    },
-    {
-      "arxivId": "2611.09017",
-      "title": "Frontier3DBench: Benchmarking Coding Agents for 3D Creation across Objects, Scenes, and Interactive Open Worlds",
+      "arxivId": "2611.11166",
+      "title": "DexForesight: Grounding Dexterous Policies with Implicit Spatial Foresight",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 24,
-          "url": "https://huggingface.co/papers/2611.09017"
+          "url": "https://huggingface.co/papers/2611.11166"
         }
       ],
       "attentionScore": 19.9,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.09017"
+      "originalPaper": "https://arxiv.org/abs/2611.11166"
     },
     {
-      "arxivId": "2611.06748",
-      "title": "EvoWorld: Towards Out-of-Sight World Evolution in Generative Video Models",
+      "arxivId": "2611.01182",
+      "title": "Fast and Exact Relative-Position Attention via Structure-Aware Kernels",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 24,
-          "url": "https://huggingface.co/papers/2611.06748"
+          "engagement": 22,
+          "url": "https://huggingface.co/papers/2611.01182"
         }
       ],
-      "attentionScore": 19.9,
+      "attentionScore": 19.69,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.06748"
+      "originalPaper": "https://arxiv.org/abs/2611.01182"
     }
   ]
 }
