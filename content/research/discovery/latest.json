@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T02:01:49.429418+00:00",
+  "generatedAt": "2026-11-13T01:31:47.139970+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -8,7 +8,7 @@
     },
     "hackernews": {
       "state": "ok",
-      "items": 52
+      "items": 45
     },
     "reddit": {
       "state": "unavailable",
@@ -22,7 +22,7 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 13,
+          "engagement": 19,
           "url": "https://huggingface.co/papers/2611.10866"
         },
         {
@@ -31,28 +31,9 @@
           "url": "https://news.ycombinator.com/item?id=50447363"
         }
       ],
-      "attentionScore": 39.08,
+      "attentionScore": 39.84,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.10866"
-    },
-    {
-      "arxivId": "2611.08290",
-      "title": "AutoCompress: Automated Hardware-Guided Model Compression",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 11,
-          "url": "https://huggingface.co/papers/2611.08290"
-        },
-        {
-          "source": "hackernews",
-          "engagement": 2,
-          "url": "https://news.ycombinator.com/item?id=50444792"
-        }
-      ],
-      "attentionScore": 34.73,
-      "communityCount": 2,
-      "originalPaper": "https://arxiv.org/abs/2611.08290"
     },
     {
       "arxivId": "2611.09501",
@@ -60,7 +41,7 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 8,
+          "engagement": 11,
           "url": "https://huggingface.co/papers/2611.09501"
         },
         {
@@ -69,7 +50,7 @@
           "url": "https://news.ycombinator.com/item?id=50448902"
         }
       ],
-      "attentionScore": 34.24,
+      "attentionScore": 34.73,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.09501"
     },
@@ -79,7 +60,7 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 3,
+          "engagement": 4,
           "url": "https://huggingface.co/papers/2611.13560"
         },
         {
@@ -88,7 +69,7 @@
           "url": "https://news.ycombinator.com/item?id=50454380"
         }
       ],
-      "attentionScore": 32.73,
+      "attentionScore": 33.0,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.13560"
     },
@@ -98,7 +79,7 @@
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 180,
+          "engagement": 181,
           "url": "https://news.ycombinator.com/item?id=50422168"
         },
         {
@@ -107,7 +88,7 @@
           "url": "https://news.ycombinator.com/item?id=50416397"
         }
       ],
-      "attentionScore": 30.65,
+      "attentionScore": 30.69,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.14162"
     },
@@ -131,41 +112,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 98,
+          "engagement": 102,
           "url": "https://huggingface.co/papers/2611.12806"
         }
       ],
-      "attentionScore": 24.9,
+      "attentionScore": 25.1,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.12806"
-    },
-    {
-      "arxivId": "2611.14210",
-      "title": "Tree-Ising: Repairing Language Models with Bit-Level Ising Edits",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 75,
-          "url": "https://huggingface.co/papers/2611.14210"
-        }
-      ],
-      "attentionScore": 23.66,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.14210"
-    },
-    {
-      "arxivId": "2611.08264",
-      "title": "SplatAnything: Gaussian Spacing Normalization for Feed-forward 3DGS across Arbitrary Scenes",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 70,
-          "url": "https://huggingface.co/papers/2611.08264"
-        }
-      ],
-      "attentionScore": 23.37,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.08264"
     },
     {
       "arxivId": "2611.14033",
@@ -173,55 +126,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 66,
+          "engagement": 88,
           "url": "https://huggingface.co/papers/2611.14033"
         }
       ],
-      "attentionScore": 23.12,
+      "attentionScore": 24.38,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.14033"
-    },
-    {
-      "arxivId": "2611.12885",
-      "title": "World In-Context Learning for Agentic Robot Manipulation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 64,
-          "url": "https://huggingface.co/papers/2611.12885"
-        }
-      ],
-      "attentionScore": 23.0,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12885"
-    },
-    {
-      "arxivId": "2611.03953",
-      "title": "P^2-MOPD: Accelerating Multi-Teacher On-Policy Distillation via Parameter Priors",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 63,
-          "url": "https://huggingface.co/papers/2611.03953"
-        }
-      ],
-      "attentionScore": 22.94,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.03953"
-    },
-    {
-      "arxivId": "2611.10771",
-      "title": "WorldFoundry: Towards Unified Infrastructure for World Intelligence",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 56,
-          "url": "https://huggingface.co/papers/2611.10771"
-        }
-      ],
-      "attentionScore": 22.48,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.10771"
     },
     {
       "arxivId": "2611.14320",
@@ -229,13 +140,55 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 55,
+          "engagement": 65,
           "url": "https://huggingface.co/papers/2611.14320"
         }
       ],
-      "attentionScore": 22.42,
+      "attentionScore": 23.06,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.14320"
+    },
+    {
+      "arxivId": "2611.14210",
+      "title": "Tree-Ising: Repairing Language Models with Bit-Level Ising Edits",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 62,
+          "url": "https://huggingface.co/papers/2611.14210"
+        }
+      ],
+      "attentionScore": 22.87,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.14210"
+    },
+    {
+      "arxivId": "2611.12885",
+      "title": "World In-Context Learning for Agentic Robot Manipulation",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 58,
+          "url": "https://huggingface.co/papers/2611.12885"
+        }
+      ],
+      "attentionScore": 22.62,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.12885"
+    },
+    {
+      "arxivId": "2611.10771",
+      "title": "WorldFoundry: Towards Unified Infrastructure for World Intelligence",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 58,
+          "url": "https://huggingface.co/papers/2611.10771"
+        }
+      ],
+      "attentionScore": 22.62,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.10771"
     },
     {
       "arxivId": "2611.12762",
@@ -243,55 +196,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 54,
+          "engagement": 56,
           "url": "https://huggingface.co/papers/2611.12762"
         }
       ],
-      "attentionScore": 22.35,
+      "attentionScore": 22.48,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.12762"
     },
     {
-      "arxivId": "2611.09124",
-      "title": "Toward the Era of Agentic Embodied Intelligence",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 53,
-          "url": "https://huggingface.co/papers/2611.09124"
-        }
-      ],
-      "attentionScore": 22.28,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.09124"
-    },
-    {
-      "arxivId": "2611.08175",
-      "title": "PCBRouteAgent: How Close Are LLM Agents to Becoming PCB Routing Engineers?",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 42,
-          "url": "https://huggingface.co/papers/2611.08175"
-        }
-      ],
-      "attentionScore": 21.48,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.08175"
-    },
-    {
-      "arxivId": "2611.04720",
-      "title": "OneTrans-GSR: A Generative Slate Ranking Paradigm Unifying Reranking and Mix-Ranking with One Autoregressive Transformer",
+      "arxivId": "2611.13001",
+      "title": "One Table, Many Queries: Benchmarking Generalist Tabular Models Across Generation, Imputation, and Prediction",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 40,
-          "url": "https://huggingface.co/papers/2611.04720"
+          "url": "https://huggingface.co/papers/2611.13001"
         }
       ],
       "attentionScore": 21.32,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.04720"
+      "originalPaper": "https://arxiv.org/abs/2611.13001"
     },
     {
       "arxivId": "2611.12886",
@@ -299,13 +224,55 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 39,
+          "engagement": 40,
           "url": "https://huggingface.co/papers/2611.12886"
+        }
+      ],
+      "attentionScore": 21.32,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.12886"
+    },
+    {
+      "arxivId": "2610.40394",
+      "title": "Scaling Mathematical Proof Supervision from Structured Textbooks",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 39,
+          "url": "https://huggingface.co/papers/2610.40394"
         }
       ],
       "attentionScore": 21.24,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12886"
+      "originalPaper": "https://arxiv.org/abs/2610.40394"
+    },
+    {
+      "arxivId": "2611.12426",
+      "title": "dNaViT: Discrete Codes are General-Purpose Visual Representations",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 35,
+          "url": "https://huggingface.co/papers/2611.12426"
+        }
+      ],
+      "attentionScore": 20.92,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.12426"
+    },
+    {
+      "arxivId": "2611.11995",
+      "title": "Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 35,
+          "url": "https://huggingface.co/papers/2611.11995"
+        }
+      ],
+      "attentionScore": 20.92,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.11995"
     },
     {
       "arxivId": "2610.42148",
@@ -320,62 +287,6 @@
       "attentionScore": 20.92,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.42148"
-    },
-    {
-      "arxivId": "2611.06808",
-      "title": "LLMs Don't Know What They Know: Benchmarking Temporal Self-Knowledge for Financial Backtesting",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 35,
-          "url": "https://huggingface.co/papers/2611.06808"
-        }
-      ],
-      "attentionScore": 20.92,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.06808"
-    },
-    {
-      "arxivId": "2611.11995",
-      "title": "Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 34,
-          "url": "https://huggingface.co/papers/2611.11995"
-        }
-      ],
-      "attentionScore": 20.83,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.11995"
-    },
-    {
-      "arxivId": "2611.07025",
-      "title": "LowRAM: Low-Rank Keys and Amortised Values for Composable KV Cache Compression at Test-Time",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 34,
-          "url": "https://huggingface.co/papers/2611.07025"
-        }
-      ],
-      "attentionScore": 20.83,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.07025"
-    },
-    {
-      "arxivId": "2611.12426",
-      "title": "dNaViT: Discrete Codes are General-Purpose Visual Representations",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 32,
-          "url": "https://huggingface.co/papers/2611.12426"
-        }
-      ],
-      "attentionScore": 20.66,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12426"
     },
     {
       "arxivId": "2611.11558",
@@ -397,27 +308,69 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 31,
+          "engagement": 32,
           "url": "https://huggingface.co/papers/2611.08452"
         }
       ],
-      "attentionScore": 20.57,
+      "attentionScore": 20.66,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.08452"
     },
     {
-      "arxivId": "2611.06856",
-      "title": "LongBanana: An Expert-Verified Benchmark for Long-Context Multi-Reference Image Synthesis",
+      "arxivId": "2611.13410",
+      "title": "SteerDistill: Quantizing LLM Agents via Closed-Loop Teacher Steering",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 31,
-          "url": "https://huggingface.co/papers/2611.06856"
+          "url": "https://huggingface.co/papers/2611.13410"
         }
       ],
       "attentionScore": 20.57,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.06856"
+      "originalPaper": "https://arxiv.org/abs/2611.13410"
+    },
+    {
+      "arxivId": "2611.10649",
+      "title": "MACaQ: Fast, Model Agnostic Calibrated Quantization for Low-Precision Weights and Activations",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 30,
+          "url": "https://huggingface.co/papers/2611.10649"
+        }
+      ],
+      "attentionScore": 20.48,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.10649"
+    },
+    {
+      "arxivId": "2610.39671",
+      "title": "Incentivizing Self-Learning in Large Language Models via Reinforcement Learning",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 27,
+          "url": "https://huggingface.co/papers/2610.39671"
+        }
+      ],
+      "attentionScore": 20.2,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2610.39671"
+    },
+    {
+      "arxivId": "2611.12177",
+      "title": "Embodied First Exam",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 27,
+          "url": "https://huggingface.co/papers/2611.12177"
+        }
+      ],
+      "attentionScore": 20.2,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.12177"
     },
     {
       "arxivId": "2611.14309",
@@ -425,13 +378,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 25,
+          "engagement": 27,
           "url": "https://huggingface.co/papers/2611.14309"
+        }
+      ],
+      "attentionScore": 20.2,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.14309"
+    },
+    {
+      "arxivId": "2611.07464",
+      "title": "FINCOSMOS: An Open-World Evaluation Paradigm for Agents in Finance",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 25,
+          "url": "https://huggingface.co/papers/2611.07464"
         }
       ],
       "attentionScore": 20.0,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.14309"
+      "originalPaper": "https://arxiv.org/abs/2611.07464"
     },
     {
       "arxivId": "2611.11166",
@@ -439,27 +406,55 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 24,
+          "engagement": 25,
           "url": "https://huggingface.co/papers/2611.11166"
         }
       ],
-      "attentionScore": 19.9,
+      "attentionScore": 20.0,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.11166"
     },
     {
-      "arxivId": "2611.01182",
-      "title": "Fast and Exact Relative-Position Attention via Structure-Aware Kernels",
+      "arxivId": "2611.12870",
+      "title": "SWAM: Scaling World Action Models with Cross-Modal Alignment",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 23,
+          "url": "https://huggingface.co/papers/2611.12870"
+        }
+      ],
+      "attentionScore": 19.8,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.12870"
+    },
+    {
+      "arxivId": "2611.10304",
+      "title": "Longtail-SWE: High-Quality SWE Tasks for Underrepresented Languages",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 22,
-          "url": "https://huggingface.co/papers/2611.01182"
+          "url": "https://huggingface.co/papers/2611.10304"
         }
       ],
       "attentionScore": 19.69,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.01182"
+      "originalPaper": "https://arxiv.org/abs/2611.10304"
+    },
+    {
+      "arxivId": "2608.22237",
+      "title": "Read Less, Solve More: Token-Efficient Sparse Reading of External Content for AI Agents",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 18,
+          "url": "https://huggingface.co/papers/2608.22237"
+        }
+      ],
+      "attentionScore": 19.24,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2608.22237"
     }
   ]
 }
