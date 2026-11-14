@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T01:31:47.139970+00:00",
+  "generatedAt": "2026-11-14T01:05:31.719182+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -8,7 +8,7 @@
     },
     "hackernews": {
       "state": "ok",
-      "items": 45
+      "items": 42
     },
     "reddit": {
       "state": "unavailable",
@@ -22,7 +22,7 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 19,
+          "engagement": 21,
           "url": "https://huggingface.co/papers/2611.10866"
         },
         {
@@ -31,7 +31,7 @@
           "url": "https://news.ycombinator.com/item?id=50447363"
         }
       ],
-      "attentionScore": 39.84,
+      "attentionScore": 40.06,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.10866"
     },
@@ -60,7 +60,7 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 4,
+          "engagement": 5,
           "url": "https://huggingface.co/papers/2611.13560"
         },
         {
@@ -69,7 +69,7 @@
           "url": "https://news.ycombinator.com/item?id=50454380"
         }
       ],
-      "attentionScore": 33.0,
+      "attentionScore": 33.24,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.13560"
     },
@@ -93,34 +93,6 @@
       "originalPaper": "https://arxiv.org/abs/2610.14162"
     },
     {
-      "arxivId": "2610.21375",
-      "title": "Memorilla: Latent Semantic Memory for LLMs",
-      "signals": [
-        {
-          "source": "hackernews",
-          "engagement": 125,
-          "url": "https://news.ycombinator.com/item?id=50395919"
-        }
-      ],
-      "attentionScore": 26.18,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.21375"
-    },
-    {
-      "arxivId": "2611.12806",
-      "title": "Learning Heterogeneous Tactile Representation for General Dexterous Manipulation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 102,
-          "url": "https://huggingface.co/papers/2611.12806"
-        }
-      ],
-      "attentionScore": 25.1,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12806"
-    },
-    {
       "arxivId": "2611.14033",
       "title": "Few-Step Streaming Video Generation via Condition Shifting",
       "signals": [
@@ -135,32 +107,32 @@
       "originalPaper": "https://arxiv.org/abs/2611.14033"
     },
     {
+      "arxivId": "2611.15777",
+      "title": "SO-Arena: Benchmarking the Capability Spectrum and Reliability of System One Models",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 74,
+          "url": "https://huggingface.co/papers/2611.15777"
+        }
+      ],
+      "attentionScore": 23.6,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.15777"
+    },
+    {
       "arxivId": "2611.14320",
       "title": "Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 65,
+          "engagement": 70,
           "url": "https://huggingface.co/papers/2611.14320"
         }
       ],
-      "attentionScore": 23.06,
+      "attentionScore": 23.37,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.14320"
-    },
-    {
-      "arxivId": "2611.14210",
-      "title": "Tree-Ising: Repairing Language Models with Bit-Level Ising Edits",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 62,
-          "url": "https://huggingface.co/papers/2611.14210"
-        }
-      ],
-      "attentionScore": 22.87,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.14210"
     },
     {
       "arxivId": "2611.12885",
@@ -168,69 +140,41 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 58,
-          "url": "https://huggingface.co/papers/2611.12885"
-        }
-      ],
-      "attentionScore": 22.62,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12885"
-    },
-    {
-      "arxivId": "2611.10771",
-      "title": "WorldFoundry: Towards Unified Infrastructure for World Intelligence",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 58,
-          "url": "https://huggingface.co/papers/2611.10771"
-        }
-      ],
-      "attentionScore": 22.62,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.10771"
-    },
-    {
-      "arxivId": "2611.12762",
-      "title": "Sage-Taiyi: A Metacognitive Architecture for Scientific Discovery",
-      "signals": [
-        {
-          "source": "huggingface",
           "engagement": 56,
-          "url": "https://huggingface.co/papers/2611.12762"
+          "url": "https://huggingface.co/papers/2611.12885"
         }
       ],
       "attentionScore": 22.48,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12762"
+      "originalPaper": "https://arxiv.org/abs/2611.12885"
     },
     {
-      "arxivId": "2611.13001",
-      "title": "One Table, Many Queries: Benchmarking Generalist Tabular Models Across Generation, Imputation, and Prediction",
+      "arxivId": "2611.14815",
+      "title": "BirdDreams: Joint Perspective and BEV Video Generation for a Plausible, Reactive Driving World Model",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 40,
-          "url": "https://huggingface.co/papers/2611.13001"
+          "engagement": 46,
+          "url": "https://huggingface.co/papers/2611.14815"
         }
       ],
-      "attentionScore": 21.32,
+      "attentionScore": 21.78,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.13001"
+      "originalPaper": "https://arxiv.org/abs/2611.14815"
     },
     {
-      "arxivId": "2611.12886",
-      "title": "Reframe: Observation-Aligned Multi-Teacher On-Policy Distillation for Agentic Visual Reasoning",
+      "arxivId": "2611.14210",
+      "title": "Tree-Ising: Repairing Language Models with Bit-Level Ising Edits",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 40,
-          "url": "https://huggingface.co/papers/2611.12886"
+          "engagement": 45,
+          "url": "https://huggingface.co/papers/2611.14210"
         }
       ],
-      "attentionScore": 21.32,
+      "attentionScore": 21.71,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12886"
+      "originalPaper": "https://arxiv.org/abs/2611.14210"
     },
     {
       "arxivId": "2610.40394",
@@ -238,27 +182,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 39,
+          "engagement": 44,
           "url": "https://huggingface.co/papers/2610.40394"
         }
       ],
-      "attentionScore": 21.24,
+      "attentionScore": 21.63,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.40394"
-    },
-    {
-      "arxivId": "2611.12426",
-      "title": "dNaViT: Discrete Codes are General-Purpose Visual Representations",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 35,
-          "url": "https://huggingface.co/papers/2611.12426"
-        }
-      ],
-      "attentionScore": 20.92,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12426"
     },
     {
       "arxivId": "2611.11995",
@@ -266,55 +196,69 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 35,
+          "engagement": 44,
           "url": "https://huggingface.co/papers/2611.11995"
         }
       ],
-      "attentionScore": 20.92,
+      "attentionScore": 21.63,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.11995"
     },
     {
-      "arxivId": "2610.42148",
-      "title": "Flide: Accelerating Decision Inference with Exact State Forking",
+      "arxivId": "2611.16748",
+      "title": "PhysLoop: Harnessing LLMs' Physics Awareness for Self-Improving Video Generation Models",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 35,
-          "url": "https://huggingface.co/papers/2610.42148"
+          "engagement": 42,
+          "url": "https://huggingface.co/papers/2611.16748"
         }
       ],
-      "attentionScore": 20.92,
+      "attentionScore": 21.48,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.42148"
+      "originalPaper": "https://arxiv.org/abs/2611.16748"
     },
     {
-      "arxivId": "2611.11558",
-      "title": "InfraRSI: Harnessing Recursive Self-Improvement for Training Infrastructure",
+      "arxivId": "2611.13004",
+      "title": "G-STAR: Group-Scaled Token Capacity for Deeply Compressed Autoregressive Generation",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 32,
-          "url": "https://huggingface.co/papers/2611.11558"
+          "engagement": 40,
+          "url": "https://huggingface.co/papers/2611.13004"
         }
       ],
-      "attentionScore": 20.66,
+      "attentionScore": 21.32,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.11558"
+      "originalPaper": "https://arxiv.org/abs/2611.13004"
     },
     {
-      "arxivId": "2611.08452",
-      "title": "ReproBridge: Building Reproducibility into ML Research Artifacts",
+      "arxivId": "2611.13001",
+      "title": "One Table, Many Queries: Benchmarking Generalist Tabular Models Across Generation, Imputation, and Prediction",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 32,
-          "url": "https://huggingface.co/papers/2611.08452"
+          "engagement": 39,
+          "url": "https://huggingface.co/papers/2611.13001"
         }
       ],
-      "attentionScore": 20.66,
+      "attentionScore": 21.24,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.08452"
+      "originalPaper": "https://arxiv.org/abs/2611.13001"
+    },
+    {
+      "arxivId": "2611.15131",
+      "title": "Duo: A Reciprocal World Model for Full-Duplex Interaction",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 36,
+          "url": "https://huggingface.co/papers/2611.15131"
+        }
+      ],
+      "attentionScore": 21.0,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.15131"
     },
     {
       "arxivId": "2611.13410",
@@ -322,13 +266,41 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 31,
+          "engagement": 35,
           "url": "https://huggingface.co/papers/2611.13410"
+        }
+      ],
+      "attentionScore": 20.92,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.13410"
+    },
+    {
+      "arxivId": "2611.12426",
+      "title": "dNaViT: Discrete Codes are General-Purpose Visual Representations",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 34,
+          "url": "https://huggingface.co/papers/2611.12426"
+        }
+      ],
+      "attentionScore": 20.83,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.12426"
+    },
+    {
+      "arxivId": "2610.39671",
+      "title": "Incentivizing Self-Learning in Large Language Models via Reinforcement Learning",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 31,
+          "url": "https://huggingface.co/papers/2610.39671"
         }
       ],
       "attentionScore": 20.57,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.13410"
+      "originalPaper": "https://arxiv.org/abs/2610.39671"
     },
     {
       "arxivId": "2611.10649",
@@ -345,18 +317,32 @@
       "originalPaper": "https://arxiv.org/abs/2611.10649"
     },
     {
-      "arxivId": "2610.39671",
-      "title": "Incentivizing Self-Learning in Large Language Models via Reinforcement Learning",
+      "arxivId": "2611.15844",
+      "title": "Open Vision Banana: A Fully Open Recipe for Generative Visual Perception",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 27,
-          "url": "https://huggingface.co/papers/2610.39671"
+          "engagement": 29,
+          "url": "https://huggingface.co/papers/2611.15844"
         }
       ],
-      "attentionScore": 20.2,
+      "attentionScore": 20.39,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.39671"
+      "originalPaper": "https://arxiv.org/abs/2611.15844"
+    },
+    {
+      "arxivId": "2611.17167",
+      "title": "Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 29,
+          "url": "https://huggingface.co/papers/2611.17167"
+        }
+      ],
+      "attentionScore": 20.39,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.17167"
     },
     {
       "arxivId": "2611.12177",
@@ -364,11 +350,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 27,
+          "engagement": 28,
           "url": "https://huggingface.co/papers/2611.12177"
         }
       ],
-      "attentionScore": 20.2,
+      "attentionScore": 20.29,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.12177"
     },
@@ -387,16 +373,30 @@
       "originalPaper": "https://arxiv.org/abs/2611.14309"
     },
     {
+      "arxivId": "2611.05984",
+      "title": "On the Design of Hyper-Connections: Simplification, Stability, and Scalability",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 26,
+          "url": "https://huggingface.co/papers/2611.05984"
+        }
+      ],
+      "attentionScore": 20.1,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.05984"
+    },
+    {
       "arxivId": "2611.07464",
       "title": "FINCOSMOS: An Open-World Evaluation Paradigm for Agents in Finance",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 25,
+          "engagement": 26,
           "url": "https://huggingface.co/papers/2611.07464"
         }
       ],
-      "attentionScore": 20.0,
+      "attentionScore": 20.1,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.07464"
     },
@@ -406,41 +406,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 25,
+          "engagement": 26,
           "url": "https://huggingface.co/papers/2611.11166"
         }
       ],
-      "attentionScore": 20.0,
+      "attentionScore": 20.1,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.11166"
     },
     {
-      "arxivId": "2611.12870",
-      "title": "SWAM: Scaling World Action Models with Cross-Modal Alignment",
+      "arxivId": "2611.17060",
+      "title": "Ropedia Xperience 2: A Gold Standard for Scaling Physical AI Environments and Behaviors",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 23,
-          "url": "https://huggingface.co/papers/2611.12870"
+          "engagement": 25,
+          "url": "https://huggingface.co/papers/2611.17060"
         }
       ],
-      "attentionScore": 19.8,
+      "attentionScore": 20.0,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12870"
-    },
-    {
-      "arxivId": "2611.10304",
-      "title": "Longtail-SWE: High-Quality SWE Tasks for Underrepresented Languages",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 22,
-          "url": "https://huggingface.co/papers/2611.10304"
-        }
-      ],
-      "attentionScore": 19.69,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.10304"
+      "originalPaper": "https://arxiv.org/abs/2611.17060"
     },
     {
       "arxivId": "2608.22237",
@@ -448,13 +434,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 18,
+          "engagement": 21,
           "url": "https://huggingface.co/papers/2608.22237"
         }
       ],
-      "attentionScore": 19.24,
+      "attentionScore": 19.58,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2608.22237"
+    },
+    {
+      "arxivId": "2611.17331",
+      "title": "TTB: Test-time Baking for Efficient Rendering of Decoder-only View Synthesis Models",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 19,
+          "url": "https://huggingface.co/papers/2611.17331"
+        }
+      ],
+      "attentionScore": 19.36,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.17331"
     }
   ]
 }
