@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T00:25:30.058783+00:00",
+  "generatedAt": "2026-11-16T00:25:43.825478+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -8,7 +8,7 @@
     },
     "hackernews": {
       "state": "ok",
-      "items": 45
+      "items": 46
     },
     "reddit": {
       "state": "unavailable",
@@ -41,7 +41,7 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 11,
+          "engagement": 13,
           "url": "https://huggingface.co/papers/2611.09501"
         },
         {
@@ -50,7 +50,7 @@
           "url": "https://news.ycombinator.com/item?id=50448902"
         }
       ],
-      "attentionScore": 34.73,
+      "attentionScore": 35.02,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.09501"
     },
@@ -81,14 +81,9 @@
           "source": "hackernews",
           "engagement": 181,
           "url": "https://news.ycombinator.com/item?id=50422168"
-        },
-        {
-          "source": "hackernews",
-          "engagement": 5,
-          "url": "https://news.ycombinator.com/item?id=50416397"
         }
       ],
-      "attentionScore": 30.69,
+      "attentionScore": 28.45,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.14162"
     },
@@ -98,11 +93,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 135,
+          "engagement": 137,
           "url": "https://huggingface.co/papers/2611.15777"
         }
       ],
-      "attentionScore": 26.62,
+      "attentionScore": 26.7,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.15777"
     },
@@ -112,11 +107,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 88,
+          "engagement": 89,
           "url": "https://huggingface.co/papers/2611.14033"
         }
       ],
-      "attentionScore": 24.38,
+      "attentionScore": 24.43,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.14033"
     },
@@ -126,11 +121,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 70,
+          "engagement": 72,
           "url": "https://huggingface.co/papers/2611.14320"
         }
       ],
-      "attentionScore": 23.37,
+      "attentionScore": 23.49,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.14320"
     },
@@ -154,11 +149,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 51,
+          "engagement": 52,
           "url": "https://huggingface.co/papers/2611.11995"
         }
       ],
-      "attentionScore": 22.14,
+      "attentionScore": 22.21,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.11995"
     },
@@ -168,11 +163,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 50,
+          "engagement": 51,
           "url": "https://huggingface.co/papers/2611.14815"
         }
       ],
-      "attentionScore": 22.07,
+      "attentionScore": 22.14,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.14815"
     },
@@ -182,11 +177,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 47,
+          "engagement": 49,
           "url": "https://huggingface.co/papers/2610.40394"
         }
       ],
-      "attentionScore": 21.86,
+      "attentionScore": 22.0,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.40394"
     },
@@ -205,6 +200,20 @@
       "originalPaper": "https://arxiv.org/abs/2611.16748"
     },
     {
+      "arxivId": "2611.14210",
+      "title": "Tree-Ising: Repairing Language Models with Bit-Level Ising Edits",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 46,
+          "url": "https://huggingface.co/papers/2611.14210"
+        }
+      ],
+      "attentionScore": 21.78,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.14210"
+    },
+    {
       "arxivId": "2611.13004",
       "title": "G-STAR: Group-Scaled Token Capacity for Deeply Compressed Autoregressive Generation",
       "signals": [
@@ -219,30 +228,16 @@
       "originalPaper": "https://arxiv.org/abs/2611.13004"
     },
     {
-      "arxivId": "2611.14210",
-      "title": "Tree-Ising: Repairing Language Models with Bit-Level Ising Edits",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 45,
-          "url": "https://huggingface.co/papers/2611.14210"
-        }
-      ],
-      "attentionScore": 21.71,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.14210"
-    },
-    {
       "arxivId": "2611.15131",
       "title": "Duo: A Reciprocal World Model for Full-Duplex Interaction",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 40,
+          "engagement": 43,
           "url": "https://huggingface.co/papers/2611.15131"
         }
       ],
-      "attentionScore": 21.32,
+      "attentionScore": 21.56,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.15131"
     },
@@ -252,11 +247,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 39,
+          "engagement": 40,
           "url": "https://huggingface.co/papers/2611.13001"
         }
       ],
-      "attentionScore": 21.24,
+      "attentionScore": 21.32,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.13001"
     },
@@ -266,11 +261,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 36,
+          "engagement": 39,
           "url": "https://huggingface.co/papers/2611.13410"
         }
       ],
-      "attentionScore": 21.0,
+      "attentionScore": 21.24,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.13410"
     },
@@ -280,13 +275,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 35,
+          "engagement": 37,
           "url": "https://huggingface.co/papers/2610.39671"
         }
       ],
-      "attentionScore": 20.92,
+      "attentionScore": 21.08,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.39671"
+    },
+    {
+      "arxivId": "2611.15844",
+      "title": "Open Vision Banana: A Fully Open Recipe for Generative Visual Perception",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 36,
+          "url": "https://huggingface.co/papers/2611.15844"
+        }
+      ],
+      "attentionScore": 21.0,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.15844"
     },
     {
       "arxivId": "2611.12426",
@@ -303,32 +312,32 @@
       "originalPaper": "https://arxiv.org/abs/2611.12426"
     },
     {
-      "arxivId": "2611.15844",
-      "title": "Open Vision Banana: A Fully Open Recipe for Generative Visual Perception",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 34,
-          "url": "https://huggingface.co/papers/2611.15844"
-        }
-      ],
-      "attentionScore": 20.83,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.15844"
-    },
-    {
       "arxivId": "2611.17167",
       "title": "Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 33,
+          "engagement": 34,
           "url": "https://huggingface.co/papers/2611.17167"
         }
       ],
-      "attentionScore": 20.74,
+      "attentionScore": 20.83,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.17167"
+    },
+    {
+      "arxivId": "2611.17060",
+      "title": "Ropedia Xperience 2: A Gold Standard for Scaling Physical AI Environments and Behaviors",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 30,
+          "url": "https://huggingface.co/papers/2611.17060"
+        }
+      ],
+      "attentionScore": 20.48,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.17060"
     },
     {
       "arxivId": "2611.10649",
@@ -387,20 +396,6 @@
       "originalPaper": "https://arxiv.org/abs/2611.14309"
     },
     {
-      "arxivId": "2611.17060",
-      "title": "Ropedia Xperience 2: A Gold Standard for Scaling Physical AI Environments and Behaviors",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 26,
-          "url": "https://huggingface.co/papers/2611.17060"
-        }
-      ],
-      "attentionScore": 20.1,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.17060"
-    },
-    {
       "arxivId": "2611.07464",
       "title": "FINCOSMOS: An Open-World Evaluation Paradigm for Agents in Finance",
       "signals": [
@@ -434,11 +429,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 22,
+          "engagement": 25,
           "url": "https://huggingface.co/papers/2611.17331"
         }
       ],
-      "attentionScore": 19.69,
+      "attentionScore": 20.0,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.17331"
     },
