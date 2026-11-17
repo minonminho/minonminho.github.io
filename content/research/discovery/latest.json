@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T00:25:43.825478+00:00",
+  "generatedAt": "2026-11-17T03:14:08.628822+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -17,75 +17,51 @@
   },
   "candidates": [
     {
-      "arxivId": "2611.10866",
-      "title": "The Surprising Effectiveness of Deleting Weights in LLM Post-Training",
+      "arxivId": "2611.12304",
+      "title": "Evolving Infra: Agent-Adaptive LLM Serving at Scale",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 21,
-          "url": "https://huggingface.co/papers/2611.10866"
-        },
-        {
-          "source": "hackernews",
-          "engagement": 30,
-          "url": "https://news.ycombinator.com/item?id=50447363"
-        }
-      ],
-      "attentionScore": 40.06,
-      "communityCount": 2,
-      "originalPaper": "https://arxiv.org/abs/2611.10866"
-    },
-    {
-      "arxivId": "2611.09501",
-      "title": "e-means: outperforming k-means (in one-tenth the epochs)",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 13,
-          "url": "https://huggingface.co/papers/2611.09501"
-        },
-        {
-          "source": "hackernews",
-          "engagement": 2,
-          "url": "https://news.ycombinator.com/item?id=50448902"
-        }
-      ],
-      "attentionScore": 35.02,
-      "communityCount": 2,
-      "originalPaper": "https://arxiv.org/abs/2611.09501"
-    },
-    {
-      "arxivId": "2611.13560",
-      "title": "Are Dense Rewards Worth Their Tokens in GRPO?",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 5,
-          "url": "https://huggingface.co/papers/2611.13560"
+          "engagement": 12,
+          "url": "https://huggingface.co/papers/2611.12304"
         },
         {
           "source": "hackernews",
           "engagement": 1,
-          "url": "https://news.ycombinator.com/item?id=50454380"
+          "url": "https://news.ycombinator.com/item?id=50522069"
         }
       ],
-      "attentionScore": 33.24,
+      "attentionScore": 34.46,
       "communityCount": 2,
-      "originalPaper": "https://arxiv.org/abs/2611.13560"
+      "originalPaper": "https://arxiv.org/abs/2611.12304"
     },
     {
-      "arxivId": "2610.14162",
-      "title": "Next-Concept Modeling: Fast, Parallel Coarse-to-Fine Text Generation",
+      "arxivId": "2611.18359",
+      "title": "Envisioning Agentic Robotics: A New Era of Robotic Systems",
       "signals": [
         {
-          "source": "hackernews",
-          "engagement": 181,
-          "url": "https://news.ycombinator.com/item?id=50422168"
+          "source": "huggingface",
+          "engagement": 112,
+          "url": "https://huggingface.co/papers/2611.18359"
         }
       ],
-      "attentionScore": 28.45,
+      "attentionScore": 25.58,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2610.14162"
+      "originalPaper": "https://arxiv.org/abs/2611.18359"
+    },
+    {
+      "arxivId": "2611.18397",
+      "title": "Gamer: A Generalist Vision-Language-Action Foundation Model for Long-Horizon Real-Time Game Agent",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 89,
+          "url": "https://huggingface.co/papers/2611.18397"
+        }
+      ],
+      "attentionScore": 24.43,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.18397"
     },
     {
       "arxivId": "2611.15777",
@@ -93,69 +69,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 137,
+          "engagement": 87,
           "url": "https://huggingface.co/papers/2611.15777"
         }
       ],
-      "attentionScore": 26.7,
+      "attentionScore": 24.33,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.15777"
     },
     {
-      "arxivId": "2611.14033",
-      "title": "Few-Step Streaming Video Generation via Condition Shifting",
+      "arxivId": "2611.15789",
+      "title": "VibePrevisBench: Evaluating Agentic Coding for 4D Scene Generation in Blender",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 89,
-          "url": "https://huggingface.co/papers/2611.14033"
+          "engagement": 84,
+          "url": "https://huggingface.co/papers/2611.15789"
         }
       ],
-      "attentionScore": 24.43,
+      "attentionScore": 24.17,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.14033"
-    },
-    {
-      "arxivId": "2611.14320",
-      "title": "Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 72,
-          "url": "https://huggingface.co/papers/2611.14320"
-        }
-      ],
-      "attentionScore": 23.49,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.14320"
-    },
-    {
-      "arxivId": "2611.12885",
-      "title": "World In-Context Learning for Agentic Robot Manipulation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 57,
-          "url": "https://huggingface.co/papers/2611.12885"
-        }
-      ],
-      "attentionScore": 22.55,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12885"
-    },
-    {
-      "arxivId": "2611.11995",
-      "title": "Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 52,
-          "url": "https://huggingface.co/papers/2611.11995"
-        }
-      ],
-      "attentionScore": 22.21,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.11995"
+      "originalPaper": "https://arxiv.org/abs/2611.15789"
     },
     {
       "arxivId": "2611.14815",
@@ -163,11 +97,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 51,
+          "engagement": 56,
           "url": "https://huggingface.co/papers/2611.14815"
         }
       ],
-      "attentionScore": 22.14,
+      "attentionScore": 22.48,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.14815"
     },
@@ -177,55 +111,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 49,
+          "engagement": 50,
           "url": "https://huggingface.co/papers/2610.40394"
         }
       ],
-      "attentionScore": 22.0,
+      "attentionScore": 22.07,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2610.40394"
     },
     {
-      "arxivId": "2611.16748",
-      "title": "PhysLoop: Harnessing LLMs' Physics Awareness for Self-Improving Video Generation Models",
+      "arxivId": "2611.12068",
+      "title": "MIRIX-2.0: Multi-Agent Memory System",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 46,
-          "url": "https://huggingface.co/papers/2611.16748"
+          "engagement": 47,
+          "url": "https://huggingface.co/papers/2611.12068"
         }
       ],
-      "attentionScore": 21.78,
+      "attentionScore": 21.86,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.16748"
-    },
-    {
-      "arxivId": "2611.14210",
-      "title": "Tree-Ising: Repairing Language Models with Bit-Level Ising Edits",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 46,
-          "url": "https://huggingface.co/papers/2611.14210"
-        }
-      ],
-      "attentionScore": 21.78,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.14210"
-    },
-    {
-      "arxivId": "2611.13004",
-      "title": "G-STAR: Group-Scaled Token Capacity for Deeply Compressed Autoregressive Generation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 45,
-          "url": "https://huggingface.co/papers/2611.13004"
-        }
-      ],
-      "attentionScore": 21.71,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.13004"
+      "originalPaper": "https://arxiv.org/abs/2611.12068"
     },
     {
       "arxivId": "2611.15131",
@@ -233,13 +139,41 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 43,
+          "engagement": 46,
           "url": "https://huggingface.co/papers/2611.15131"
         }
       ],
-      "attentionScore": 21.56,
+      "attentionScore": 21.78,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.15131"
+    },
+    {
+      "arxivId": "2611.13004",
+      "title": "G-STAR: Group-Scaled Token Capacity for Deeply Compressed Autoregressive Generation",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 46,
+          "url": "https://huggingface.co/papers/2611.13004"
+        }
+      ],
+      "attentionScore": 21.78,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.13004"
+    },
+    {
+      "arxivId": "2611.16748",
+      "title": "PhysLoop: Harnessing LLMs' Physics Awareness for Self-Improving Video Generation Models",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 41,
+          "url": "https://huggingface.co/papers/2611.16748"
+        }
+      ],
+      "attentionScore": 21.4,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.16748"
     },
     {
       "arxivId": "2611.13001",
@@ -247,13 +181,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 40,
+          "engagement": 41,
           "url": "https://huggingface.co/papers/2611.13001"
         }
       ],
-      "attentionScore": 21.32,
+      "attentionScore": 21.4,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.13001"
+    },
+    {
+      "arxivId": "2611.15844",
+      "title": "Open Vision Banana: A Fully Open Recipe for Generative Visual Perception",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 39,
+          "url": "https://huggingface.co/papers/2611.15844"
+        }
+      ],
+      "attentionScore": 21.24,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.15844"
     },
     {
       "arxivId": "2611.13410",
@@ -270,6 +218,20 @@
       "originalPaper": "https://arxiv.org/abs/2611.13410"
     },
     {
+      "arxivId": "2611.17167",
+      "title": "Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 37,
+          "url": "https://huggingface.co/papers/2611.17167"
+        }
+      ],
+      "attentionScore": 21.08,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.17167"
+    },
+    {
       "arxivId": "2610.39671",
       "title": "Incentivizing Self-Learning in Large Language Models via Reinforcement Learning",
       "signals": [
@@ -284,46 +246,32 @@
       "originalPaper": "https://arxiv.org/abs/2610.39671"
     },
     {
-      "arxivId": "2611.15844",
-      "title": "Open Vision Banana: A Fully Open Recipe for Generative Visual Perception",
+      "arxivId": "2611.18482",
+      "title": "MMFlash: Faster Speculative Decoding for Vision-Language Models",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 36,
-          "url": "https://huggingface.co/papers/2611.15844"
+          "url": "https://huggingface.co/papers/2611.18482"
         }
       ],
       "attentionScore": 21.0,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.15844"
+      "originalPaper": "https://arxiv.org/abs/2611.18482"
     },
     {
-      "arxivId": "2611.12426",
-      "title": "dNaViT: Discrete Codes are General-Purpose Visual Representations",
+      "arxivId": "2611.12901",
+      "title": "Rethinking in Spikes: Mitigating Hallucinations in MDLMs with Step-Aware Decoding",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 35,
-          "url": "https://huggingface.co/papers/2611.12426"
+          "url": "https://huggingface.co/papers/2611.12901"
         }
       ],
       "attentionScore": 20.92,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12426"
-    },
-    {
-      "arxivId": "2611.17167",
-      "title": "Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 34,
-          "url": "https://huggingface.co/papers/2611.17167"
-        }
-      ],
-      "attentionScore": 20.83,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.17167"
+      "originalPaper": "https://arxiv.org/abs/2611.12901"
     },
     {
       "arxivId": "2611.17060",
@@ -331,27 +279,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 30,
+          "engagement": 35,
           "url": "https://huggingface.co/papers/2611.17060"
         }
       ],
-      "attentionScore": 20.48,
+      "attentionScore": 20.92,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.17060"
-    },
-    {
-      "arxivId": "2611.10649",
-      "title": "MACaQ: Fast, Model Agnostic Calibrated Quantization for Low-Precision Weights and Activations",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 30,
-          "url": "https://huggingface.co/papers/2611.10649"
-        }
-      ],
-      "attentionScore": 20.48,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.10649"
     },
     {
       "arxivId": "2611.05984",
@@ -359,69 +293,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 29,
+          "engagement": 31,
           "url": "https://huggingface.co/papers/2611.05984"
         }
       ],
-      "attentionScore": 20.39,
+      "attentionScore": 20.57,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.05984"
     },
     {
-      "arxivId": "2611.12177",
-      "title": "Embodied First Exam",
+      "arxivId": "2611.10866",
+      "title": "The Surprising Effectiveness of Deleting Weights in LLM Post-Training",
       "signals": [
         {
-          "source": "huggingface",
-          "engagement": 28,
-          "url": "https://huggingface.co/papers/2611.12177"
+          "source": "hackernews",
+          "engagement": 30,
+          "url": "https://news.ycombinator.com/item?id=50447363"
         }
       ],
-      "attentionScore": 20.29,
+      "attentionScore": 20.48,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.12177"
-    },
-    {
-      "arxivId": "2611.14309",
-      "title": "MMDM: Measuring Massive Multitask Decision Making",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 28,
-          "url": "https://huggingface.co/papers/2611.14309"
-        }
-      ],
-      "attentionScore": 20.29,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.14309"
-    },
-    {
-      "arxivId": "2611.07464",
-      "title": "FINCOSMOS: An Open-World Evaluation Paradigm for Agents in Finance",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 26,
-          "url": "https://huggingface.co/papers/2611.07464"
-        }
-      ],
-      "attentionScore": 20.1,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.07464"
-    },
-    {
-      "arxivId": "2611.11166",
-      "title": "DexForesight: Grounding Dexterous Policies with Implicit Spatial Foresight",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 26,
-          "url": "https://huggingface.co/papers/2611.11166"
-        }
-      ],
-      "attentionScore": 20.1,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.11166"
+      "originalPaper": "https://arxiv.org/abs/2611.10866"
     },
     {
       "arxivId": "2611.17331",
@@ -429,11 +321,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 25,
+          "engagement": 26,
           "url": "https://huggingface.co/papers/2611.17331"
         }
       ],
-      "attentionScore": 20.0,
+      "attentionScore": 20.1,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.17331"
     },
@@ -443,13 +335,111 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 22,
+          "engagement": 24,
           "url": "https://huggingface.co/papers/2608.22237"
+        }
+      ],
+      "attentionScore": 19.9,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2608.22237"
+    },
+    {
+      "arxivId": "2611.17831",
+      "title": "V-JEPA-LM: Video-Language Models That Read Dynamics Beyond Static, Text-Aligned Representations",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 22,
+          "url": "https://huggingface.co/papers/2611.17831"
         }
       ],
       "attentionScore": 19.69,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2608.22237"
+      "originalPaper": "https://arxiv.org/abs/2611.17831"
+    },
+    {
+      "arxivId": "2611.17878",
+      "title": "DySENSE: Dynamic Spatiotemporal ENergy Synthesis and Emulation with Satellite Imagery",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 21,
+          "url": "https://huggingface.co/papers/2611.17878"
+        }
+      ],
+      "attentionScore": 19.58,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.17878"
+    },
+    {
+      "arxivId": "2611.07226",
+      "title": "Loopback Transformer: Towards a Unified View of Residual Looped Transformers",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 21,
+          "url": "https://huggingface.co/papers/2611.07226"
+        }
+      ],
+      "attentionScore": 19.58,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.07226"
+    },
+    {
+      "arxivId": "2611.08318",
+      "title": "Learning the Task or Learning the Verifier? Rethinking Criteria Exposure in Embodied Self-Improvement",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 21,
+          "url": "https://huggingface.co/papers/2611.08318"
+        }
+      ],
+      "attentionScore": 19.58,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.08318"
+    },
+    {
+      "arxivId": "2611.17334",
+      "title": "Unbundling Multimodal Vision Encoding",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 20,
+          "url": "https://huggingface.co/papers/2611.17334"
+        }
+      ],
+      "attentionScore": 19.47,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.17334"
+    },
+    {
+      "arxivId": "2611.13509",
+      "title": "Mobile AI Factory: Building Specialized Language Models for Your Mobile Device",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 19,
+          "url": "https://huggingface.co/papers/2611.13509"
+        }
+      ],
+      "attentionScore": 19.36,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.13509"
+    },
+    {
+      "arxivId": "2611.17814",
+      "title": "G-CAST: Governed Continual Self-Training for E-Commerce Agents under Evolving Demands",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 18,
+          "url": "https://huggingface.co/papers/2611.17814"
+        }
+      ],
+      "attentionScore": 19.24,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.17814"
     }
   ]
 }
