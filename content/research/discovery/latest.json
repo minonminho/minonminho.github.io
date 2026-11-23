@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T00:43:14.481001+00:00",
+  "generatedAt": "2026-11-23T01:09:45.563160+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -22,16 +22,16 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 8,
+          "engagement": 19,
           "url": "https://huggingface.co/papers/2611.21885"
         },
         {
           "source": "hackernews",
-          "engagement": 478,
+          "engagement": 491,
           "url": "https://news.ycombinator.com/item?id=50577265"
         }
       ],
-      "attentionScore": 48.64,
+      "attentionScore": 50.17,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.21885"
     },
@@ -41,11 +41,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 148,
+          "engagement": 149,
           "url": "https://huggingface.co/papers/2611.24738"
         }
       ],
-      "attentionScore": 27.17,
+      "attentionScore": 27.21,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.24738"
     },
@@ -76,6 +76,20 @@
       "attentionScore": 25.39,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.09827"
+    },
+    {
+      "arxivId": "2606.14068",
+      "title": "Harsher on Male? Evaluating LLMs on Gender-Asymmetric Moral Framing in Conflicts",
+      "signals": [
+        {
+          "source": "hackernews",
+          "engagement": 89,
+          "url": "https://news.ycombinator.com/item?id=50597743"
+        }
+      ],
+      "attentionScore": 24.43,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2606.14068"
     },
     {
       "arxivId": "2611.18126",
@@ -111,11 +125,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 53,
+          "engagement": 56,
           "url": "https://huggingface.co/papers/2611.21373"
         }
       ],
-      "attentionScore": 22.28,
+      "attentionScore": 22.48,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.21373"
     },
@@ -125,11 +139,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 51,
+          "engagement": 53,
           "url": "https://huggingface.co/papers/2611.26444"
         }
       ],
-      "attentionScore": 22.14,
+      "attentionScore": 22.28,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.26444"
     },
@@ -139,11 +153,11 @@
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 47,
+          "engagement": 48,
           "url": "https://news.ycombinator.com/item?id=50554908"
         }
       ],
-      "attentionScore": 21.86,
+      "attentionScore": 21.93,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2607.29378"
     },
@@ -153,11 +167,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 44,
+          "engagement": 45,
           "url": "https://huggingface.co/papers/2611.26409"
         }
       ],
-      "attentionScore": 21.63,
+      "attentionScore": 21.71,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.26409"
     },
@@ -167,11 +181,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 42,
+          "engagement": 43,
           "url": "https://huggingface.co/papers/2611.26590"
         }
       ],
-      "attentionScore": 21.48,
+      "attentionScore": 21.56,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.26590"
     },
@@ -181,13 +195,41 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 40,
+          "engagement": 42,
           "url": "https://huggingface.co/papers/2611.21366"
         }
       ],
-      "attentionScore": 21.32,
+      "attentionScore": 21.48,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.21366"
+    },
+    {
+      "arxivId": "2611.26629",
+      "title": "Posterior Matching Distillation",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 39,
+          "url": "https://huggingface.co/papers/2611.26629"
+        }
+      ],
+      "attentionScore": 21.24,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.26629"
+    },
+    {
+      "arxivId": "2611.26595",
+      "title": "Coda-DaVinci: Reimagining Video Generation with Code2Video",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 39,
+          "url": "https://huggingface.co/papers/2611.26595"
+        }
+      ],
+      "attentionScore": 21.24,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.26595"
     },
     {
       "arxivId": "2611.23068",
@@ -204,32 +246,18 @@
       "originalPaper": "https://arxiv.org/abs/2611.23068"
     },
     {
-      "arxivId": "2611.26629",
-      "title": "Posterior Matching Distillation",
+      "arxivId": "2611.26603",
+      "title": "Depth Pro 2: Sharp and Temporally Consistent Metric Monocular Depth",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 37,
-          "url": "https://huggingface.co/papers/2611.26629"
+          "engagement": 34,
+          "url": "https://huggingface.co/papers/2611.26603"
         }
       ],
-      "attentionScore": 21.08,
+      "attentionScore": 20.83,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26629"
-    },
-    {
-      "arxivId": "2611.26595",
-      "title": "Coda-DaVinci: Reimagining Video Generation with Code2Video",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 35,
-          "url": "https://huggingface.co/papers/2611.26595"
-        }
-      ],
-      "attentionScore": 20.92,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26595"
+      "originalPaper": "https://arxiv.org/abs/2611.26603"
     },
     {
       "arxivId": "2611.21383",
@@ -237,27 +265,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 32,
+          "engagement": 33,
           "url": "https://huggingface.co/papers/2611.21383"
         }
       ],
-      "attentionScore": 20.66,
+      "attentionScore": 20.74,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.21383"
-    },
-    {
-      "arxivId": "2611.26603",
-      "title": "Depth Pro 2: Sharp and Temporally Consistent Metric Monocular Depth",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 30,
-          "url": "https://huggingface.co/papers/2611.26603"
-        }
-      ],
-      "attentionScore": 20.48,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26603"
     },
     {
       "arxivId": "2611.24154",
@@ -426,20 +440,6 @@
       "attentionScore": 19.58,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.24869"
-    },
-    {
-      "arxivId": "2611.22925",
-      "title": "Code World Model 2.0: Towards Infinite Controllable Video Generation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 20,
-          "url": "https://huggingface.co/papers/2611.22925"
-        }
-      ],
-      "attentionScore": 19.47,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.22925"
     }
   ]
 }
