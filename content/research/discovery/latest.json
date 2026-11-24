@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T01:09:45.563160+00:00",
+  "generatedAt": "2026-11-24T05:01:48.180736+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -8,7 +8,7 @@
     },
     "hackernews": {
       "state": "ok",
-      "items": 80
+      "items": 81
     },
     "reddit": {
       "state": "unavailable",
@@ -22,32 +22,18 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 19,
+          "engagement": 23,
           "url": "https://huggingface.co/papers/2611.21885"
         },
         {
           "source": "hackernews",
-          "engagement": 491,
+          "engagement": 493,
           "url": "https://news.ycombinator.com/item?id=50577265"
         }
       ],
-      "attentionScore": 50.17,
+      "attentionScore": 50.61,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.21885"
-    },
-    {
-      "arxivId": "2611.24738",
-      "title": "Jeveration: System One Models Now Generate",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 149,
-          "url": "https://huggingface.co/papers/2611.24738"
-        }
-      ],
-      "attentionScore": 27.21,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.24738"
     },
     {
       "arxivId": "2510.18203",
@@ -78,46 +64,60 @@
       "originalPaper": "https://arxiv.org/abs/2611.09827"
     },
     {
+      "arxivId": "2611.27193",
+      "title": "cmHC: Balancing Stream Mixing in Hyper-Connections via Geometric Contraction",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 94,
+          "url": "https://huggingface.co/papers/2611.27193"
+        }
+      ],
+      "attentionScore": 24.7,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.27193"
+    },
+    {
       "arxivId": "2606.14068",
       "title": "Harsher on Male? Evaluating LLMs on Gender-Asymmetric Moral Framing in Conflicts",
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 89,
+          "engagement": 94,
           "url": "https://news.ycombinator.com/item?id=50597743"
         }
       ],
-      "attentionScore": 24.43,
+      "attentionScore": 24.7,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2606.14068"
     },
     {
-      "arxivId": "2611.18126",
-      "title": "Exploiting Replay Protected Monotonic Counters to Brute-Force Windows Hello PINs",
+      "arxivId": "2506.13771",
+      "title": "LittleBit: Ultra Low-Bit Quantization via Latent Factorization (2025)",
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 70,
-          "url": "https://news.ycombinator.com/item?id=50517375"
+          "engagement": 66,
+          "url": "https://news.ycombinator.com/item?id=50569505"
         }
       ],
-      "attentionScore": 23.37,
+      "attentionScore": 23.12,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.18126"
+      "originalPaper": "https://arxiv.org/abs/2506.13771"
     },
     {
-      "arxivId": "2611.14848",
-      "title": "Tideway: Phase-Aware Tiered Memory Management for MoE Inference on Consumer Devices",
+      "arxivId": "2611.26444",
+      "title": "Mind2Act World: A Diagnostic Benchmark for Embodied Mind, Physical Action, and Mind-Action Composition in Robotic Manipulation",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 67,
-          "url": "https://huggingface.co/papers/2611.14848"
+          "engagement": 57,
+          "url": "https://huggingface.co/papers/2611.26444"
         }
       ],
-      "attentionScore": 23.19,
+      "attentionScore": 22.55,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.14848"
+      "originalPaper": "https://arxiv.org/abs/2611.26444"
     },
     {
       "arxivId": "2611.21373",
@@ -134,18 +134,32 @@
       "originalPaper": "https://arxiv.org/abs/2611.21373"
     },
     {
-      "arxivId": "2611.26444",
-      "title": "Mind2Act World: A Diagnostic Benchmark for Embodied Mind, Physical Action, and Mind-Action Composition in Robotic Manipulation",
+      "arxivId": "2611.27963",
+      "title": "Non-penetrating World Models",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 53,
-          "url": "https://huggingface.co/papers/2611.26444"
+          "engagement": 55,
+          "url": "https://huggingface.co/papers/2611.27963"
         }
       ],
-      "attentionScore": 22.28,
+      "attentionScore": 22.42,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26444"
+      "originalPaper": "https://arxiv.org/abs/2611.27963"
+    },
+    {
+      "arxivId": "2611.26409",
+      "title": "WeMM-Video: Pushing the Frontiers of Open-Source Omni-Modal Video Understanding",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 50,
+          "url": "https://huggingface.co/papers/2611.26409"
+        }
+      ],
+      "attentionScore": 22.07,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.26409"
     },
     {
       "arxivId": "2607.29378",
@@ -162,46 +176,18 @@
       "originalPaper": "https://arxiv.org/abs/2607.29378"
     },
     {
-      "arxivId": "2611.26409",
-      "title": "WeMM-Video: Pushing the Frontiers of Open-Source Omni-Modal Video Understanding",
+      "arxivId": "2602.20031",
+      "title": "Latent Introspection: LLMs Can Detect Prior Concept Injections",
       "signals": [
         {
-          "source": "huggingface",
+          "source": "hackernews",
           "engagement": 45,
-          "url": "https://huggingface.co/papers/2611.26409"
+          "url": "https://news.ycombinator.com/item?id=50620328"
         }
       ],
       "attentionScore": 21.71,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26409"
-    },
-    {
-      "arxivId": "2611.26590",
-      "title": "Probing the \"Conscious\" Mind: Selective Access and Global Workspace in Vision-Language Models",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 43,
-          "url": "https://huggingface.co/papers/2611.26590"
-        }
-      ],
-      "attentionScore": 21.56,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26590"
-    },
-    {
-      "arxivId": "2611.21366",
-      "title": "ALIVE: Making Streaming Video Models Interactive",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 42,
-          "url": "https://huggingface.co/papers/2611.21366"
-        }
-      ],
-      "attentionScore": 21.48,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.21366"
+      "originalPaper": "https://arxiv.org/abs/2602.20031"
     },
     {
       "arxivId": "2611.26629",
@@ -209,13 +195,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 39,
+          "engagement": 44,
           "url": "https://huggingface.co/papers/2611.26629"
         }
       ],
-      "attentionScore": 21.24,
+      "attentionScore": 21.63,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.26629"
+    },
+    {
+      "arxivId": "2611.26954",
+      "title": "Learning Video Foresight Reasoning from Unlabeled Videos via On-Policy Self-Distillation",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 40,
+          "url": "https://huggingface.co/papers/2611.26954"
+        }
+      ],
+      "attentionScore": 21.32,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.26954"
     },
     {
       "arxivId": "2611.26595",
@@ -223,27 +223,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 39,
+          "engagement": 40,
           "url": "https://huggingface.co/papers/2611.26595"
         }
       ],
-      "attentionScore": 21.24,
+      "attentionScore": 21.32,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.26595"
     },
     {
-      "arxivId": "2611.23068",
-      "title": "The Resolution Hypothesis: Agent Evolution's Key Is Identifying Improvements",
+      "arxivId": "2611.24636",
+      "title": "Clover-35B-A3B-Preview Technical Report",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 39,
-          "url": "https://huggingface.co/papers/2611.23068"
+          "engagement": 37,
+          "url": "https://huggingface.co/papers/2611.24636"
         }
       ],
-      "attentionScore": 21.24,
+      "attentionScore": 21.08,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.23068"
+      "originalPaper": "https://arxiv.org/abs/2611.24636"
     },
     {
       "arxivId": "2611.26603",
@@ -251,13 +251,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 34,
+          "engagement": 37,
           "url": "https://huggingface.co/papers/2611.26603"
         }
       ],
-      "attentionScore": 20.83,
+      "attentionScore": 21.08,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.26603"
+    },
+    {
+      "arxivId": "2611.26590",
+      "title": "Probing the \"Conscious\" Mind: Selective Access and Global Workspace in Vision-Language Models",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 36,
+          "url": "https://huggingface.co/papers/2611.26590"
+        }
+      ],
+      "attentionScore": 21.0,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.26590"
     },
     {
       "arxivId": "2611.21383",
@@ -265,55 +279,55 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 33,
+          "engagement": 35,
           "url": "https://huggingface.co/papers/2611.21383"
         }
       ],
-      "attentionScore": 20.74,
+      "attentionScore": 20.92,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.21383"
     },
     {
-      "arxivId": "2611.24154",
-      "title": "Game2Player: Scaling Gameplay Experience for Visual Agents through Environment-Player Co-Development",
+      "arxivId": "2611.25773",
+      "title": "Duopra: From Full-Duplex Conversation to Full-Duplex Agency",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 29,
-          "url": "https://huggingface.co/papers/2611.24154"
+          "engagement": 28,
+          "url": "https://huggingface.co/papers/2611.25773"
         }
       ],
-      "attentionScore": 20.39,
+      "attentionScore": 20.29,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.24154"
+      "originalPaper": "https://arxiv.org/abs/2611.25773"
     },
     {
-      "arxivId": "2611.11318",
-      "title": "PROLA: Principal-Orthogonal Low-rank Adaptation for Predictive Spatiotemporal Weather Downscaling",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 27,
-          "url": "https://huggingface.co/papers/2611.11318"
-        }
-      ],
-      "attentionScore": 20.2,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.11318"
-    },
-    {
-      "arxivId": "2611.24654",
-      "title": "CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning",
+      "arxivId": "2611.26380",
+      "title": "EgoCaptioner: Towards Comprehensive and Fine-Grained Egocentric Video Captioning",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 26,
-          "url": "https://huggingface.co/papers/2611.24654"
+          "url": "https://huggingface.co/papers/2611.26380"
         }
       ],
       "attentionScore": 20.1,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.24654"
+      "originalPaper": "https://arxiv.org/abs/2611.26380"
+    },
+    {
+      "arxivId": "2611.26516",
+      "title": "Plan4D: Generative Plannable 4D Worlds",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 25,
+          "url": "https://huggingface.co/papers/2611.26516"
+        }
+      ],
+      "attentionScore": 20.0,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.26516"
     },
     {
       "arxivId": "2611.26107",
@@ -330,32 +344,46 @@
       "originalPaper": "https://arxiv.org/abs/2611.26107"
     },
     {
-      "arxivId": "2611.26380",
-      "title": "EgoCaptioner: Towards Comprehensive and Fine-Grained Egocentric Video Captioning",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 25,
-          "url": "https://huggingface.co/papers/2611.26380"
-        }
-      ],
-      "attentionScore": 20.0,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26380"
-    },
-    {
       "arxivId": "2611.26073",
       "title": "AltRA-Test: An Alternative Annotator Test for LLM Judges Without Shared Annotators",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 23,
+          "engagement": 24,
           "url": "https://huggingface.co/papers/2611.26073"
+        }
+      ],
+      "attentionScore": 19.9,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.26073"
+    },
+    {
+      "arxivId": "2611.26414",
+      "title": "ZeroVLN: Learning to Navigate without Supervised Fine-Tuning of the VLM Brain",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 24,
+          "url": "https://huggingface.co/papers/2611.26414"
+        }
+      ],
+      "attentionScore": 19.9,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.26414"
+    },
+    {
+      "arxivId": "2611.28202",
+      "title": "AutoPILOT: A Visual Agent Harness for Real-Time Gameplay",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 23,
+          "url": "https://huggingface.co/papers/2611.28202"
         }
       ],
       "attentionScore": 19.8,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26073"
+      "originalPaper": "https://arxiv.org/abs/2611.28202"
     },
     {
       "arxivId": "2611.25387",
@@ -372,20 +400,6 @@
       "originalPaper": "https://arxiv.org/abs/2611.25387"
     },
     {
-      "arxivId": "2611.17600",
-      "title": "LightTAR: Light and Fast Target-Aware Representations for Multimodal Tabular Learning",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 23,
-          "url": "https://huggingface.co/papers/2611.17600"
-        }
-      ],
-      "attentionScore": 19.8,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.17600"
-    },
-    {
       "arxivId": "2611.17309",
       "title": "Classical Energies Learn to Reason 1k× Faster Than Looped Models",
       "signals": [
@@ -400,46 +414,32 @@
       "originalPaper": "https://arxiv.org/abs/2611.17309"
     },
     {
-      "arxivId": "2611.26414",
-      "title": "ZeroVLN: Learning to Navigate without Supervised Fine-Tuning of the VLM Brain",
+      "arxivId": "2611.26627",
+      "title": "RL Post-Training in Diffusion Transformers Is Activation Steering",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 22,
-          "url": "https://huggingface.co/papers/2611.26414"
+          "url": "https://huggingface.co/papers/2611.26627"
         }
       ],
       "attentionScore": 19.69,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26414"
+      "originalPaper": "https://arxiv.org/abs/2611.26627"
     },
     {
-      "arxivId": "2611.24789",
-      "title": "HINT-WAM: Hindsight-Informed Training for World Action Models",
+      "arxivId": "2611.17600",
+      "title": "LightTAR: Light and Fast Target-Aware Representations for Multimodal Tabular Learning",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 22,
-          "url": "https://huggingface.co/papers/2611.24789"
+          "url": "https://huggingface.co/papers/2611.17600"
         }
       ],
       "attentionScore": 19.69,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.24789"
-    },
-    {
-      "arxivId": "2611.24869",
-      "title": "WorldRuler: Interactive World Modeling under Configurable Rules",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 21,
-          "url": "https://huggingface.co/papers/2611.24869"
-        }
-      ],
-      "attentionScore": 19.58,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.24869"
+      "originalPaper": "https://arxiv.org/abs/2611.17600"
     }
   ]
 }
