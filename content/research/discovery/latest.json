@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-25T03:48:40.168856+00:00",
+  "generatedAt": "2026-11-26T03:13:57.714012+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -8,7 +8,7 @@
     },
     "hackernews": {
       "state": "ok",
-      "items": 82
+      "items": 68
     },
     "reddit": {
       "state": "unavailable",
@@ -22,16 +22,16 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 15,
+          "engagement": 17,
           "url": "https://huggingface.co/papers/2611.29064"
         },
         {
           "source": "hackernews",
-          "engagement": 2,
+          "engagement": 3,
           "url": "https://news.ycombinator.com/item?id=50634550"
         }
       ],
-      "attentionScore": 35.29,
+      "attentionScore": 35.86,
       "communityCount": 2,
       "originalPaper": "https://arxiv.org/abs/2611.29064"
     },
@@ -60,6 +60,25 @@
       "originalPaper": "https://arxiv.org/abs/2611.26216"
     },
     {
+      "arxivId": "2611.30017",
+      "title": "OWE-Bench: A long-horizon benchmark for measuring real-world engineering",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 2,
+          "url": "https://huggingface.co/papers/2611.30017"
+        },
+        {
+          "source": "hackernews",
+          "engagement": 1,
+          "url": "https://news.ycombinator.com/item?id=50648729"
+        }
+      ],
+      "attentionScore": 32.41,
+      "communityCount": 2,
+      "originalPaper": "https://arxiv.org/abs/2611.30017"
+    },
+    {
       "arxivId": "2611.21885",
       "title": "Language Models Can Rewrite Their Own Weights",
       "signals": [
@@ -74,74 +93,32 @@
       "originalPaper": "https://arxiv.org/abs/2611.21885"
     },
     {
-      "arxivId": "2611.29897",
-      "title": "Motion Mamba 2.0: Autoregressive Diffusion Mamba for Long-Horizon Humanoid Control",
+      "arxivId": "2611.25403",
+      "title": "Antom 3-in-1 Transformer: A Payment Foundation Model",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 179,
-          "url": "https://huggingface.co/papers/2611.29897"
+          "engagement": 105,
+          "url": "https://huggingface.co/papers/2611.25403"
         }
       ],
-      "attentionScore": 28.38,
+      "attentionScore": 25.25,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.29897"
+      "originalPaper": "https://arxiv.org/abs/2611.25403"
     },
     {
-      "arxivId": "2510.18203",
-      "title": "A Primer on Fourier Series (2025)",
-      "signals": [
-        {
-          "source": "hackernews",
-          "engagement": 139,
-          "url": "https://news.ycombinator.com/item?id=50546922"
-        }
-      ],
-      "attentionScore": 26.79,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2510.18203"
-    },
-    {
-      "arxivId": "2611.30989",
-      "title": "WorldLeague: Benchmarking Physical Agency",
+      "arxivId": "2611.32884",
+      "title": "Lazy Agents Answer Against Their Own Beliefs: Reinforcement Learning with Verifiable Beliefs Teaches Them to Act on What They Believe",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 114,
-          "url": "https://huggingface.co/papers/2611.30989"
+          "engagement": 96,
+          "url": "https://huggingface.co/papers/2611.32884"
         }
       ],
-      "attentionScore": 25.68,
+      "attentionScore": 24.8,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.30989"
-    },
-    {
-      "arxivId": "2606.14068",
-      "title": "Harsher on Male? Evaluating LLMs on Gender-Asymmetric Moral Framing in Conflicts",
-      "signals": [
-        {
-          "source": "hackernews",
-          "engagement": 94,
-          "url": "https://news.ycombinator.com/item?id=50597743"
-        }
-      ],
-      "attentionScore": 24.7,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2606.14068"
-    },
-    {
-      "arxivId": "2611.31201",
-      "title": "Embo-Harness: Towards Understanding Frontier-Model-as-Policy Harness",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 90,
-          "url": "https://huggingface.co/papers/2611.31201"
-        }
-      ],
-      "attentionScore": 24.49,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.31201"
+      "originalPaper": "https://arxiv.org/abs/2611.32884"
     },
     {
       "arxivId": "2611.30835",
@@ -149,13 +126,69 @@
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 90,
+          "engagement": 96,
           "url": "https://news.ycombinator.com/item?id=50629962"
         }
       ],
-      "attentionScore": 24.49,
+      "attentionScore": 24.8,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.30835"
+    },
+    {
+      "arxivId": "2611.28947",
+      "title": "Don't Sleep, Keep Watch: Proactive Perception for Computer-Use Agents",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 95,
+          "url": "https://huggingface.co/papers/2611.28947"
+        }
+      ],
+      "attentionScore": 24.75,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.28947"
+    },
+    {
+      "arxivId": "2606.14068",
+      "title": "Harsher on Male? Evaluating LLMs on Gender-Asymmetric Moral Framing in Conflicts",
+      "signals": [
+        {
+          "source": "hackernews",
+          "engagement": 95,
+          "url": "https://news.ycombinator.com/item?id=50597743"
+        }
+      ],
+      "attentionScore": 24.75,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2606.14068"
+    },
+    {
+      "arxivId": "2611.30634",
+      "title": "Rewirable Circuits in Transformers with Loom Attention",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 88,
+          "url": "https://huggingface.co/papers/2611.30634"
+        }
+      ],
+      "attentionScore": 24.38,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.30634"
+    },
+    {
+      "arxivId": "2611.31358",
+      "title": "Nemotron-Labs-VisualCreation: Pixel as Code for Agentic Visual Creation",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 81,
+          "url": "https://huggingface.co/papers/2611.31358"
+        }
+      ],
+      "attentionScore": 24.0,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.31358"
     },
     {
       "arxivId": "2602.20031",
@@ -172,6 +205,20 @@
       "originalPaper": "https://arxiv.org/abs/2602.20031"
     },
     {
+      "arxivId": "2611.31286",
+      "title": "The industrialization of noise: Automated proof-solving is the same old dead end [pdf]",
+      "signals": [
+        {
+          "source": "hackernews",
+          "engagement": 68,
+          "url": "https://news.ycombinator.com/item?id=50639929"
+        }
+      ],
+      "attentionScore": 23.25,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.31286"
+    },
+    {
       "arxivId": "2506.13771",
       "title": "LittleBit: Ultra Low-Bit Quantization via Latent Factorization (2025)",
       "signals": [
@@ -186,46 +233,18 @@
       "originalPaper": "https://arxiv.org/abs/2506.13771"
     },
     {
-      "arxivId": "2611.30013",
-      "title": "3AGameFactory-Motion: Agentic Rigging and Reliable Complex Motion Generation for Diverse 3D Assets",
+      "arxivId": "2611.31205",
+      "title": "ACAP: Asynchronous Coding Agents for Efficient Robot Control",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 57,
-          "url": "https://huggingface.co/papers/2611.30013"
+          "engagement": 62,
+          "url": "https://huggingface.co/papers/2611.31205"
         }
       ],
-      "attentionScore": 22.55,
+      "attentionScore": 22.87,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.30013"
-    },
-    {
-      "arxivId": "2611.30662",
-      "title": "WeMM-Ecom: Advancing Multimodal Content Understanding for WeChat E-Commerce",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 55,
-          "url": "https://huggingface.co/papers/2611.30662"
-        }
-      ],
-      "attentionScore": 22.42,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.30662"
-    },
-    {
-      "arxivId": "2611.29338",
-      "title": "A Glimpse of Training VLMs as Foundation Models for Robotic Manipulation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 53,
-          "url": "https://huggingface.co/papers/2611.29338"
-        }
-      ],
-      "attentionScore": 22.28,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.29338"
+      "originalPaper": "https://arxiv.org/abs/2611.31205"
     },
     {
       "arxivId": "2611.12164",
@@ -233,111 +252,125 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 52,
+          "engagement": 60,
           "url": "https://huggingface.co/papers/2611.12164"
         }
       ],
-      "attentionScore": 22.21,
+      "attentionScore": 22.75,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.12164"
     },
     {
-      "arxivId": "2607.29378",
-      "title": "Previous-Token Prediction Based LLM Inversion for Prompt Reconstruction",
-      "signals": [
-        {
-          "source": "hackernews",
-          "engagement": 48,
-          "url": "https://news.ycombinator.com/item?id=50554908"
-        }
-      ],
-      "attentionScore": 21.93,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2607.29378"
-    },
-    {
-      "arxivId": "2611.26954",
-      "title": "Learning Video Foresight Reasoning from Unlabeled Videos via On-Policy Self-Distillation",
+      "arxivId": "2611.30662",
+      "title": "WeMM-Ecom: Advancing Multimodal Content Understanding for WeChat E-Commerce",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 43,
-          "url": "https://huggingface.co/papers/2611.26954"
+          "engagement": 57,
+          "url": "https://huggingface.co/papers/2611.30662"
         }
       ],
-      "attentionScore": 21.56,
+      "attentionScore": 22.55,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26954"
+      "originalPaper": "https://arxiv.org/abs/2611.30662"
     },
     {
-      "arxivId": "2611.26389",
-      "title": "ViDecide: Teaching Video Diffusion Models to Reason and Plan Step by Step",
+      "arxivId": "2611.30962",
+      "title": "Self-Evolving Evaluation Environments for Computer-Use Agents",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 39,
-          "url": "https://huggingface.co/papers/2611.26389"
+          "engagement": 47,
+          "url": "https://huggingface.co/papers/2611.30962"
         }
       ],
-      "attentionScore": 21.24,
+      "attentionScore": 21.86,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26389"
+      "originalPaper": "https://arxiv.org/abs/2611.30962"
     },
     {
-      "arxivId": "2611.31358",
-      "title": "Nemotron-Labs-VisualCreation: Pixel as Code for Agentic Visual Creation",
+      "arxivId": "2611.30254",
+      "title": "Innata-0: A Native Embodied World System with Model-Agent Co-Design",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 35,
-          "url": "https://huggingface.co/papers/2611.31358"
+          "engagement": 44,
+          "url": "https://huggingface.co/papers/2611.30254"
         }
       ],
-      "attentionScore": 20.92,
+      "attentionScore": 21.63,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.31358"
+      "originalPaper": "https://arxiv.org/abs/2611.30254"
     },
     {
-      "arxivId": "2611.28202",
-      "title": "AutoPILOT: A Visual Agent Harness for Real-Time Gameplay",
+      "arxivId": "2611.28649",
+      "title": "S-Mind: Internalizing Multi-View Geometry for Spatial Intelligence",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 41,
+          "url": "https://huggingface.co/papers/2611.28649"
+        }
+      ],
+      "attentionScore": 21.4,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.28649"
+    },
+    {
+      "arxivId": "2611.25509",
+      "title": "LingSante MedGuard Technical Report",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 34,
+          "url": "https://huggingface.co/papers/2611.25509"
+        }
+      ],
+      "attentionScore": 20.83,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.25509"
+    },
+    {
+      "arxivId": "2611.32554",
+      "title": "PartAgent: Agentic 3D Part Segmentation via Expert Integration and Closed-Loop Refinement",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 33,
-          "url": "https://huggingface.co/papers/2611.28202"
+          "url": "https://huggingface.co/papers/2611.32554"
         }
       ],
       "attentionScore": 20.74,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.28202"
+      "originalPaper": "https://arxiv.org/abs/2611.32554"
     },
     {
-      "arxivId": "2611.27376",
-      "title": "Composable Soft-Prompt Distillation of RL Experts: Toward Continual Post-Training",
+      "arxivId": "2611.33010",
+      "title": "Embodied AI Fails the Mirror Test: How a Simple Mirror Breaks Robot Policies",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 30,
-          "url": "https://huggingface.co/papers/2611.27376"
+          "engagement": 28,
+          "url": "https://huggingface.co/papers/2611.33010"
         }
       ],
-      "attentionScore": 20.48,
+      "attentionScore": 20.29,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.27376"
+      "originalPaper": "https://arxiv.org/abs/2611.33010"
     },
     {
-      "arxivId": "2611.26516",
-      "title": "Plan4D: Generative Plannable 4D Worlds",
+      "arxivId": "2611.30898",
+      "title": "World Models as Native Latent Action Models",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 29,
-          "url": "https://huggingface.co/papers/2611.26516"
+          "engagement": 28,
+          "url": "https://huggingface.co/papers/2611.30898"
         }
       ],
-      "attentionScore": 20.39,
+      "attentionScore": 20.29,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.26516"
+      "originalPaper": "https://arxiv.org/abs/2611.30898"
     },
     {
       "arxivId": "2611.18639",
@@ -354,102 +387,74 @@
       "originalPaper": "https://arxiv.org/abs/2611.18639"
     },
     {
-      "arxivId": "2611.30898",
-      "title": "World Models as Native Latent Action Models",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 24,
-          "url": "https://huggingface.co/papers/2611.30898"
-        }
-      ],
-      "attentionScore": 19.9,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.30898"
-    },
-    {
-      "arxivId": "2611.17309",
-      "title": "Classical Energies Learn to Reason 1k× Faster Than Looped Models",
-      "signals": [
-        {
-          "source": "hackernews",
-          "engagement": 23,
-          "url": "https://news.ycombinator.com/item?id=50542137"
-        }
-      ],
-      "attentionScore": 19.8,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.17309"
-    },
-    {
-      "arxivId": "2611.31115",
-      "title": "RUIBench: What Makes a Good Robot-Use Interface?",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 22,
-          "url": "https://huggingface.co/papers/2611.31115"
-        }
-      ],
-      "attentionScore": 19.69,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.31115"
-    },
-    {
       "arxivId": "2611.25848",
       "title": "Interpretable Prototype-Conditioned Adaptation for Weather Forecasting",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 20,
+          "engagement": 23,
           "url": "https://huggingface.co/papers/2611.25848"
         }
       ],
-      "attentionScore": 19.47,
+      "attentionScore": 19.8,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.25848"
     },
     {
-      "arxivId": "2611.30597",
-      "title": "ViDiHand2: Unifying Video Diffusion Priors and Hand Geometry for 3D Hand Motion Reconstruction in the Wild",
+      "arxivId": "2611.32183",
+      "title": "ThinkMorph-SSL: Scaling Interleaved Multimodal Reasoning with Pretext Tasks",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 21,
+          "url": "https://huggingface.co/papers/2611.32183"
+        }
+      ],
+      "attentionScore": 19.58,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.32183"
+    },
+    {
+      "arxivId": "2611.32649",
+      "title": "ICLWorld: Benchmarking In-Context Learning of Agents from Digital to Physical Worlds",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 20,
-          "url": "https://huggingface.co/papers/2611.30597"
+          "url": "https://huggingface.co/papers/2611.32649"
         }
       ],
       "attentionScore": 19.47,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.30597"
+      "originalPaper": "https://arxiv.org/abs/2611.32649"
     },
     {
-      "arxivId": "2611.28618",
-      "title": "Distilling Visual Agents from Limited Interaction Experience",
+      "arxivId": "2611.32736",
+      "title": "Qwen-Image-HD: Autoregressive Diffusion for High Definition Image Generation",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 19,
-          "url": "https://huggingface.co/papers/2611.28618"
+          "engagement": 20,
+          "url": "https://huggingface.co/papers/2611.32736"
         }
       ],
-      "attentionScore": 19.36,
+      "attentionScore": 19.47,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.28618"
+      "originalPaper": "https://arxiv.org/abs/2611.32736"
     },
     {
-      "arxivId": "2611.25403",
-      "title": "Antom 3-in-1 Transformer: A Payment Foundation Model",
+      "arxivId": "2611.26358",
+      "title": "Beam Model Technical Report",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 17,
-          "url": "https://huggingface.co/papers/2611.25403"
+          "engagement": 20,
+          "url": "https://huggingface.co/papers/2611.26358"
         }
       ],
-      "attentionScore": 19.12,
+      "attentionScore": 19.47,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.25403"
+      "originalPaper": "https://arxiv.org/abs/2611.26358"
     }
   ]
 }
