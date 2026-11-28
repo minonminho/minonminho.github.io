@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T03:18:53.451901+00:00",
+  "generatedAt": "2026-11-28T02:58:46.888799+00:00",
   "method": "community signals only; editorial verification required",
   "sources": {
     "huggingface": {
@@ -8,7 +8,7 @@
     },
     "hackernews": {
       "state": "ok",
-      "items": 61
+      "items": 60
     },
     "reddit": {
       "state": "unavailable",
@@ -16,6 +16,25 @@
     }
   },
   "candidates": [
+    {
+      "arxivId": "2611.30483",
+      "title": "When an AI agent makes a mistake in a database, what decides the damage?",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 4,
+          "url": "https://huggingface.co/papers/2611.30483"
+        },
+        {
+          "source": "hackernews",
+          "engagement": 1,
+          "url": "https://news.ycombinator.com/item?id=50628747"
+        }
+      ],
+      "attentionScore": 33.0,
+      "communityCount": 2,
+      "originalPaper": "https://arxiv.org/abs/2611.30483"
+    },
     {
       "arxivId": "2611.30017",
       "title": "OWE-Bench: A long-horizon benchmark for measuring real-world engineering",
@@ -36,60 +55,46 @@
       "originalPaper": "https://arxiv.org/abs/2611.30017"
     },
     {
-      "arxivId": "2611.21885",
-      "title": "Language Models Can Rewrite Their Own Weights",
-      "signals": [
-        {
-          "source": "hackernews",
-          "engagement": 494,
-          "url": "https://news.ycombinator.com/item?id=50577265"
-        }
-      ],
-      "attentionScore": 30.81,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.21885"
-    },
-    {
       "arxivId": "2611.34924",
       "title": "An algebraic quantization of gravity from the null cone",
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 221,
+          "engagement": 265,
           "url": "https://news.ycombinator.com/item?id=50651863"
         }
       ],
-      "attentionScore": 29.87,
+      "attentionScore": 30.81,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.34924"
     },
     {
-      "arxivId": "2611.34849",
-      "title": "Real2SimLab: A Unified Platform for Real-to-Simulation Transfer",
+      "arxivId": "2611.34051",
+      "title": "Stable Gated DeltaNet-2: Understanding and Mitigating Recurrent State Instability",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 106,
-          "url": "https://huggingface.co/papers/2611.34849"
+          "engagement": 128,
+          "url": "https://huggingface.co/papers/2611.34051"
         }
       ],
-      "attentionScore": 25.3,
+      "attentionScore": 26.31,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.34849"
+      "originalPaper": "https://arxiv.org/abs/2611.34051"
     },
     {
-      "arxivId": "2611.32884",
-      "title": "Lazy Agents Answer Against Their Own Beliefs: Reinforcement Learning with Verifiable Beliefs Teaches Them to Act on What They Believe",
+      "arxivId": "2611.34232",
+      "title": "OS-Omni: Benchmarking Generalist Computer-Using Agents on Long-Horizon Workflows Across Platforms",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 98,
-          "url": "https://huggingface.co/papers/2611.32884"
+          "engagement": 104,
+          "url": "https://huggingface.co/papers/2611.34232"
         }
       ],
-      "attentionScore": 24.9,
+      "attentionScore": 25.2,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.32884"
+      "originalPaper": "https://arxiv.org/abs/2611.34232"
     },
     {
       "arxivId": "2611.30835",
@@ -125,27 +130,13 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 89,
+          "engagement": 81,
           "url": "https://huggingface.co/papers/2611.34575"
         }
       ],
-      "attentionScore": 24.43,
+      "attentionScore": 24.0,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.34575"
-    },
-    {
-      "arxivId": "2611.31358",
-      "title": "Nemotron-Labs-VisualCreation: Pixel as Code for Agentic Visual Creation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 82,
-          "url": "https://huggingface.co/papers/2611.31358"
-        }
-      ],
-      "attentionScore": 24.06,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.31358"
     },
     {
       "arxivId": "2611.31286",
@@ -153,13 +144,41 @@
       "signals": [
         {
           "source": "hackernews",
-          "engagement": 76,
+          "engagement": 77,
           "url": "https://news.ycombinator.com/item?id=50639929"
         }
       ],
-      "attentionScore": 23.72,
+      "attentionScore": 23.77,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.31286"
+    },
+    {
+      "arxivId": "2611.34923",
+      "title": "Mixture-of-Loops Transformer",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 74,
+          "url": "https://huggingface.co/papers/2611.34923"
+        }
+      ],
+      "attentionScore": 23.6,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.34923"
+    },
+    {
+      "arxivId": "2611.30844",
+      "title": "DyLoMo-DiT: Dynamic Looped Mixture-of-Experts Diffusion Transformers",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 73,
+          "url": "https://huggingface.co/papers/2611.30844"
+        }
+      ],
+      "attentionScore": 23.54,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.30844"
     },
     {
       "arxivId": "2602.20031",
@@ -176,32 +195,18 @@
       "originalPaper": "https://arxiv.org/abs/2602.20031"
     },
     {
-      "arxivId": "2611.34923",
-      "title": "Mixture-of-Loops Transformer",
+      "arxivId": "2611.34813",
+      "title": "Solve Vision with Code: Coding Agents Are Stronger Visual Reasoners Than Video Models",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 65,
-          "url": "https://huggingface.co/papers/2611.34923"
+          "engagement": 59,
+          "url": "https://huggingface.co/papers/2611.34813"
         }
       ],
-      "attentionScore": 23.06,
+      "attentionScore": 22.68,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.34923"
-    },
-    {
-      "arxivId": "2611.30844",
-      "title": "DyLoMo-DiT: Dynamic Looped Mixture-of-Experts Diffusion Transformers",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 56,
-          "url": "https://huggingface.co/papers/2611.30844"
-        }
-      ],
-      "attentionScore": 22.48,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.30844"
+      "originalPaper": "https://arxiv.org/abs/2611.34813"
     },
     {
       "arxivId": "2611.34237",
@@ -209,13 +214,41 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 55,
+          "engagement": 58,
           "url": "https://huggingface.co/papers/2611.34237"
+        }
+      ],
+      "attentionScore": 22.62,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.34237"
+    },
+    {
+      "arxivId": "2611.31619",
+      "title": "What a Forecasting Leaderboard Can Establish: Resolution Reporting for Zero-Shot Time-Series Models",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 57,
+          "url": "https://huggingface.co/papers/2611.31619"
+        }
+      ],
+      "attentionScore": 22.55,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.31619"
+    },
+    {
+      "arxivId": "2611.31358",
+      "title": "Nemotron-Labs-VisualCreation: Pixel as Code for Agentic Visual Creation",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 55,
+          "url": "https://huggingface.co/papers/2611.31358"
         }
       ],
       "attentionScore": 22.42,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.34237"
+      "originalPaper": "https://arxiv.org/abs/2611.31358"
     },
     {
       "arxivId": "2611.34941",
@@ -223,11 +256,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 44,
+          "engagement": 46,
           "url": "https://huggingface.co/papers/2611.34941"
         }
       ],
-      "attentionScore": 21.63,
+      "attentionScore": 21.78,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.34941"
     },
@@ -237,55 +270,41 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 44,
+          "engagement": 43,
           "url": "https://huggingface.co/papers/2611.33144"
         }
       ],
-      "attentionScore": 21.63,
+      "attentionScore": 21.56,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.33144"
     },
     {
-      "arxivId": "2611.25509",
-      "title": "LingSante MedGuard Technical Report",
+      "arxivId": "2611.34457",
+      "title": "ProxyGenBench: Benchmarking Proxy-Guided Video Generation",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 36,
-          "url": "https://huggingface.co/papers/2611.25509"
+          "url": "https://huggingface.co/papers/2611.34457"
         }
       ],
       "attentionScore": 21.0,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.25509"
+      "originalPaper": "https://arxiv.org/abs/2611.34457"
     },
     {
-      "arxivId": "2611.33010",
-      "title": "Embodied AI Fails the Mirror Test: How a Simple Mirror Breaks Robot Policies",
+      "arxivId": "2611.28732",
+      "title": "Entangle: Scaling Human-Video In-Context World-Action Models across Unseen Tasks and Contexts",
       "signals": [
         {
           "source": "huggingface",
           "engagement": 34,
-          "url": "https://huggingface.co/papers/2611.33010"
+          "url": "https://huggingface.co/papers/2611.28732"
         }
       ],
       "attentionScore": 20.83,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.33010"
-    },
-    {
-      "arxivId": "2611.34051",
-      "title": "Stable Gated DeltaNet-2: Understanding and Mitigating Recurrent State Instability",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 32,
-          "url": "https://huggingface.co/papers/2611.34051"
-        }
-      ],
-      "attentionScore": 20.66,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.34051"
+      "originalPaper": "https://arxiv.org/abs/2611.28732"
     },
     {
       "arxivId": "2605.15257",
@@ -307,13 +326,27 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 27,
+          "engagement": 28,
           "url": "https://huggingface.co/papers/2611.34420"
+        }
+      ],
+      "attentionScore": 20.29,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.34420"
+    },
+    {
+      "arxivId": "2611.34290",
+      "title": "StateWeaver: Multi-Agent Coordination of Story-State Transitions for Long-Horizon Video Generation",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 27,
+          "url": "https://huggingface.co/papers/2611.34290"
         }
       ],
       "attentionScore": 20.2,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.34420"
+      "originalPaper": "https://arxiv.org/abs/2611.34290"
     },
     {
       "arxivId": "2611.31237",
@@ -321,27 +354,41 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 25,
+          "engagement": 27,
           "url": "https://huggingface.co/papers/2611.31237"
         }
       ],
-      "attentionScore": 20.0,
+      "attentionScore": 20.2,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.31237"
     },
     {
-      "arxivId": "2611.34457",
-      "title": "ProxyGenBench: Benchmarking Proxy-Guided Video Generation",
+      "arxivId": "2611.34852",
+      "title": "DRBench Pro: A Knowledge-Centric Benchmark for Professional Deep Research Agents",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 23,
-          "url": "https://huggingface.co/papers/2611.34457"
+          "engagement": 24,
+          "url": "https://huggingface.co/papers/2611.34852"
         }
       ],
-      "attentionScore": 19.8,
+      "attentionScore": 19.9,
       "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.34457"
+      "originalPaper": "https://arxiv.org/abs/2611.34852"
+    },
+    {
+      "arxivId": "2611.33457",
+      "title": "Playfulness as Feedback for Agentic Game Development",
+      "signals": [
+        {
+          "source": "huggingface",
+          "engagement": 22,
+          "url": "https://huggingface.co/papers/2611.33457"
+        }
+      ],
+      "attentionScore": 19.69,
+      "communityCount": 1,
+      "originalPaper": "https://arxiv.org/abs/2611.33457"
     },
     {
       "arxivId": "2611.34811",
@@ -358,20 +405,6 @@
       "originalPaper": "https://arxiv.org/abs/2611.34811"
     },
     {
-      "arxivId": "2611.32736",
-      "title": "Qwen-Image-HD: Autoregressive Diffusion for High Definition Image Generation",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 22,
-          "url": "https://huggingface.co/papers/2611.32736"
-        }
-      ],
-      "attentionScore": 19.69,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.32736"
-    },
-    {
       "arxivId": "2611.32649",
       "title": "ICLWorld: Benchmarking In-Context Learning of Agents from Digital to Physical Worlds",
       "signals": [
@@ -386,44 +419,16 @@
       "originalPaper": "https://arxiv.org/abs/2611.32649"
     },
     {
-      "arxivId": "2611.32183",
-      "title": "ThinkMorph-SSL: Scaling Interleaved Multimodal Reasoning with Pretext Tasks",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 21,
-          "url": "https://huggingface.co/papers/2611.32183"
-        }
-      ],
-      "attentionScore": 19.58,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.32183"
-    },
-    {
-      "arxivId": "2611.33457",
-      "title": "Playfulness as Feedback for Agentic Game Development",
-      "signals": [
-        {
-          "source": "huggingface",
-          "engagement": 19,
-          "url": "https://huggingface.co/papers/2611.33457"
-        }
-      ],
-      "attentionScore": 19.36,
-      "communityCount": 1,
-      "originalPaper": "https://arxiv.org/abs/2611.33457"
-    },
-    {
       "arxivId": "2611.34466",
       "title": "EgoUseBench: Benchmarking Computer-Use Agents under Evolving First-Person Contexts",
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 19,
+          "engagement": 20,
           "url": "https://huggingface.co/papers/2611.34466"
         }
       ],
-      "attentionScore": 19.36,
+      "attentionScore": 19.47,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.34466"
     },
@@ -433,11 +438,11 @@
       "signals": [
         {
           "source": "huggingface",
-          "engagement": 19,
+          "engagement": 20,
           "url": "https://huggingface.co/papers/2611.34929"
         }
       ],
-      "attentionScore": 19.36,
+      "attentionScore": 19.47,
       "communityCount": 1,
       "originalPaper": "https://arxiv.org/abs/2611.34929"
     }
